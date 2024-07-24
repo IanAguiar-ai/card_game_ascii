@@ -82,7 +82,7 @@ def jogar(TIMES:list):
             n += 1
 
         if n >= 3: #Termina o jogo
-            buffer_("O JOGO TERMINOL!")
+            buffer_("O JOGO TERMINOU!")
             break
              
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
@@ -285,13 +285,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "ataques":[{"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":1,
-                                             "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
+                                             "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0}},
                                              "nome":"Manopla de choque",
                                              "descricao":f"De 10 de dano em um lacaio aleatório."},
                                             {"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":3,
-                                             "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
+                                             "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0}},
                                              "nome":"Fuzil Tesla",
                                              "descricao":f"De 30 de dano em um lacaio aleatório"}]
                                  },          
@@ -303,7 +303,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":50, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
+                                      "argumentos":{"dano":50, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0}},
                                       "nome":"Manopla de choque",
                                       "descricao":f"De 50 de dano em um lacaio aleatório."},
                                      {"tipo":"abilidade",
@@ -325,7 +325,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
+                                              "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0}},
                                               "nome":"Manopla de choque",
                                               "descricao":f"De 40 de dano em um lacaio aleatório."},
                                              {"tipo":"abilidade",
@@ -347,8 +347,8 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":10, "aleatorio": True, "animacao": "impacto_fraco", "image":{"image":impacto_fraco, "frames":8, "wait":5, "to_start":0}},
-                                              "nome":"Escudada",
+                                              "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0}},
+                                              "nome":"Escudada de Madeira",
                                               "descricao":f"De 10 de dano em um lacaio aleatório."}]
                                   },
           }
