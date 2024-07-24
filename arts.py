@@ -66,3 +66,12 @@ escudo = """|`-._/\_.-`|
   \  ||  /
    '.||.'""".split("\n")
 escudo = adjust_image(escudo, replace_ = False)
+
+impacto_fraco = """ #  # #
+# #
+
+#   #
+  #
+#""".split("\n")
+
+impacto_fraco = adjust_image(impacto_fraco, replace_ = True)

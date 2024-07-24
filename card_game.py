@@ -2,7 +2,6 @@
 Card game from terminal
 """
 
-from engine_terminal import *
 from colors_terminal import colors
 from time import sleep, time
 from arts import *
@@ -164,8 +163,16 @@ def animation_image(image, frames:int, tipe = None) -> None:
                         image["animation"][i][j-1] == image["image"][i][j-1]
                     except:
                         pass
-                        
 
+def put_color(color:int = 190, back_color:int = 232,text:str = "", style:int = 0, end = "\n") -> None:
+    if style == 0:
+        return f"\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+    else:
+        style = f"\033[{style}m"
+        return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+
+def clear():
+    print("\033c", end="")
 
 #=================================================================
 #Game definitions:
@@ -185,7 +192,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["guerreiro_preparado"].copy(),
               CARTAS["guerreiro_preparado"].copy(),
               CARTAS["guerreiro_preparado"].copy()],
-             [CARTAS["guerreiro_preparado"].copy(),
+             [CARTAS["escudeiro_leal"].copy(),
               CARTAS["genio_maluco"].copy(),
               CARTAS["escudeira_experiente"].copy()]]
 

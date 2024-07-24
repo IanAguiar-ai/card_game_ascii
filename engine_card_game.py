@@ -189,7 +189,7 @@ def conferir_abilidade(tempo:str, ataque:bool = False, defesa:bool = False, time
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, aleatorio:bool = False, animacao:str = None) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
@@ -199,9 +199,15 @@ def dano_(dano:int, aleatorio:bool = False, animacao:str = None) -> None:
     personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
 
     if "x" in personagem_inimigo:
-        game.add_effects(x = personagem_inimigo["x"] + 10, y = personagem_inimigo["y"] + 3, image = animacao_espada, frames = 8, tipe = animacao, wait = 5)
+        game.add_effects(x = personagem_inimigo["x"] + 10,
+                         y = personagem_inimigo["y"] + 3,
+                         image = image["image"],
+                         frames = image["frames"],
+                         wait = image["wait"],
+                         to_start = image["to_start"],
+                         tipe = animacao)
 
-def cura_(cura:int, aleatorio:bool = False) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
@@ -217,19 +223,31 @@ def cura_(cura:int, aleatorio:bool = False) -> None:
 #-------------------------------------------------------------------------------------
 #Funções de abilidade:
 
-def abilidade_buff_global_dano(buff:int, personagem):
+def abilidade_buff_global_dano(buff:int, personagem, image:dict):
     globals()["BUFF_TEMPORARIO"] += buff
     buffer_(f"(ABILIDADE) Buff no dano de +{globals()['BUFF_TEMPORARIO']}")
  
     if "x" in personagem:
-        game.add_effects(x = personagem["x"] + 14, y = personagem["y"] + 5, image = seta_cima, frames = 6, tipe = "aleatorio", wait = 50, to_start = 60)
+        game.add_effects(x = personagem["x"] + 14,
+                         y = personagem["y"] + 5,
+                         image = image["image"],
+                         frames = image["frames"],
+                         wait = image["wait"],
+                         to_start = image["to_start"],
+                         tipe = "aleatorio")
 
-def abilidade_nerf_global_dano(buff:int, personagem):
+def abilidade_nerf_global_dano(buff:int, personagem, image:dict):
     globals()["NERF_TEMPORARIO"] += buff
     buffer_(f"(ABILIDADE) Nerf no dano de -{globals()['NERF_TEMPORARIO']}")
 
     if "x" in personagem:
-        game.add_effects(x = personagem["x"] + 12, y = personagem["y"] + 5, image = escudo, frames = 6, tipe = "aleatorio", wait = 50, to_start = 60)
+        game.add_effects(x = personagem["x"] + 12,
+                         y = personagem["y"] + 5,
+                         image = image["image"],
+                         frames = image["frames"],
+                         wait = image["wait"],
+                         to_start = image["to_start"],
+                         tipe = "aleatorio")
 
 
 #=====================================================================================
@@ -259,15 +277,6 @@ LIMITES_DADO = [1, 6]
 NERF_DADO = 0
 BUFF_DADO = 0
 
-GUERREIRO_PREPARADO_DANO_1 = 10
-GUERREIRO_PREPARADO_DANO_2 = 30
-
-GENIO_MALUCO_DANO_1 = 50
-GENIO_MALUCO_BUFF_DANO = 20
-
-GUERREIRA_EXPERIENTE_DANO_1 = 40
-GUERREIRA_EXPERIENTE_BUFF_DEFESA = 20
-
 CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "hp":90,
                                  "preco":1,
@@ -276,15 +285,15 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "ataques":[{"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":1,
-                                             "argumentos":{"dano":GUERREIRO_PREPARADO_DANO_1, "aleatorio": True, "animacao": "espada"},
+                                             "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
                                              "nome":"Manopla de choque",
-                                             "descricao":f"De {GUERREIRO_PREPARADO_DANO_1} de dano em um lacaio aleatório."},
+                                             "descricao":f"De 10 de dano em um lacaio aleatório."},
                                             {"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":3,
-                                             "argumentos":{"dano":GUERREIRO_PREPARADO_DANO_2, "aleatorio": True, "animacao": "espada"},
+                                             "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
                                              "nome":"Fuzil Tesla",
-                                             "descricao":f"De {GUERREIRO_PREPARADO_DANO_2} de dano em um lacaio aleatório"}]
+                                             "descricao":f"De 30 de dano em um lacaio aleatório"}]
                                  },          
           "genio_maluco":{"nome":"Gênio Maluco",
                           "hp":100,
@@ -294,9 +303,9 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":GENIO_MALUCO_DANO_1, "aleatorio": True, "animacao": "espada"},
+                                      "argumentos":{"dano":50, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
                                       "nome":"Manopla de choque",
-                                      "descricao":f"De {GUERREIRO_PREPARADO_DANO_1} de dano em um lacaio aleatório."},
+                                      "descricao":f"De 50 de dano em um lacaio aleatório."},
                                      {"tipo":"abilidade",
                                       "tempo":"comeco",
                                       "vivo":True,
@@ -304,9 +313,9 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "ataque":True,
                                       "defesa":False,
                                       "funcao":abilidade_buff_global_dano,
-                                      "argumentos":{"buff":GENIO_MALUCO_BUFF_DANO},
+                                      "argumentos":{"buff":20, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":60}},
                                       "nome":"Suporte Pesado",
-                                      "descricao":f"Enquanto vivo, todos os outros guerreiros no seu lado do campo ganham +{GENIO_MALUCO_BUFF_DANO} dano durante todo o jogo."}]
+                                      "descricao":f"Enquanto vivo, todos os outros guerreiros no seu lado do campo ganham +20 dano."}]
                           },
           "escudeira_experiente":{"nome":"Escudeira Experiente",
                                   "hp":110,
@@ -316,9 +325,9 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":GUERREIRA_EXPERIENTE_DANO_1, "aleatorio": True, "animacao": "espada"},
+                                              "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":8, "wait":5, "to_start":0}},
                                               "nome":"Manopla de choque",
-                                              "descricao":f"De {GUERREIRO_PREPARADO_DANO_1} de dano em um lacaio aleatório."},
+                                              "descricao":f"De 40 de dano em um lacaio aleatório."},
                                              {"tipo":"abilidade",
                                               "ataque":False,
                                               "defesa":True,
@@ -326,10 +335,22 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "vivo":True,
                                               "morto":False,
                                               "funcao":abilidade_nerf_global_dano,
-                                              "argumentos":{"buff":GUERREIRA_EXPERIENTE_BUFF_DEFESA},
+                                              "argumentos":{"buff":20, "image":{"image":escudo, "frames":4, "wait":50, "to_start":60}},
                                               "nome":"Meu escudo primeiro",
-                                              "descricao":f"Enquanto vivo, todos os outros guerreiros no seu lado do campo ganham +{GUERREIRA_EXPERIENTE_BUFF_DEFESA} defesa."}]
-                                 },         
+                                              "descricao":f"Enquanto vivo, todos os outros guerreiros no seu lado do campo ganham +20 defesa."}]
+                                  },
+          "escudeiro_leal":{"nome":"Escudeiro Leal",
+                                  "hp":50,
+                                  "preco":0,
+                                  "classe":"guerreiro",
+                                  "arte":None,
+                                  "ataques":[{"tipo":"ataque",
+                                              "funcao":dano_,
+                                              "dado":3,
+                                              "argumentos":{"dano":10, "aleatorio": True, "animacao": "impacto_fraco", "image":{"image":impacto_fraco, "frames":8, "wait":5, "to_start":0}},
+                                              "nome":"Escudada",
+                                              "descricao":f"De 10 de dano em um lacaio aleatório."}]
+                                  },
           }
 
 if __name__ == "__main__":
