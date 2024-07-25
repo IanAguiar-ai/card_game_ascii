@@ -189,12 +189,12 @@ if __name__ == "__main__":
     game.add([*cards_base, ])
 
     #Adicionado cartas
-    TIMES = [[CARTAS["guerreiro_preparado"].copy(),
-              CARTAS["guerreiro_preparado"].copy(),
-              CARTAS["guerreiro_preparado"].copy()],
+    TIMES = [[CARTAS["cacador_de_feras"].copy(),
+              CARTAS["soldado_novato"].copy(),
+              CARTAS["escudeira_experiente"].copy()],
              [CARTAS["escudeiro_leal"].copy(),
               CARTAS["genio_maluco"].copy(),
-              CARTAS["escudeira_experiente"].copy()]]
+              CARTAS["guerreiro_preparado"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])
