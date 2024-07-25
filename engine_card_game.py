@@ -69,7 +69,6 @@ def jogar(TIMES:list):
     ###Vendo abilidades globais:
     
     while True:
-        cl()
 
         time_atacante = TIMES[globals()["TABULEIRO"]]
         time_atacado = TIMES[(globals()["TABULEIRO"] + 1) % 2]
@@ -99,6 +98,7 @@ def jogar(TIMES:list):
 
         ###Vendo ataques do personagem:
         verificar_ataques(personagem_atual, numero_dado)
+        cl()
 
         ###Vendo se tem alguma abilidade passiva de final de turno:
         conferir_abilidade(tempo = "final", ataque = True, time = time_atacante)
@@ -158,7 +158,8 @@ def escolha_inimigo(inimigos:list, aleatorio = False) -> dict:
     for inimigo in inimigos:
         if inimigo["hp"] > 0:
             possiveis.append(inimigo)
-            buffer_(f"({n}): {inimigo['nome']:25} {inimigo['hp']:3}hp")
+            if globals()["DEBUG"]:
+                buffer_(f"({n}): {inimigo['nome']:25} {inimigo['hp']:3}hp")
             n += 1
 
     if aleatorio:
@@ -239,14 +240,30 @@ def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:i
                                  to_start = image["to_start"],
                                  tipe = animacao)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
-    time_amigo = globals()["TABULEIRO"]
-    personagem_amigo = escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)
-    buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
-    personagem_amigo["hp"] = max(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
+    for _ in range(vezes):
+        time_amigo = globals()["TABULEIRO"]
+        if todos:
+            personagens_amigos = globals()["TIMES"][time_amigo]
+        else:
+            personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
+
+        for personagem_amigo in personagens_amigos:
+            buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
+            personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
+
+            if "x" in personagem_amigo:
+                game.add_effects(x = personagem_amigo["x"] + image["x"],
+                                 y = personagem_amigo["y"] + image["y"],
+                                 image = image["image"],
+                                 frames = image["frames"],
+                                 wait = image["wait"],
+                                 to_start = image["to_start"],
+                                 tipe = animacao)
+                
 
 #-------------------------------------------------------------------------------------
 #Funções de cura:
@@ -255,7 +272,7 @@ def cura_(cura:int, image:dict, aleatorio:bool = False) -> None:
 #-------------------------------------------------------------------------------------
 #Funções de abilidade:
 
-def abilidade_buff_global_dano(buff:int, personagem, image:dict):
+def abilidade_buff_global_dano(buff:int, personagem, image:dict) -> None:
     globals()["BUFF_TEMPORARIO"] += buff
     buffer_(f"(ABILIDADE) Buff no dano de +{buff}")
  
@@ -268,7 +285,7 @@ def abilidade_buff_global_dano(buff:int, personagem, image:dict):
                          to_start = image["to_start"],
                          tipe = "aleatorio")
 
-def abilidade_nerf_global_dano(buff:int, personagem, image:dict):
+def abilidade_nerf_global_dano(buff:int, personagem, image:dict) -> None:
     globals()["NERF_TEMPORARIO"] += buff
     buffer_(f"(ABILIDADE) Nerf no dano de -{buff}")
 
@@ -281,6 +298,19 @@ def abilidade_nerf_global_dano(buff:int, personagem, image:dict):
                          to_start = image["to_start"],
                          tipe = "aleatorio")
 
+def abilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
+    buffer_(f"(ABILIDADE) abilidade de {personagem['nome']}")
+    
+    if "x" in personagem:
+        game.add_effects(x = personagem["x"] + image["x"],
+                         y = personagem["y"] + image["y"],
+                         image = image["image"],
+                         frames = image["frames"],
+                         wait = image["wait"],
+                         to_start = image["to_start"],
+                         tipe = "aleatorio")
+
+    funcao(**argumentos_funcao)
 
 #=====================================================================================
 #=====================================================================================
@@ -345,7 +375,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "ataque":True,
                                       "defesa":False,
                                       "funcao":abilidade_buff_global_dano,
-                                      "argumentos":{"buff":10, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":30, "x":14, "y":5}},
+                                      "argumentos":{"buff":10, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Suporte Pesado",
                                       "descricao":f"Enquanto vivo, todos os outros personagens no seu lado do campo ganham +10 dano."}]
                           },
@@ -367,7 +397,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "vivo":True,
                                               "morto":False,
                                               "funcao":abilidade_nerf_global_dano,
-                                              "argumentos":{"buff":10, "image":{"image":escudo, "frames":4, "wait":50, "to_start":30, "x":12, "y":5}},
+                                              "argumentos":{"buff":10, "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":12, "y":5}},
                                               "nome":"Meu escudo primeiro",
                                               "descricao":f"Enquanto vivo, todos os outros personagens no seu lado do campo ganham +10 defesa."}]
                                   },
@@ -414,14 +444,14 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "arte":None,
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
-                                              "dado":4,
-                                              "argumentos":{"dano":30, "aleatorio": True, "todos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "dado":5,
+                                              "argumentos":{"dano":30, "todos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Preparação de Guerra",
                                               "descricao":f"De 30 de dano em todos os personagens inimigos."},
                                              {"tipo":"ataque",
                                               "funcao":assasinato_,
                                               "dado":6,
-                                              "argumentos":{"aleatorio": True, "animacao": "espada", "image":{"image":caveira, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"aleatorio": True, "animacao":"espada", "image":{"image":caveira, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Última Batalha",
                                               "descricao":f"Destrua um personagem inimigo aleatório."},
                                              {"tipo":"abilidade",
@@ -431,10 +461,50 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "vivo":True,
                                               "morto":False,
                                               "funcao":abilidade_nerf_global_dano,
-                                              "argumentos":{"buff":10, "image":{"image":escudo, "frames":4, "wait":50, "to_start":30, "x":12, "y":5}},
-                                              "nome":"Meu escudo primeiro",
+                                              "argumentos":{"buff":10, "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":12, "y":5}},
+                                              "nome":"Proteção do Caçador",
                                               "descricao":f"Enquanto vivo, todos os outros personagens no seu lado do campo ganham +10 defesa."}]
-                              }
+                              },
+          "rei_da_vila":{"nome":"Rei da Vila",
+                                  "hp":70,
+                                  "preco":3,
+                                  "classe":"humano",
+                                  "arte":None,
+                                  "ataques":[{"tipo":"abilidade",
+                                              "ataque":False,
+                                              "defesa":True,
+                                              "tempo":"comeco",
+                                              "vivo":True,
+                                              "morto":False,
+                                              "funcao":abilidade_buff_global_dano,
+                                              "argumentos":{"buff":20, "image":{"image":coroa, "frames":4, "wait":50, "to_start":TEMPO[1], "x":10, "y":5}},
+                                              "nome":"Bençãos do Rei",
+                                              "descricao":f"Enquanto vivo, todos os outros personagens no seu lado do campo ganham +20 de ataque."}]
+                              },
+          "curandeiro_da_vila":{"nome":"Curandeiro da Vila",
+                                  "hp":250,
+                                  "preco":1,
+                                  "classe":"humano",
+                                  "arte":None,
+                                  "ataques":[{"tipo":"ataque",
+                                              "funcao":dano_,
+                                              "dado":2,
+                                              "argumentos":{"dano":10, "todos":True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "nome":"Explosão de Luz",
+                                              "descricao":f"De 10 de dano em todos os personagens inimigos."},
+                                             {"tipo":"abilidade",
+                                              "ataque":True,
+                                              "defesa":False,
+                                              "tempo":"final",
+                                              "vivo":True,
+                                              "morto":False,
+                                              "funcao":abilidade_acao,
+                                              "argumentos":{"funcao":cura_,
+                                                            "image":{"image":luz, "frames":2, "wait":70, "to_start":TEMPO[1], "x":10, "y":3},
+                                                            "argumentos_funcao":{"cura":30, "aleatorio":True ,"image":{"image":cruz, "frames":4, "wait":70, "to_start":TEMPO[2], "x":8, "y":2}}},
+                                              "nome":"Seja Curado",
+                                              "descricao":f"Enquanto vivo, no final de seu turno cure um lacao aliado aleatório em 30."}]
+                              },
           }
 
 if __name__ == "__main__":

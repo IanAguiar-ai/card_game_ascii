@@ -47,6 +47,9 @@ class Screen:
                 if TIMES[y__][x__]["hp"] < TIMES[y__][x__]["hp_temp"]:
                     TIMES[y__][x__]["hp_temp"] -= 1
                     continua = True
+                elif TIMES[y__][x__]["hp"] > TIMES[y__][x__]["hp_temp"]:
+                    TIMES[y__][x__]["hp_temp"] += 1
+                    continua = True
 
                 #Cartas:
                 self.add_temporary(Element(x = x_ + 4, y = y_ + 1, image = [list(f"{TIMES[y__][x__]['classe'].center(28)}")]))
@@ -143,7 +146,7 @@ def to_list(text:str) -> list:
     return n_l
 
 def animation_image(image, frames:int, tipe = None) -> None:
-    if image["tipe"] == "espada" or image["tipe"] == "aleatorio":
+    if image["tipe"] == "espada" or image["tipe"] == "aleatorio" or image["tipe"] == None:
         for i in range(len(image["image"])):
             for j in range(len(image["image"][i])):
                 if random() < 1/frames:
@@ -192,9 +195,9 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["cacador_de_feras"].copy(),
               CARTAS["soldado_novato"].copy(),
               CARTAS["escudeira_experiente"].copy()],
-             [CARTAS["escudeiro_leal"].copy(),
+             [CARTAS["rei_da_vila"].copy(),
               CARTAS["genio_maluco"].copy(),
-              CARTAS["guerreiro_preparado"].copy()]]
+              CARTAS["curandeiro_da_vila"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])

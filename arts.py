@@ -1,3 +1,5 @@
+TEMPO = [15, 35, 80, 170]
+
 def adjust_image(image:(list), replace_:bool = False) -> (list):
     n_image = []
     for line in image:
@@ -88,3 +90,42 @@ caveira = """
     `--------`⠀⠀
 """.split("\n")
 caveira = adjust_image(caveira, replace_ = True)
+
+coroa = """      
+       o 
+    o^/|\\^o
+ o_^|\\/*\\/|^_o
+o\*`'.\\|/.'`*/o
+ \\\\\\\\\\\\|//////
+  {><><@><><}
+  `*********`
+""".split("\n")
+coroa = adjust_image(coroa, replace_ = True)
+
+cruz = """
+      _.--._
+      \\ ** /
+       (<>)
+.      )  (      .
+)\\_.._/ /\\ \\_.._/(
+(*_<>_      _<>_*)
+)/ '' \\ \\/ / '' \\(
+'      )  (      '
+       (  ) 
+       )  (
+       (<>)
+      / ** \\
+     /.-..-.\\
+""".split("\n")
+cruz = adjust_image(cruz, replace_ = True)
+
+luz = """
+     /\\
+   .'  `.
+ .'      `.
+<          >
+ `.      .'
+   `.  .'
+     \/
+""".split("\n")
+luz = adjust_image(luz, replace_ = True)
