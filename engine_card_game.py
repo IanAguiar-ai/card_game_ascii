@@ -163,7 +163,8 @@ def escolha_inimigo(inimigos:list, aleatorio = False) -> dict:
             if globals()["DEBUG"]:
                 buffer_(f"({n}): {inimigo['nome']:25} {inimigo['hp']:3}hp")
             else:
-                buffer_(f"({n}): {inimigo['nome']}")
+                if not aleatorio:
+                    buffer_(f"({n}): {inimigo['nome']}")
             n += 1
 
     if aleatorio:
@@ -215,14 +216,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
             buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
             personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
 
-            if "x" in personagem_inimigo:
-                game.add_effects(x = personagem_inimigo["x"] + image["x"],
-                                 y = personagem_inimigo["y"] + image["y"],
-                                 image = image["image"],
-                                 frames = image["frames"],
-                                 wait = image["wait"],
-                                 to_start = image["to_start"],
-                                 tipe = animacao)
+            printar(personagem_inimigo, image)
 
 def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False):
     for _ in range(vezes):
@@ -236,14 +230,7 @@ def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:i
             buffer_(f"Destruindo {personagem_inimigo['nome']}...")
             personagem_inimigo["hp"] = 0
 
-            if "x" in personagem_inimigo:
-                game.add_effects(x = personagem_inimigo["x"] + image["x"],
-                                 y = personagem_inimigo["y"] + image["y"],
-                                 image = image["image"],
-                                 frames = image["frames"],
-                                 wait = image["wait"],
-                                 to_start = image["to_start"],
-                                 tipe = animacao)
+            printar(personagem_inimigo, image)
 
 def cura_(cura:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False) -> None:
     """
@@ -260,15 +247,7 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
             buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
             personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
 
-            if "x" in personagem_amigo:
-                game.add_effects(x = personagem_amigo["x"] + image["x"],
-                                 y = personagem_amigo["y"] + image["y"],
-                                 image = image["image"],
-                                 frames = image["frames"],
-                                 wait = image["wait"],
-                                 to_start = image["to_start"],
-                                 tipe = animacao)
-                
+            printar(personagem_amigo, image)             
 
 #-------------------------------------------------------------------------------------
 #Funções de cura:
@@ -308,55 +287,44 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
                     globals()["BUFF_TEMPORARIO"] += buff
                     buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} buff no dano de +{buff}")
         
-    if "x" in personagem:
-        if not apenas_caracteristico:
-            game.add_effects(x = personagem["x"] + image["x"],
-                             y = personagem["y"] + image["y"],
-                             image = image["image"],
-                             frames = image["frames"],
-                             wait = image["wait"],
-                             to_start = image["to_start"],
-                             tipe = "aleatorio")
-        else:
-            if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
-                game.add_effects(x = personagem["x"] + image["x"],
-                                 y = personagem["y"] + image["y"],
-                                 image = image["image"],
-                                 frames = image["frames"],
-                                 wait = image["wait"],
-                                 to_start = image["to_start"],
-                                 tipe = "aleatorio")
+    if not apenas_caracteristico:
+        printar(personagem, image)
+    else:
+        if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
+            printar(personagem, image)
 
 def habilidade_nerf_global_dano(buff:int, personagem, image:dict) -> None:
     globals()["NERF_TEMPORARIO"] += buff
     buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
 
-    if "x" in personagem:
-        game.add_effects(x = personagem["x"] + image["x"],
-                         y = personagem["y"] + image["y"],
-                         image = image["image"],
-                         frames = image["frames"],
-                         wait = image["wait"],
-                         to_start = image["to_start"],
-                         tipe = "aleatorio")
+    printar(personagem, image)
+
+def habilidade_reviver(personagem, chance:float, image:dict, si_mesmo:bool = True):
+    if si_mesmo:
+        pass
+
+    printar(personagem, image)
+    
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
     buffer_(f"(HABILIDADE) habilidade de {personagem['nome']}")
-    
-    if "x" in personagem:
-        game.add_effects(x = personagem["x"] + image["x"],
-                         y = personagem["y"] + image["y"],
-                         image = image["image"],
-                         frames = image["frames"],
-                         wait = image["wait"],
-                         to_start = image["to_start"],
-                         tipe = "aleatorio")
+
+    printar(personagem, image)
 
     funcao(**argumentos_funcao)
 
 #=====================================================================================
 #=====================================================================================
 
+def printar(personagem, image):
+    if "x" in personagem:
+        game.add_effects(x = personagem["x"] + image["x"],
+                         y = personagem["y"] + image["y"],
+                         image = image["image"],
+                         frames = image["frames"],
+                         wait = image["wait"],
+                         to_start = image["to_start"],
+                         tipe = "aleatorio")
 
 #=====================================================================================
 #=====================================================================================
@@ -569,6 +537,28 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                     "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Camponeses Unidos",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +10 para cada guerreiro aliado."}]
+                          },
+          "zumbi":{"nome":"Zumbi",
+                          "hp":110,
+                          "preco":1,
+                          "classe":"Monstro",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Caçada a Carne",
+                                      "descricao":f"De 30 de dano em um lacaio inimigo a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":False,
+                                      "morto":True,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_reviver,
+                                      "argumentos":{"chance":0.1,"si_mesmo":True, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Saindo da Terra",
+                                      "descricao":f"Enquanto morto, em todo o turno inimigo, tem 10% de chance de reviver."}]
                           },
           }
 
