@@ -295,6 +295,7 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
                 globals()["BUFF_TEMPORARIO"] += buff
                 buffer_(f"(HABILIDADE:{personagem['nome']}) Buff no dano de +{buff}")
     else:
+        buffer_("Conferindo iterações...")
         if "time_atacante" in caracteristicas and caracteristicas["time_atacante"]:
             for personagem_ in globals()["time_atacante"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
@@ -333,6 +334,7 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
                 globals()["NERF_TEMPORARIO"] += buff
                 buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
     else:
+        buffer_("Conferindo iterações...")
         if "time_atacante" in caracteristicas and caracteristicas["time_atacante"]:
             for personagem_ in globals()["time_atacante"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
@@ -656,6 +658,24 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                     "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Defesa dos Mortos",
                                       "descricao":f"Enquanto vivo, todos os personagens aliados no seu lado do campo, ganham -10 de dano para cada lacaio morto."}]
+                          },
+          "milicia_fantasma":{"nome":"Milicia Fantasma",
+                          "hp":110,
+                          "preco":2,
+                          "classe":"monstro",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":2,
+                                      "argumentos":{"dano":10, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Estou na Porta",
+                                      "descricao":f"De 10 de dano em um personagem inimigo a sua escolha."},
+                                     {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":5,
+                                      "argumentos":{"dano":30, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Impostos ou Saque",
+                                      "descricao":f"De 30 de dano em um personagem aleatório 3 vezes."}],
                           },
           }
 

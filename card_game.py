@@ -195,9 +195,9 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["ogro_burro"].copy(),
               CARTAS["soldado_novato"].copy(),
               CARTAS["fantasma_solitario"].copy()],
-             [CARTAS["zumbi"].copy(),
+             [CARTAS["milicia_fantasma"].copy(),
               CARTAS["genio_maluco"].copy(),
-              CARTAS["curandeiro_da_vila"].copy()]]
+              CARTAS["zumbi"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])
