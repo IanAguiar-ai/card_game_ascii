@@ -192,7 +192,7 @@ if __name__ == "__main__":
     game.add([*cards_base, ])
 
     #Adicionado cartas
-    TIMES = [[CARTAS["cacador_de_feras"].copy(),
+    TIMES = [[CARTAS["fazendeiro_corajoso"].copy(),
               CARTAS["soldado_novato"].copy(),
               CARTAS["escudeira_experiente"].copy()],
              [CARTAS["rei_da_vila"].copy(),
