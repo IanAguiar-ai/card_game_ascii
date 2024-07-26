@@ -129,3 +129,19 @@ luz = """
      \/
 """.split("\n")
 luz = adjust_image(luz, replace_ = True)
+
+cemiterio = """
+       ______
+ _____/      \\_____
+|                  ||
+|  _     ___   _   ||
+| | \     |   | \  ||
+| |  |    |   |  | ||
+| |_/     |   |_/  ||
+| | \     |   |    ||
+| |  \    |   |    ||
+| |   \. _|_. | .  ||
+|                  ||
+| *   **    * **   |**
+""".split("\n")
+cemiterio = adjust_image(cemiterio, replace_ = True)

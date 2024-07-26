@@ -195,7 +195,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["fazendeiro_corajoso"].copy(),
               CARTAS["soldado_novato"].copy(),
               CARTAS["escudeira_experiente"].copy()],
-             [CARTAS["rei_da_vila"].copy(),
+             [CARTAS["zumbi"].copy(),
               CARTAS["genio_maluco"].copy(),
               CARTAS["curandeiro_da_vila"].copy()]]
 

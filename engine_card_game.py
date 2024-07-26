@@ -299,11 +299,12 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict) -> None:
 
     printar(personagem, image)
 
-def habilidade_reviver(personagem, chance:float, image:dict, si_mesmo:bool = True):
+def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = True):
     if si_mesmo:
-        pass
-
-    printar(personagem, image)
+        if random() <= chance:
+            buffer_(f"Revivendo {personagem['nome']}...")
+            personagem["hp"] = min(personagem["hp_inicial"], vida)
+            printar(personagem, image)
     
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
@@ -539,7 +540,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +10 para cada guerreiro aliado."}]
                           },
           "zumbi":{"nome":"Zumbi",
-                          "hp":110,
+                          "hp":80,
                           "preco":1,
                           "classe":"Monstro",
                           "arte":None,
@@ -556,9 +557,9 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "ataque":False,
                                       "defesa":True,
                                       "funcao":habilidade_reviver,
-                                      "argumentos":{"chance":0.1,"si_mesmo":True, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "argumentos":{"chance":0.2, "si_mesmo":True, "vida":40, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
                                       "nome":"Saindo da Terra",
-                                      "descricao":f"Enquanto morto, em todo o turno inimigo, tem 10% de chance de reviver."}]
+                                      "descricao":f"Enquanto morto, em todo o turno inimigo, tem 20% de chance de reviver com 50 de vida."}]
                           },
           }
 
