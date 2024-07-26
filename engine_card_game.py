@@ -166,6 +166,8 @@ def escolha_inimigo(inimigos:list, aleatorio = False) -> dict:
                 if not aleatorio:
                     buffer_(f"({n}): {inimigo['nome']}")
             n += 1
+    if n == 1: #Modo que ele já ataca um lacaio morto só para acabar com o turno
+        return inimigo
 
     if aleatorio:
         escolha = int(random()*len(possiveis))
@@ -201,17 +203,35 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
-    for _ in range(vezes):
-        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
-        if todos:
-            personagens_inimigos = globals()["TIMES"][time_inimigo]
-        else:
-            personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
+    if not amigos_e_inimigos:
+        for _ in range(vezes):
+            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+            if todos:
+                personagens_inimigos = globals()["TIMES"][time_inimigo]
+            else:
+                personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
+            for personagem_inimigo in personagens_inimigos:
+                buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
+
+                printar(personagem_inimigo, image)
+
+    else:
+        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+        personagens_inimigos = globals()["TIMES"][time_inimigo]
+        for personagem_inimigo in personagens_inimigos:
+            buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
+
+            printar(personagem_inimigo, image)
+
+        time_inimigo = (globals()["TABULEIRO"]) % 2
+        personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
             buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
             personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
@@ -293,11 +313,44 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
         if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
             printar(personagem, image)
 
-def habilidade_nerf_global_dano(buff:int, personagem, image:dict) -> None:
-    globals()["NERF_TEMPORARIO"] += buff
-    buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
 
-    printar(personagem, image)
+def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None) -> None:
+    """
+    Da um nerf...
+
+    Se usar as caracteristicas devem ser passados:
+        {"key":"classe",
+        "valor":"humano",
+        "time_atacante":True,
+        "time_atacado":False}
+    """
+    if not soma_por_caracteristicas:
+        if not apenas_caracteristico:
+            globals()["NERF_TEMPORARIO"] += buff
+            buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
+        else:
+            if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
+                globals()["NERF_TEMPORARIO"] += buff
+                buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
+    else:
+        if "time_atacante" in caracteristicas and caracteristicas["time_atacante"]:
+            for personagem_ in globals()["time_atacante"]:
+                if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
+                    globals()["NERF_TEMPORARIO"] += buff
+                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}")
+        
+        if "time_atacado" in caracteristicas and caracteristicas["time_atacado"]:
+            for personagem_ in globals()["time_atacado"]:
+                if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
+                    globals()["NERF_TEMPORARIO"] += buff
+                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}")
+        
+    if not apenas_caracteristico:
+        printar(personagem, image)
+    else:
+        if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
+            printar(personagem, image)
+
 
 def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = True):
     if si_mesmo:
@@ -305,6 +358,8 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
             buffer_(f"Revivendo {personagem['nome']}...")
             personagem["hp"] = min(personagem["hp_inicial"], vida)
             printar(personagem, image)
+        else:
+            buffer_(f"Nenhuma iteração...")
     
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
@@ -360,13 +415,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                              "dado":1,
                                              "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                              "nome":"Espadada Erronêa",
-                                             "descricao":f"De 10 de dano em um lacaio aleatório."},
+                                             "descricao":f"De 10 de dano em um personagem inimigo aleatório."},
                                             {"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":3,
                                              "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                              "nome":"Espadada Certeira",
-                                             "descricao":f"De 30 de dano em um lacaio aleatório"}]
+                                             "descricao":f"De 30 de dano em um personagem inimigo aleatório"}]
                                  },          
           "genio_maluco":{"nome":"Gênio Maluco",
                           "hp":100,
@@ -378,7 +433,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "dado":5,
                                       "argumentos":{"dano":50, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Manopla de choque",
-                                      "descricao":f"De 50 de dano em um lacaio aleatório."},
+                                      "descricao":f"De 50 de dano em um personagem inimigo aleatório."},
                                      {"tipo":"habilidade",
                                       "tempo":"comeco",
                                       "vivo":True,
@@ -400,7 +455,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "dado":3,
                                               "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Empurrão",
-                                              "descricao":f"De 40 de dano em um lacaio aleatório."},
+                                              "descricao":f"De 40 de dano em um personagem inimigo aleatório."},
                                              {"tipo":"habilidade",
                                               "ataque":False,
                                               "defesa":True,
@@ -422,7 +477,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "dado":3,
                                               "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Escudada de Madeira",
-                                              "descricao":f"De 10 de dano em um lacaio aleatório."}]
+                                              "descricao":f"De 10 de dano em um personagem inimigo aleatório."}]
                                   },
           "guerreira_cetica":{"nome":"Guerreira Cética",
                                   "hp":90,
@@ -434,7 +489,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "dado":3,
                                               "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Ponta da Lamina",
-                                              "descricao":f"De 30 de dano em um lacaio a sua escolha."}]
+                                              "descricao":f"De 30 de dano em um personagem inimigo a sua escolha."}]
                                   },
           "soldado_novato":{"nome":"Soldado Novato",
                                   "hp":80,
@@ -446,7 +501,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "dado":2,
                                               "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Espadada Torta",
-                                              "descricao":f"De 30 de dano em um lacaio aleatório."}]
+                                              "descricao":f"De 30 de dano em um personagem inimigo aleatório."}]
                                   },
           "cacador_de_feras":{"nome":"Caçador de Feras",
                                   "hp":70,
@@ -514,7 +569,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                             "image":{"image":luz, "frames":2, "wait":70, "to_start":TEMPO[1], "x":10, "y":3},
                                                             "argumentos_funcao":{"cura":30, "aleatorio":True ,"image":{"image":cruz, "frames":4, "wait":70, "to_start":TEMPO[2], "x":8, "y":2}}},
                                               "nome":"Seja Curado",
-                                              "descricao":f"Enquanto vivo, no final de seu turno cure um lacao aliado aleatório em 30."}]
+                                              "descricao":f"Enquanto vivo, no final de seu turno cure um presonagem aliado aleatório em 30."}]
                               },
           "fazendeiro_corajoso":{"nome":"Fazendeiro Corajoso",
                           "hp":80,
@@ -526,7 +581,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "dado":3,
                                       "argumentos":{"dano":20, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Pá Leve, Mão Pesada",
-                                      "descricao":f"De 20 de dano em um lacaio inimigo a sua escolha."},
+                                      "descricao":f"De 20 de dano em um personagem inimigo a sua escolha."},
                                      {"tipo":"habilidade",
                                       "tempo":"comeco",
                                       "vivo":True,
@@ -542,14 +597,14 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
           "zumbi":{"nome":"Zumbi",
                           "hp":80,
                           "preco":1,
-                          "classe":"Monstro",
+                          "classe":"monstro",
                           "arte":None,
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
                                       "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Caçada a Carne",
-                                      "descricao":f"De 30 de dano em um lacaio inimigo a sua escolha."},
+                                      "descricao":f"De 30 de dano em um personagem inimigo a sua escolha."},
                                      {"tipo":"habilidade",
                                       "tempo":"comeco",
                                       "vivo":False,
@@ -560,6 +615,47 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "argumentos":{"chance":0.2, "si_mesmo":True, "vida":40, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
                                       "nome":"Saindo da Terra",
                                       "descricao":f"Enquanto morto, em todo o turno inimigo, tem 20% de chance de reviver com 50 de vida."}]
+                          },
+          "ogro_burro":{"nome":"Ogro Burro",
+                          "hp":100,
+                          "preco":1,
+                          "classe":"monstro",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":2,
+                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Barrigada Desenfreiada",
+                                      "descricao":f"De 20 em todos os personagens."},
+                                     {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":6,
+                                      "argumentos":{"dano":60, "aleatorio":True, "vezes":2, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Soco Baixo",
+                                      "descricao":f"Dê 60 de dano em dois personagens inimigos aleatórios."}]
+                          },
+          "fantasma_solitario":{"nome":"Fantasma Solitario",
+                          "hp":100,
+                          "preco":2,
+                          "classe":"monstro",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":3,
+                                      "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Assombração",
+                                      "descricao":f"De 30 de dano em um personagem inimigo aleatorio."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_nerf_global_dano,
+                                      "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"hp", "valor":0, "time_atacante":True, "time_atacado":True},
+                                                    "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Defesa dos Mortos",
+                                      "descricao":f"Enquanto vivo, todos os personagens aliados no seu lado do campo, ganham -10 de dano para cada lacaio morto."}]
                           },
           }
 
