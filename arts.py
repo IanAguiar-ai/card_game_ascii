@@ -145,3 +145,12 @@ cemiterio = """
 | *   **    * **   |**
 """.split("\n")
 cemiterio = adjust_image(cemiterio, replace_ = True)
+
+soco = """    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+""".split("\n")
+soco = adjust_image(soco, replace_ = False)
