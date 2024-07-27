@@ -151,14 +151,23 @@ def jogar_dado() -> int:
     dado = int((random() * globals()["LIMITES_DADO"][1]) + globals()["LIMITES_DADO"][0]) - globals()["NERF_DADO"] + globals()["BUFF_DADO"]
     return dado
         
-def escolha_inimigo(inimigos:list, aleatorio = False) -> dict:
+def escolha_inimigo(inimigos:list, aleatorio:bool = False, vivo:bool = True) -> dict:
     """
     Função para escolher inimigo
     """
+    def criterio(inimigo, vivo:bool):
+        if vivo:
+            if inimigo["hp"] > 0:
+                return True
+        else:
+            if inimigo["hp"] <= 0:
+                return True
+        return False
+    
     possiveis = []
     n = 1
     for inimigo in inimigos:
-        if inimigo["hp"] > 0:
+        if criterio(inimigo, vivo):
             possiveis.append(inimigo)
             if globals()["DEBUG"]:
                 buffer_(f"({n}): {inimigo['nome']:25} {inimigo['hp']:3}hp")
@@ -167,7 +176,10 @@ def escolha_inimigo(inimigos:list, aleatorio = False) -> dict:
                     buffer_(f"({n}): {inimigo['nome']}")
             n += 1
     if n == 1: #Modo que ele já ataca um lacaio morto só para acabar com o turno
-        return inimigo
+        if vivo:
+            return inimigos[0]
+        else:
+            return None
 
     if aleatorio:
         escolha = int(random()*len(possiveis))
@@ -217,7 +229,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
 
             for personagem_inimigo in personagens_inimigos:
                 buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
+                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
 
                 printar(personagem_inimigo, image)
 
@@ -226,17 +238,17 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
         personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
             buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
+            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
 
             printar(personagem_inimigo, image)
 
-        time_inimigo = (globals()["TABULEIRO"]) % 2
-        personagens_inimigos = globals()["TIMES"][time_inimigo]
-        for personagem_inimigo in personagens_inimigos:
-            buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0)
+        time_amigo = (globals()["TABULEIRO"]) % 2
+        personagens_amigos = globals()["TIMES"][time_amigo]
+        for personagem_amigo in personagens_amigos:
+            buffer_(f"Atacando {personagem_amigo['nome']} em {dano}...")
+            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
 
-            printar(personagem_inimigo, image)
+            printar(personagem_amigo, image)
 
 def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False):
     for _ in range(vezes):
@@ -354,7 +366,7 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
             printar(personagem, image)
 
 
-def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = True):
+def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = False, vivo:bool = True):
     if si_mesmo:
         if random() <= chance:
             buffer_(f"Revivendo {personagem['nome']}...")
@@ -362,6 +374,18 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
             printar(personagem, image)
         else:
             buffer_(f"Nenhuma iteração...")
+    else:
+        time_amigo = (globals()["TABULEIRO"]) % 2
+        personagens_amigos = globals()["TIMES"][time_amigo]
+        personagem_reviver = escolha_inimigo(personagens_amigos, aleatorio = True, vivo = vivo)
+        if personagem_reviver != None and random() <= chance:
+            buffer_(f"Revivendo {personagem_reviver['nome']}...")
+            personagem_reviver["hp"] = min(personagem_reviver["hp_inicial"], vida)
+            printar(personagem_reviver, image)
+            printar(personagem, image)
+        else:
+            buffer_("Nenhuma iteração...")
+        
     
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
@@ -614,9 +638,9 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "ataque":False,
                                       "defesa":True,
                                       "funcao":habilidade_reviver,
-                                      "argumentos":{"chance":0.2, "si_mesmo":True, "vida":40, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
+                                      "argumentos":{"chance":0.25, "si_mesmo":True, "vida":40, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
                                       "nome":"Saindo da Terra",
-                                      "descricao":f"Enquanto morto, em todo o turno inimigo, tem 20% de chance de reviver com 50 de vida."}]
+                                      "descricao":f"Enquanto morto, em todo o turno inimigo, tem 25% de chance de reviver com 40 de vida."}]
                           },
           "ogro_burro":{"nome":"Ogro Burro",
                           "hp":100,
@@ -694,6 +718,28 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "argumentos":{"dano":70, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Pisada Terremoto",
                                       "descricao":f"Dê 70 de dano em em todos os personagens."}]
+                          },
+          "protetor_do_tesouro":{"nome":"Protetor do Tesouro",
+                          "hp":170,
+                          "preco":1,
+                          "classe":"noturno",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":5,
+                                      "argumentos":{"dano":100, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Sombra da Caverna",
+                                      "descricao":f"De 100 de dano em um personagem inimigo a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":True,
+                                      "ataque":True,
+                                      "defesa":False,
+                                      "funcao":habilidade_reviver,
+                                      "argumentos":{"chance":0.15,  "vida":60, "vivo":False, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
+                                      "nome":"Mito das Sombras",
+                                      "descricao":f"Morto ou vivo, em todo o turno aliado, tem 15% de chance de reviver um lacaio morto com até 60 de vida."}]
                           },
           }
 
