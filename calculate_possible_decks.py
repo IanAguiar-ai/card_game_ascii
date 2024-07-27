@@ -37,13 +37,25 @@ if __name__ == "__main__":
 
     print("\n\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS NO JOGO:")
     combinacoes = 0
+    combinacoes_unicas = 0
     for p in posibilidades:
         temp = qnt_cartas[p[0]] * qnt_cartas[p[1]] * qnt_cartas[p[2]]
         combinacoes += temp
-        print(f"\t{str(p):10} -> {temp}")
+
+        temp_ = 1
+        qnt_temp = qnt_cartas.copy()
+        temp_ *= qnt_temp[p[0]]
+        qnt_temp[p[0]] -= 1
+        temp_ *= qnt_temp[p[1]]
+        qnt_temp[p[1]] -= 1
+        temp_ *= qnt_temp[p[2]]
+        qnt_temp[p[2]] -= 1
+        combinacoes_unicas += temp_
+        
+        print(f"\t{str(p):10} -> {temp:4} | {temp_:4}")
 
     print(f"\n\nCombinações totais: {combinacoes}")
-    print(f"{combinacoes/(len(CARTAS.keys()) * (len(CARTAS.keys()) - 1) * (len(CARTAS.keys()) - 2)) * 100:2.02f}% de todas as possibilidades...")
+    print(f"Combinações únicas: {combinacoes_unicas}")
     print(f"Total de cartas no jogo: {len(CARTAS.keys())}")
     
         
