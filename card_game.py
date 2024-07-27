@@ -193,10 +193,10 @@ if __name__ == "__main__":
 
     #Adicionado cartas
     TIMES = [[CARTAS["assasino_laranja"].copy(),
-              CARTAS["mestre_da_lamina"].copy(),
+              CARTAS["quan_o_equilibro"].copy(),
               CARTAS["ogro_burro"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
-              CARTAS["vinganca_da_noite"].copy(),
+              CARTAS["profeta_das_areias"].copy(),
               CARTAS["zumbi"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
