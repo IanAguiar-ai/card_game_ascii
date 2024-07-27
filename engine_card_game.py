@@ -159,7 +159,7 @@ def jogar_dado() -> int:
                      tipe = "aleatorio")
     game.add_effects(x = 127,
                      y = 44,
-                     image = dados[dado-1],
+                     image = dados[dado],
                      frames = 4,
                      wait = 80,
                      to_start = 30,
@@ -410,10 +410,20 @@ def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> N
 
     funcao(**argumentos_funcao)
 
+def habilidade_buff_global_dado(personagem, buff:int, image:dict) -> None:
+    buffer_(f"Somando {buff} ao dado...")
+    globals()["BUFF_DADO"] += buff
+    printar(personagem, image)
+
+def habilidade_nerf_global_dado(personagem, buff:int, image:dict) -> None:
+    buffer_(f"Subtraindo {buff} ao dado...")
+    globals()["NERF_DADO"] -= buff
+    printar(personagem, image)
+
 #=====================================================================================
 #=====================================================================================
 
-def printar(personagem, image):
+def printar(personagem, image) -> None:
     if "x" in personagem:
         game.add_effects(x = personagem["x"] + image["x"],
                          y = personagem["y"] + image["y"],
@@ -824,6 +834,38 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":None,
                                       "nome":"Lâmina Sugadora",
                                       "descricao":f"Cada vez que esse lacaio usar o ataque 'Roubar Vida', ele ganha um bonûs de 10 de dano que acumula."}]
+                          },
+          "dono_do_cassino":{"nome":"Dono do Cassino",
+                          "hp":90,
+                          "preco":3,
+                          "classe":"noturno",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Não Pode Anotar",
+                                      "descricao":f"De 30 de dano em um personagem inimigo a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":False,
+                                      "funcao":habilidade_buff_global_dado,
+                                      "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Suporte Pesado",
+                                      "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_nerf_global_dado,
+                                      "argumentos":{"buff":1, "image":{"image":subtracao_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Suporte Pesado",
+                                      "descricao":f"Enquanto vivo, subtraia 1 aos dados dos inimigos."}]
                           },
           }
 

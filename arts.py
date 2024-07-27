@@ -46,6 +46,12 @@ rolando_dado = adjust_image(rolando_dado, replace_ = False)
 dados = [adjust_image("""
 +-------+
 |       |
+|       |
+|       |
++-------+
+""".split("\n")),adjust_image("""
++-------+
+|       |
 |   0   |
 |       |
 +-------+
@@ -80,6 +86,22 @@ dados = [adjust_image("""
 | 0   0 |
 +-------+
 """.split("\n"))]
+
+soma_dado = adjust_image("""
++-------+
+|   |   |
+| --+-- |
+|   |   |
++-------+
+""".split("\n"))
+
+subtracao_dado = adjust_image("""
++-------+
+|       |
+| ----- |
+|       |
++-------+
+""".split("\n"))
 
 animacao_espada = ["#",
                    "  #",
