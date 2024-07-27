@@ -86,8 +86,9 @@ class Screen:
         while True:
             if self.animation or self.estats_animation(TIMES) or not "hp_temp" in TIMES[0][0]:
                 #Empty space:
-                buffer = ["\n" if i % self.x == 0 else "-" for i in range(self.x * self.y)]
-        
+                #buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
+                buffer = campo.copy()
+                
                 #Print buffer:
                 self.add_temporary(Element(x = DISPOSITION_X_TEXT, y = DISPOSITION_Y_TEXT, image = to_list(self.buffer_text)))
                 
@@ -196,8 +197,8 @@ if __name__ == "__main__":
     #Adicionado cartas
     TIMES = [[CARTAS["mago_suporte"].copy(),
               CARTAS["assasina_de_quadrilha"].copy(),
-              CARTAS["ogro_burro"].copy()],
-             [CARTAS["acumulador_de_almas"].copy(),
+              CARTAS["assasino_laranja"].copy()],
+             [CARTAS["vinganca_da_noite"].copy(),
               CARTAS["profeta_das_areias"].copy(),
               CARTAS["zumbi"].copy()]]
 

@@ -1,3 +1,4 @@
+from game_config import X, Y
 TEMPO = [15, 35, 80, 170]
 
 def adjust_image(image:(list), replace_:bool = False) -> (list):
@@ -30,6 +31,31 @@ base_card = [f"+{'-'*34}+",
              f"|{' '*34}|",
              f"+{'-'*34}+"]
 base_card = adjust_image(base_card)
+
+campo = [
+'     /  \\        /  \\        /  \\        /  \\        /  \\        /  \\'*3,
+'__/        \\__/        \\__/        \\__/        \\__/        \\__/      '*3,  
+'  \\        /  \\        /  \\        /  \\        /  \\        /  \\      '*3,  
+'     \\__/        \\__/        \\__/        \\__/        \\__/        \\__/'*3]
+
+for i in range(len(campo)):
+    campo[i] = campo[i][:X-1] + "\n"
+
+temp_campo = campo.copy()
+while len(campo) < Y:
+    campo.extend(temp_campo)
+campo = campo[:Y]
+
+n = 0
+for i in range(len(campo) - 11, len(campo)):
+    if n == 0:
+        campo[i] = f"+{(X-3)*'-'}+\n"
+    else:
+        campo[i] = f"|{(X-3)*' '}|\n"
+    n += 1
+
+campo = "".join(campo)
+campo = list(campo)
 
 rolando_dado = """
 (( _______
@@ -126,7 +152,7 @@ seta_cima = ["   /\\",
              "  |  |",
              "  |  |",
              "   --"]
-seta_cima = adjust_image(seta_cima, replace_ = True)
+seta_cima = adjust_image(seta_cima, replace_ = False)
 
 escudo = """|`-._/\_.-`|
 |    ||    |
@@ -160,7 +186,7 @@ caveira = """
    \          /
     `--------`⠀⠀
 """.split("\n")
-caveira = adjust_image(caveira, replace_ = True)
+caveira = adjust_image(caveira, replace_ = False)
 
 coroa = """      
        o 
@@ -188,7 +214,7 @@ cruz = """
       / ** \\
      /.-..-.\\
 """.split("\n")
-cruz = adjust_image(cruz, replace_ = True)
+cruz = adjust_image(cruz, replace_ = False)
 
 luz = """
      /\\
@@ -215,7 +241,7 @@ cemiterio = """
 |                  ||
 | *   **    * **   |**
 """.split("\n")
-cemiterio = adjust_image(cemiterio, replace_ = True)
+cemiterio = adjust_image(cemiterio, replace_ = False)
 
 soco = """    _______
 ---'   ____)
@@ -289,3 +315,51 @@ imagem_assasina_de_quadrilha = adjust_image("""
        \\(// /'     |
           \\/       |
            |     / /""".split("\n"))
+
+imagem_assasino_laranja = adjust_image("""
+         /\______  __
+        /-~     ,^~ / __n
+       / ,---x /_.-"L/__,\\
+      /-".---.\\_.-'/!"  \\ \\
+      0\\/0___/   x' /    ) |
+      \\.______.-'_.{__.-"_.^
+       `x____,.-",-~( .-"
+          _.-| ,^.-~ "\\
+     __.-~_,-|/\\/     `i
+    / u.-~ .-{\\/     .-^--.
+    \\/   v~ ,-^x.____}--r |
+        / /"            | |
+      _/_/              !_l_
+    o~_//)             (_\\\\_~o
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""".split("\n"))
+
+imagem_vinganca_da_noite = adjust_image("""
+              _____
+          ,-~"     "~-. 
+        ,^         ___ ^.
+       / .^\\___. .^   ^. \\
+      Y  l   O ! l   O !  Y
+      l_ `.___.' `.___.' _[
+      l^~"VVVVVVVVVVVVV"~^I
+      !\\,               ,/!
+       \\ ~-.,AAAAAAA,.-~ /
+        ^.             .^
+          "-.._____.,-"
+""".split("\n"))
+
+imagem_zumbi = adjust_image("""
+                     ..\\/.
+                    C X  /
+                   /<   /
+    ___ __________/_#__=o
+   /(- /(\\_\\________   \\
+   \\ ) \\ )_      \\o   / \\
+   /|\\ /|\\       |'     |
+                 \\   / _|
+                 /    __\\
+                / '     |
+               / /    / |
+              /_/\\__X___|
+             (   _(    <
+              \\    \\    \\
+               \\____\\____\\""".split("\n"))
