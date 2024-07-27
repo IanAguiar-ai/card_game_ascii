@@ -52,7 +52,7 @@ class Screen:
                     continua = True
 
                 #Cartas:
-                self.add_temporary(Element(x = x_ + 4, y = y_ + 1, image = [list(f"{TIMES[y__][x__]['classe'].center(28)}")]))
+                self.add_temporary(Element(x = x_ + 4, y = y_ + 1, image = [list(f"{TIMES[y__][x__]['classe'].title().center(28)}")]))
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list(f"HP:{TIMES[y__][x__]['hp_temp']:3}")]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [list(f"({TIMES[y__][x__]['preco']})")]))
@@ -195,7 +195,7 @@ if __name__ == "__main__":
 
     #Adicionado cartas
     TIMES = [[CARTAS["mago_suporte"].copy(),
-              CARTAS["quan_o_equilibro"].copy(),
+              CARTAS["assasina_de_quadrilha"].copy(),
               CARTAS["ogro_burro"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
               CARTAS["profeta_das_areias"].copy(),
