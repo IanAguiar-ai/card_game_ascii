@@ -31,6 +31,55 @@ base_card = [f"+{'-'*34}+",
              f"+{'-'*34}+"]
 base_card = adjust_image(base_card)
 
+rolando_dado = """
+(( _______
+  /\\O    O\\
+ /  \\      \\
+/ O  \\O____O\\ ))
+\\    /O     /
+ \\  /   O  /
+  \\/_____O/
+          ))
+""".split("\n")
+rolando_dado = adjust_image(rolando_dado, replace_ = False)
+
+dados = [adjust_image("""
++-------+
+|       |
+|   0   |
+|       |
++-------+
+""".split("\n")), adjust_image("""
++-------+
+|  0    |
+|       |
+|    0  |
++-------+
+""".split("\n")), adjust_image("""
++-------+
+| 0     |
+|   0   |
+|     0 |
++-------+
+""".split("\n")), adjust_image("""
++-------+
+| 0   0 |
+|       |
+| 0   0 |
++-------+
+""".split("\n")), adjust_image("""
++-------+
+| 0   0 |
+|   0   |
+| 0   0 |
++-------+
+""".split("\n")), adjust_image("""
++-------+
+| 0   0 |
+| 0   0 |
+| 0   0 |
++-------+
+""".split("\n"))]
 
 animacao_espada = ["#",
                    "  #",

@@ -149,6 +149,20 @@ def jogar_dado() -> int:
     Joga o dado considerando os limites inferiores e superiores
     """
     dado = int((random() * globals()["LIMITES_DADO"][1]) + globals()["LIMITES_DADO"][0]) - globals()["NERF_DADO"] + globals()["BUFF_DADO"]
+    game.add_effects(x = 125,
+                     y = 42,
+                     image = rolando_dado,
+                     frames = 1,
+                     wait = 30,
+                     to_start = 0,
+                     tipe = "aleatorio")
+    game.add_effects(x = 127,
+                     y = 44,
+                     image = dados[dado-1],
+                     frames = 4,
+                     wait = 80,
+                     to_start = 30,
+                     tipe = "aleatorio")
     return dado
         
 def escolha_inimigo(inimigos:list, aleatorio:bool = False, vivo:bool = True) -> dict:
@@ -814,11 +828,11 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
 
 if __name__ == "__main__":
     DEBUG = True
-    TIMES = [[CARTAS["acumulador_de_almas"].copy(),
-              CARTAS["guerreiro_preparado"].copy(),
-              CARTAS["guerreiro_preparado"].copy()],
-             [CARTAS["guerreiro_preparado"].copy(),
-              CARTAS["guerreiro_preparado"].copy(),
-              CARTAS["guerreiro_preparado"].copy()]]
+    TIMES = [[CARTAS["ogro_burro"].copy(),
+              CARTAS["protetor_do_tesouro"].copy(),
+              CARTAS["fantasma_solitario"].copy()],
+             [CARTAS["acumulador_de_almas"].copy(),
+              CARTAS["gigante"].copy(),
+              CARTAS["zumbi"].copy()]]
     
     jogar(TIMES)
