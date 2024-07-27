@@ -407,6 +407,54 @@ def printar(personagem, image):
                          wait = image["wait"],
                          to_start = image["to_start"],
                          tipe = "aleatorio")
+        
+#=====================================================================================
+#=====================================================================================
+
+def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
+    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+    
+    if not amigos_e_inimigos:
+        for _ in range(vezes):
+            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+            if todos:
+                personagens_inimigos = globals()["TIMES"][time_inimigo]
+            else:
+                personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
+
+            for personagem_inimigo in personagens_inimigos:
+                buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
+                personagem["ataques"][0]["argumentos"]["dano"] += buff
+                personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
+
+                printar(personagem_inimigo, image)
+
+    else:
+        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+        personagens_inimigos = globals()["TIMES"][time_inimigo]
+        for personagem_inimigo in personagens_inimigos:
+            buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
+            personagem["ataques"][0]["argumentos"]["dano"] += buff
+            personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
+
+            printar(personagem_inimigo, image)
+
+        time_amigo = (globals()["TABULEIRO"]) % 2
+        personagens_amigos = globals()["TIMES"][time_amigo]
+        for personagem_amigo in personagens_amigos:
+            buffer_(f"Atacando {personagem_amigo['nome']} em {dano}...")
+            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
+            personagem["ataques"][0]["argumentos"]["dano"] += buff
+            personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
+
+            printar(personagem_amigo, image)
+    
+    
 
 #=====================================================================================
 #=====================================================================================
@@ -741,11 +789,32 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Mito das Sombras",
                                       "descricao":f"Morto ou vivo, em todo o turno aliado, tem 15% de chance de reviver um lacaio morto com até 60 de vida."}]
                           },
+          "acumulador_de_almas":{"nome":"Acumulador de Almas",
+                          "hp":100,
+                          "preco":2,
+                          "classe":"noturno",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_e_cura_acumulador,
+                                      "dado":3,
+                                      "argumentos":{"dano":20, "buff":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Roubar Vida",
+                                      "descricao":f"De 20 de dano a um personagem inimigo aleatório e se cure nesse valor."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":False,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":False,
+                                      "funcao":None,
+                                      "nome":"Lâmina Sugadora",
+                                      "descricao":f"Cada vez que esse lacaio usar o ataque 'Roubar Vida', ele ganha um bonûs de 10 de dano que acumula."}]
+                          },
           }
 
 if __name__ == "__main__":
     DEBUG = True
-    TIMES = [[CARTAS["guerreiro_preparado"].copy(),
+    TIMES = [[CARTAS["acumulador_de_almas"].copy(),
               CARTAS["guerreiro_preparado"].copy(),
               CARTAS["guerreiro_preparado"].copy()],
              [CARTAS["guerreiro_preparado"].copy(),
