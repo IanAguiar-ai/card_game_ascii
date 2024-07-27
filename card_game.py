@@ -196,7 +196,7 @@ if __name__ == "__main__":
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
-              CARTAS["gigante"].copy(),
+              CARTAS["vinganca_da_noite"].copy(),
               CARTAS["zumbi"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
