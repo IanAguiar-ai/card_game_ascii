@@ -56,6 +56,8 @@ class Screen:
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list(f"HP:{TIMES[y__][x__]['hp_temp']:3}")]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [list(f"({TIMES[y__][x__]['preco']})")]))
+                if TIMES[y__][x__]['arte'] != None:
+                    self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
 
                 #Animacoes:
                 to_pop = []
