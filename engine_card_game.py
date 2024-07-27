@@ -244,7 +244,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
 
             for personagem_inimigo in personagens_inimigos:
                 buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
                 printar(personagem_inimigo, image)
 
@@ -253,14 +253,14 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
         time_inimigo = (globals()["TABULEIRO"] + 1) % 2
         personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
             printar(personagem_inimigo, image)
 
         time_amigo = (globals()["TABULEIRO"]) % 2
         personagens_amigos = globals()["TIMES"][time_amigo]
         for personagem_amigo in personagens_amigos:
-            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
             printar(personagem_amigo, image)
 
@@ -448,7 +448,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
 
             for personagem_inimigo in personagens_inimigos:
                 buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
                 personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
                 personagem["ataques"][0]["argumentos"]["dano"] += buff
                 personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
@@ -460,7 +460,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
         personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
             buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
             personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
             personagem["ataques"][0]["argumentos"]["dano"] += buff
             personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
@@ -471,7 +471,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
         personagens_amigos = globals()["TIMES"][time_amigo]
         for personagem_amigo in personagens_amigos:
             buffer_(f"Atacando {personagem_amigo['nome']} em {dano}...")
-            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
             personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
             personagem["ataques"][0]["argumentos"]["dano"] += buff
             personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
@@ -886,7 +886,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           },
           "mestre_dos_venenos":{"nome":"Mestre dos Venenos",
                           "hp":80,
-                          "preco":2,
+                          "preco":3,
                           "classe":"assasino",
                           "arte":None,
                           "ataques":[{"tipo":"ataque",
@@ -897,7 +897,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"De 40 de dano em dois personagem inimigos aleatorios."},
                                      {"tipo":"habilidade",
                                       "funcao":dano_,
-                                      "tempo":"comeco",
+                                      "tempo":"final",
                                       "vivo":True,
                                       "morto":False,
                                       "ataque":True,
@@ -906,6 +906,47 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Todos Envenenados!",
                                       "descricao":f"De 10 de dano em em todos os personagens todo o começo de turno aliado."}],
                         },
+          "assasina_de_quadrilha":{"nome":"Assasina de Quadrilha",
+                          "hp":90,
+                          "preco":3,
+                          "classe":"assasino",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Facada nas costas",
+                                      "descricao":f"De 30 de dano em um personagem inimigo a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":False,
+                                      "funcao":habilidade_buff_global_dano,
+                                      "argumentos":{"buff":20, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":True, "time_atacado":False},
+                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Caos na Cidade",
+                                      "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +20 para cada assasino aliado."}]
+                        },
+          "mestre_da_lamina":{"nome":"Mestre da Lamina",
+                          "hp":80,
+                          "preco":1,
+                          "classe":"assasino",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":6,
+                                      "argumentos":{"dano":60, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Espionagem",
+                                      "descricao":f"De 60 de dano em um personagem inimigo a sua escolha."},
+                                     {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":6,
+                                      "argumentos":{"dano":120, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Atrás de Você",
+                                      "descricao":f"De 120 de dano em um personagem inimigo aleatório."}],
+                          },
           }
 
 if __name__ == "__main__":

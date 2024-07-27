@@ -192,9 +192,9 @@ if __name__ == "__main__":
     game.add([*cards_base, ])
 
     #Adicionado cartas
-    TIMES = [[CARTAS["dono_do_cassino"].copy(),
-              CARTAS["mestre_dos_venenos"].copy(),
-              CARTAS["fantasma_solitario"].copy()],
+    TIMES = [[CARTAS["assasina_de_quadrilha"].copy(),
+              CARTAS["mestre_da_lamina"].copy(),
+              CARTAS["ogro_burro"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
               CARTAS["zumbi"].copy()]]
