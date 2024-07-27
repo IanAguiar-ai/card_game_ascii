@@ -149,6 +149,7 @@ def jogar_dado() -> int:
     Joga o dado considerando os limites inferiores e superiores
     """
     dado = int((random() * globals()["LIMITES_DADO"][1]) + globals()["LIMITES_DADO"][0]) - globals()["NERF_DADO"] + globals()["BUFF_DADO"]
+    dado = min(max(dado, globals()["LIMITES_DADO"][0]), globals()["LIMITES_DADO"][1])
     game.add_effects(x = 125,
                      y = 42,
                      image = rolando_dado,
