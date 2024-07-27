@@ -230,7 +230,7 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
@@ -249,10 +249,10 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
                 printar(personagem_inimigo, image)
 
     else:
+        buffer_(f"Atacando todos os personagens em {dano}...")
         time_inimigo = (globals()["TABULEIRO"] + 1) % 2
         personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
-            buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
             personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
 
             printar(personagem_inimigo, image)
@@ -260,7 +260,6 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
         time_amigo = (globals()["TABULEIRO"]) % 2
         personagens_amigos = globals()["TIMES"][time_amigo]
         for personagem_amigo in personagens_amigos:
-            buffer_(f"Atacando {personagem_amigo['nome']} em {dano}...")
             personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano - globals()["BUFF_TEMPORARIO"] + globals()["NERF_TEMPORARIO"], 0), 0)
 
             printar(personagem_amigo, image)
@@ -883,8 +882,30 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "dado":4,
                                       "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Sequestro Total",
-                                      "descricao":f"De 20 de dano em em todos os personagens."}],
+                                      "descricao":f"De 20 de dano em todos os personagens."}],
                           },
+          "mestre_dos_venenos":{"nome":"Mestre dos Venenos",
+                          "hp":80,
+                          "preco":2,
+                          "classe":"assasino",
+                          "arte":None,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":40, "aleatorio": True, "vezes":2, "animacao": "espada", "image":{"image":pocao[0], "frames":6, "wait":45, "to_start":0, "x":14, "y":7}},
+                                      "nome":"Vai um Suco?",
+                                      "descricao":f"De 40 de dano em dois personagem inimigos aleatorios."},
+                                     {"tipo":"habilidade",
+                                      "funcao":dano_,
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":False,
+                                      "argumentos":{"dano":10, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":pocao[1], "frames":6, "wait":40, "to_start":TEMPO[2], "x":15, "y":7}},
+                                      "nome":"Todos Envenenados!",
+                                      "descricao":f"De 10 de dano em em todos os personagens todo o começo de turno aliado."}],
+                        },
           }
 
 if __name__ == "__main__":

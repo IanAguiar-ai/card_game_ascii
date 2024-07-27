@@ -193,7 +193,7 @@ if __name__ == "__main__":
 
     #Adicionado cartas
     TIMES = [[CARTAS["dono_do_cassino"].copy(),
-              CARTAS["protetor_do_tesouro"].copy(),
+              CARTAS["mestre_dos_venenos"].copy(),
               CARTAS["fantasma_solitario"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
               CARTAS["vinganca_da_noite"].copy(),

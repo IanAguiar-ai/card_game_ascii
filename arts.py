@@ -225,3 +225,15 @@ soco = """    _______
 ---.__(___)
 """.split("\n")
 soco = adjust_image(soco, replace_ = False)
+
+pocao = [adjust_image("""
+  |~|
+  | |
+.'   `.
+`.___.'
+""".split("\n"), replace_ = False), adjust_image("""
+ |~|
+ | |
+.' `.
+`._.' 
+""".split("\n"), replace_ = False)]
