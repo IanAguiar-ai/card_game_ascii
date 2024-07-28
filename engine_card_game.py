@@ -86,6 +86,8 @@ def jogar(TIMES:list):
         ###Vendo se tem alguma habilidade passiva de começo de turno:
         conferir_habilidade(tempo = "comeco", ataque = True, time = time_atacante)
         conferir_habilidade(tempo = "comeco", defesa = True, time = time_atacado)
+        conferir_habilidade(tempo = "comeco", ataque = True, defesa = True, time = time_atacante)
+        conferir_habilidade(tempo = "comeco", ataque = True, defesa = True, time = time_atacado)
 
         numero_dado = jogar_dado()
         globals()["numero_dado"][0] = numero_dado
@@ -99,6 +101,8 @@ def jogar(TIMES:list):
         ###Vendo se tem alguma habilidade passiva de final de turno:
         conferir_habilidade(tempo = "final", ataque = True, time = time_atacante)
         conferir_habilidade(tempo = "final", defesa = True, time = time_atacado)
+        conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacante)
+        conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacado)
 
         #Ajustando valores de turno:      
         globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
@@ -216,7 +220,7 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
                 if not "defesa" in habilidade:
                     habilidade["defesa"] = False
         
-                if habilidade["tempo"] == tempo and (habilidade["ataque"] == ataque or habilidade["defesa"] == defesa):
+                if habilidade["tempo"] == tempo and (habilidade["ataque"] == ataque and habilidade["defesa"] == defesa):
                     if (habilidade["vivo"] and personagem["hp"] > 0) or (habilidade["morto"] and personagem["hp"] <= 0):
                         buffer_(f"{habilidade['nome']}: ", end = "")
                         habilidade["funcao"](**habilidade["argumentos"], personagem = personagem)
@@ -1026,14 +1030,14 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +30 dano."}]
                         },
           "fenix":{"nome":"Fenix",
-                          "hp":60,
+                          "hp":50,
                           "preco":2,
                           "classe":"lenda",
                           "arte":imagem_fenix,
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":20, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Revoada Flamejante",
                                       "descricao":f"De 20 de dano em três personagens inimigos aleatórios."},
                                      {"tipo":"habilidade",
