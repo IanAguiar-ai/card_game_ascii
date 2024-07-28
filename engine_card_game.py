@@ -1,14 +1,6 @@
 """
 Funcionamento das cartas
 
-classes:
-    - guerreiros
-    - monstros
-    - paladinos
-    - noturnos
-    - piratas
-    - lendas
-
 Abilidades podem ser:
     - comeco: começo do turno
     - final: fim do turno

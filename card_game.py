@@ -52,8 +52,9 @@ class Screen:
                     continua = True
 
                 #Cartas:
-                self.add_temporary(Element(x = x_ + 4, y = y_ + 1, image = [list(f"{TIMES[y__][x__]['classe'].title().center(28)}")]))
-                self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list(f"HP:{TIMES[y__][x__]['hp_temp']:3}")]))
+                self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{TIMES[y__][x__]['classe'].title().center(23)}")], class_ = TIMES[y__][x__]['classe'])]))
+                self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
+                self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{TIMES[y__][x__]['hp_temp']:3}")], life = TIMES[y__][x__]['hp_temp'])]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [list(f"({TIMES[y__][x__]['preco']})")]))
                 if TIMES[y__][x__]['arte'] != None:
@@ -170,10 +171,11 @@ def animation_image(image, frames:int, tipe = None) -> None:
                     except:
                         pass
 
-def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, end = "\n") -> None:
+def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, end = "\n") -> list:
     if style == 0:
-        text[0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[0]
-        text[-1] = text[-1] + f"\033[0m"
+        for i in range(len(text)):
+            text[i][0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[i][0]
+            text[i][-1] = text[i][-1] + f"\033[0m"
         return text
     else:
         style = f"\033[{style}m"
@@ -181,6 +183,25 @@ def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, e
 
 def clear():
     print("\033c", end="")
+
+def put_color_life(text, life) -> list:
+    l = life//20
+    values_color = [196, 202, 208, 214, 220, 226, 227, 228,192, 194, 195]
+    color = values_color[l]
+    return put_color(text = text, color = color)
+
+def put_color_class(text, class_) -> list:
+    colors_class = {"humano":51,
+                    "guerreiro":9,
+                    "monstro":3,
+                    "noturno":63,
+                    "assasino":8,
+                    "lenda":226}
+    if class_ in colors_class:
+        color = colors_class[class_]
+    else:
+        color = 15
+    return put_color(text = text, color = color)
 
 #=================================================================
 #Game definitions:
@@ -197,7 +218,7 @@ if __name__ == "__main__":
     game.add([*cards_base, ])
 
     #Adicionado cartas
-    TIMES = [[CARTAS["rei_da_vila"].copy(),
+    TIMES = [[CARTAS["gigante"].copy(),
               CARTAS["esqueleto_insano"].copy(),
               CARTAS["mestre_da_lamina"].copy()],
              [CARTAS["campones_corajoso"].copy(),
