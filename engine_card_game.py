@@ -88,6 +88,7 @@ def jogar(TIMES:list):
         conferir_habilidade(tempo = "comeco", defesa = True, time = time_atacado)
 
         numero_dado = jogar_dado()
+        globals()["numero_dado"][0] = numero_dado
         ###ANIMACAO DO DADO
 
         ###Vendo ataques do personagem:
@@ -227,6 +228,9 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
+    if type(dano) == list: #Casos que recebem listas com variáveis
+        dano = dano[0] * 10
+        
     if not amigos_e_inimigos:
         for _ in range(vezes):
             time_inimigo = (globals()["TABULEIRO"] + 1) % 2
@@ -482,6 +486,7 @@ def reset_globais():
     globals()["NERF_TEMPORARIO"] = 0
     globals()["BUFF_CURA"] = 0
 
+numero_dado = [1]
 BUFF_TEMPORARIO = 0
 NERF_TEMPORARIO = 0
 BUFF_CURA = 0
@@ -1063,6 +1068,18 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "argumentos":{"buff":20, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Cuidado com o Espinho",
                                       "descricao":f"Enquanto vivo, todos os personagens do jogo ganham +30 de dano."}]
+                        },
+          "cubo":{"nome":"Cubo",
+                          "hp":60,
+                          "preco":1,
+                          "classe":"lenda",
+                          "arte":imagem_cubo,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":0,
+                                      "argumentos":{"dano":numero_dado, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Dado o Dado",
+                                      "descricao":f"De 10 vezes o número que cair no dado em um personagem a sua escolha."},]
                         },
           }
 
