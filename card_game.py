@@ -170,9 +170,11 @@ def animation_image(image, frames:int, tipe = None) -> None:
                     except:
                         pass
 
-def put_color(color:int = 190, back_color:int = 232,text:str = "", style:int = 0, end = "\n") -> None:
+def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, end = "\n") -> None:
     if style == 0:
-        return f"\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+        text[0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[0]
+        text[-1] = text[-1] + f"\033[0m"
+        return text
     else:
         style = f"\033[{style}m"
         return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"

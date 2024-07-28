@@ -383,7 +383,7 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
 
 def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = False, vivo:bool = True):
     if si_mesmo:
-        if random() <= chance:
+        if random() <= chance and personagem["hp"] <= 0:
             buffer_(f"Revivendo {personagem['nome']}...")
             personagem["hp"] = min(personagem["hp_inicial"], vida)
             printar(personagem, image)
@@ -1031,7 +1031,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +30 dano."}]
                         },
           "fenix":{"nome":"Fenix",
-                          "hp":10,
+                          "hp":60,
                           "preco":2,
                           "classe":"lenda",
                           "arte":imagem_fenix,
@@ -1048,8 +1048,8 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "ataque":False,
                                       "defesa":True,
                                       "funcao":habilidade_reviver,
-                                      "argumentos":{"chance":1, "si_mesmo":True, "vida":20, "image":{"image":fogo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":1, "y":7}},
-                                      "nome":"Saindo da Terra",
+                                      "argumentos":{"chance":1, "si_mesmo":True, "vida":20, "image":{"image":fogo, "frames":4, "wait":40, "to_start":TEMPO[1], "x":1, "y":7}},
+                                      "nome":"Reviver da Fenix",
                                       "descricao":f"Sempre que morrer reviva com 20 de vida"}]
                           },
           }
