@@ -187,7 +187,10 @@ def clear():
 def put_color_life(text, life) -> list:
     l = life//20
     values_color = [196, 202, 208, 214, 220, 226, 227, 228,192, 194, 195]
-    color = values_color[l]
+    try:
+        color = values_color[l]
+    except:
+        color = 15
     return put_color(text = text, color = color)
 
 def put_color_class(text, class_) -> list:
