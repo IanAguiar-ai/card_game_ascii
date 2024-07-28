@@ -215,7 +215,7 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
                 if not "defesa" in habilidade:
                     habilidade["defesa"] = False
         
-                if habilidade["tempo"] == tempo and habilidade["ataque"] == ataque and habilidade["defesa"] == defesa:
+                if habilidade["tempo"] == tempo and (habilidade["ataque"] == ataque or habilidade["defesa"] == defesa):
                     if (habilidade["vivo"] and personagem["hp"] > 0) or (habilidade["morto"] and personagem["hp"] <= 0):
                         buffer_(f"{habilidade['nome']}: ", end = "")
                         habilidade["funcao"](**habilidade["argumentos"], personagem = personagem)
@@ -469,9 +469,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
             personagem["ataques"][0]["argumentos"]["dano"] += buff
             personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
 
-            printar(personagem_amigo, image)
-    
-    
+            printar(personagem_amigo, image)    
 
 #=====================================================================================
 #=====================================================================================
@@ -1044,6 +1042,28 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Reviver da Fenix",
                                       "descricao":f"Sempre que morrer reviva com 20 de vida"}]
                           },
+          "cactus_cowboy":{"nome":"Cactus Cowboy",
+                          "hp":140,
+                          "preco":3,
+                          "classe":"lenda",
+                          "arte":imagem_cactus_cowboy,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":10, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Duelo aceito!",
+                                      "descricao":f"De 10 de dano em 3 personagens inimigos aleatórios."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":True,
+                                      "funcao":habilidade_buff_global_dano,
+                                      "argumentos":{"buff":20, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Cuidado com o Espinho",
+                                      "descricao":f"Enquanto vivo, todos os personagens do jogo ganham +30 de dano."}]
+                        },
           }
 
 if __name__ == "__main__":
