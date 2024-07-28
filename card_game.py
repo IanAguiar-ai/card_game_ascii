@@ -196,9 +196,9 @@ if __name__ == "__main__":
 
     #Adicionado cartas
     TIMES = [[CARTAS["rei_da_vila"].copy(),
-              CARTAS["guerreiro_preparado"].copy(),
+              CARTAS["esqueleto_insano"].copy(),
               CARTAS["mestre_da_lamina"].copy()],
-             [CARTAS["curandeiro_da_vila"].copy(),
+             [CARTAS["campones_corajoso"].copy(),
               CARTAS["escudeiro_experiente"].copy(),
               CARTAS["guarda_do_rei"].copy()]]
 
