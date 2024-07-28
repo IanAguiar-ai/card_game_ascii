@@ -200,7 +200,7 @@ if __name__ == "__main__":
               CARTAS["mestre_da_lamina"].copy()],
              [CARTAS["campones_corajoso"].copy(),
               CARTAS["mestre_dos_venenos"].copy(),
-              CARTAS["guarda_do_rei"].copy()]]
+              CARTAS["fenix"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])

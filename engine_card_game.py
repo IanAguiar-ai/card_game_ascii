@@ -101,6 +101,7 @@ def jogar(TIMES:list):
         ###Vendo ataques do personagem:
         verificar_ataques(personagem_atual, numero_dado)
         cl()
+        sleep(2)
 
         ###Vendo se tem alguma habilidade passiva de final de turno:
         conferir_habilidade(tempo = "final", ataque = True, time = time_atacante)
@@ -937,7 +938,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":6,
-                                      "argumentos":{"dano":60, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":60, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Espionagem",
                                       "descricao":f"De 60 de dano em um personagem inimigo a sua escolha."},
                                      {"tipo":"ataque",
@@ -1029,6 +1030,28 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Suporte Completo",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +30 dano."}]
                         },
+          "fenix":{"nome":"Fenix",
+                          "hp":10,
+                          "preco":2,
+                          "classe":"lenda",
+                          "arte":imagem_fenix,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":20, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Revoada Flamejante",
+                                      "descricao":f"De 20 de dano em três personagens inimigos aleatórios."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":False,
+                                      "morto":True,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_reviver,
+                                      "argumentos":{"chance":1, "si_mesmo":True, "vida":20, "image":{"image":fogo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":1, "y":7}},
+                                      "nome":"Saindo da Terra",
+                                      "descricao":f"Sempre que morrer reviva com 20 de vida"}]
+                          },
           }
 
 if __name__ == "__main__":
