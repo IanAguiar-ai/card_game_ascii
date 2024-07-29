@@ -1070,7 +1070,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":True,
                                       "funcao":habilidade_buff_global_dano,
                                       "argumentos":{"buff":20, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                      "nome":"Cuidado com o Espinho",
+                                      "nome":"Cuidado, espinho!",
                                       "descricao":f"Enquanto vivo, todos os personagens do jogo ganham +30 de dano."}]
                         },
           "cubo":{"nome":"Cubo",
