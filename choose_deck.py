@@ -261,39 +261,36 @@ if __name__ == "__main__":
 
     while True:
         resp = input()
-        if resp.lower() == "q":
+        game.animation = True
+        if resp.lower() == "w":
             escolhas[0] = (escolhas[0] + 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
-        elif resp.lower() == "w":
+        elif resp.lower() == "q":
             escolhas[0] = (escolhas[0] - 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
-        elif resp.lower() == "a":
+        elif resp.lower() == "s":
             escolhas[1] = (escolhas[1] + 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
-        elif resp.lower() == "s":
+        elif resp.lower() == "a":
             escolhas[1] = (escolhas[1] - 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
-        elif resp.lower() == "z":
+        elif resp.lower() == "x":
             escolhas[2] = (escolhas[2] + 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
-        elif resp.lower() == "x":
+        elif resp.lower() == "z":
             escolhas[2] = (escolhas[2] - 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
-            game.animation = True
+        sleep(0.25)
+        game.animation = True
