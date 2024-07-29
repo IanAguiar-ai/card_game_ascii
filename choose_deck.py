@@ -4,7 +4,7 @@ from arts import *
 from threading import Thread
 from game_config import *
 from random import random
-from engine_card_game import CARTAS, jogar, game
+from engine_card_game import CARTAS, jogar, game, buffer_, cl
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -255,6 +255,8 @@ if __name__ == "__main__":
     TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
+
+    game.buffer_text = f"Aperte:\n(q, w) para escolher a primeira carta\n(a, s) para escolher a segunda carta\n(z, x) para escolher a terceira carta"
     
     game_t = Thread(target = game.run)
     game_t.start()
