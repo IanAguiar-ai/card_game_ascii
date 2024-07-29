@@ -1085,6 +1085,22 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Dado o Dado",
                                       "descricao":f"De 10 vezes o número que cair no dado em um personagem a sua escolha."},]
                         },
+          "bandido_cinico":{"nome":"Bandido Cínico",
+                          "hp":80,
+                          "preco":1,
+                          "classe":"noturno",
+                          "arte":imagem_vinganca_da_noite,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":2,
+                                      "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Mão das Profundezas",
+                                      "descricao":f"De 40 de dano em um personagem inimigo aleatório."},
+                                     {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Sequestro Total",
           }
 
 if __name__ == "__main__":
