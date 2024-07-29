@@ -305,6 +305,57 @@ pocao = [adjust_image("""
 `._.' 
 """.split("\n"), replace_ = False)]
 
+martelo = adjust_image("""   - - -   __
+        ,./|_'.
+  - -  /#/#/:\\\\
+     _/#/#/:::||
+ - - /o_'/o>::///
+    /#/'/:::///
+- -///#/::.'_/
+  /// \\__.-'
+ ///
+///
+//""".split("\n"), replace_ = True)
+
+flecha = adjust_image(""">>>>_________________\\`-._
+>>>>                 /.-'""".split("\n"), replace_ = True)
+
+tnt_1 = adjust_image(""" ___________________    . , ; .
+(___________________|~~~~~X.;' .
+                      ' `" ' `""".split("\n"), replace_ = True)
+
+tnt_2 = adjust_image("""     ,--.!,
+  __/   -*-
+,d08b.  '|`
+0088MM
+`9MMP'""".split("\n"), replace_ = True)
+
+faca_1 = adjust_image("""      /| ________________
+O|===|* >________________>
+      \\|""".split("\n"), replace_ = True)
+
+faca_2 = adjust_image(""" ___________ ____________
+|           )._______.-'
+`----------'""".split("\n"), replace_ = True)
+
+mao = adjust_image("""  _ 
+,|||.
+|||||
+|||||/)
+\\,,, /
+|___|""".split("\n"), replace_ = True)
+
+garra = adjust_image("""#  #   #
+#  #   #
+ #  #   #
+  #  #   #
+    #  #  #
+     #  #  #""".split("\n"), replace_ = True)
+
+guarda_chuva = adjust_image("""    ______......-------''''''';     =,
+-==(______------=======:::::::;======"
+          ``````-------.......;""".split("\n"), replace_ = True)
+
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .
          /\\   "V"
