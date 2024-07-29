@@ -44,6 +44,8 @@ if __name__ == "__main__":
     cartas_por_classe = infos(CARTAS)
     qnt_cartas = dicionario_mana(CARTAS)
 
+    divisao = [6, 2, 2, 2, 2, 2, 2, 1, 1, 1, 6, 2, 2, 2]
+
     posibilidades = [[0, 0, 0],
                      [0, 0, 1],
                      [0, 0, 2],
@@ -62,6 +64,7 @@ if __name__ == "__main__":
     print("\n\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS NO JOGO:")
     combinacoes = 0
     combinacoes_unicas = 0
+    n = 0
     for p in posibilidades:
         temp = qnt_cartas[p[0]] * qnt_cartas[p[1]] * qnt_cartas[p[2]]
         combinacoes += temp
@@ -72,14 +75,15 @@ if __name__ == "__main__":
         qnt_temp[p[0]] -= 1
         temp_ *= qnt_temp[p[1]]
         qnt_temp[p[1]] -= 1
-        temp_ *= qnt_temp[p[2]]
+        temp_ *= qnt_temp[p[2]]/divisao[n]
         qnt_temp[p[2]] -= 1
         combinacoes_unicas += temp_
+        n += 1
         
-        print(f"\t{str(p):10} -> {temp:4} | {temp_:4}")
+        print(f"\t{str(p):10} -> {temp:4} | {int(temp_):4}")
 
     print(f"\n\nCombinações totais: {combinacoes}")
-    print(f"Combinações únicas: {combinacoes_unicas}")
+    print(f"Combinações únicas: {int(combinacoes_unicas)}")
     print(f"Total de cartas no jogo: {len(CARTAS.keys())}")
 
     for classe in cartas_por_classe.keys():
@@ -87,9 +91,10 @@ if __name__ == "__main__":
         CARTAS = ajustar(cartas_por_classe[classe])
         qnt_cartas = dicionario_mana(CARTAS)
         
-        print("\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS {classe.upper()} NO JOGO:")
+        print(f"\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS {classe.upper()} NO JOGO:")
         combinacoes = 0
         combinacoes_unicas = 0
+        n = 0
         for p in posibilidades:
             temp = qnt_cartas[p[0]] * qnt_cartas[p[1]] * qnt_cartas[p[2]]
             combinacoes += temp
@@ -100,14 +105,15 @@ if __name__ == "__main__":
             qnt_temp[p[0]] -= 1
             temp_ *= qnt_temp[p[1]]
             qnt_temp[p[1]] -= 1
-            temp_ *= qnt_temp[p[2]]
+            temp_ *= qnt_temp[p[2]]/divisao[n]
             qnt_temp[p[2]] -= 1
             combinacoes_unicas += temp_
+            n += 1
             
-            print(f"\t{str(p):10} -> {temp:4} | {temp_:4}")
+            print(f"\t{str(p):10} -> {temp:4} | {int(temp_):4}")
 
         print(f"\n\nCombinações totais de {classe}: {combinacoes}")
-        print(f"Combinações únicas de {classe}: {combinacoes_unicas}")
+        print(f"Combinações únicas de {classe}: {int(combinacoes_unicas)}")
         print(f"Total de {classe} no jogo: {len(CARTAS.keys())}")
     
         
