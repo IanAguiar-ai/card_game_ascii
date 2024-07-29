@@ -1086,21 +1086,23 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"De 10 vezes o número que cair no dado em um personagem a sua escolha."},]
                         },
           "bandido_cinico":{"nome":"Bandido Cínico",
-                          "hp":80,
+                          "hp":60,
                           "preco":1,
-                          "classe":"noturno",
-                          "arte":imagem_vinganca_da_noite,
+                          "classe":"assasino",
+                          "arte":imagem_bandido_cinico,
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
-                                      "dado":2,
-                                      "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Mão das Profundezas",
-                                      "descricao":f"De 40 de dano em um personagem inimigo aleatório."},
+                                      "dado":1,
+                                      "argumentos":{"dano":20, "aleatorio": True, "animacao": "espada", "image":{"image":faca_2, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
+                                      "nome":"Facada Covarde",
+                                      "descricao":f"De 20 de dano em um personagem inimigo aleatório."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
-                                      "dado":4,
-                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Sequestro Total",
+                                      "dado":2,
+                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":2, "animacao": "espada", "image":{"image":tnt_2, "frames":4, "wait":50, "to_start":0, "x":3, "y":12}},
+                                      "nome":"Explodindo Porta!",
+                                      "descricao":f"De 20 de dano em 2 personagens inimigos aleatórios."},]
+                        }
           }
 
 if __name__ == "__main__":
