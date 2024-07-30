@@ -919,4 +919,109 @@ imagem_quan = adjust_image("""                    ____
  _.-'       |      BBb       '-.  '-. 
 (________mrf\____.dBBBb.________)____)""".split("\n"))
 
+imagem_mafioso_acumulador = adjust_image("""
+                    dS$$S$S$S$S$S$S$$Sb                    
+                   :$$S^S$S$S$S$S$S^S$$;                   
+                   SSP   `^$S$S$^'   TSS                   
+                   $$       `"'       $$                   
+                  _SS ,-           -  SS_                  
+                 :-.|  _    - .-   _  |.-;                 
+                 :\\(; ' "-._.'._.-" ` |)/;                 
+                  \\`|  , o       o .  |'/                  
+                   ":     -'   `-     ;"                   
+                     ;.              :  bug                
+                     : `    ._.    ' ;                     
+                   .sSb   ._____.   dSs.                   
+                _.d8dSSb.   ._.   .SSbT8b._                
+            _.oOPd88SSSS T.     .P SSSS888OOo.             
+        _.mMMOOPd888SSSSb TSqqqSP dSSSS88OMOOOMm._         
+     .oOMMMOMOOM8O8OSSSSSb TSSSP dSSSSS8OOMMOOMMOOOo._     
+   .OOMMOOOMMOOMOOOO  "^SSSTSSP dSSS^"OOOOMMOOMMMOOMMMb.   
+  dOOOMMMOMMOOOMOOOO      "^SSSS^"   :OOO8MMMOOMMOOMMOMMb  
+ :MMMOOMMOMMOOMMO8OS         `P      8O8OPdMMOOMMOMMOMMMM; 
+ MMMMOOMMMMMOOMbTO8S;               :8888MMMMMOMMOMMOMMMMM 
+ OMMMMOOMMMMOOOMMOOOS        S     :O8OPdMOMMMOMOMMOOMMMMO 
+:OMMMMOOMMOMMOOMbTObTb.     :S;   .PdOPdMOOMMMMMOMMOMMMMMO;
+MOOMMMMOMMOMMOOMMMOObTSSg._.SSS._.PdOPdMOOMMMMOMMMMOMMMMOOM
+MMOMMMMOMMMOMMOOMMbT8bTSSSSSSSSSPd8OPdOOOMMMMOOMMMMOMMMOOMM
+MMOMMMOMMMMMOMMOOMMMbT8bTSSSSSPd88PdOOOOMMMMOOMMMMMMMMOOMMM""".split("\n"))
 
+imagem_torreta = adjust_image("""
+            (\\. -- ./)
+        O-0)))--|     \\
+          |____________|
+           -|--|--|--|-
+           _T~_T~_T~_T_
+          |____________|
+          |_o_|____|_o_|
+       .-~/  :  |   %  \\
+.-..-~   /  :   |  %:   \\
+`-'     /   :   | %  :   \\
+       /   :    |#   :    \\
+      /    :    |     :    \\
+     /    :     |     :     \\
+ . -/     :     |      :     \\- .
+|\\  ~-.  :      |      :   .-~  /|
+\\ ~-.   ~ - .  _|_  . - ~   .-~ /
+  ~-.  ~ -  . _ _ _ .  - ~  .-~
+       ~ -  . _ _ _ .  - ~""".split("\n"))
+
+imagem_viajante_do_tempo = adjust_image("""
+         .---.
+        |   '.|  __
+        | ___.--'  )
+      _.-'_` _%%%_/
+   .-'%%% a: a %%%
+       %%  L   %%_
+       _%\\'=' |  /-.__
+    .-' / )--' #/     '\\
+   /'  /  /---'(    :   \\
+  /   |  /( /|##|  \\     |
+ /   ||# | / | /|   \\    \\
+ |   ||##| I \\/ |   |   _|
+ |   ||: | o  |#|   |  / |
+ |   ||  / I  |:/  /   |/
+ |   ||  | o   /  /    /
+ |   \\|  | I  |. /    /
+  \\  /|##| o  |.|    /
+   \\/ \\::|/\\_ /  ---'|
+    \\ |\\ |    |     :\\
+    | |  /     \\...' |
+    | |# |/\\    \\    |
+    | | :|  |    |   |
+    | |  |  |    |   |""".split("\n"))
+
+imagem_cogumelo_venenoso = adjust_image('''
+        __.....__
+     .'" _  o    "`.
+   .' O (_)     () o`.
+  .           O       .
+ . ()   o__...__    O  .
+. _.--"""       """--._ .
+:"     (o)      (O)    ";
+ `-.__    : _/:    __.-'
+      """-:   :-"""
+         J     L
+         :     :
+        J       L
+        :       :
+        `._____.'''.split("\n"))
+
+imagem_flores_sinistras = adjust_image('''
+                                    _._
+                                  .'   '.
+                                 /       \\  ___
+                _..       _.--. |     /  |.'   `'.
+       ;-._   .'   `\\   .'     `\\   \\|   /        \\
+     .'    `\\/       ; /     _   \\.=..=./  _.'    /
+     |       `\\.---._| '.   .-'-.}`.<>.`{-'-.    /
+  .--;   . ( .'      '.  \\ .---.{ <([])> }.--..-'
+ / _  \\_  './ _.       `-./     _},'<>`.{_    `\\
+( / \\  )`""'\\;--.         /  .-'/ )=..=;`\\`-    \\
+{(  O) )     /`.         /       /  /| \\         )
+( \\_/  )__..-\\         .'-..___.'    :  '.___..-'
+ \\    }/    / ;.____.-;/\\      |      `   |
+  '--' |  .'   |       \\ \\     /'.      _.'
+       \\  '    /       |\\.\\   ;  /`--.-'
+        )    .'`-.    /  \\ \\  |`|
+       /__.-'     \\_.'    \\ \\ |-|'''.split("\n"))
