@@ -171,15 +171,21 @@ def animation_image(image, frames:int, tipe = None) -> None:
                     except:
                         pass
 
-def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, end = "\n") -> list:
+def put_color(text: list, color: int = 190, back_color: int = None, style: int = 0, end = "\n") -> list:
     if style == 0:
         for i in range(len(text)):
-            text[i][0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[i][0]
+            if back_color is not None:
+                text[i][0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[i][0]
+            else:
+                text[i][0] = f"\033[38;5;{color}m" + text[i][0]
             text[i][-1] = text[i][-1] + f"\033[0m"
         return text
     else:
         style = f"\033[{style}m"
-        return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+        if back_color is not None:
+            return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+        else:
+            return f"{style}\033[38;5;{color}m{text}\033[0m"
 
 def clear():
     print("\033c", end="")
@@ -222,11 +228,11 @@ if __name__ == "__main__":
 
     #Adicionado cartas
     TIMES = [[CARTAS["bandido_cinico"].copy(),
-              CARTAS["esqueleto_insano"].copy(),
+              CARTAS["quan_o_equilibro"].copy(),
               CARTAS["mestre_da_lamina"].copy()],
-             [CARTAS["campones_corajoso"].copy(),
+             [CARTAS["mafioso_acumulador"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
-              CARTAS["fenix"].copy()]]
+              CARTAS["cubo"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])

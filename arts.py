@@ -911,40 +911,24 @@ imagem_quan = adjust_image("""                    ____
             \\/  \\   ' /  \\/
              .'  '...' ' )
               / /  |  \\ \\
-             / .   .   . \\
-            /   .     .   \\
-           /   /   |   \\   \\
-         .'   /    b    '.  '.
-     _.-'    /     Bb     '-. '-._ 
- _.-'       |      BBb       '-.  '-. 
-(________mrf\____.dBBBb.________)____)""".split("\n"))
+             / .   .   . \\""".split("\n"))
 
-imagem_mafioso_acumulador = adjust_image("""
-                    dS$$S$S$S$S$S$S$$Sb                    
-                   :$$S^S$S$S$S$S$S^S$$;                   
-                   SSP   `^$S$S$^'   TSS                   
-                   $$       `"'       $$                   
-                  _SS ,-           -  SS_                  
-                 :-.|  _    - .-   _  |.-;                 
-                 :\\(; ' "-._.'._.-" ` |)/;                 
-                  \\`|  , o       o .  |'/                  
-                   ":     -'   `-     ;"                   
-                     ;.              :  bug                
-                     : `    ._.    ' ;                     
-                   .sSb   ._____.   dSs.                   
-                _.d8dSSb.   ._.   .SSbT8b._                
-            _.oOPd88SSSS T.     .P SSSS888OOo.             
-        _.mMMOOPd888SSSSb TSqqqSP dSSSS88OMOOOMm._         
-     .oOMMMOMOOM8O8OSSSSSb TSSSP dSSSSS8OOMMOOMMOOOo._     
-   .OOMMOOOMMOOMOOOO  "^SSSTSSP dSSS^"OOOOMMOOMMMOOMMMb.   
-  dOOOMMMOMMOOOMOOOO      "^SSSS^"   :OOO8MMMOOMMOOMMOMMb  
- :MMMOOMMOMMOOMMO8OS         `P      8O8OPdMMOOMMOMMOMMMM; 
- MMMMOOMMMMMOOMbTO8S;               :8888MMMMMOMMOMMOMMMMM 
- OMMMMOOMMMMOOOMMOOOS        S     :O8OPdMOMMMOMOMMOOMMMMO 
-:OMMMMOOMMOMMOOMbTObTb.     :S;   .PdOPdMOOMMMMMOMMOMMMMMO;
-MOOMMMMOMMOMMOOMMMOObTSSg._.SSS._.PdOPdMOOMMMMOMMMMOMMMMOOM
-MMOMMMMOMMMOMMOOMMbT8bTSSSSSSSSSPd8OPdOOOMMMMOOMMMMOMMMOOMM
-MMOMMMOMMMMMOMMOOMMMbT8bTSSSSSPd88PdOOOOMMMMOOMMMMMMMMOOMMM""".split("\n"))
+imagem_mafioso_acumulador = adjust_image("""           dS$$S$S$S$S$S$S$$Sb
+          :$$S^S$S$S$S$S$S^S$$;
+          SSP   `^$S$S$^'   TSS 
+          $$       `"'       $$
+         _SS ,-           -  SS_
+        :-.|  _    - .-   _  |.-;
+        :\\(; ' "-._.'._.-" ` |)/;
+         \\`|  , o       o .  |'/
+          ":     -'   `-     ;"
+            ;.              :
+            : `    ._.    ' ;
+          .sSb   ._____.   dSs.
+       _.d8dSSb.   ._.   .SSbT8b._
+   _.oOPd88SSSS T.     .P SSSS888O
+.mMMOOPd888SSSSb TSqqqSP dSSSS88OM
+MMOMOOM8O8OSSSSSb TSSSP dSSSSS8OOM""".split("\n"))
 
 imagem_torreta = adjust_image("""
             (\\. -- ./)
@@ -992,20 +976,20 @@ imagem_viajante_do_tempo = adjust_image("""
     | |  |  |    |   |""".split("\n"))
 
 imagem_cogumelo_venenoso = adjust_image('''
-        __.....__
-     .'" _  o    "`.
-   .' O (_)     () o`.
-  .           O       .
- . ()   o__...__    O  .
-. _.--"""       """--._ .
-:"     (o)      (O)    ";
- `-.__    : _/:    __.-'
-      """-:   :-"""
-         J     L
-         :     :
-        J       L
-        :       :
-        `._____.'''.split("\n"))
+           __.....__
+        .'" _  o    "`.
+      .' O (_)     () o`.
+     .           O       .
+    . ()   o__...__    O  .
+   . _.--""" \\    /"""--._ .
+   :"     (o)      (O)    ";
+    `-.__    : _/:    __.-'
+         """-:   :-"""
+            J     L
+            :     :
+           J       L
+           :       :
+           `._____.'''.split("\n"))
 
 imagem_flores_sinistras = adjust_image('''
                                     _._

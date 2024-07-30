@@ -57,9 +57,14 @@ class Screen:
 
                 pos = 20
                 for t in TIMES[y__][x__]["ataques"]:
-                    self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo'])))
-                    descricao = ajustar_descricao(t["descricao"])
-                    self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
+                    if t["tipo"] == "ataque":
+                        self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo'])))
+                        descricao = ajustar_descricao(t["descricao"])
+                        self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
+                    else:
+                        self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo'])))
+                        descricao = ajustar_descricao(t["descricao"])
+                        self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
                     pos += 3 + len(descricao)
                 
                 if TIMES[y__][x__]['arte'] != None:
@@ -88,6 +93,9 @@ class Screen:
         return continua
     
     def run(self):
+        """
+        Roda o jogo
+        """
         self.estats_animation(TIMES)
         while True:
             if self.animation or self.estats_animation(TIMES) or not "hp_temp" in TIMES[0][0]:
@@ -176,15 +184,22 @@ def animation_image(image, frames:int, tipe = None) -> None:
                     except:
                         pass
 
-def put_color(text:list, color:int = 190, back_color:int = 232, style:int = 0, end = "\n") -> list:
+def put_color(text: list, color: int = 190, back_color: int = None, style: int = 0, end = "\n") -> list:
     if style == 0:
         for i in range(len(text)):
-            text[i][0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[i][0]
+            if back_color is not None:
+                text[i][0] = f"\033[48;5;{back_color}m\033[38;5;{color}m" + text[i][0]
+            else:
+                text[i][0] = f"\033[38;5;{color}m" + text[i][0]
             text[i][-1] = text[i][-1] + f"\033[0m"
         return text
     else:
         style = f"\033[{style}m"
-        return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+        if back_color is not None:
+            return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
+        else:
+            return f"{style}\033[38;5;{color}m{text}\033[0m"
+
 
 def clear():
     print("\033c", end="")

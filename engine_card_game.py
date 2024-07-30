@@ -82,6 +82,7 @@ def jogar(TIMES:list):
             break
              
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
+        globals()["turno_atual"][0] = globals()['PARTIDA']
 
         ###Vendo se tem alguma habilidade passiva de começo de turno:
         conferir_habilidade(tempo = "comeco", ataque = True, time = time_atacante)
@@ -228,12 +229,12 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
     if type(dano) == list: #Casos que recebem listas com variáveis
-        dano = dano[0] * 10
+        dano = dano[0] * multiplicador
         
     if not amigos_e_inimigos:
         for _ in range(vezes):
@@ -342,7 +343,7 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
             printar(personagem, image)
 
 
-def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None) -> None:
+def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, multiplicador:int = None) -> None:
     """
     Da um nerf...
 
@@ -352,6 +353,9 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
         "time_atacante":True,
         "time_atacado":False}
     """
+    if type(buff) == list:
+        buff = buff[0] * multiplicador
+        
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
             globals()["NERF_TEMPORARIO"] += buff
@@ -491,6 +495,7 @@ def reset_globais():
     globals()["BUFF_CURA"] = 0
 
 numero_dado = [1]
+turno_atual = [0]
 BUFF_TEMPORARIO = 0
 NERF_TEMPORARIO = 0
 BUFF_CURA = 0
@@ -992,7 +997,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "hp":50,
                           "preco":2,
                           "classe":"lenda",
-                          "arte":None,
+                          "arte":imagem_quan,
                           "ataques":[{"tipo":"ataque",
                                       "funcao":cura_,
                                       "dado":5,
@@ -1081,7 +1086,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":0,
-                                      "argumentos":{"dano":numero_dado, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":numero_dado, "aleatorio": False, "multiplicador":10, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Dado o Dado",
                                       "descricao":f"De 10 vezes o número que cair no dado em um personagem a sua escolha."},]
                         },
@@ -1102,16 +1107,88 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "argumentos":{"dano":20, "aleatorio": True, "vezes":2, "animacao": "espada", "image":{"image":tnt_2, "frames":4, "wait":50, "to_start":0, "x":3, "y":12}},
                                       "nome":"Explodindo Porta!",
                                       "descricao":f"De 20 de dano em 2 personagens inimigos aleatórios."},]
-                        }
+                        },
+          "mafioso_acumulador":{"nome":"Mafioso Acumulador",
+                          "hp":90,
+                          "preco":3,
+                          "classe":"assasino",
+                          "arte":imagem_mafioso_acumulador,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Uma Palavrinha",
+                                      "descricao":f"De o turno atual vezes 5 em um personagem a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_nerf_global_dano,
+                                      "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":False, "time_atacado":True},
+                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Big Boss",
+                                      "descricao":f"Os personagens do seu lado do campo levam -10 de dano para cada assasino aliado."}
+                                     ]
+                        },
+          "mafioso_acumulador":{"nome":"Mafioso Acumulador",
+                          "hp":90,
+                          "preco":3,
+                          "classe":"assasino",
+                          "arte":imagem_mafioso_acumulador,
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "multiplicador":5, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Uma Palavrinha",
+                                      "descricao":f"De o turno atual vezes 5 em um personagem a sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_nerf_global_dano,
+                                      "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":False, "time_atacado":True},
+                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Big Boss",
+                                      "descricao":f"Os personagens do seu lado do campo levam -10 de dano para cada assasino aliado."}
+                                     ]
+                        },
+          "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
+                          "hp":80,
+                          "preco":2,
+                          "classe":"monstro",
+                          "arte":imagem_cogumelo_venenoso,
+                          "ataques":[{"tipo":"ataque",
+                                              "funcao":dano_,
+                                              "dado":5,
+                                              "argumentos":{"dano":20, "todos":True, "animacao": "espada", "image":{"image":fumaca, "frames":6, "wait":5, "to_start":0, "x":5, "y":6}},
+                                              "nome":"Fungo Perigoso",
+                                              "descricao":f"De 20 de dano em todos os personagens inimigos."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "funcao":habilidade_nerf_global_dano,
+                                      "argumentos":{"buff":turno_atual, "multiplicador":2, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Fungo Perigoso",
+                                      "descricao":f"A cada turno, seu time leva menos -2 de dano, acumula."}
+                                     ]
+                        },
+          
           }
 
 if __name__ == "__main__":
     DEBUG = True
-    TIMES = [[CARTAS["ogro_burro"].copy(),
+    TIMES = [[CARTAS["mafioso_acumulador"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
              [CARTAS["acumulador_de_almas"].copy(),
               CARTAS["gigante"].copy(),
-              CARTAS["zumbi"].copy()]]
+              CARTAS["cubo"].copy()]]
     
     jogar(TIMES)
