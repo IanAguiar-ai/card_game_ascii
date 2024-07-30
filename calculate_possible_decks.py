@@ -11,8 +11,21 @@ def infos(cartas:list) -> None:
 
     for key in por_classe:
         print(f"{key.title()} ({len(por_classe[key])}):")
-        for personagem in por_classe[key]:
-            print(f"\t{personagem['nome']:20} {personagem['hp']:3} {personagem['preco']}")
+        for personagem in sorted(sorted(por_classe[key], key = lambda x: x["hp"]), key = lambda x: x["preco"]):
+            print(f"\t{personagem['nome']:25} {personagem['hp']:3} {personagem['preco']}")
+
+    raridades = {"comum":0,
+                 "raro":0,
+                 "epico":0,
+                 "lendario":0}
+
+    for i in cartas.keys():
+        raridades[cartas[i]['raridade']] += 1
+
+    print("Raridades:")
+    for i in raridades.keys():
+        print(f"\t({i}) {raridades[i]}")
+    
 
     return por_classe
 

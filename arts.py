@@ -743,8 +743,7 @@ imagem_escudeiro_experiente = adjust_image("""         /   | |  \\
  | \\|   | |     /  .'|    |    |\\
  |  |   J J   .' .'  |    |    | \\
  |  |    L L J  /    |    |    |
-/   |     \\ \\F J|    |    |    |
-|   |      \\J F | () | () | () | (""".split("\n"))
+/   |     \\ \\F J|    |    |    |""".split("\n"))
 
 imagem_gigante = adjust_image("""      /.'.'               '.\\
       |.'    _.--...--._     |
@@ -930,8 +929,7 @@ imagem_mafioso_acumulador = adjust_image("""           dS$$S$S$S$S$S$S$$Sb
 .mMMOOPd888SSSSb TSqqqSP dSSSS88OM
 MMOMOOM8O8OSSSSSb TSSSP dSSSSS8OOM""".split("\n"))
 
-imagem_torreta = adjust_image("""
-            (\\. -- ./)
+imagem_exterminador = adjust_image("""            (\\. -- ./)
         O-0)))--|     \\
           |____________|
            -|--|--|--|-
@@ -946,9 +944,7 @@ imagem_torreta = adjust_image("""
      /    :     |     :     \\
  . -/     :     |      :     \\- .
 |\\  ~-.  :      |      :   .-~  /|
-\\ ~-.   ~ - .  _|_  . - ~   .-~ /
-  ~-.  ~ -  . _ _ _ .  - ~  .-~
-       ~ -  . _ _ _ .  - ~""".split("\n"))
+\\ ~-.   ~ - .  _|_  . - ~   .-~ /""".split("\n"))
 
 imagem_viajante_do_tempo = adjust_image("""
          .---.
