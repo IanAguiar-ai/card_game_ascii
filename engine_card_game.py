@@ -1179,6 +1179,19 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"A cada turno, seu time leva menos -2 de dano, acumula."}
                                      ]
                         },
+          "flores_sinistras":{"nome":"Flores Sinistras",
+                          "hp":50,
+                          "preco":0,
+                          "classe":"monstro",
+                          "arte":imagem_flores_sinistras,
+                          "ataques":[{"tipo":"ataque",
+                                              "funcao":dano_,
+                                              "dado":3,
+                                              "argumentos":{"dano":10, "aleatorio":False, "vezes":2, "animacao": "espada", "image":{"image":fumaca, "frames":6, "wait":5, "to_start":0, "x":5, "y":6}},
+                                              "nome":"Pólen Venenoso",
+                                              "descricao":f"De 10 de dano em dois personagens inimigos a sua escolha."}
+                                     ]
+                        },
           
           }
 

@@ -230,7 +230,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["bandido_cinico"].copy(),
               CARTAS["quan_o_equilibro"].copy(),
               CARTAS["mestre_da_lamina"].copy()],
-             [CARTAS["mafioso_acumulador"].copy(),
+             [CARTAS["flores_sinistras"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
               CARTAS["cubo"].copy()]]
 
