@@ -277,6 +277,7 @@ if __name__ == "__main__":
     #Add elements in game:
     game.add([*cards_base, ])
 
+    CARTAS = sorted(CARTAS, key = lambda x : x['preco'])
     nomes_cartas = list(CARTAS.keys())
     escolhas = [0, 1, 2]
     TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
