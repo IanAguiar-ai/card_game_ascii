@@ -1091,7 +1091,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":habilidade_reviver,
                                       "argumentos":{"chance":1, "si_mesmo":True, "vida":20, "image":{"image":fogo, "frames":4, "wait":40, "to_start":TEMPO[1], "x":1, "y":7}},
                                       "nome":"Reviver da Fenix",
-                                      "descricao":f"Sempre que morrer, reviva com 20 de vida."}]
+                                      "descricao":f"Sempre que morrer, no seu próximo turno, reviva com 20 de vida."}]
                           },
           "cactus_cowboy":{"nome":"Cactus Cowboy",
                           "hp":140,
