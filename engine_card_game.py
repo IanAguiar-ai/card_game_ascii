@@ -842,7 +842,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":habilidade_reviver,
                                       "argumentos":{"chance":0.15,  "vida":60, "vivo":False, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
                                       "nome":"Mito das Sombras",
-                                      "descricao":f"Morto ou vivo, no início de cada turno aliado, tem 15% de chance de reviver um lacail morto com até 60 de vida."}]
+                                      "descricao":f"Morto ou vivo, no início de cada turno aliado, tem 15% de chance de reviver com até 60 de vida um personagem morto."}]
                           },
           "acumulador_de_almas":{"nome":"Acumulador de Almas",
                           "hp":100,
