@@ -144,9 +144,23 @@ def abrir_pacote_com_carta() -> None:
     game_t = Thread(target = game.run)
     game_t.start()
 
-    input()
-    game.effects = {}
+    #game.effects = {}
     raridade, carta = abrir_pacote()
+
+    if raridade == "comum":
+        imagem_verso = verso_comum
+        espera = 2
+    if raridade == "raro":
+        imagem_verso = verso_raro
+        espera = 4
+    if raridade == "epico":
+        imagem_verso = verso_epico
+        espera = 5
+    if raridade == "lendario":
+        imagem_verso = verso_lendario
+        espera = 6
+
+    input()
     game.add_effects(x = 50, y = 1,
                     image = pacote,
                     frames = 2,
@@ -161,32 +175,24 @@ def abrir_pacote_com_carta() -> None:
                     wait = 0,
                     to_start = 0)
     input()
-    game.add_effects(x = 50, y = 2,
-                    image = abrindo_pacote_2,
-                    frames = 1,
-                    tipe = None,
-                    wait = 0,
-                    to_start = 0)
+    for i in [5, 7, 9, 10, 13, 17, 21, 26, 32, 39, 47, 57, 68]:
+        game.add_effects(x = 50, y = 2,
+                        image = put_color_rarity(imagem_verso, rarity = raridade),
+                        frames = 1, #espera,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
 
-    if raridade == "comum":
-        imagem_verso = verso_comum
-        espera = 2
-    if raridade == "raro":
-        imagem_verso = verso_raro
-        espera = 4
-    if raridade == "epico":
-        imagem_verso = verso_epico
-        espera = 5
-    if raridade == "lendario":
-        imagem_verso = verso_lendario
-        espera = 6
-    input()
-    game.add_effects(x = 50, y = 2,
-                    image = put_color_rarity(imagem_verso, rarity = raridade),
-                    frames = espera,
-                    tipe = None,
-                    wait = 0,
-                    to_start = 0)
+        
+        game.add_effects(x = 50, y = i,
+                        image = abrindo_pacote_2,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+        sleep(2/FPS)
+
+        
 
     carta_descoberta = CARTAS[carta[0]].copy()
     input()
@@ -222,6 +228,8 @@ def abrir_pacote_com_carta() -> None:
     
     if carta_descoberta['arte'] != None:
         game.add_effects(x = x_ + 1, y = y_ + 2, image = carta_descoberta['arte'], frames = frames, wait = espera)
+
+    game.buffer_text = "".join(put_color_rarity([list(f"Desbloqueado {carta[1]}!")], rarity = carta_descoberta['raridade'])[0])
 
     input()
 
