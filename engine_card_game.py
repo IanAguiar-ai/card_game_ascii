@@ -20,6 +20,7 @@ from arts import *
 
 game = Screen(x = X, y = Y, fps = FPS)
 DEBUG = False
+CONTRA_BOT = True
 #=====================================================================================
 #Engine do jogo:
 
@@ -131,7 +132,10 @@ def verificar_ataques(personagem:dict, dado:int) -> None:
     #Permite que o jogador escolha um dos ataques:
     if len(ataques_validos) > 0:
         while True:
-            escolha = input()
+            if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
+                escolha = int(random()*len(ataques_validos) + 1)
+            else:
+                escolha = input()
             try:
                 escolha = int(escolha)
                 if 1 <= escolha < len(ataques_validos) + 1:
@@ -201,7 +205,10 @@ def escolha_inimigo(inimigos:list, aleatorio:bool = False, vivo:bool = True) -> 
     else:
         while True:
             buffer_("(ESCOLHA O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
-            escolha = input("")
+            if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
+                escolha = int(random()*len(ataques_validos) + 1)
+            else:
+                escolha = input("")
             try:
                 escolha = int(escolha) - 1
                 if 0 <= escolha < len(possiveis):

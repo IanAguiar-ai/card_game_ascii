@@ -49,13 +49,14 @@ class Screen:
                     continua = True
 
                 #Cartas:
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = TIMES[y__][x__]['raridade'])]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = TIMES[y__][x__]['raridade'])]))
                 self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{TIMES[y__][x__]['classe'].title().center(23)}")], class_ = TIMES[y__][x__]['classe'])]))
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
                 self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{TIMES[y__][x__]['hp_temp']:3}")], life = TIMES[y__][x__]['hp_temp'])]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
-                self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [list(f"({TIMES[y__][x__]['preco']})")]))
-
-                pos = 20
+                self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({TIMES[y__][x__]['preco']})")], rarity = TIMES[y__][x__]['raridade'])]))
+                pos = 21
                 for t in TIMES[y__][x__]["ataques"]:
                     if t["tipo"] == "ataque":
                         self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo'])))
@@ -231,6 +232,17 @@ def put_color_tipo(text, tipo) -> list:
                     "ataque":196}
     if tipo in colors_class:
         color = colors_class[tipo]
+    else:
+        color = 15
+    return put_color(text = text, color = color)
+
+def put_color_rarity(text, rarity) -> list:
+    colors_class = {"comum":219,
+                    "raro":37,
+                    "epico":99,
+                    "lendario":214}
+    if rarity in colors_class:
+        color = colors_class[rarity]
     else:
         color = 15
     return put_color(text = text, color = color)
