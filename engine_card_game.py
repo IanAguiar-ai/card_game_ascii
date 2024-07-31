@@ -20,7 +20,7 @@ from arts import *
 
 game = Screen(x = X, y = Y, fps = FPS)
 DEBUG = False
-CONTRA_BOT = True
+CONTRA_BOT = False
 #=====================================================================================
 #Engine do jogo:
 
@@ -842,7 +842,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":habilidade_reviver,
                                       "argumentos":{"chance":0.15,  "vida":60, "vivo":False, "image":{"image":cemiterio, "frames":4, "wait":50, "to_start":TEMPO[1], "x":7, "y":2}},
                                       "nome":"Mito das Sombras",
-                                      "descricao":f"Morto ou vivo, no início de cada turno aliado, tem 15% de chance de reviver um lacai morto com até 60 de vida."}]
+                                      "descricao":f"Morto ou vivo, no início de cada turno aliado, tem 15% de chance de reviver um lacail morto com até 60 de vida."}]
                           },
           "acumulador_de_almas":{"nome":"Acumulador de Almas",
                           "hp":100,
@@ -1174,8 +1174,8 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                      ]
                         },
           "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
-                          "hp":70,
-                          "preco":2,
+                          "hp":80,
+                          "preco":3,
                           "classe":"monstro",
                           "arte":imagem_cogumelo_venenoso,
                           "raridade":"epico",
