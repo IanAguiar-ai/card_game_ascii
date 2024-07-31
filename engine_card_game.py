@@ -134,6 +134,7 @@ def verificar_ataques(personagem:dict, dado:int) -> None:
         while True:
             if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
                 escolha = int(random()*len(ataques_validos) + 1)
+                sleep(1)
             else:
                 escolha = input()
             try:
@@ -204,10 +205,12 @@ def escolha_inimigo(inimigos:list, aleatorio:bool = False, vivo:bool = True) -> 
 
     else:
         while True:
-            buffer_("(ESCOLHA O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
             if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
-                escolha = int(random()*len(ataques_validos) + 1)
+                buffer_("(BOT ESCOLHENDO O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
+                escolha = int(random()*len(possiveis))
+                sleep(1)
             else:
+                buffer_("(ESCOLHA O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
                 escolha = input("")
             try:
                 escolha = int(escolha) - 1
@@ -1154,7 +1157,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "multiplicador":5, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Uma Palavrinha",
                                       "descricao":f"De de dano o turno atual vezes 5 em um personagem a sua escolha."},
                                      {"tipo":"habilidade",
@@ -1224,7 +1227,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":dano_,
                                       "dado":5,
                                       "argumentos":{"dano":50, "aleatorio":False, "vezes":2, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Soco Bruto",
+                                      "nome":"Lazer Direcionado",
                                       "descricao":f"De 50 de dano em dois personagens inimigos a sua escolha."}]
                           },
           
