@@ -155,6 +155,7 @@ if __name__ == "__main__":
 
     while True:
         input()
+        game.effects = {}
         raridade, carta = abrir_pacote()
         game.add_effects(x = 50, y = 1,
                         image = pacote,
@@ -188,7 +189,7 @@ if __name__ == "__main__":
             espera = 5
         if raridade == "lendario":
             imagem_verso = verso_lendario
-            espera = 5
+            espera = 6
         input()
         game.add_effects(x = 50, y = 2,
                         image = put_color_rarity(imagem_verso, rarity = raridade),
@@ -201,8 +202,8 @@ if __name__ == "__main__":
         input()
         #Cartas:
         x_, y_ = 50, 2
-        espera = 0
-        frames = 1
+        frames = espera
+        espera = 10000
         game.add_effects(x = 50, y = 2,
                         image = base_card_complete,
                         frames = 1,
