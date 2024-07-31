@@ -125,7 +125,7 @@ def abrir_pacote() -> None:
     possiveis = []
     for key in CARTAS.keys():
         if CARTAS[key]["raridade"] == abrir:
-            possiveis.append(CARTAS[key]["nome"])
+            possiveis.append([key, CARTAS[key]["nome"]])
 
     escolher = int(len(possiveis)*random())
     carta = possiveis[escolher]
@@ -179,18 +179,58 @@ if __name__ == "__main__":
 
         if raridade == "comum":
             imagem_verso = verso_comum
+            espera = 2
         if raridade == "raro":
             imagem_verso = verso_raro
+            espera = 4
         if raridade == "epico":
             imagem_verso = verso_epico
+            espera = 5
         if raridade == "lendario":
             imagem_verso = verso_lendario
+            espera = 5
         input()
         game.add_effects(x = 50, y = 2,
-                        image = imagem_verso,
-                        frames = 2,
+                        image = put_color_rarity(imagem_verso, rarity = raridade),
+                        frames = espera,
                         tipe = None,
                         wait = 0,
                         to_start = 0)
+
+        carta_descoberta = CARTAS[carta[0]].copy()
+        input()
+        #Cartas:
+        x_, y_ = 50, 2
+        espera = 0
+        frames = 1
+        game.add_effects(x = 50, y = 2,
+                        image = base_card_complete,
+                        frames = 1,
+                        tipe = None,
+                        wait = espera,
+                        to_start = 0)
+        
+        game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
+        game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
+        game.add_effects(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{carta_descoberta['classe'].title().center(23)}")], class_ = carta_descoberta['classe'])], frames = 1, wait = espera)
+        game.add_effects(x = x_ + 29, y = y_ + 1, image = [list("HP:")], frames = frames, wait = espera)
+        game.add_effects(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{carta_descoberta['hp']:3}")], life = carta_descoberta['hp'])], frames = 1, wait = espera)
+        game.add_effects(x = x_ + 1, y = y_ + 18, image = [list(f"{carta_descoberta['nome'].center(34)}")], frames = frames, wait = espera)
+        game.add_effects(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({carta_descoberta['preco']})")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
+        pos = 21
+        for t in carta_descoberta["ataques"]:
+            if t["tipo"] == "ataque":
+                game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
+                descricao = ajustar_descricao(t["descricao"])
+                game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
+            else:
+                game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
+                descricao = ajustar_descricao(t["descricao"])
+                game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
+            pos += 3 + len(descricao)
+        
+        if carta_descoberta['arte'] != None:
+            game.add_effects(x = x_ + 1, y = y_ + 2, image = carta_descoberta['arte'], frames = frames, wait = espera)
+
         
         
