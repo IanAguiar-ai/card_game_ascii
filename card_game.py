@@ -238,10 +238,11 @@ if __name__ == "__main__":
     #Add elements in game:
     game.add([*cards_base, ])
 
+    aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
     #Adicionado cartas
-    TIMES = [[CARTAS["flores_sinistras"].copy(),
-              CARTAS["quan_o_equilibro"].copy(),
-              CARTAS["mestre_da_lamina"].copy()],
+    TIMES = [[CARTAS[aleatorios[0]].copy(),
+              CARTAS[aleatorios[1]].copy()
+              CARTAS[aleatorios[2]].copy()],
              [CARTAS["exterminador"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
               CARTAS["cubo"].copy()]]
