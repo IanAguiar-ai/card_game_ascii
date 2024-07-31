@@ -241,11 +241,11 @@ if __name__ == "__main__":
     aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
     #Adicionado cartas
     TIMES = [[CARTAS[aleatorios[0]].copy(),
-              CARTAS[aleatorios[1]].copy()
+              CARTAS[aleatorios[1]].copy(),
               CARTAS[aleatorios[2]].copy()],
-             [CARTAS["exterminador"].copy(),
+             [CARTAS["esqueleto_insano"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
-              CARTAS["cubo"].copy()]]
+              CARTAS["fenix"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game = Thread(target = game.run, args = [TIMES])

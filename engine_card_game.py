@@ -207,7 +207,7 @@ def escolha_inimigo(inimigos:list, aleatorio:bool = False, vivo:bool = True) -> 
         while True:
             if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
                 buffer_("(BOT ESCOLHENDO O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
-                escolha = int(random()*len(possiveis))
+                escolha = int(random()*len(possiveis) + 1)
                 sleep(1)
             else:
                 buffer_("(ESCOLHA O NÚMERO DO INIMIGO QUE DESEJA ATACAR)")
@@ -1174,7 +1174,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                      ]
                         },
           "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
-                          "hp":80,
+                          "hp":70,
                           "preco":2,
                           "classe":"monstro",
                           "arte":imagem_cogumelo_venenoso,
