@@ -239,7 +239,7 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
@@ -276,7 +276,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bo
 
             printar(personagem_amigo, image)
 
-def assasinato_(image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False):
+def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False):
     for _ in range(vezes):
         time_inimigo = (globals()["TABULEIRO"] + 1) % 2
         if todos:
@@ -290,7 +290,7 @@ def assasinato_(image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool =
 
             printar(personagem_inimigo, image)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False, curar_todos = False) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, curar_todos = False) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
