@@ -157,7 +157,11 @@ if __name__ == "__main__":
     #Add elements in game:
     game.add([*cards_base, ])
 
-    aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
+    while True:
+        aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
+        if 4 <= CARTAS[aleatorios[0]]["preco"] + CARTAS[aleatorios[1]]["preco"] + CARTAS[aleatorios[2]]["preco"] <= 5:
+            break
+
     #Adicionado cartas
     TIMES = [[CARTAS[aleatorios[0]].copy(),
               CARTAS[aleatorios[1]].copy(),

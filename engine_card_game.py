@@ -20,7 +20,7 @@ from arts import *
 
 game = Screen(x = X, y = Y, fps = FPS)
 DEBUG = False
-CONTRA_BOT = False
+CONTRA_BOT = True
 #=====================================================================================
 #Engine do jogo:
 
