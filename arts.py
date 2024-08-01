@@ -72,6 +72,24 @@ base_card_complete = [f"+{'-'*34}+",
              f"+{'-'*34}+"]
 base_card = adjust_image(base_card)
 
+nome = adjust_image('''                                   ,,                                                     
+  .g8"""bgd                      `7MM        .g8"""bgd                                    
+.dP'     `M                        MM      .dP'     `M                                    
+dM'       ` ,6"Yb.  `7Mb,od8  ,M""bMM      dM'       `  ,6"Yb.  `7MMpMMMb.pMMMb.  .gP"Ya  
+MM         8)   MM    MM' "',AP    MM      MM          8)   MM    MM    MM    MM ,M'   Yb 
+MM.         ,pm9MM    MM    8MI    MM      MM.    `7MMF',pm9MM    MM    MM    MM 8M"""""" 
+`Mb.     ,'8M   MM    MM    `Mb    MM      `Mb.     MM 8M   MM    MM    MM    MM YM.    , 
+  `"bmmmd' `Moo9^Yo..JMML.   `Wbmd"MML.      `"bmmmdPY `Moo9^Yo..JMML  JMML  JMML.`Mbmmd' 
+
+                  
+                      db       .M"""bgd   .g8"""bgd `7MMF'`7MMF'                          
+                     ;MM:     ,MI    "Y .dP'     `M   MM    MM                            
+                    ,V^MM.    `MMb.     dM'       `   MM    MM                            
+                   ,M  `MM      `YMMNq. MM            MM    MM                            
+                   AbmmmqMA   .     `MM MM.           MM    MM                            
+                  A'     VML  Mb     dM `Mb.     ,'   MM    MM                            
+                .AMA.   .AMMA.P"Ybmmd"    `"bmmmd'  .JMML..JMML.'''.split("\n"), replace_ = True)
+
 castelo_menu = adjust_image('''                                 ____                                         
                               .-"    `-.      ,                               
                             .'          '.   /j\\                              
@@ -267,7 +285,7 @@ __]_____]____]_____]______]_______]_____]______]______]______]___]
 |   | |  |       ||| || ______________|     | .---. ||'.__.'
 |   | |`.|  ==== ||| ||                `.   |_______|||  _ |
  `. | |`.|_______||| ||                  `. | .---. |||_  ||
-   `|_|========LGB||`||                    `|_______|||____|
+   `|_|===========||`||                    `|_______|||____|
                        `.                    `.
                          `.____________________`.""".split("\n"))
 
@@ -319,17 +337,17 @@ mmv'vmv'vmv'vmv'vmv'vmv,      `---.sssssssssssssssssssss.---'
 (;;)              (;;)
 '''.split("\n"))
 
-nuvem_1 = adjust_image("""          .-~~~-.
-  .- ~ ~-(       )_ _
- /                     ~ -.
+nuvem_1 = adjust_image("""&&&&&&&&&&&.-~~~-.
+&&.- ~ ~-(       )_ _
+&/                     ~ -.
 |                           \\
- \\                         .'
-   ~- . _____________ . -~""".split("\n"), replace_ = True)
+&\\                         .'
+&&&~- . _____________ . -~""".split("\n"), replace_ = False)
 
-nuvem_2 = adjust_image("""   __   _
- _(  )_( )_
+nuvem_2 = adjust_image("""&&&__&&&_
+&_(  )_( )_
 (_   _    _)
-  (_) (__)""".split("\n"), replace_= True)
+& (_) (__)""".split("\n"), replace_= False)
 
 nuvem_3 = adjust_image("""            _                                  
           (`  ).                   _           
@@ -341,7 +359,7 @@ nuvem_3 = adjust_image("""            _
      ` __.:'   )     (   (   ))     `-'.-(`  ) 
   ( )       --'       `- __.'         :(      )) 
  (_.'          .')                    `(    )  ))
-                  (_  )                     ` __.:'""", replace_ = True)
+                  (_  )                     ` __.""".split("\n"), replace_ = True)
 
 pacote = adjust_image("""\\||||||||||||||||||||||||||||||||||/
 ====================================
@@ -628,10 +646,10 @@ efeito_abrir = """
 """
 
 campo = [
-'      /  \\        /  \\        /  \\        /  \\        /  \\        /  \\'*3,
-'\\__/        \\__/        \\__/        \\__/        \\__/        \\__/      '*3,  
-'/  \\        /  \\        /  \\        /  \\        /  \\        /  \\      '*3,  
-'      \\__/        \\__/        \\__/        \\__/        \\__/        \\__/'*3]
+'      /  \\        /  \\        /  \\        /  \\        /  \\        /  \\ '*3,
+'\\__/        \\__/        \\__/        \\__/        \\__/        \\__/       '*3,  
+'/  \\        /  \\        /  \\        /  \\        /  \\        /  \\       '*3,  
+'      \\__/        \\__/        \\__/        \\__/        \\__/        \\__/ '*3]
 
 for i in range(len(campo)):
     campo[i] = campo[i][:X-1] + "\n"

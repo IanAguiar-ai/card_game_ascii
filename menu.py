@@ -62,8 +62,8 @@ class Screen:
         while self.in_run:
             if self.animation or self.estats_animation():
                 #Empty space:
-                #buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
-                buffer = campo.copy()
+                buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
+                #buffer = campo[].copy()
                 
                 #Print buffer:
                 self.add_temporary(Element(x = DISPOSITION_X_TEXT, y = DISPOSITION_Y_TEXT, image = to_list(self.buffer_text)))
@@ -139,100 +139,58 @@ def abrir_pacote() -> None:
 if __name__ == "__main__":
     game = Screen(x = X, y = Y, fps = FPS)      
 
-    game.buffer_text = f"Aperte qualquer tecla para abrir o pacote..."
+    game.buffer_text = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
     
     game_t = Thread(target = game.run)
     game_t.start()
 
-    #game.effects = {}
-    raridade, carta = abrir_pacote()
-
-    if raridade == "comum":
-        imagem_verso = verso_comum
-        espera = 2
-    if raridade == "raro":
-        imagem_verso = verso_raro
-        espera = 4
-    if raridade == "epico":
-        imagem_verso = verso_epico
-        espera = 5
-    if raridade == "lendario":
-        imagem_verso = verso_lendario
-        espera = 6
-
-    input()
-    game.add_effects(x = 50, y = 1,
-                    image = pacote,
-                    frames = 2,
-                    tipe = None,
-                    wait = 0,
-                    to_start = 0)
-    input()
-    game.add_effects(x = 50, y = 1,
-                    image = abrindo_pacote_1,
-                    frames = 1,
-                    tipe = None,
-                    wait = 0,
-                    to_start = 0)
-    input()
-    for i in [5, 7, 9, 10, 13, 17, 21, 26, 32, 39, 47, 57, 68]:
-        game.add_effects(x = 50, y = 2,
-                        image = put_color_rarity(imagem_verso, rarity = raridade),
-                        frames = 1, #espera,
-                        tipe = None,
-                        wait = 0,
-                        to_start = 0)
-
-        
-        game.add_effects(x = 50, y = i,
-                        image = abrindo_pacote_2,
+    pos_n = [0, 50, 0]
+    posicoes = [i for i in range(0, 50)]
+    posicoes.extend(i for i in range(49, 0, -1))
+    
+    while True:
+        game.add_effects(x = 65, y = 3,
+                        image = castelo_menu,
                         frames = 1,
                         tipe = None,
                         wait = 0,
                         to_start = 0)
-        sleep(2/FPS)
+    
 
+        game.add_effects(x = 3, y = 3,
+                        image = nome,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
         
+        game.add_effects(x = 20 + posicoes[pos_n[0]], y = 18,
+                        image = nuvem_1,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)        
 
-    carta_descoberta = CARTAS[carta[0]].copy()
-    input()
-    #Cartas:
-    x_, y_ = 50, 2
-    frames = espera
-    espera = 10000
-    game.add_effects(x = 50, y = 2,
-                    image = base_card_complete,
-                    frames = 1,
-                    tipe = None,
-                    wait = espera,
-                    to_start = 0)
+        game.add_effects(x = 50 + posicoes[pos_n[1]], y = 12,
+                        image = nuvem_2,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+
+        game.add_effects(x = 70 + posicoes[pos_n[2]], y = 20,
+                        image = nuvem_2,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+
+        for i in range(len(pos_n)):
+            if random() > 0.8:
+                pos_n[i] = (pos_n[i]+1)%len(posicoes)
+        
+        sleep(0.5)
     
-    game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{carta_descoberta['classe'].title().center(23)}")], class_ = carta_descoberta['classe'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 29, y = y_ + 1, image = [list("HP:")], frames = frames, wait = espera)
-    game.add_effects(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{carta_descoberta['hp']:3}")], life = carta_descoberta['hp'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 1, y = y_ + 18, image = [list(f"{carta_descoberta['nome'].center(34)}")], frames = frames, wait = espera)
-    game.add_effects(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({carta_descoberta['preco']})")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
-    pos = 21
-    for t in carta_descoberta["ataques"]:
-        if t["tipo"] == "ataque":
-            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
-            descricao = ajustar_descricao(t["descricao"])
-            game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
-        else:
-            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
-            descricao = ajustar_descricao(t["descricao"])
-            game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
-        pos += 3 + len(descricao)
-    
-    if carta_descoberta['arte'] != None:
-        game.add_effects(x = x_ + 1, y = y_ + 2, image = carta_descoberta['arte'], frames = frames, wait = espera)
-
-    game.buffer_text = "".join(put_color_rarity([list(f"Desbloqueado {carta[1]}!")], rarity = carta_descoberta['raridade'])[0])
-
-    input()
-
     game.close()
     game_t.join()
     del game
