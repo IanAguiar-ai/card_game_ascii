@@ -239,7 +239,7 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
@@ -276,7 +276,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, animacao:str = None, vez
 
             printar(personagem_amigo, image)
 
-def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False):
+def assasinato_(image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False):
     for _ in range(vezes):
         time_inimigo = (globals()["TABULEIRO"] + 1) % 2
         if todos:
@@ -290,26 +290,60 @@ def assasinato_(image:dict, aleatorio:bool = False, animacao:str = None, vezes:i
 
             printar(personagem_inimigo, image)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False,  vezes:int = 1, todos:bool = False, curar_todos = False) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
-    for _ in range(vezes):
-        time_amigo = globals()["TABULEIRO"]
-        if todos:
-            personagens_amigos = globals()["TIMES"][time_amigo]
+    if curar_todos:
+        buffer_(f"Curando todos...")
+        for i in range(len(TIMES)):
+            for j in range(len(TIMES[i])):
+                TIMES[i][j]["hp"] = min(TIMES[i][j]["hp"] + cura + globals()["BUFF_CURA"], TIMES[i][j]["hp_inicial"])
+                printar(TIMES[i][j], image)
+    else:
+        for _ in range(vezes):
+            time_amigo = globals()["TABULEIRO"]
+            if todos:
+                personagens_amigos = globals()["TIMES"][time_amigo]
+            else:
+                personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
+
+            for personagem_amigo in personagens_amigos:
+                buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
+                personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
+
+                printar(personagem_amigo, image)             
+
+def trocar_vida(image:dict, si_mesmo:bool = False, chance:float = 1):
+    """
+    Troca a vida de um personagem inimigo com si mesmo ou com outro personagem
+    """
+    if si_mesmo:
+        personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+        personagem_inimigo = escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = True)
+            
+        if random() <= chance:
+            buffer_(f"Trocando a vida do {personagem_inimigo['nome']} com {personagem['nome']}...")
+            personagem["hp"], personagem["hp_inicial"], personagem_inimigo["hp"], personagem_inimigo["hp_inicial"] = personagem_inimigo["hp"], personagem_inimigo["hp_inicial"], personagem["hp"], personagem["hp_inicial"]
+            printar(personagem, image)
+            printar(personagem_inimigo, image)
         else:
-            personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
-
-        for personagem_amigo in personagens_amigos:
-            buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
-            personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
-
-            printar(personagem_amigo, image)             
-
-#-------------------------------------------------------------------------------------
-#Funções de cura:
-
+            buffer_(f"Nenhuma iteração...")
+    else:
+        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+        personagem_inimigo = escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = False)
+            
+        time_amigo = (globals()["TABULEIRO"]) % 2
+        personagem_amigo = escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = True)
+        
+        if random() <= chance:
+            buffer_(f"Trocando a vida do {personagem_inimigo['nome']} com {personagem_amigo['nome']}...")
+            personagem_amigo["hp"], personagem_amigo["hp_inicial"], personagem_inimigo["hp"], personagem_inimigo["hp_inicial"] = personagem_inimigo["hp"], personagem_inimigo["hp_inicial"], personagem_amigo["hp"], personagem_amigo["hp_inicial"]
+            printar(personagem_amigo, image)
+            printar(personagem_inimigo, image)
+        else:
+            buffer_("Nenhuma iteração...")
 
 #-------------------------------------------------------------------------------------
 #Funções de habilidade:
@@ -396,6 +430,9 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
 
 
 def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:bool = False, vivo:bool = True):
+    """
+    Revive a sim mesmo ou a um personagem aleatório do mesmo time
+    """
     if si_mesmo:
         if random() <= chance and personagem["hp"] <= 0:
             buffer_(f"Revivendo {personagem['nome']}...")
@@ -413,9 +450,7 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
             printar(personagem_reviver, image)
             printar(personagem, image)
         else:
-            buffer_("Nenhuma iteração...")
-        
-    
+            buffer_("Nenhuma iteração...")    
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
     buffer_(f"(HABILIDADE) habilidade de {personagem['nome']}")
@@ -450,7 +485,7 @@ def printar(personagem, image) -> None:
 #=====================================================================================
 #=====================================================================================
 
-def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = False, animacao:str = None, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
+def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
     personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
     
     if not amigos_e_inimigos:
@@ -527,13 +562,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "ataques":[{"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":1,
-                                             "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                             "argumentos":{"dano":10, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                              "nome":"Machadada Erronêa",
                                              "descricao":f"Dá 10 de dano a um personagem inimigo aleatório."},
                                             {"tipo":"ataque",
                                              "funcao":dano_,
                                              "dado":3,
-                                             "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":martelo, "frames":4, "wait":50, "to_start":0, "x":0, "y":3}},
+                                             "argumentos":{"dano":30, "aleatorio": True, "image":{"image":martelo, "frames":4, "wait":50, "to_start":0, "x":0, "y":3}},
                                              "nome":"Machadada Certeira",
                                              "descricao":f"Dá 30 de dano a um personagem inimigo aleatório."}]
                                  },          
@@ -546,7 +581,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":50, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":50, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Defesa Real",
                                       "descricao":f"Dá 50 de dano a um personagem inimigo aleatório."},
                                      {"tipo":"habilidade",
@@ -569,7 +604,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"dano":40, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Empurrão",
                                               "descricao":f"Dá 40 de dano a um personagem inimigo aleatório."},
                                              {"tipo":"habilidade",
@@ -592,7 +627,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":10, "aleatorio": True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"dano":10, "aleatorio": True, "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Tiro de Chumbo",
                                               "descricao":f"Dá 10 de dano a um personagem inimigo aleatório."}]
                                   },
@@ -605,7 +640,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":flecha, "frames":4, "wait":50, "to_start":0, "x":-5, "y":6}},
+                                              "argumentos":{"dano":30, "aleatorio": False, "image":{"image":flecha, "frames":4, "wait":50, "to_start":0, "x":-5, "y":6}},
                                               "nome":"Ponta da Lamina",
                                               "descricao":f"Dá 30 de dano a um personagem inimigo à sua escolha."}]
                                   },
@@ -618,7 +653,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":2,
-                                              "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"dano":30, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Espadada Torta",
                                               "descricao":f"Dá 30 de dano a um personagem inimigo aleatório."}]
                                   },
@@ -631,7 +666,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":5,
-                                              "argumentos":{"dano":30, "todos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"dano":30, "todos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Preparação de Guerra",
                                               "descricao":f"Dá 30 de dano em todos os personagens inimigos."},
                                              {"tipo":"ataque",
@@ -677,7 +712,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":2,
-                                              "argumentos":{"dano":10, "todos":True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "argumentos":{"dano":10, "todos":True, "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Explosão de Luz",
                                               "descricao":f"Dá 10 de dano em todos os personagens inimigos."},
                                              {"tipo":"habilidade",
@@ -688,7 +723,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "morto":False,
                                               "funcao":habilidade_acao,
                                               "argumentos":{"funcao":cura_,
-                                                            "image":{"image":luz, "frames":2, "wait":70, "to_start":TEMPO[1], "x":10, "y":3},
+                                                           "image":{"image":luz, "frames":2, "wait":70, "to_start":TEMPO[1], "x":10, "y":3},
                                                             "argumentos_funcao":{"cura":30, "aleatorio":True ,"image":{"image":cruz, "frames":4, "wait":70, "to_start":TEMPO[2], "x":8, "y":2}}},
                                               "nome":"Seja Curado",
                                               "descricao":f"Enquanto vivo, no final do seu turno, cure um personagem aliado aleatório em 30."}]
@@ -702,7 +737,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":3,
-                                      "argumentos":{"dano":20, "aleatorio": False, "animacao": "espada", "image":{"image":mao, "frames":6, "wait":25, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "aleatorio": False, "image":{"image":mao, "frames":6, "wait":25, "to_start":0, "x":10, "y":3}},
                                       "nome":"Pá Leve, Mão Pesada",
                                       "descricao":f"Dá 20 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -713,7 +748,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":False,
                                       "funcao":habilidade_buff_global_dano,
                                       "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"guerreiro", "time_atacante":True, "time_atacado":False},
-                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                   "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Camponeses Unidos",
                                       "descricao":f"Enquanto vivo, todos os personagens no seu lado do campo ganham +10 para cada guerreiro aliado."}]
                           },
@@ -726,7 +761,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":30, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Caçada a Carne",
                                       "descricao":f"Dá 30 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -749,13 +784,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "image":{"image":impacto_fraco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Baba Acida",
                                       "descricao":f"Dá 20 de dano em todos os personagens."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":6,
-                                      "argumentos":{"dano":60, "aleatorio":True, "vezes":2, "animacao": "espada", "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":60, "aleatorio":True, "vezes":2, "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Pulo nas Costas",
                                       "descricao":f"Dá 60 de dano a dois personagens inimigos aleatórios."}]
                           },
@@ -768,7 +803,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":3,
-                                      "argumentos":{"dano":30, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":30, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Assombração",
                                       "descricao":f"Dá 30 de dano a um personagem inimigo aleatório."},
                                      {"tipo":"habilidade",
@@ -779,7 +814,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":True,
                                       "funcao":habilidade_nerf_global_dano,
                                       "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"hp", "valor":0, "time_atacante":True, "time_atacado":True},
-                                                    "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                   "image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Defesa dos Mortos",
                                       "descricao":f"Enquanto vivo, todos os personagens aliados do seu lado do campo ganham -10 de dano para cada lacai morto."}]
                           },
@@ -792,13 +827,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":10, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":10, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Estou na Porta",
                                       "descricao":f"Dá 10 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":30, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":30, "aleatorio": True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Impostos ou Saque",
                                       "descricao":f"Dá 30 de dano a um personagem aleatório 3 vezes."}],
                           },
@@ -811,13 +846,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":30, "aleatorio":False, "vezes":2, "animacao": "espada", "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":30, "aleatorio":False, "vezes":2, "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Soco Bruto",
                                       "descricao":f"Dá 30 de dano a dois personagens inimigos à sua escolha."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":70, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":70, "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Pisada Terremoto",
                                       "descricao":f"Dá 70 de dano em todos os personagens."}]
                           },
@@ -830,7 +865,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":100, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":100, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Sombra da Caverna",
                                       "descricao":f"Dá 100 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -853,7 +888,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_e_cura_acumulador,
                                       "dado":3,
-                                      "argumentos":{"dano":20, "buff":10, "aleatorio": True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "buff":10, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Roubar Vida",
                                       "descricao":f"Dá 20 de dano a um personagem inimigo aleatório e se cura desse valor."},
                                      {"tipo":"habilidade",
@@ -875,7 +910,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":guarda_chuva, "frames":6, "wait":50, "to_start":0, "x":0, "y":7}},
+                                      "argumentos":{"dano":30, "aleatorio": False, "image":{"image":guarda_chuva, "frames":6, "wait":50, "to_start":0, "x":0, "y":7}},
                                       "nome":"Não Pode Anotar",
                                       "descricao":f"Dá 30 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -908,13 +943,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":40, "aleatorio": True, "animacao": "espada", "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":40, "aleatorio": True, "image":{"image":soco, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Mão das Profundezas",
                                       "descricao":f"Dá 40 de dano a um personagem inimigo aleatório."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "amigos_e_inimigos":True, "image":{"image":garra, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Sequestro Total",
                                       "descricao":f"Dá 20 de dano em todos os personagens."}],
                           },
@@ -927,7 +962,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":40, "aleatorio": True, "vezes":2, "animacao": "espada", "image":{"image":pocao[0], "frames":6, "wait":45, "to_start":0, "x":14, "y":7}},
+                                      "argumentos":{"dano":40, "aleatorio": True, "vezes":2, "image":{"image":pocao[0], "frames":6, "wait":45, "to_start":0, "x":14, "y":7}},
                                       "nome":"Vai um Suco?",
                                       "descricao":f"Dá 40 de dano a dois personagens inimigos aleatórios."},
                                      {"tipo":"habilidade",
@@ -937,7 +972,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "morto":False,
                                       "ataque":True,
                                       "defesa":False,
-                                      "argumentos":{"dano":10, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":pocao[1], "frames":6, "wait":40, "to_start":TEMPO[2], "x":15, "y":7}},
+                                      "argumentos":{"dano":10, "amigos_e_inimigos":True, "image":{"image":pocao[1], "frames":6, "wait":40, "to_start":TEMPO[2], "x":15, "y":7}},
                                       "nome":"Todos Envenenados!",
                                       "descricao":f"Dá 10 de dano a todos os personagens no início de cada turno aliado."}],
                         },
@@ -950,7 +985,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":30, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":30, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Facada nas costas",
                                       "descricao":f"Dá 30 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -961,7 +996,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":False,
                                       "funcao":habilidade_buff_global_dano,
                                       "argumentos":{"buff":20, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":True, "time_atacado":False},
-                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                   "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Caos na Cidade",
                                       "descricao":f"Enquanto vivo, todos os personagens do seu lado do campo ganham +20 para cada assassino aliado."}]
                         },
@@ -974,13 +1009,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":6,
-                                      "argumentos":{"dano":60, "aleatorio": False, "animacao": "espada", "image":{"image":faca_2, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
+                                      "argumentos":{"dano":60, "aleatorio": False, "image":{"image":faca_2, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
                                       "nome":"Espionagem",
                                       "descricao":f"Dá 60 de dano a um personagem inimigo à sua escolha"},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":6,
-                                      "argumentos":{"dano":120, "aleatorio": True, "animacao": "espada", "image":{"image":faca_1, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
+                                      "argumentos":{"dano":120, "aleatorio": True, "image":{"image":faca_1, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
                                       "nome":"Atrás de Você",
                                       "descricao":f"Dá 120 de dano a um personagem inimigo aleatório."}],
                           },
@@ -993,7 +1028,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":20, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Olhem pra mim",
                                       "descricao":f"Dá 20 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"habilidade",
@@ -1004,7 +1039,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":False,
                                       "funcao":habilidade_buff_global_dano,
                                       "argumentos":{"buff":20, "soma_por_caracteristicas":True, "caracteristicas":{"key":"hp", "valor":0, "time_atacante":True, "time_atacado":False},
-                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                   "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Sacrificio da Ordem",
                                       "descricao":f"Enquanto morto, todos os personagens do seu lado do campo ganham +20 para cada personagem aliado morto."}]
                         },
@@ -1017,13 +1052,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":40, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":40, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Ilusão do Deserto",
                                       "descricao":f"Dá 40 de dano a um personagem inimigo à sua escolha."},
                                      {"tipo":"ataque",
                                       "funcao":cura_,
                                       "dado":2,
-                                      "argumentos":{"cura":80, "aleatorio": False, "animacao": "espada", "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
+                                      "argumentos":{"cura":80, "aleatorio": False, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
                                       "nome":"Oásis",
                                       "descricao":f"Cure 80 de vida de um personagem aliado à sua escolha."},],
                           },
@@ -1036,7 +1071,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":cura_,
                                       "dado":5,
-                                      "argumentos":{"cura":120, "aleatorio": False, "vezes":2, "animacao": "espada", "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
+                                      "argumentos":{"cura":120, "aleatorio": False, "vezes":2, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
                                       "nome":"Redenção",
                                       "descricao":f"Cure 120 de dano de dois personagem aliados à sua escolha."},
                                      {"tipo":"ataque",
@@ -1056,7 +1091,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":10, "aleatorio": False, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":10, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Bola de Fogo",
                                       "descricao":f"Dá 10 de dano a um personagem inimigo a sua escolha."},
                                      {"tipo":"habilidade",
@@ -1079,7 +1114,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Revoada Flamejante",
                                       "descricao":f"Dá 20 de dano a três personagens inimigos aleatórios."},
                                      {"tipo":"habilidade",
@@ -1102,7 +1137,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":10, "aleatorio": True, "vezes":3, "animacao": "espada", "image":{"image":tnt_1, "frames":4, "wait":50, "to_start":0, "x":3, "y":8}},
+                                      "argumentos":{"dano":10, "aleatorio": True, "vezes":3, "image":{"image":tnt_1, "frames":4, "wait":50, "to_start":0, "x":3, "y":8}},
                                       "nome":"Duelo aceito!",
                                       "descricao":f"Dá 10 de dano a 3 personagens inimigos aleatórios."},
                                      {"tipo":"habilidade",
@@ -1125,7 +1160,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":0,
-                                      "argumentos":{"dano":numero_dado, "aleatorio": False, "multiplicador":10, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":numero_dado, "aleatorio": False, "multiplicador":10, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Dado o Dado",
                                       "descricao":f"Dá 10 vezes o número que sair no dado a um personagem à sua escolha."},]
                         },
@@ -1138,13 +1173,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":1,
-                                      "argumentos":{"dano":20, "aleatorio": True, "animacao": "espada", "image":{"image":faca_2, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
+                                      "argumentos":{"dano":20, "aleatorio": True, "image":{"image":faca_2, "frames":6, "wait":50, "to_start":0, "x":-3, "y":10}},
                                       "nome":"Facada Covarde",
                                       "descricao":f"Dá 20 de dano a um personagem inimigo aleatório."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":2,
-                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":2, "animacao": "espada", "image":{"image":tnt_2, "frames":4, "wait":50, "to_start":0, "x":3, "y":12}},
+                                      "argumentos":{"dano":20, "aleatorio": True, "vezes":2, "image":{"image":tnt_2, "frames":4, "wait":50, "to_start":0, "x":3, "y":12}},
                                       "nome":"Explodindo Porta!",
                                       "descricao":f"Dá 20 de dano a 2 personagens inimigos aleatórios."},]
                         },
@@ -1157,7 +1192,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "multiplicador":5, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":turno_atual, "aleatorio": False, "multiplicador":5, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Uma Palavrinha",
                                       "descricao":f"Dá o dano do turno atual vezes 5 a um personagem à sua escolha."},
                                      {"tipo":"habilidade",
@@ -1168,7 +1203,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "defesa":True,
                                       "funcao":habilidade_nerf_global_dano,
                                       "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":False, "time_atacado":True},
-                                                    "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                   "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Big Boss",
                                       "descricao":f"Os personagens do seu lado do campo recebem -10 de dano para cada assassino aliado."}
                                      ]
@@ -1182,7 +1217,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":5,
-                                              "argumentos":{"dano":20, "todos":True, "animacao": "espada", "image":{"image":fumaca, "frames":6, "wait":50, "to_start":0, "x":9, "y":6}},
+                                              "argumentos":{"dano":20, "todos":True, "image":{"image":fumaca, "frames":6, "wait":50, "to_start":0, "x":9, "y":6}},
                                               "nome":"Fungo Perigoso",
                                               "descricao":f"Dá 20 de dano a todos os personagens inimigos."},
                                      {"tipo":"habilidade",
@@ -1206,7 +1241,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":3,
-                                              "argumentos":{"dano":10, "aleatorio":False, "vezes":2, "animacao": "espada", "image":{"image":fumaca, "frames":6, "wait":50, "to_start":0, "x":9, "y":6}},
+                                              "argumentos":{"dano":10, "aleatorio":False, "vezes":2, "image":{"image":fumaca, "frames":6, "wait":50, "to_start":0, "x":9, "y":6}},
                                               "nome":"Pólen Venenoso",
                                               "descricao":f"Dá 10 de dano a dois personagens inimigos à sua escolha."}
                                      ]
@@ -1220,17 +1255,42 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
-                                      "argumentos":{"dano":turno_atual, "multiplicador":10, "amigos_e_inimigos":True, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":turno_atual, "multiplicador":10, "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Alto-Destruição",
                                       "descricao":f"Dá 5 vezes o número de turnos de dano a todos os personagens."},
                                      {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":5,
-                                      "argumentos":{"dano":50, "aleatorio":False, "vezes":2, "animacao": "espada", "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"dano":50, "aleatorio":False, "vezes":2, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Lazer Direcionado",
                                       "descricao":f"Dá 50 de dano a dois personagens inimigos à sua escolha."}]
                           },
-          
+          "hacker":{"nome":"H@ck3r",
+                          "hp":70,
+                          "preco":3,
+                          "classe":"lenda",
+                          "arte":None,
+                          "raridade":"lendario",
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":3,
+                                      "argumentos":{"dano":20, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Cliquer",
+                                      "descricao":f"Dá 20 de dano em um personagem inimigo à sua escolha."},
+                                     {"tipo":"ataque",
+                                      "funcao":trocar_vida,
+                                      "dado":5,
+                                      "argumentos":{"si_mesmo":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Bug no Sistema",
+                                      "descricao":f"Escolha um personagem inimigo, troque a vida dele com a de um personagem aleatório."},
+                                     {"tipo":"ataque",
+                                      "funcao":cura_,
+                                      "dado":1,
+                                      "argumentos":{"cura":1_000, "curar_todos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Reboot",
+                                      "descricao":f"Todos os lacaios voltam com a vida inicial do jogo."},
+                                     ]
+                          }          
           }
 
 if __name__ == "__main__":
@@ -1238,7 +1298,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["mafioso_acumulador"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
-             [CARTAS["acumulador_de_almas"].copy(),
+             [CARTAS["hacker"].copy(),
               CARTAS["gigante"].copy(),
               CARTAS["cubo"].copy()]]
     
