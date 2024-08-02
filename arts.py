@@ -10,7 +10,7 @@ def adjust_image(image:(list), replace_:bool = False) -> (list):
             n_image.append(list(line))
     return n_image
 
-base_card = [f"+{'-'*34}+",
+base_card_ = [f"+{'-'*34}+",
              f"|{' '*34}|",
              f"|{' '*34}|",
              f"|{' '*34}|",
@@ -30,7 +30,8 @@ base_card = [f"+{'-'*34}+",
              f"|{' '*34}|",
              f"|{' '*34}|",
              f"+{'-'*34}+"]
-base_card = adjust_image(base_card)
+base_card = adjust_image(base_card_)
+base_card_transparent = adjust_image(base_card_[2:-1], replace_ = True)
 
 base_card_complete = [f"+{'-'*34}+",
              f"|{' '*34}|",

@@ -53,7 +53,20 @@ def animation_image(image, frames:int, tipe = None) -> None:
                     image["animation"][i][j] = image["image"][i][j]
                 else:
                     image["animation"][i][j] = letters[int(random()*len(letters))]
-    
+
+    elif image["tipe"] == "bug_rapido":
+        letters = [chr(i) for i in range(48, 127)]
+        if random() < 0.99:
+            for i in range(len(image["image"])):
+                for j in range(len(image["image"][i])):
+                    if random() < 0.8:
+                        image["animation"][i][j] = image["image"][i][j]
+                    else:
+                        image["animation"][i][j] = letters[int(random()*len(letters))]
+        else:
+            for i in range(len(image["image"])):
+                for j in range(len(image["image"][i])):
+                    image["animation"][i][j] = image["image"][i][j]
 
 def clear():
     print("\033c", end="")
