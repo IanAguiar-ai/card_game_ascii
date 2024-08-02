@@ -964,6 +964,24 @@ fumaca = adjust_image("""      _   _
 (    .     )     )
 '-  (  )    )  -""".split("\n"), replace_ = False)
 
+cursor = adjust_image("""b.
+88b
+888b.
+88888b
+888888b.
+8888P"
+P" `8.
+    `8.
+     `8""".split("\n"), replace_ = True)
+
+mouse = adjust_image("""   ,-------,
+  /       / | 
+ /______ /  /
+|___/___/  /
+|__..___|.' 
+  //
+.'/""".split("\n"), replace_ = True)
+
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .
          /\\   "V"
