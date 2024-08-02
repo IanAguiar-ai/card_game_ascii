@@ -1,6 +1,9 @@
 from random import random
 
 def to_list(text:str) -> list:
+    """
+    Passa um texto para lista
+    """
     lsts = text.split("\n")
     n_l = []
     for lst in lsts:
@@ -8,13 +11,16 @@ def to_list(text:str) -> list:
     return n_l
 
 def animation_image(image, frames:int, tipe = None) -> None:
+    """
+    Animação para colocar a carta
+    """
     if image["tipe"] == "espada" or image["tipe"] == "aleatorio" or image["tipe"] == None:
         for i in range(len(image["image"])):
             for j in range(len(image["image"][i])):
                 if random() < 1/frames:
                     image["animation"][i][j] = image["image"][i][j]
 
-    if image["tipe"] == "vertical": #conferir
+    elif image["tipe"] == "vertical": #conferir
         image["animation"][-1][-1] == image["image"][-1][-1] 
         for i in range(len(image["image"])):
             for j in range(len(image["image"][i])):
@@ -28,6 +34,20 @@ def animation_image(image, frames:int, tipe = None) -> None:
                         image["animation"][i][j-1] == image["image"][i][j-1]
                     except:
                         pass
+
+    elif image["tipe"] == "hacker":
+        letters = [chr(i) for i in range(48, 127)]
+        for i in range(len(image["image"])):
+            for j in range(len(image["image"][i])):
+                if random() < 1/frames:
+                    image["animation"][i][j] = image["image"][i][j]
+                else:
+                    if image["image"][i][j] != image["animation"][i][j]:
+                        image["animation"][i][j] = letters[int(random()*len(letters))]
+    
+
+def clear():
+    print("\033c", end="")
 
 def put_color(text: list, color: int = 190, back_color: int = None, style: int = 0, end = "\n") -> list:
     if style == 0:
@@ -44,10 +64,6 @@ def put_color(text: list, color: int = 190, back_color: int = None, style: int =
             return f"{style}\033[48;5;{back_color}m\033[38;5;{color}m{text}\033[0m"
         else:
             return f"{style}\033[38;5;{color}m{text}\033[0m"
-
-
-def clear():
-    print("\033c", end="")
 
 def put_color_life(text, life) -> list:
     l = life//20
@@ -92,6 +108,9 @@ def put_color_rarity(text, rarity) -> list:
     return put_color(text = text, color = color)
 
 def ajustar_descricao(desc:str):
+    """
+    Ajusta a descrição para mostrar no choose_deck.py
+    """
     desc = desc.split(" ")
     final = []
     temp = [" ", " "]

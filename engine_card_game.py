@@ -480,7 +480,7 @@ def printar(personagem, image) -> None:
                          frames = image["frames"],
                          wait = image["wait"],
                          to_start = image["to_start"],
-                         tipe = "aleatorio")
+                         tipe = "aleatorio" if not "tipe" in image else image["tipe"])
         
 #=====================================================================================
 #=====================================================================================
@@ -1269,24 +1269,24 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "hp":70,
                           "preco":3,
                           "classe":"lenda",
-                          "arte":None,
+                          "arte":imagem_hacker,
                           "raridade":"lendario",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
-                                      "dado":3,
-                                      "argumentos":{"dano":20, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "dado":1,
+                                      "argumentos":{"dano":20, "aleatorio":False, "image":{"image":impacto_fraco, "frames":10, "wait":5, "to_start":0, "x":10, "y":3, "tipe":"hacker"}},
                                       "nome":"Cliquer",
                                       "descricao":f"Dá 20 de dano em um personagem inimigo à sua escolha."},
                                      {"tipo":"ataque",
                                       "funcao":trocar_vida,
                                       "dado":5,
-                                      "argumentos":{"si_mesmo":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"si_mesmo":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3, "tipe":"hacker"}},
                                       "nome":"Bug no Sistema",
                                       "descricao":f"Escolha um personagem inimigo, troque a vida dele com a de um personagem aleatório."},
                                      {"tipo":"ataque",
                                       "funcao":cura_,
                                       "dado":6,
-                                      "argumentos":{"cura":1_000, "curar_todos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "argumentos":{"cura":1_000, "curar_todos":True, "image":{"image":seta_cima, "frames":6, "wait":5, "to_start":0, "x":10, "y":3, "tipe":"hacker"}},
                                       "nome":"Reboot",
                                       "descricao":f"Todos os lacaios voltam com a vida inicial do jogo."},
                                      ]
