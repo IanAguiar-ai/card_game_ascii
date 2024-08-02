@@ -44,6 +44,15 @@ def animation_image(image, frames:int, tipe = None) -> None:
                 else:
                     if image["image"][i][j] != image["animation"][i][j]:
                         image["animation"][i][j] = letters[int(random()*len(letters))]
+                        
+    elif image["tipe"] == "bug":
+        letters = [chr(i) for i in range(48, 127)]
+        for i in range(len(image["image"])):
+            for j in range(len(image["image"][i])):
+                if random() < 0.99:
+                    image["animation"][i][j] = image["image"][i][j]
+                else:
+                    image["animation"][i][j] = letters[int(random()*len(letters))]
     
 
 def clear():

@@ -1286,7 +1286,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                      {"tipo":"ataque",
                                       "funcao":cura_,
                                       "dado":6,
-                                      "argumentos":{"cura":1_000, "curar_todos":True, "image":{"image":seta_cima, "frames":6, "wait":5, "to_start":0, "x":10, "y":3, "tipe":"hacker"}},
+                                      "argumentos":{"cura":1_000, "curar_todos":True, "image":{"image":seta_cima, "frames":6, "wait":5, "to_start":0, "x":10, "y":3, "tipe":"bug"}},
                                       "nome":"Reboot",
                                       "descricao":f"Todos os lacaios voltam com a vida inicial do jogo."},
                                      ]
