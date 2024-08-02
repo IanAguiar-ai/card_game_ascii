@@ -166,7 +166,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS[aleatorios[0]].copy(),
               CARTAS[aleatorios[1]].copy(),
               CARTAS[aleatorios[2]].copy()],
-             [CARTAS["hacker"].copy(),
+             [CARTAS["o_imitador"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
               CARTAS["fenix"].copy()]]
 

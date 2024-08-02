@@ -983,6 +983,25 @@ mouse = adjust_image("""   ,-------,
   //
 .'/""".split("\n"), replace_ = True)
 
+interrogacao = adjust_image(""" $$$$\  
+$$  $$\ 
+\__/$$ |
+   $$  |
+  $$  / 
+  \__/  
+  $$\   
+  \__|  
+""".split("\n"), replace_ = True)                 
+
+mascarazinha = adjust_image("""     .ad88ba.
+   .ad8888888a.
+  d8~~988P~~988b
+  9b,,d88,,,d8888
+ d888P~~9888888b'
+ d888   '88KHW8P
+ `dP'     9888P
+""".split("\n"), replace_ = True)
+
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .
          /\\   "V"
@@ -1645,6 +1664,17 @@ imagem_hacker = adjust_image("""
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠷⢦⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣠⣴⠶⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠿⠿⠿⠿⠿⠿⠿⠿⠿⠟⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 """.split("\n"))
-
 imagem_hacker = [[imagem_hacker[j][i] for i in range(12, 46)] for j in range(6, 22)]
 
+imagem_o_imitador = adjust_image('''
+             .,ad88888ba,.
+         .,ad8888888888888a,
+        d8P"""98888P"""98888b,
+        9b    d8888,    `9888B
+      ,d88aaa8888888b,,,d888P'
+     d8888888888888888888888b
+    d888888P""98888888888888P
+    88888P'    9888888888888
+    `98P'       9888888888P'
+                 `"9888P"'
+                    `"\''''.split("\n"))

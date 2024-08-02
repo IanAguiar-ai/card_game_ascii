@@ -345,6 +345,24 @@ def trocar_vida(image:dict, si_mesmo:bool = False, chance:float = 1):
         else:
             buffer_("Nenhuma iteração...")
 
+def copiar_atributo(image:dict, atributo:list ,aleatorio:bool = False, copia_completa:bool = False):
+    time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+    personagem_inimigo = escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)
+    
+    if copia_completa:
+        x_temp, y_temp = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]["x"], TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]["y"]
+        TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]] = personagem_inimigo.copy()
+        TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]["x"] = x_temp
+        TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]["y"] = y_temp
+    else:
+        personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+        for key in atributo:
+            personagem[key] = personagem_inimigo[key]
+
+    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]            
+    printar(personagem, image)
+    printar(personagem_inimigo, image)
+
 #-------------------------------------------------------------------------------------
 #Funções de habilidade:
 
@@ -1270,7 +1288,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                           "preco":3,
                           "classe":"lenda",
                           "arte":imagem_hacker,
-                          "raridade":"lendario",
+                          "raridade":"epico",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":1,
@@ -1290,7 +1308,27 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Reboot",
                                       "descricao":f"Todos os lacaios voltam com a vida inicial do jogo."},
                                      ]
-                          }          
+                          },
+          "o_imitador":{"nome":"O Imitador",
+                          "hp":40,
+                          "preco":2,
+                          "classe":"noturno",
+                          "arte":imagem_o_imitador,
+                          "raridade":"lendario",
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":copiar_atributo,
+                                      "dado":4,
+                                      "argumentos":{"atributo":["hp", "hp_inicial"], "image":{"image":interrogacao, "frames":6, "wait":50, "to_start":0, "x":13, "y":5, "tipe":"hacker"}},
+                                      "nome":"Jogo da imitação",
+                                      "descricao":f"Copie a vida de um personagem inimigo a sua escolha."},
+                                     {"tipo":"ataque",
+                                      "funcao":copiar_atributo,
+                                      "dado":6,
+                                      "argumentos":{"atributo":[None], "copia_completa":True, "image":{"image":mascarazinha, "frames":6, "wait":5, "to_start":0, "x":10, "y":5, "tipe":"bug"}},
+                                      "nome":"Cópia Identica",
+                                      "descricao":f"Se torne uma cópia identica de um personagem inimigo a sua escolha."},
+                                     ]
+                          },
           }
 
 if __name__ == "__main__":
@@ -1298,7 +1336,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["quan_o_equilibro"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
-             [CARTAS["hacker"].copy(),
+             [CARTAS["o_imitador"].copy(),
               CARTAS["gigante"].copy(),
               CARTAS["cubo"].copy()]]
     
