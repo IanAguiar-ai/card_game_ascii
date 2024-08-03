@@ -1,6 +1,12 @@
 from engine_card_game import CARTAS
 
 def infos(cartas:list) -> None:
+    bytes_usados = 0
+    for carta in cartas.keys():
+        for key in cartas[carta].keys():
+            bytes_usados += cartas[carta][key].__sizeof__()
+    print(f"\nEstão sendo usados {bytes_usados/1024:4.02f} Kilo Bytes para armazenar as cartas.\n")
+    
     por_classe = {}
     for key in cartas:
         if not cartas[key]["classe"] in por_classe:
@@ -26,7 +32,6 @@ def infos(cartas:list) -> None:
     for i in raridades.keys():
         print(f"\t({i}) {raridades[i]}")
     
-
     return por_classe
 
 def ajustar(cartas) -> dict:
