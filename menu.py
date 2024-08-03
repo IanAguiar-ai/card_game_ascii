@@ -136,19 +136,12 @@ def abrir_pacote() -> None:
 
     return abrir, carta
 
-if __name__ == "__main__":
-    game = Screen(x = X, y = Y, fps = FPS)      
-
-    game.buffer_text = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
-    
-    game_t = Thread(target = game.run)
-    game_t.start()
-
+def animacao_menu():
     pos_n = [0, 50, 0]
     posicoes = [i for i in range(0, 50)]
     posicoes.extend(i for i in range(49, 0, -1))
     
-    while True:
+    while globals()["gatilho_menu"]:
         game.add_effects(x = 65, y = 3,
                         image = castelo_menu,
                         frames = 1,
@@ -191,7 +184,34 @@ if __name__ == "__main__":
         
         sleep(0.5)
     
+
+if __name__ == "__main__":
+    game = Screen(x = X, y = Y, fps = FPS)      
+
+    game.buffer_text = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
+    
+    game_t = Thread(target = game.run)
+    game_t.start()
+
+    gatilho_menu = True
+    animacao_menu_thread = Thread(target = animacao_menu)
+    animacao_menu_thread.start()
+    
+    while True:
+        resposta = input()
+        try:
+            resposta = int(resposta)
+        except:
+            pass
+        if 1 <= resposta <= 2:
+            gatilho_menu = False
+            if resposta == 1:
+                pass #Ir para o jogo
+            elif resposta == 2:
+                pass #Ir para a loja
+    
     game.close()
     game_t.join()
+    
     del game
         
