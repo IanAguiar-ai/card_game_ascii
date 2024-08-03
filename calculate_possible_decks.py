@@ -6,6 +6,7 @@ def infos(cartas:list) -> None:
         for key in cartas[carta].keys():
             bytes_usados += cartas[carta][key].__sizeof__()
     print(f"\nEstão sendo usados {bytes_usados/1024:4.02f} Kilo Bytes para armazenar as cartas.\n")
+    info_ = f"Estão sendo usados {bytes_usados/1024:4.02f} Kilo Bytes para armazenar as cartas."
     
     por_classe = {}
     for key in cartas:
@@ -17,8 +18,10 @@ def infos(cartas:list) -> None:
 
     for key in por_classe:
         print(f"{key.title()} ({len(por_classe[key])}):")
+        info_ += f"\n\n{key.title()} ({len(por_classe[key])}):"
         for personagem in sorted(sorted(por_classe[key], key = lambda x: x["hp"]), key = lambda x: x["preco"]):
             print(f"\t{personagem['nome']:25} {personagem['hp']:3} {personagem['preco']}")
+            info_ += f"\n\t{personagem['nome']:25} {personagem['hp']:3} {personagem['preco']}"
 
     raridades = {"comum":0,
                  "raro":0,
@@ -29,8 +32,13 @@ def infos(cartas:list) -> None:
         raridades[cartas[i]['raridade']] += 1
 
     print("Raridades:")
+    info_ += "\n\nRaridades:"
     for i in raridades.keys():
         print(f"\t({i}) {raridades[i]}")
+        info_ += f"\n\t({i}) {raridades[i]}"
+
+    with open("infos.txt", "w") as arq:
+        arq.write(info_)
     
     return por_classe
 
@@ -78,8 +86,8 @@ if __name__ == "__main__":
                      [1, 1, 2],
                      [1, 1, 3],
                      [1, 2, 2]]
-
-    print("\n\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS NO JOGO:")
+    info_ = "\n\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:"
+    print("\n\nCOMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:")
     combinacoes = 0
     combinacoes_unicas = 0
     n = 0
@@ -99,10 +107,15 @@ if __name__ == "__main__":
         n += 1
         
         print(f"\t{str(p):10} -> {temp:4} | {int(temp_):4}")
+        info_ += f"\n\t{str(p):10} -> {temp:4} | {int(temp_):4}"
 
     print(f"\n\nCombinações totais: {combinacoes}")
     print(f"Combinações únicas: {int(combinacoes_unicas)}")
     print(f"Total de cartas no jogo: {len(CARTAS.keys())}")
+    info_ += f"\n\nCombinações totais: {combinacoes}\nCombinações únicas: {int(combinacoes_unicas)}\nTotal de cartas no jogo: {len(CARTAS.keys())}"
+
+    with open("infos.txt", "a") as arq:
+        arq.write(info_)
 
     for classe in cartas_por_classe.keys():
         print(f"\n\n{'='*30}({classe.center(16):16}){'='*30}")

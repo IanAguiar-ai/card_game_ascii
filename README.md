@@ -17,3 +17,7 @@ Um jogo de cartas feito para jogar no terminal
 6. Sistema de moedas (a fazer);
 
 7. Sistema de memória com 'saves' (a fazer).
+
+## Informações
+
+`infos.txt`

@@ -1,0 +1,83 @@
+Estão sendo usados 19.55 Kilo Bytes para armazenar as cartas.
+
+Guerreiro (10):
+	Caçador Iniciante          50 0
+	Guerreiro Preparado        80 1
+	Soldado Novato             80 1
+	Arqueiro                   90 1
+	Guarda do Rei             100 2
+	Protótipo Meca            140 2
+	Escudeiro Experiente      110 3
+	Exterminador              160 4
+	Meca Fogueteiro           160 4
+	Meca Last Hope            180 5
+
+Humano (4):
+	Curandeiro da Vila         50 1
+	Camponês Corajoso          80 1
+	Caçador de Feras           70 3
+	Rei da Vila                70 3
+
+Monstro (7):
+	Flores Sinistras           50 0
+	Esqueleto Insano           80 1
+	Orc Rejeitado             100 1
+	Fantasma Solitario        100 2
+	Milicia Fantasma          110 2
+	Cogumelo Venenoso          80 3
+	Gigante                   180 4
+
+Noturno (10):
+	Morcego                    30 0
+	Lesma                      30 0
+	Duas Faces                 30 1
+	Lobo da Noite              50 1
+	Vingança da Noite          80 1
+	O Imitador                 40 2
+	Comeia                     40 2
+	Acumulador de Almas       100 2
+	Dono do Cassino            90 3
+	Protetor do Tesouro       170 4
+
+Assasino (6):
+	Bandido Cínico             60 1
+	Mestre da Lamina           70 1
+	Assasino Laranja           40 2
+	Mestre dos Venenos         80 3
+	Assasina de Quadrilha      90 3
+	Mafioso Acumulador         90 3
+
+Lenda (7):
+	Cubo                       60 1
+	Quan, o equilibrio         50 2
+	Fenix                      50 2
+	Mago Suporte               70 3
+	H@ck3r                     70 3
+	Profeta das Areias         80 3
+	Cactus Cowboy             140 4
+
+Raridades:
+	(comum) 15
+	(raro) 17
+	(epico) 8
+	(lendario) 4
+
+COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
+	[0, 0, 0]  ->   64 |    4
+	[0, 0, 1]  ->  208 |   78
+	[0, 0, 2]  ->  160 |   60
+	[0, 0, 3]  ->  176 |   66
+	[0, 0, 4]  ->   80 |   30
+	[0, 0, 5]  ->   16 |    6
+	[0, 1, 1]  ->  676 |  312
+	[0, 1, 2]  ->  520 |  520
+	[0, 1, 3]  ->  572 |  572
+	[0, 1, 4]  ->  260 |  260
+	[1, 1, 1]  -> 2197 |  286
+	[1, 1, 2]  -> 1690 |  780
+	[1, 1, 3]  -> 1859 |  858
+	[1, 2, 2]  -> 1300 |  585
+
+Combinações totais: 9778
+Combinações únicas: 4417
+Total de cartas no jogo: 44
