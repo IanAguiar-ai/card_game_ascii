@@ -117,7 +117,7 @@ class Element:
         self.image = image
 
 def abrir_pacote() -> None:
-    chances = [0.02, 0.08, 0.25, 0.65]
+    chances = [0.02, 0.08, 0.30, 0.60]
     chances = [sum(chances[0:i+1]) for i in range(0, len(chances))]
     raridade = ["lendario", "epico", "raro", "comum"]
 
