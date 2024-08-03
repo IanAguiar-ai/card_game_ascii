@@ -97,8 +97,8 @@ def jogar(TIMES:list):
 
         ###Vendo ataques do personagem:
         verificar_ataques(personagem_atual, numero_dado)
-        cl()
         sleep(2)
+        cl()
 
         ###Vendo se tem alguma habilidade passiva de final de turno:
         conferir_habilidade(tempo = "final", ataque = True, time = time_atacante)
@@ -239,42 +239,43 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
-def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None) -> None:
+def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None, chance:float = 1) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
-    if type(dano) == list: #Casos que recebem listas com variáveis
-        dano = dano[0] * multiplicador
-        
-    if not amigos_e_inimigos:
-        for _ in range(vezes):
-            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
-            if todos:
-                personagens_inimigos = globals()["TIMES"][time_inimigo]
-            else:
-                personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
+    if random() < chance:
+        if type(dano) == list: #Casos que recebem listas com variáveis
+            dano = dano[0] * multiplicador
+            
+        if not amigos_e_inimigos:
+            for _ in range(vezes):
+                time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+                if todos:
+                    personagens_inimigos = globals()["TIMES"][time_inimigo]
+                else:
+                    personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
+                for personagem_inimigo in personagens_inimigos:
+                    buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+                    personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+
+                    printar(personagem_inimigo, image)
+
+        else:
+            buffer_(f"Atacando todos os personagens em {dano}...")
+            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+            personagens_inimigos = globals()["TIMES"][time_inimigo]
             for personagem_inimigo in personagens_inimigos:
-                buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
                 personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
                 printar(personagem_inimigo, image)
 
-    else:
-        buffer_(f"Atacando todos os personagens em {dano}...")
-        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
-        personagens_inimigos = globals()["TIMES"][time_inimigo]
-        for personagem_inimigo in personagens_inimigos:
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+            time_amigo = (globals()["TABULEIRO"]) % 2
+            personagens_amigos = globals()["TIMES"][time_amigo]
+            for personagem_amigo in personagens_amigos:
+                personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
-            printar(personagem_inimigo, image)
-
-        time_amigo = (globals()["TABULEIRO"]) % 2
-        personagens_amigos = globals()["TIMES"][time_amigo]
-        for personagem_amigo in personagens_amigos:
-            personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
-
-            printar(personagem_amigo, image)
+                printar(personagem_amigo, image)
 
 def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False):
     for _ in range(vezes):
@@ -1439,11 +1440,34 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Enxente",
                                       "descricao":f"Enquanto morto, no final do turno inimigo, dá 10 de dano em todos os personagens no campo."}],
                           },
+          "prototipo_meca":{"nome":"Protótipo Meca",
+                          "hp":140,
+                          "preco":2,
+                          "classe":"guerreiro",
+                          "arte":imagem_prototipo_meca,
+                          "raridade":"raro",
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":40, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Ganchado",
+                                      "descricao":f"Dá 40 de dano em um personagem inimigo à sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "funcao":dano_,
+                                      "tempo":"final",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":False,
+                                      "defesa":True,
+                                      "argumentos":{"dano":40, "aleatorio":True, "chance":0.15, "image":{"image":animacao_espada, "frames":6, "wait":50, "to_start":TEMPO[1], "x":10, "y":4}},
+                                      "nome":"Falha na Homologação",
+                                      "descricao":f"No final do turno inimigo, tem 15% de chance de atacar um lacaio personagem aliado em 40 no final do turno."}],
+                          },
           }
 
 if __name__ == "__main__":
     DEBUG = True
-    TIMES = [[CARTAS["duas_faces"].copy(),
+    TIMES = [[CARTAS["prototipo_meca"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
              [CARTAS["o_imitador"].copy(),
