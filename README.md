@@ -8,7 +8,7 @@ Um jogo de cartas feito para jogar no terminal
 
 2. Lógica do gráfico (completo);
 
-3. Cartas (44);
+3. Cartas (44, ajustando animações);
 
 4. Menu (incompleto);
 
