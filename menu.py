@@ -165,34 +165,40 @@ def animacao_menu() -> None:
                 pos_n[i] = (pos_n[i]+1)%len(posicoes)
         
         sleep(0.5)
-    
+
 def entrar_loja() -> None:
+    def animacao_loja() -> None:
+        while globals()["gatilho_loja"]:
+            game.add_effects(x = 85, y = 3,
+                            image = loja,
+                            frames = 1,
+                            tipe = None,
+                            wait = 0,
+                            to_start = 0)
+
+            game.add_effects(x = 5, y = 3,
+                            image = caixa_ferramentas,
+                            frames = 1,
+                            tipe = None,
+                            wait = 0,
+                            to_start = 0)
+
+            if random() < 0.5:
+                game.add_effects(x = 110, y = 16,
+                            image = piscando,
+                            frames = 1,
+                             tipe = None,
+                            wait = 0,
+                            to_start = 0)
+            sleep(0.25)
+
+    globals()["gatilho_loja"] = True
     game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
+    thread_animacao_loja = Thread(target = animacao_loja)
+    thread_animacao_loja.start()
 
     while True:
         game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
-
-        game.add_effects(x = 85, y = 3,
-                        image = loja,
-                        frames = 1,
-                        tipe = None,
-                        wait = 0,
-                        to_start = 0)
-
-        game.add_effects(x = 5, y = 3,
-                        image = caixa_ferramentas,
-                        frames = 1,
-                        tipe = None,
-                        wait = 0,
-                        to_start = 0)
-
-##        if random() < 0.5:
-##            game.add_temporary(x = 80, y = 10,
-##                        image = piscando,
-##                        frames = 1,
-##                        tipe = None,
-##                        wait = 0,
-##                        to_start = 0)
         
         resposta = input()
         
@@ -203,14 +209,17 @@ def entrar_loja() -> None:
         if resposta == 1:
             #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
             sleep(0)
+            globals()["gatilho_loja"] = False
+            thread_animacao_loja.join()
             choose_deck_animation()
+            globals()["gatilho_loja"] = True
             pass #Escolher deck
         elif resposta == 2:
-            abrir_pacote_com_carta()            
+            globals()["gatilho_loja"] = False
+            thread_animacao_loja.join()
+            abrir_pacote_com_carta()
+            globals()["gatilho_loja"] = True
             pass #Comprar buster
-
-        sleep(0.25)
-        
 
 if __name__ == "__main__":
     game = Screen(x = X, y = Y, fps = FPS)      

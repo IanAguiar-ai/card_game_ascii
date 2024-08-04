@@ -186,7 +186,7 @@ __|  \\/\\|/   /(____|/ //                    /  /||~|~|~|  |
   |___ /   (|________/   |\\_______\\       /  /| |______|/
       /                  \\|________)     /  / | |'''.split("\n"))
 
-piscando = adjust_image("""- - ?????????????????????????""".split("\n"), replace_ = True)
+piscando = adjust_image("""__ __""".split("\n"), replace_ = True)
 
 poutrona = adjust_image("""            __________
      _ ,-'""          ""`-. _
