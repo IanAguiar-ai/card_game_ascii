@@ -1241,7 +1241,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                      ]
                         },
           "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
-                          "hp":80,
+                          "hp":70,
                           "preco":3,
                           "classe":"monstro",
                           "arte":imagem_cogumelo_venenoso,
@@ -1261,7 +1261,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":habilidade_nerf_global_dano,
                                       "argumentos":{"buff":turno_atual, "multiplicador":2, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Fungo Perigoso",
-                                      "descricao":f"A cada turno, seu time recebe -2 de dano, acumulando."}
+                                      "descricao":f"A cada turno, seu time recebe -2 de dano, acumula."}
                                      ]
                         },
           "flores_sinistras":{"nome":"Flores Sinistras",
