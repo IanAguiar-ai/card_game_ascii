@@ -365,18 +365,17 @@ nuvem_3 = adjust_image("""            _
  (_.'          .')                    `(    )  ))
                   (_  )                     ` __.""".split("\n"), replace_ = True)
 
-vela = adjust_image("""    (
-     )
-    ()
-   |--|
-   |&&|
- .-|&&|-.
-:&&|&&|&&:
-:&&'--'&&:
- '-....-'""".split("\n"), replace_ = True)
+vela = adjust_image(""" (&
+ &)
+ ()
+|--|
+|&&|
+|&&|
+|&&|
+'--'""".split("\n"), replace_ = True)
 
-fogo = adjust_image(""")
-(""".split("\n"), replace_ = True)
+fumaca_vela = adjust_image(""" )
+( """.split("\n"), replace_ = False)
 
 pacote = adjust_image("""\\||||||||||||||||||||||||||||||||||/
 ====================================

@@ -183,7 +183,7 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
-            game.add_effects(x = 55, y = 5,
+            game.add_effects(x = 124, y = 24,
                             image = vela,
                             frames = 1,
                             tipe = None,
@@ -197,6 +197,14 @@ def entrar_loja() -> None:
                              tipe = None,
                             wait = 0,
                             to_start = 0)
+
+            if random() < 0.3:
+                game.add_effects(x = 125, y = 24,
+                            image = fumaca_vela,
+                            frames = 1,
+                            tipe = None,
+                            wait = 0,
+                            to_start = 0) 
             sleep(0.25)
 
     globals()["gatilho_loja"] = True
