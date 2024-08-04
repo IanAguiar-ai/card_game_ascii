@@ -183,6 +183,13 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
+            game.add_effects(x = 60, y = 10,
+                            image = vela,
+                            frames = 1,
+                            tipe = None,
+                            wait = 0,
+                            to_start = 0)           
+
             if random() < 0.05:
                 game.add_effects(x = 112, y = 16,
                             image = piscando,
@@ -237,7 +244,7 @@ if __name__ == "__main__":
             resposta = int(resposta)
         except:
             pass
-        if 1 <= resposta <= 2:
+        if type(resposta) == int and 1 <= resposta <= 2:
             gatilho_menu = False
             if resposta == 1:
                 pass #Ir para o jogo
