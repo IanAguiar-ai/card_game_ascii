@@ -275,6 +275,6 @@ if __name__ == "__main__":
     
     game.close()
     game_t.join()
-    
+
     del game
         
