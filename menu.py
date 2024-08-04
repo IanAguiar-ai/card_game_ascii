@@ -225,13 +225,11 @@ def entrar_loja() -> None:
             #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
             sleep(0)
             globals()["gatilho_loja"] = False
-            thread_animacao_loja.join()
             choose_deck_animation()
             globals()["gatilho_loja"] = True
             pass #Escolher deck
         elif resposta == 2:
             globals()["gatilho_loja"] = False
-            thread_animacao_loja.join()
             abrir_pacote_com_carta()
             globals()["gatilho_loja"] = True
             pass #Comprar buster
