@@ -253,7 +253,7 @@ if __name__ == "__main__":
     gatilho_menu = True
     animacao_menu_thread = Thread(target = animacao_menu)
     animacao_menu_thread.start()
-    
+
     while True:
         resposta = input()
         try:
@@ -264,7 +264,7 @@ if __name__ == "__main__":
             gatilho_menu = False
             animacao_menu_thread.join()
             del animacao_menu_thread
-            
+
             if resposta == 1: #Ir para o jogo
                 run_the_game()
                 gatilho_menu = True
@@ -283,4 +283,3 @@ if __name__ == "__main__":
     game_t.join()
 
     del game
-        

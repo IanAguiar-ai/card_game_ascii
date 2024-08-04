@@ -79,6 +79,10 @@ def jogar(TIMES:list):
 
         if n >= 3: #Termina o jogo
             buffer_("O JOGO TERMINOU!")
+            if globals()["TABULEIRO"] % 2 == 0:
+                venceu = True
+            else:
+                venceu = False
             break
 
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
@@ -111,6 +115,14 @@ def jogar(TIMES:list):
 
         reset_globais()
 
+    if venceu:
+        game.add_effects(x = 50,
+                     y = 20,
+                     image = vitoria,
+                     frames = 4,
+                     wait = 200,
+                     to_start = 0,
+                     tipe = "aleatorio")
     #Colocar moedas no save se o time amigo ganhou
 
 #=====================================================================================

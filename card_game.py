@@ -186,6 +186,7 @@ def run_the_game() -> None:
     game_.start()
 
     logica.join()
+    sleep(3)
     game.close()
     game_.join()
 
