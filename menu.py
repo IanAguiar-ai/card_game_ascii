@@ -183,8 +183,8 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
-            if random() < 0.5:
-                game.add_effects(x = 110, y = 16,
+            if random() < 0.05:
+                game.add_effects(x = 112, y = 16,
                             image = piscando,
                             frames = 1,
                              tipe = None,
