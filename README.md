@@ -12,7 +12,7 @@ Um jogo de cartas feito para jogar no terminal
 
 4. Menu (incompleto);
 
-5. Loja (a fazer);
+5. Loja (ajustando detalhes);
 
 6. Sistema de moedas (a fazer);
 
