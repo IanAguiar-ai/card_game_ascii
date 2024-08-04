@@ -221,26 +221,30 @@ def entrar_loja() -> None:
             resposta = int(resposta)
         except:
             pass
-        if resposta == 1: #Escolher o deck
-            #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
-            sleep(0)
-            globals()["gatilho_loja"] = False
-            thread_animacao_loja.join()
-            del thread_animacao_loja
-            globals()["gatilho_loja"] = True
-            choose_deck_animation()
-            thread_animacao_loja = Thread(target = animacao_loja)
-            thread_animacao_loja.start()
-            globals()["gatilho_loja"] = True
-            
-        elif resposta == 2: #Comprar um booster
-            globals()["gatilho_loja"] = False
-            thread_animacao_loja.join()
-            abrir_pacote_com_carta()
-            del thread_animacao_loja
-            globals()["gatilho_loja"] = True
-            thread_animacao_loja = Thread(target = animacao_loja)
-            thread_animacao_loja.start()
+        if type(resposta) == int:
+            if resposta == 1: #Escolher o deck
+                #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
+                sleep(0)
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                del thread_animacao_loja
+                globals()["gatilho_loja"] = True
+                choose_deck_animation()
+                thread_animacao_loja = Thread(target = animacao_loja)
+                thread_animacao_loja.start()
+                globals()["gatilho_loja"] = True
+                
+            elif resposta == 2: #Comprar um booster
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                abrir_pacote_com_carta()
+                del thread_animacao_loja
+                globals()["gatilho_loja"] = True
+                thread_animacao_loja = Thread(target = animacao_loja)
+                thread_animacao_loja.start()
+
+            elif resposta == 3: #Sair da loja
+                break
 
 if __name__ == "__main__":
     game = Screen(x = X, y = Y, fps = FPS)      
