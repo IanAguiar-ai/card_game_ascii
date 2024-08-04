@@ -70,7 +70,13 @@ class Screen:
                     pos += 3 + len(descricao)
                 
                 if TIMES[y__][x__]['arte'] != None:
-                    self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                    if not "arte_morto" in TIMES[y__][x__]:
+                        self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                    else:
+                        if not globals()["morto"]:
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                        else:
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte_morto']))
 
                 #Animacoes:
                 to_pop = []
@@ -165,6 +171,7 @@ if __name__ == "__main__":
             cards_base.append(Element(x_, y_, base_card_complete))
 
     #Add elements in game:
+    morto = False
     game.add([*cards_base, ])
 
     nomes_cartas = []
@@ -187,6 +194,7 @@ if __name__ == "__main__":
     while True:
         resp = input()
         game.animation = True
+        
         if resp.lower() == "w":
             escolhas[0] = (escolhas[0] + 1) % len(nomes_cartas)
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
@@ -217,5 +225,12 @@ if __name__ == "__main__":
             TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
+
+        elif resp.lower() == "h":
+            if morto:
+                morto = False
+            else:
+                morto = True
+            
         sleep(0.25)
         game.animation = True

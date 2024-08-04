@@ -60,7 +60,14 @@ class Screen:
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({TIMES[y__][x__]['preco']})")], rarity = TIMES[y__][x__]['raridade'])]))
                 if TIMES[y__][x__]['arte'] != None:
-                    self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                    if not "arte_morto" in TIMES[y__][x__]:
+                        self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                    else:
+                        if TIMES[y__][x__]["hp"] > 0:
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                        else:
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte_morto']))
+                            
 
                 #Animacoes:
                 to_pop = []
@@ -166,7 +173,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS[aleatorios[0]].copy(),
               CARTAS[aleatorios[1]].copy(),
               CARTAS[aleatorios[2]].copy()],
-             [CARTAS["meca_last_hope"].copy(),
+             [CARTAS["mestre_dos_venenos"].copy(),
               CARTAS["vinganca_da_noite"].copy(),
               CARTAS["fenix"].copy()]]
 
