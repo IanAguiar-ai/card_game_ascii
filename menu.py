@@ -213,7 +213,7 @@ def entrar_loja() -> None:
     thread_animacao_loja.start()
 
     while True:
-        game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
+        game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar\n(3) Para sair da loja"
         
         resposta = input()
         
@@ -221,13 +221,12 @@ def entrar_loja() -> None:
             resposta = int(resposta)
         except:
             pass
-        if type(resposta) == int:
+        if type(resposta) == int and 1 <= resposta <= 3:
+            globals()["gatilho_loja"] = False
+            thread_animacao_loja.join()
+            del thread_animacao_loja
+                
             if resposta == 1: #Escolher o deck
-                #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
-                sleep(0)
-                globals()["gatilho_loja"] = False
-                thread_animacao_loja.join()
-                del thread_animacao_loja
                 globals()["gatilho_loja"] = True
                 choose_deck_animation()
                 thread_animacao_loja = Thread(target = animacao_loja)
@@ -235,10 +234,7 @@ def entrar_loja() -> None:
                 globals()["gatilho_loja"] = True
                 
             elif resposta == 2: #Comprar um booster
-                globals()["gatilho_loja"] = False
-                thread_animacao_loja.join()
                 abrir_pacote_com_carta()
-                del thread_animacao_loja
                 globals()["gatilho_loja"] = True
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
@@ -264,11 +260,14 @@ if __name__ == "__main__":
             pass
         if type(resposta) == int and 1 <= resposta <= 2:
             gatilho_menu = False
-            if resposta == 1:
-                pass #Ir para o jogo
-            elif resposta == 2:
+            animacao_menu_thread.join()
+            del animacao_menu_thread
+            
+            if resposta == 1: #Ir para o jogo
+                pass 
+            elif resposta == 2: #Ir para a loja
                 entrar_loja()
-                pass #Ir para a loja
+                pass 
     
     game.close()
     game_t.join()
