@@ -58,16 +58,15 @@ def jogar(TIMES:list):
     for time in TIMES:
         for p in time:
             p["hp_inicial"] = p["hp"]
-    
-    ###Vendo habilidades globais:
-    
-    while True:
 
+    ###Vendo habilidades globais:
+
+    while True:
         time_atacante = TIMES[globals()["TABULEIRO"]]
         time_atacado = TIMES[(globals()["TABULEIRO"] + 1) % 2]
         globals()["time_atacante"] = time_atacante
         globals()["time_atacado"] = time_atacado
-        
+
         #Escolhedo o personagem que atacara nesse round
         personagem_atual = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
 
@@ -81,7 +80,7 @@ def jogar(TIMES:list):
         if n >= 3: #Termina o jogo
             buffer_("O JOGO TERMINOU!")
             break
-             
+
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
         globals()["turno_atual"][0] = globals()['PARTIDA']
 
@@ -93,7 +92,6 @@ def jogar(TIMES:list):
 
         numero_dado = jogar_dado()
         globals()["numero_dado"][0] = numero_dado
-        ###ANIMACAO DO DADO
 
         ###Vendo ataques do personagem:
         verificar_ataques(personagem_atual, numero_dado)
@@ -112,6 +110,8 @@ def jogar(TIMES:list):
         globals()["PARTIDA"] += 1
 
         reset_globais()
+
+    #Colocar moedas no save se o time amigo ganhou
 
 #=====================================================================================
 #Funções base:

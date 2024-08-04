@@ -21,6 +21,10 @@ class Screen:
         self.buffer_text = ""
         self.animation = True
         self.effects = {}
+        self.in_run = True
+
+    def close(self):
+        self.in_run = False
 
     def add_effects(self, x:int, y:int, image:list, frames:int = 8, tipe:str = None, wait:int = 16, to_start:int = 0) -> None:
         self.effects[str(random()*1_000_000)] = {"x":x,
@@ -93,7 +97,7 @@ class Screen:
 
     def run(self, TIMES):
         self.estats_animation(TIMES)
-        while True:
+        while self.in_run or self.animation:
             if self.animation or self.estats_animation(TIMES) or not "hp_temp" in TIMES[0][0]:
                 #Empty space:
                 #buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
@@ -149,6 +153,41 @@ class Element:
         self.x = x
         self.y = y
         self.image = image
+
+def run_the_game() -> None:
+    from engine_card_game import CARTAS, jogar, game
+    
+    #Object definitions:
+    cards_base = []
+    for x_ in DISPOSITION_X_CARDS:
+        for y_ in DISPOSITION_Y_CARDS:
+            cards_base.append(Element(x_, y_, base_card))
+
+    #Add elements in game:
+    game.add([*cards_base, ])
+
+    while True:
+        aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
+        if 4 <= CARTAS[aleatorios[0]]["preco"] + CARTAS[aleatorios[1]]["preco"] + CARTAS[aleatorios[2]]["preco"] <= 5:
+            break
+
+    #Adicionado cartas
+    TIMES = [[CARTAS[aleatorios[0]].copy(),
+              CARTAS[aleatorios[1]].copy(),
+              CARTAS[aleatorios[2]].copy()],
+             [CARTAS["mestre_dos_venenos"].copy(),
+              CARTAS["vinganca_da_noite"].copy(),
+              CARTAS["fenix"].copy()]]
+
+    logica = Thread(target = jogar, args = [TIMES])
+    game_ = Thread(target = game.run, args = [TIMES])
+
+    logica.start()
+    game_.start()
+
+    logica.join()
+    game.close()
+    game_.join()
 
 #=================================================================
 #Game definitions:
