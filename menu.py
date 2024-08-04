@@ -7,6 +7,7 @@ from time import sleep, time
 from colors_terminal import colors
 from auxiliary_functions import *
 from choose_deck import choose_deck_animation
+from open_booster import abrir_pacote_com_carta
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -185,13 +186,13 @@ def entrar_loja() -> None:
                         wait = 0,
                         to_start = 0)
 
-        if random() < 0.5:
-            game.add_temporary(x = 80, y = 10,
-                        image = piscando,
-                        frames = 1,
-                        tipe = None,
-                        wait = 0,
-                        to_start = 0)
+##        if random() < 0.5:
+##            game.add_temporary(x = 80, y = 10,
+##                        image = piscando,
+##                        frames = 1,
+##                        tipe = None,
+##                        wait = 0,
+##                        to_start = 0)
         
         resposta = input()
         
@@ -201,11 +202,11 @@ def entrar_loja() -> None:
             pass
         if resposta == 1:
             #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
-            game.animation = True
-            sleep(1)
+            sleep(0)
             choose_deck_animation()
             pass #Escolher deck
         elif resposta == 2:
+            abrir_pacote_com_carta()            
             pass #Comprar buster
 
         sleep(0.25)
@@ -213,9 +214,7 @@ def entrar_loja() -> None:
 
 if __name__ == "__main__":
     game = Screen(x = X, y = Y, fps = FPS)      
-
     game.buffer_text = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
-    
     game_t = Thread(target = game.run)
     game_t.start()
 

@@ -230,7 +230,7 @@ def abrir_pacote_com_carta() -> None:
         game.add_effects(x = x_ + 1, y = y_ + 2, image = carta_descoberta['arte'], frames = frames, wait = espera)
 
     game.buffer_text = "".join(put_color_rarity([list(f"Desbloqueado {carta[1]}!")], rarity = carta_descoberta['raridade'])[0])
-
+    game.buffer_text += "\n\nAperte ENTER para sair..."
     input()
 
     game.close()
