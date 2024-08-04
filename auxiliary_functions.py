@@ -1,4 +1,7 @@
 from random import random
+import json
+import os
+from game_config import *
 
 def to_list(text:str) -> list:
     """
@@ -149,3 +152,31 @@ def ajustar_descricao(desc:str):
 
     final.append(temp)
     return final
+
+def criar_save() -> dict:
+    """
+    Cria o save:
+    """
+    data = {"cartas": [], "moedas": 1000, "deck":None}
+    with open(SAVE_SAVE, "w") as json_file:
+        json.dump(data, json_file, indent = 4)
+    return data
+
+def ler_save() -> dict:
+    """
+    Lê o save:
+    """
+    if os.path.exists(SAVE_SAVE):
+        with open(SAVE_SAVE, "r") as json_file:
+            data = json.load(json_file)
+        return data
+    else:
+        return None
+
+def adicionar_save(data:dict) -> None:
+    """
+    Adiciona ao save:
+    """
+    with open(SAVE_SAVE, "w") as json_file:
+        json.dump(data, json_file, indent = 4)  
+

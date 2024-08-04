@@ -123,7 +123,12 @@ def jogar(TIMES:list):
                      wait = 200,
                      to_start = 0,
                      tipe = "aleatorio")
-    #Colocar moedas no save se o time amigo ganhou
+        
+        memoria_save = ler_save()
+        if memoria_save == None:
+            memoria_save = criar_save()
+        memoria_save["moedas"] += 40
+        adicionar_save(memoria_save)
 
 #=====================================================================================
 #Funções base:

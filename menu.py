@@ -209,12 +209,14 @@ def entrar_loja() -> None:
             sleep(0.25)
 
     globals()["gatilho_loja"] = True
-    game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
+    memoria_save = ler_save()
+    texto_loja = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster (100 moedas)\n(3) Para sair da loja"
+    game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
 
     while True:
-        game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar\n(3) Para sair da loja"
+        game.buffer_text = texto_loja
         
         resposta = input()
         
@@ -223,27 +225,42 @@ def entrar_loja() -> None:
         except:
             pass
         if type(resposta) == int and 1 <= resposta <= 3:
-            globals()["gatilho_loja"] = False
-            thread_animacao_loja.join()
-            del thread_animacao_loja
                 
-            if resposta == 1: #Escolher o deck
+            if resposta == 1 and len(memoria_save["cartas"]) >= 3: #Escolher o deck
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                del thread_animacao_loja
+            
                 globals()["gatilho_loja"] = True
                 choose_deck_animation()
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 globals()["gatilho_loja"] = True
                 
-            elif resposta == 2: #Comprar um booster
+            elif resposta == 2 and memoria_save["moedas"] >= 100: #Comprar um booster
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                del thread_animacao_loja
+
                 abrir_pacote_com_carta()
                 globals()["gatilho_loja"] = True
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
+                memoria_save = ler_save()
 
             elif resposta == 3: #Sair da loja
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                del thread_animacao_loja
+                
                 break
 
 if __name__ == "__main__":
+    memoria_save = ler_save()
+    if memoria_save == None:
+        memoria_save = criar_save()
+        
+    
     game = Screen(x = X, y = Y, fps = FPS)
     texto_principal = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
     game.buffer_text = texto_principal

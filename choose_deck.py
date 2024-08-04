@@ -180,8 +180,17 @@ def choose_deck_animation() -> None:
     for key in CARTAS.keys():
         nomes_cartas.append([key, CARTAS[key]["hp"], CARTAS[key]["classe"], CARTAS[key]["preco"]])
 
+    memoria_save = ler_save()
+    if memoria_save == None:
+        memoria_save = criar_save()
+    else:
+        cartas_usuario = memoria_save["cartas"]
+
     nomes_cartas = sorted(sorted(sorted(nomes_cartas, key = lambda x : x[1]), key = lambda x : x[3]), key = lambda x : x[2], reverse = True)
     nomes_cartas = [nome[0] for nome in nomes_cartas]
+    nomes_cartas = [carta if carta in cartas_usuario else None for carta in nomes_cartas]
+    while None in nomes_cartas:
+        nomes_cartas.remove(None)
 
     #Tem que deixar ele escolher só as cartas que o usuário tem
     escolhas = [0, 1, 2]
@@ -239,12 +248,19 @@ def choose_deck_animation() -> None:
                 game.morto = True
 
         elif resp.lower() == "":
-            #Tem que colocar em um json o deck escolhido
-            game.buffer_text = "Deck Escolhido!"
-            sleep(1)
-            game.close()
-            break
-            
+            if CARTAS[nomes_cartas[escolhas[0]]]["preco"] + CARTAS[nomes_cartas[escolhas[1]]]["preco"] + CARTAS[nomes_cartas[escolhas[2]]]["preco"] <= 5:
+                #Tem que colocar em um json o deck escolhido
+                game.buffer_text = "Deck Escolhido!"
+                sleep(1)
+                memoria_save["deck"] = [nomes_cartas[escolhas[0]], nomes_cartas[escolhas[1]], nomes_cartas[escolhas[2]]]
+                adicionar_save(memoria_save)
+                game.close()
+                break
+            else:
+                game.buffer_text = "O deck não pode ter mais de 5 de custo!"
+                sleep(2)
+                game.buffer_text = f"Aperte:\n(q, w) para escolher a primeira carta\n(a, s) para escolher a segunda carta\n(z, x) para escolher a terceira carta"
+                
         sleep(0.25)
         game.animation = True
     

@@ -6,6 +6,7 @@ from arts import *
 from time import sleep, time
 from colors_terminal import colors
 from choose_deck import to_list, animation_image, put_color, clear, put_color_life, put_color_class, put_color_tipo, put_color_rarity, ajustar_descricao
+from auxiliary_functions import criar_save, ler_save, adicionar_save
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -231,6 +232,17 @@ def abrir_pacote_com_carta() -> None:
 
     game.buffer_text = "".join(put_color_rarity([list(f"Desbloqueado {carta[1]}!")], rarity = carta_descoberta['raridade'])[0])
     game.buffer_text += "\n\nAperte ENTER para sair..."
+
+    #Salvando a carta desbloqueada:
+    save_atual = ler_save()
+    if save_atual == None:
+        criar_save()
+    else:
+        if not carta[0] in save_atual["cartas"]:
+            save_atual["cartas"].append(carta[0])
+        save_atual["moedas"] -= 100
+        adicionar_save(save_atual)
+            
     input()
 
     game.close()

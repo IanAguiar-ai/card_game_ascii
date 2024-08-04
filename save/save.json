@@ -1,0 +1,19 @@
+{
+    "cartas": [
+        "prototipo_meca",
+        "orc_rejeitado",
+        "gigante",
+        "escudeiro_experiente",
+        "quan_o_equilibro",
+        "rei_da_vila",
+        "soldado_novato",
+        "comeia",
+        "hacker"
+    ],
+    "moedas": 0,
+    "deck": [
+        "hacker",
+        "orc_rejeitado",
+        "soldado_novato"
+    ]
+}
