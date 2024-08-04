@@ -5,7 +5,8 @@ from threading import Thread
 from arts import *
 from time import sleep, time
 from colors_terminal import colors
-from choose_deck import to_list, animation_image, put_color, clear, put_color_life, put_color_class, put_color_tipo, put_color_rarity, ajustar_descricao
+from auxiliary_functions import *
+from choose_deck import choose_deck_animation
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -116,27 +117,7 @@ class Element:
         self.y = y
         self.image = image
 
-def abrir_pacote() -> None:
-    chances = [0.02, 0.08, 0.25, 0.65]
-    chances = [sum(chances[0:i+1]) for i in range(0, len(chances))]
-    raridade = ["lendario", "epico", "raro", "comum"]
-
-    num_aleat = random()
-    for i in range(len(chances)):
-        if num_aleat < chances[i] and not "abrir" in locals():
-            abrir = raridade[i]
-
-    possiveis = []
-    for key in CARTAS.keys():
-        if CARTAS[key]["raridade"] == abrir:
-            possiveis.append([key, CARTAS[key]["nome"]])
-
-    escolher = int(len(possiveis)*random())
-    carta = possiveis[escolher]
-
-    return abrir, carta
-
-def animacao_menu():
+def animacao_menu() -> None:
     pos_n = [0, 50, 0]
     posicoes = [i for i in range(0, 50)]
     posicoes.extend(i for i in range(49, 0, -1))
@@ -184,6 +165,51 @@ def animacao_menu():
         
         sleep(0.5)
     
+def entrar_loja() -> None:
+    game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
+
+    while True:
+        game.buffer_text = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar"
+
+        game.add_effects(x = 85, y = 3,
+                        image = loja,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+
+        game.add_effects(x = 5, y = 3,
+                        image = caixa_ferramentas,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+
+        if random() < 0.5:
+            game.add_temporary(x = 80, y = 10,
+                        image = piscando,
+                        frames = 1,
+                        tipe = None,
+                        wait = 0,
+                        to_start = 0)
+        
+        resposta = input()
+        
+        try:
+            resposta = int(resposta)
+        except:
+            pass
+        if resposta == 1:
+            #Animação do em balão do vendedor falando 'Muito bem, escolha seu deck na mesa...'
+            game.animation = True
+            sleep(1)
+            choose_deck_animation()
+            pass #Escolher deck
+        elif resposta == 2:
+            pass #Comprar buster
+
+        sleep(0.25)
+        
 
 if __name__ == "__main__":
     game = Screen(x = X, y = Y, fps = FPS)      
@@ -208,6 +234,7 @@ if __name__ == "__main__":
             if resposta == 1:
                 pass #Ir para o jogo
             elif resposta == 2:
+                entrar_loja()
                 pass #Ir para a loja
     
     game.close()

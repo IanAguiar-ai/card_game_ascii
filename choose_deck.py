@@ -18,6 +18,11 @@ class Screen:
         self.buffer_text = ""
         self.animation = True
         self.effects = {}
+        self.morto = False
+        self.in_run = True
+
+    def close(self):
+        self.in_run = False
 
     def add_effects(self, x:int, y:int, image:list, frames:int = 8, tipe:str = None, wait:int = 16, to_start:int = 0) -> None:
         self.effects[str(random()*1_000_000)] = {"x":x,
@@ -29,36 +34,36 @@ class Screen:
                                                  "wait":wait + frames + 1,
                                                  "to_start":to_start}
         
-    def estats_animation(self, TIMES) -> bool:
+    def estats_animation(self) -> bool:
         continua = False
         x__ = 0
         for x_ in DISPOSITION_X_CARDS:
             y__ = 0
             for y_ in DISPOSITION_Y_CARDS[:1]:
-                if not "x" in TIMES[y__][x__]:
-                    TIMES[y__][x__]["x"] = x_
-                if not "y" in TIMES[y__][x__]:
-                    TIMES[y__][x__]["y"] = y_
+                if not "x" in self.TIMES[y__][x__]:
+                    self.TIMES[y__][x__]["x"] = x_
+                if not "y" in self.TIMES[y__][x__]:
+                    self.TIMES[y__][x__]["y"] = y_
     
-                if not "hp_temp" in TIMES[y__][x__]:
-                    TIMES[y__][x__]["hp_temp"] = TIMES[y__][x__]["hp"]
-                if TIMES[y__][x__]["hp"] < TIMES[y__][x__]["hp_temp"]:
-                    TIMES[y__][x__]["hp_temp"] -= 1
+                if not "hp_temp" in self.TIMES[y__][x__]:
+                    self.TIMES[y__][x__]["hp_temp"] = self.TIMES[y__][x__]["hp"]
+                if self.TIMES[y__][x__]["hp"] < self.TIMES[y__][x__]["hp_temp"]:
+                    self.TIMES[y__][x__]["hp_temp"] -= 1
                     continua = True
-                elif TIMES[y__][x__]["hp"] > TIMES[y__][x__]["hp_temp"]:
-                    TIMES[y__][x__]["hp_temp"] += 1
+                elif self.TIMES[y__][x__]["hp"] > self.TIMES[y__][x__]["hp_temp"]:
+                    self.TIMES[y__][x__]["hp_temp"] += 1
                     continua = True
 
                 #Cartas:
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = TIMES[y__][x__]['raridade'])]))
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = TIMES[y__][x__]['raridade'])]))
-                self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{TIMES[y__][x__]['classe'].title().center(23)}")], class_ = TIMES[y__][x__]['classe'])]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
+                self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{self.TIMES[y__][x__]['classe'].title().center(23)}")], class_ = self.TIMES[y__][x__]['classe'])]))
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
-                self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{TIMES[y__][x__]['hp_temp']:3}")], life = TIMES[y__][x__]['hp_temp'])]))
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
-                self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({TIMES[y__][x__]['preco']})")], rarity = TIMES[y__][x__]['raridade'])]))
+                self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{self.TIMES[y__][x__]['hp_temp']:3}")], life = self.TIMES[y__][x__]['hp_temp'])]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{self.TIMES[y__][x__]['nome'].center(34)}")]))
+                self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({self.TIMES[y__][x__]['preco']})")], rarity = self.TIMES[y__][x__]['raridade'])]))
                 pos = 21
-                for t in TIMES[y__][x__]["ataques"]:
+                for t in self.TIMES[y__][x__]["ataques"]:
                     if t["tipo"] == "ataque":
                         self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo'])))
                         descricao = ajustar_descricao(t["descricao"])
@@ -69,14 +74,14 @@ class Screen:
                         self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
                     pos += 3 + len(descricao)
                 
-                if TIMES[y__][x__]['arte'] != None:
-                    if not "arte_morto" in TIMES[y__][x__]:
-                        self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                if self.TIMES[y__][x__]['arte'] != None:
+                    if not "arte_morto" in self.TIMES[y__][x__]:
+                        self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = self.TIMES[y__][x__]['arte']))
                     else:
-                        if not globals()["morto"]:
-                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
+                        if not self.morto:
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = self.TIMES[y__][x__]['arte']))
                         else:
-                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte_morto']))
+                            self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = self.TIMES[y__][x__]['arte_morto']))
 
                 #Animacoes:
                 to_pop = []
@@ -103,10 +108,10 @@ class Screen:
     def run(self):
         """
         Roda o jogo
-        """
-        self.estats_animation(TIMES)
-        while True:
-            if self.animation or self.estats_animation(TIMES) or not "hp_temp" in TIMES[0][0]:
+        """       
+        self.estats_animation()
+        while self.in_run:
+            if self.animation or self.estats_animation() or not "hp_temp" in self.TIMES[0][0]:
                 #Empty space:
                 #buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
                 buffer = campo.copy()
@@ -162,17 +167,14 @@ class Element:
         self.y = y
         self.image = image        
 
-game = Screen(x = X, y = Y, fps = FPS)
-if __name__ == "__main__":
+def choose_deck_animation() -> None:
     #Object definitions:
     cards_base = []
     for x_ in DISPOSITION_X_CARDS:
         for y_ in DISPOSITION_Y_CARDS[:1]:
             cards_base.append(Element(x_, y_, base_card_complete))
 
-    #Add elements in game:
     morto = False
-    game.add([*cards_base, ])
 
     nomes_cartas = []
     for key in CARTAS.keys():
@@ -180,14 +182,18 @@ if __name__ == "__main__":
 
     nomes_cartas = sorted(sorted(sorted(nomes_cartas, key = lambda x : x[1]), key = lambda x : x[3]), key = lambda x : x[2], reverse = True)
     nomes_cartas = [nome[0] for nome in nomes_cartas]
-    
+
+    #Tem que deixar ele escolher só as cartas que o usuário tem
     escolhas = [0, 1, 2]
     TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
 
+    #Tela:
+    game = Screen(x = X, y = Y, fps = FPS)
+    game.add([*cards_base, ])
+    game.TIMES = TIMES
     game.buffer_text = f"Aperte:\n(q, w) para escolher a primeira carta\n(a, s) para escolher a segunda carta\n(z, x) para escolher a terceira carta"
-    
     game_t = Thread(target = game.run)
     game_t.start()
 
@@ -197,40 +203,50 @@ if __name__ == "__main__":
         
         if resp.lower() == "w":
             escolhas[0] = (escolhas[0] + 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
         elif resp.lower() == "q":
             escolhas[0] = (escolhas[0] - 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
         elif resp.lower() == "s":
             escolhas[1] = (escolhas[1] + 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
         elif resp.lower() == "a":
             escolhas[1] = (escolhas[1] - 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
         elif resp.lower() == "x":
             escolhas[2] = (escolhas[2] + 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
         elif resp.lower() == "z":
             escolhas[2] = (escolhas[2] - 1) % len(nomes_cartas)
-            TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
+            game.TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
 
-        elif resp.lower() == "h":
-            if morto:
-                morto = False
+        elif resp.lower() == "h" or resp.lower() == "m":
+            if game.morto:
+                game.morto = False
             else:
-                morto = True
+                game.morto = True
+
+        elif resp.lower() == "":
+            #Tem que colocar em um json o deck escolhido
+            game.buffer_text = "Deck Escolhido!"
+            sleep(1)
+            game.close()
+            break
             
         sleep(0.25)
         game.animation = True
+    
+if __name__ == "__main__":
+    choose_deck_animation()
