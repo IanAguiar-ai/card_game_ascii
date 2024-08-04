@@ -267,6 +267,10 @@ if __name__ == "__main__":
                 pass 
             elif resposta == 2: #Ir para a loja
                 entrar_loja()
+                gatilho_menu = True
+                game.buffer_text = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
+                animacao_menu_thread = Thread(target = animacao_menu)
+                animacao_menu_thread.start()
                 pass 
     
     game.close()
