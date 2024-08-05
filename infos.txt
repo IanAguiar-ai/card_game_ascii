@@ -1,4 +1,4 @@
-Estão sendo usados 19.55 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 21.64 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (10):
 	Caçador Iniciante          50 0
@@ -24,7 +24,7 @@ Monstro (7):
 	Orc Rejeitado             100 1
 	Fantasma Solitario        100 2
 	Milicia Fantasma          110 2
-	Cogumelo Venenoso          80 3
+	Cogumelo Venenoso          70 3
 	Gigante                   180 4
 
 Noturno (10):

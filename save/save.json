@@ -9,12 +9,13 @@
         "soldado_novato",
         "comeia",
         "hacker",
-        "lesma"
+        "lesma",
+        "campones_corajoso"
     ],
     "moedas": 60,
     "deck": [
-        "soldado_novato",
-        "soldado_novato",
-        "rei_da_vila"
+        "hacker",
+        "orc_rejeitado",
+        "orc_rejeitado"
     ]
 }

@@ -184,6 +184,13 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
+            game.add_effects(x = 20, y = 26,
+                            image = mesa_simples,
+                            frames = 1,
+                            tipe = None,
+                            wait = 0,
+                            to_start = 0)
+
             game.add_effects(x = 124, y = 24,
                             image = vela,
                             frames = 1,
