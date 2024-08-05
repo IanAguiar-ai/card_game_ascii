@@ -169,6 +169,7 @@ def animacao_menu() -> None:
 
 def entrar_loja() -> None:
     def animacao_loja() -> None:
+        em_fala = 0
         while globals()["gatilho_loja"]:
             game.add_effects(x = 85, y = 3,
                             image = loja,
@@ -214,13 +215,74 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
-            if random() < 1:
-                game.add_effects(x = 94, y = 4,
-                                image = balao_medio,
-                                frames = 1,
-                                tipe = None,
-                                wait = 0,
-                                to_start = 0)
+            if random() < 0.3 or em_fala > 0:
+                if em_fala <= 0:
+                    texto_vendedor = textos_aleatorios[int(len(textos_aleatorios)*random())]
+                    em_fala = 20
+
+                if len(texto_vendedor) > 3:
+                    game.add_effects(x = 94, y = 4,
+                                    image = balao_medio,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                    game.add_effects(x = 96, y = 6,
+                                    image = texto_vendedor,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                elif len(texto_vendedor) > 2:
+                    game.add_effects(x = 94, y = 8,
+                                    image = balao_pequeno,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                    game.add_effects(x = 96, y = 10,
+                                    image = texto_vendedor,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                elif len(texto_vendedor) > 1:
+                    game.add_effects(x = 94, y = 9,
+                                    image = balao_menor,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                    game.add_effects(x = 96, y = 11,
+                                    image = texto_vendedor,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                else:
+                    game.add_effects(x = 94, y = 10,
+                                    image = balao_unico,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                    game.add_effects(x = 96, y = 12,
+                                    image = texto_vendedor,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+
+                em_fala -= 1
+
             
             sleep(0.25)
 
@@ -277,7 +339,7 @@ if __name__ == "__main__":
         memoria_save = criar_save()
         
     
-    game = Screen(x = X, y = Y, fps = FPS)
+    game = Screen(x = X, y = Y, fps = FPS_LOJA)
     texto_principal = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
     game.buffer_text = texto_principal
     game_t = Thread(target = game.run)

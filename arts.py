@@ -212,6 +212,60 @@ balao_medio = adjust_image("""&&&___________________________
 &&&&&&&&&&&&&&&\\ |
 &&&&&&&&&&&&&&&&\\|""".split("\n"))
 
+balao_pequeno = adjust_image("""
+&&&___________________________
+ /                            \\
+|                              |
+|                              |
+ \\___________     ____________/
+&&&&&&&&&&&&&\\   |
+&&&&&&&&&&&&&&\\  |
+&&&&&&&&&&&&&&&\\ |
+&&&&&&&&&&&&&&&&\\|""".split("\n"))
+
+balao_menor = adjust_image("""
+&&&___________________________
+ /                            \\
+|                              |
+ \\___________     ____________/
+&&&&&&&&&&&&&\\   |
+&&&&&&&&&&&&&&\\  |
+&&&&&&&&&&&&&&&\\ |
+&&&&&&&&&&&&&&&&\\|""".split("\n"))
+
+balao_unico = adjust_image("""
+&&&___________________________
+ /                            \\
+ \\___________     ____________/
+&&&&&&&&&&&&&\\   |
+&&&&&&&&&&&&&&\\  |
+&&&&&&&&&&&&&&&\\ |
+&&&&&&&&&&&&&&&&\\|""".split("\n"))
+
+
+textos_aleatorios = [
+adjust_image(""" Você não quer abrir um
+booster? São apenas 100
+moedas.""".split("\n")),
+adjust_image(""" Não se esqueça que eu
+fecho as 20!""".split("\n")),
+adjust_image(""" Tá olhando oque?""".split("\n")),
+adjust_image(""" Só vai olhar?""".split("\n")),
+adjust_image(""" Só vai olhar, desgraça?""".split("\n")),
+adjust_image(""" Não julgue a carta pela
+arte!""".split("\n")),
+adjust_image(""" Quer dar uma olhada no meu
+deck?""".split("\n")),
+adjust_image(""" Só vai olhar?""".split("\n")),
+adjust_image(""" A chance de vir uma carta
+lendaria no booster é de
+apenas 2%. Isso significa
+que em média, vem uma a cada
+50 booster!""".split("\n")),
+adjust_image(""" Existem cartas de custo até
+custo 5...""".split("\n"))
+]
+
 poutrona = adjust_image("""            __________
      _ ,-'""          ""`-. _
     f Y      *     *       Y Y
