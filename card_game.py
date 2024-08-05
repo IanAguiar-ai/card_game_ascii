@@ -156,7 +156,9 @@ class Element:
 
 def run_the_game() -> None:
     from engine_card_game import CARTAS, jogar, game
-    
+
+    memoria_save = ler_save()    
+        
     #Object definitions:
     cards_base = []
     for x_ in DISPOSITION_X_CARDS:
@@ -172,12 +174,19 @@ def run_the_game() -> None:
             break
 
     #Adicionado cartas
+##    TIMES = [[CARTAS[aleatorios[0]].copy(),
+##              CARTAS[aleatorios[1]].copy(),
+##              CARTAS[aleatorios[2]].copy()],
+##             [CARTAS["mestre_dos_venenos"].copy(),
+##              CARTAS["vinganca_da_noite"].copy(),
+##              CARTAS["fenix"].copy()]]
+
     TIMES = [[CARTAS[aleatorios[0]].copy(),
               CARTAS[aleatorios[1]].copy(),
               CARTAS[aleatorios[2]].copy()],
-             [CARTAS["mestre_dos_venenos"].copy(),
-              CARTAS["vinganca_da_noite"].copy(),
-              CARTAS["fenix"].copy()]]
+             [CARTAS[memoria_save["deck"][0]].copy(),
+              CARTAS[memoria_save["deck"][1]].copy(),
+              CARTAS[memoria_save["deck"][2]].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game_ = Thread(target = game.run, args = [TIMES])

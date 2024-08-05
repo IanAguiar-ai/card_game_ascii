@@ -14,6 +14,6 @@ Um jogo de cartas feito para jogar no terminal
 
 5. Loja (ajustando detalhes);
 
-6. Sistema de moedas (a fazer);
+6. Sistema de moedas (completo);
 
-7. Sistema de memória com 'saves' (a fazer).
+7. Sistema de memória com 'saves' (completo).

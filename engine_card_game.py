@@ -125,8 +125,10 @@ def jogar(TIMES:list):
                      tipe = "aleatorio")
         
         memoria_save = ler_save()
+        
         if memoria_save == None:
             memoria_save = criar_save()
+            
         memoria_save["moedas"] += 40
         adicionar_save(memoria_save)
 
