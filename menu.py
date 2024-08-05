@@ -212,7 +212,16 @@ def entrar_loja() -> None:
                             frames = 1,
                             tipe = None,
                             wait = 0,
-                            to_start = 0) 
+                            to_start = 0)
+
+            if random() < 1:
+                game.add_effects(x = 94, y = 4,
+                                image = balao_medio,
+                                frames = 1,
+                                tipe = None,
+                                wait = 0,
+                                to_start = 0)
+            
             sleep(0.25)
 
     globals()["gatilho_loja"] = True
