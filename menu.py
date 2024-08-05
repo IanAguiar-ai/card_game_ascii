@@ -215,10 +215,21 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
-            if random() < 0.3 or em_fala > 0:
+            if memoria_save["cartas"] == []:
+                pass
+
+            elif random() < 0.01 or em_fala > 0:
                 if em_fala <= 0:
                     texto_vendedor = textos_aleatorios[int(len(textos_aleatorios)*random())]
                     em_fala = 20
+
+                if random() < 0.2:
+                    game.add_effects(x = 113, y = 18,
+                            image = falando,
+                            frames = 1,
+                             tipe = None,
+                            wait = 0,
+                            to_start = 0)
 
                 if len(texto_vendedor) > 3:
                     game.add_effects(x = 94, y = 4,
@@ -284,7 +295,7 @@ def entrar_loja() -> None:
                 em_fala -= 1
 
             
-            sleep(0.25)
+            sleep(0.2)
 
     globals()["gatilho_loja"] = True
     memoria_save = ler_save()

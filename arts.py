@@ -196,7 +196,8 @@ __|  \\/\\|/   /(____|/ //                    /  /||~|~|~|  |
       /                  \\|________)     /  / | |'''.split("\n"))
 
 piscando = adjust_image("""__ __""".split("\n"), replace_ = True)
-falando = adjust_image("""// \\\\""".split("\n"), replace_ = False)
+falando = adjust_image("""    
+//\\\\""".split("\n"), replace_ = False)
 
 balao_medio = adjust_image("""&&&___________________________
  /                            \\
@@ -264,6 +265,14 @@ que em média, vem uma a cada
 50 booster!""".split("\n")),
 adjust_image(""" Existem cartas de custo até
 custo 5...""".split("\n"))
+]
+
+instrucoes_textos = [
+adjust_image(""" Bom dia forasteiro...
+Para você começar a sua
+aventura é precisso comprar
+cartas!
+ Compre 10 boosters para começar!""".split("\n")),
 ]
 
 poutrona = adjust_image("""            __________
