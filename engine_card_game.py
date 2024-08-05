@@ -78,8 +78,8 @@ def jogar(TIMES:list):
             n += 1
 
         if n >= 3: #Termina o jogo
-            buffer_("O JOGO TERMINOU!")
-            if globals()["TABULEIRO"] % 2 == 0:
+            buffer_(f"O JOGO TERMINOU!")
+            if sum([TIMES[1][i]["hp"] for i in range(3)]) > 0:
                 venceu = True
             else:
                 venceu = False
@@ -130,6 +130,14 @@ def jogar(TIMES:list):
                      wait = 200,
                      to_start = 0,
                      tipe = "aleatorio")
+
+    else:
+        memoria_save = ler_save()
+        if memoria_save == None:
+            memoria_save = criar_save()
+            
+        memoria_save["moedas"] += 10
+        adicionar_save(memoria_save)
 
 #=====================================================================================
 #Funções base:
