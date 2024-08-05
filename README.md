@@ -16,4 +16,6 @@ Um jogo de cartas feito para jogar no terminal
 
 6. Sistema de moedas (completo);
 
-7. Sistema de memória com 'saves' (completo).
+7. Sistema de memória com 'saves' (completo);
+
+8. Instruções do jogo explicadas na loja (a fazer).
