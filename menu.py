@@ -210,7 +210,7 @@ def entrar_loja() -> None:
 
     globals()["gatilho_loja"] = True
     memoria_save = ler_save()
-    texto_loja = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster (100 moedas)\n(3) Para sair da loja"
+    texto_loja = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Para sair da loja"
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
