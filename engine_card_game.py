@@ -17,6 +17,7 @@ from random import random
 from card_game import Screen
 from game_config import *
 from arts import *
+from auxiliary_functions import criar_save, ler_save, adicionar_save
 
 game = Screen(x = X, y = Y, fps = FPS)
 DEBUG = False
