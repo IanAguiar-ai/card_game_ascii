@@ -18,4 +18,4 @@ Um jogo de cartas feito para jogar no terminal
 
 7. Sistema de memória com 'saves' (completo);
 
-8. Instruções do jogo explicadas na loja (a fazer).
+8. Instruções do jogo explicadas na loja (incompleto).
