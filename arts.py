@@ -264,7 +264,9 @@ apenas 2%. Isso significa
 que em média, vem uma a cada
 50 booster!""".split("\n")),
 adjust_image(""" Existem cartas de custo até
-custo 5...""".split("\n"))
+custo 5...""".split("\n")),
+adjust_image(""" Esse muleque só vem me
+enxer o saco...""".split("\n"))
 ]
 
 instrucoes_textos = [

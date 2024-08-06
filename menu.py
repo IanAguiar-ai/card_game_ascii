@@ -273,10 +273,10 @@ def entrar_loja() -> None:
                     
                 em_fala_criar_deck -= 1
 
-            elif random() < 0.01 or em_fala > 0:
+            elif random() < 0.005 or em_fala > 0:
                 if em_fala <= 0:
                     texto_vendedor = textos_aleatorios[int(len(textos_aleatorios)*random())]
-                    em_fala = 20
+                    em_fala = 30
 
                 if random() < 0.2:
                     game.add_effects(x = 113, y = 18,
