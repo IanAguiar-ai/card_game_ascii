@@ -222,8 +222,8 @@ if __name__ == "__main__":
     TIMES = [[CARTAS[aleatorios[0]].copy(),
               CARTAS[aleatorios[1]].copy(),
               CARTAS[aleatorios[2]].copy()],
-             [CARTAS["mestre_dos_venenos"].copy(),
-              CARTAS["vinganca_da_noite"].copy(),
+             [CARTAS["senhor_balao"].copy(),
+              CARTAS["meca_fogueteiro"].copy(),
               CARTAS["fenix"].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])

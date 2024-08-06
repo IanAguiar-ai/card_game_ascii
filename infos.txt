@@ -1,4 +1,4 @@
-Estão sendo usados 21.64 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 22.26 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (10):
 	Caçador Iniciante          50 0
@@ -47,7 +47,8 @@ Assasino (6):
 	Assasina de Quadrilha      90 3
 	Mafioso Acumulador         90 3
 
-Lenda (7):
+Lenda (8):
+	Senhor Balão               40 0
 	Cubo                       60 1
 	Quan, o equilibrio         50 2
 	Fenix                      50 2
@@ -58,26 +59,26 @@ Lenda (7):
 
 Raridades:
 	(comum) 15
-	(raro) 17
+	(raro) 18
 	(epico) 8
 	(lendario) 4
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
-	[0, 0, 0]  ->   64 |    4
-	[0, 0, 1]  ->  208 |   78
-	[0, 0, 2]  ->  160 |   60
-	[0, 0, 3]  ->  176 |   66
-	[0, 0, 4]  ->   80 |   30
-	[0, 0, 5]  ->   16 |    6
-	[0, 1, 1]  ->  676 |  312
-	[0, 1, 2]  ->  520 |  520
-	[0, 1, 3]  ->  572 |  572
-	[0, 1, 4]  ->  260 |  260
+	[0, 0, 0]  ->  125 |   10
+	[0, 0, 1]  ->  325 |  130
+	[0, 0, 2]  ->  250 |  100
+	[0, 0, 3]  ->  275 |  110
+	[0, 0, 4]  ->  125 |   50
+	[0, 0, 5]  ->   25 |   10
+	[0, 1, 1]  ->  845 |  390
+	[0, 1, 2]  ->  650 |  650
+	[0, 1, 3]  ->  715 |  715
+	[0, 1, 4]  ->  325 |  325
 	[1, 1, 1]  -> 2197 |  286
 	[1, 1, 2]  -> 1690 |  780
 	[1, 1, 3]  -> 1859 |  858
 	[1, 2, 2]  -> 1300 |  585
 
-Combinações totais: 9778
-Combinações únicas: 4417
-Total de cartas no jogo: 44
+Combinações totais: 10706
+Combinações únicas: 4999
+Total de cartas no jogo: 45

@@ -318,7 +318,7 @@ def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = 
 
             printar(personagem_inimigo, image)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, curar_todos = False) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, curar_todos = False, personagem = None) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
@@ -1514,7 +1514,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "dado":4,
                                       "argumentos":{"dano":20, "aleatorio":True, "vezes":4, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Bombardeamento",
-                                      "descricao":f"Dá 20 de dano quatro vezes em personagens inimigos aleatórios."},],
+                                      "descricao":f"Dá 20 de dano quatro vezes em personagens inimigos aleatórios."},
+                                     {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":6,
+                                      "argumentos":{"dano":80, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Míssil Teleguiado",
+                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},],
                           },
           "meca_last_hope":{"nome":"Meca Last Hope",
                           "hp":180,
@@ -1539,6 +1545,25 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "nome":"Protocolo Delta",
                                               "descricao":f"Enquanto vivo, todos os personagens aliados recebem -10 de dano."}],
                           },
+          "senhor_balao":{"nome":"Senhor Balão",
+                                  "hp":40,
+                                  "preco":0,
+                                  "classe":"lenda",
+                                  "arte":imagem_senhor_balao,
+                                  "arte_morto":imagem_senhor_balao_morto,
+                                  "raridade":"raro",
+                                  "ataques":[
+                                      {"tipo":"habilidade",
+                                       "ataque":True,
+                                        "defesa":False,
+                                        "tempo":"comeco",
+                                        "vivo":True,
+                                        "morto":False,
+                                      "funcao":cura_,
+                                      "argumentos":{"cura":10, "aleatorio": True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
+                                      "nome":"Gás Hélio",
+                                      "descricao":f"Cure 10 de vida de um personagem aliado aleatório."}]
+                              },
           }
 
 if __name__ == "__main__":

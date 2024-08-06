@@ -1,5 +1,7 @@
 {
     "cartas": [
+        "meca_fogueteiro",
+        "senhor_balao",
         "campones_corajoso",
         "mago_suporte",
         "prototipo_meca",
@@ -10,10 +12,10 @@
         "exterminador",
         "lobo_da_noite"
     ],
-    "moedas": 40,
+    "moedas": 60,
     "deck": [
-        "campones_corajoso",
-        "campones_corajoso",
-        "mago_suporte"
+        "senhor_balao",
+        "meca_fogueteiro",
+        "campones_corajoso"
     ]
 }
