@@ -170,6 +170,8 @@ def animacao_menu() -> None:
 def entrar_loja() -> None:
     def animacao_loja() -> None:
         em_fala = 0
+        em_fala_montar_deck = 0
+        em_fala_criar_deck = 0
         while globals()["gatilho_loja"]:
             game.add_effects(x = 85, y = 3,
                             image = loja,
@@ -215,8 +217,61 @@ def entrar_loja() -> None:
                             wait = 0,
                             to_start = 0)
 
-            if memoria_save["cartas"] == []:
-                pass
+            if (memoria_save["moedas"] == 0 and memoria_save["deck"] == None) or em_fala_montar_deck > 0:
+                if em_fala_montar_deck <= 0:
+                    texto_vendedor = textos_aleatorios[int(len(textos_aleatorios)*random())]
+                    em_fala_montar_deck = 30
+                    
+                game.add_effects(x = 94, y = 4,
+                                    image = balao_medio,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                game.add_effects(x = 96, y = 6,
+                                    image = instrucoes_textos[1],
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+                if random() < 0.2:
+                    game.add_effects(x = 113, y = 18,
+                            image = falando,
+                            frames = 1,
+                             tipe = None,
+                            wait = 0,
+                            to_start = 0)
+                    
+                em_fala_montar_deck -= 1
+
+            elif memoria_save["cartas"] == [] or em_fala_criar_deck > 0:
+                if em_fala_criar_deck <= 0:
+                    texto_vendedor = textos_aleatorios[int(len(textos_aleatorios)*random())]
+                    em_fala_criar_deck = 30
+                    
+                game.add_effects(x = 94, y = 4,
+                                    image = balao_medio,
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+
+                game.add_effects(x = 96, y = 6,
+                                    image = instrucoes_textos[0],
+                                    frames = 1,
+                                    tipe = None,
+                                    wait = 0,
+                                    to_start = 0)
+                if random() < 0.2:
+                    game.add_effects(x = 113, y = 18,
+                            image = falando,
+                            frames = 1,
+                             tipe = None,
+                            wait = 0,
+                            to_start = 0)
+                    
+                em_fala_criar_deck -= 1
 
             elif random() < 0.01 or em_fala > 0:
                 if em_fala <= 0:
@@ -293,13 +348,12 @@ def entrar_loja() -> None:
 
 
                 em_fala -= 1
-
             
             sleep(0.2)
 
     globals()["gatilho_loja"] = True
     memoria_save = ler_save()
-    texto_loja = f"Bem vindo a loja amigo!\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Para sair da loja"
+    texto_loja = f"Aperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Para sair da loja"
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
@@ -322,6 +376,7 @@ def entrar_loja() -> None:
             
                 globals()["gatilho_loja"] = True
                 choose_deck_animation()
+                memoria_save = ler_save()
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 globals()["gatilho_loja"] = True

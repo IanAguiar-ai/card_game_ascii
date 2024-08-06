@@ -269,10 +269,15 @@ custo 5...""".split("\n"))
 
 instrucoes_textos = [
 adjust_image(""" Bom dia forasteiro...
-Para você começar a sua
+ Para você começar a sua
 aventura é precisso comprar
 cartas!
- Compre 10 boosters para começar!""".split("\n")),
+ Compre 10 boosters para
+começar!""".split("\n")),
+adjust_image(""" Agora que você gastou
+todo seu dinheiro em
+cartinhas CGA vá em frente
+e monte o seu deck.""".split("\n")),
 ]
 
 poutrona = adjust_image("""            __________
