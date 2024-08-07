@@ -373,6 +373,7 @@ def entrar_loja() -> None:
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
                 del thread_animacao_loja
+                sleep(1/FPS_LOJA)
             
                 globals()["gatilho_loja"] = True
                 choose_deck_animation()
@@ -385,6 +386,7 @@ def entrar_loja() -> None:
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
                 del thread_animacao_loja
+                sleep(1/FPS_LOJA)
 
                 abrir_pacote_com_carta()
                 globals()["gatilho_loja"] = True
@@ -396,6 +398,7 @@ def entrar_loja() -> None:
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
                 del thread_animacao_loja
+                sleep(1/FPS_LOJA)
                 
                 break
 
