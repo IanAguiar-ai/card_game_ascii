@@ -11,9 +11,10 @@
         "escudeiro_experiente",
         "exterminador",
         "lobo_da_noite",
-        "morcego"
+        "morcego",
+        "protetor_do_tesouro"
     ],
-    "moedas": 60,
+    "moedas": 0,
     "deck": [
         "senhor_balao",
         "meca_fogueteiro",
