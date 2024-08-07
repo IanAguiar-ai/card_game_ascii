@@ -10,12 +10,13 @@
         "meca_last_hope",
         "escudeiro_experiente",
         "exterminador",
-        "lobo_da_noite"
+        "lobo_da_noite",
+        "morcego"
     ],
-    "moedas": 60,
+    "moedas": 20,
     "deck": [
         "senhor_balao",
         "meca_fogueteiro",
-        "campones_corajoso"
+        "lobo_da_noite"
     ]
 }

@@ -77,7 +77,7 @@ def jogar(TIMES:list):
             globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
             personagem_atual = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
             n += 1
-
+        
         if n >= 3: #Termina o jogo
             buffer_(f"O JOGO TERMINOU!")
             if sum([TIMES[1][i]["hp"] for i in range(3)]) > 0:
@@ -85,6 +85,8 @@ def jogar(TIMES:list):
             else:
                 venceu = False
             break
+
+        printar(personagem_atual, {"image":base_card_2, "frames":6, "wait":80, "to_start":0, "x":-1, "y":-1})
 
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
         globals()["turno_atual"][0] = globals()['PARTIDA']
