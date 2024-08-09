@@ -6,7 +6,7 @@ from arts import *
 from time import sleep, time
 from colors_terminal import colors
 from choose_deck import to_list, animation_image, put_color, clear, put_color_life, put_color_class, put_color_tipo, put_color_rarity, ajustar_descricao
-from auxiliary_functions import criar_save, ler_save, adicionar_save
+from auxiliary_functions import criar_save, ler_save, adicionar_save, clear_all
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):

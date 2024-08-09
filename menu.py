@@ -377,6 +377,7 @@ def entrar_loja() -> None:
             
                 globals()["gatilho_loja"] = True
                 choose_deck_animation()
+                clear_all()
                 memoria_save = ler_save()
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
@@ -389,6 +390,7 @@ def entrar_loja() -> None:
                 sleep(1/FPS_LOJA)
 
                 abrir_pacote_com_carta()
+                clear_all()
                 globals()["gatilho_loja"] = True
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
@@ -408,7 +410,7 @@ if __name__ == "__main__":
     if memoria_save == None:
         memoria_save = criar_save()
         
-    
+    clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
     texto_principal = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja"
     game.buffer_text = texto_principal

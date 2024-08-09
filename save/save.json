@@ -12,12 +12,18 @@
         "exterminador",
         "lobo_da_noite",
         "morcego",
-        "protetor_do_tesouro"
+        "protetor_do_tesouro",
+        "milicia_fantasma",
+        "rei_da_vila",
+        "guerreiro_preparado",
+        "hacker",
+        "cacador_de_feras",
+        "vinganca_da_noite"
     ],
-    "moedas": 0,
+    "moedas": 10850,
     "deck": [
-        "senhor_balao",
-        "meca_fogueteiro",
-        "lobo_da_noite"
+        "campones_corajoso",
+        "milicia_fantasma",
+        "campones_corajoso"
     ]
 }

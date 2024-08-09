@@ -74,6 +74,15 @@ def animation_image(image, frames:int, tipe = None) -> None:
 def clear():
     print("\033c", end="")
 
+def clear_all(lines = (Y)):
+    for _ in range(lines+100):
+        #print("\r", end = "")  # Retorna ao início da linha
+        print("\033[F", end = "")  # Move o cursor para cima
+        #print(" " * 80, end="")  
+        #print("\r", end="")  # Retorna ao início da linha para prepará-la para ser reescrita
+        
+    print("\r", end = "")  # Retorna ao início da linha
+
 def put_color(text: list, color: int = 190, back_color: int = None, style: int = 0, end = "\n") -> list:
     if style == 0:
         for i in range(len(text)):
