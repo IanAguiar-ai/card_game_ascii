@@ -18,9 +18,15 @@
         "guerreiro_preparado",
         "hacker",
         "cacador_de_feras",
-        "vinganca_da_noite"
+        "vinganca_da_noite",
+        "comeia",
+        "curandeiro_da_vila",
+        "bandido_cinico",
+        "soldado_novato",
+        "cogumelo_venenoso",
+        "arqueiro"
     ],
-    "moedas": 10850,
+    "moedas": 9550,
     "deck": [
         "campones_corajoso",
         "milicia_fantasma",
