@@ -271,7 +271,7 @@ balao_unico = adjust_image("""
 textos_aleatorios = [
 adjust_image(""" Você não quer abrir um
 booster? São apenas 100
-moedas.""".split("\n")),
+moédas.""".split("\n")),
 adjust_image(""" Não se esqueça que eu
 fecho as 20!""".split("\n")),
 adjust_image(""" Tá olhando oque?""".split("\n")),
