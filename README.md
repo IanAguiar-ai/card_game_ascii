@@ -8,7 +8,7 @@ Um jogo de cartas feito para jogar no terminal
 
 2. Lógica do gráfico (completo);
 
-3. Cartas (44, ajustando animações);
+3. Cartas (45, ajustando animações);
 
 4. Menu (incompleto);
 
@@ -19,3 +19,20 @@ Um jogo de cartas feito para jogar no terminal
 7. Sistema de memória com 'saves' (completo);
 
 8. Instruções do jogo explicadas na loja (incompleto).
+
+## Modo história:
+
+Fazer:
+
+- Mapa;
+
+- História;
+
+- Cartas desbloqueadas na história;
+
+- Itens colecionáveis;
+
+- Inventário de itens (.py);
+
+- Oficina para juntar itens e revelar cartas exclusivas.
+
