@@ -154,7 +154,10 @@ class Element:
         self.y = y
         self.image = image
 
-def run_the_game() -> None:
+def run_the_game(time_inimigo:list = None) -> None:
+    """
+    Roda o jogo, caso receba o parâmetro time_inimigo, ele roda o jogo com o time inimigo vs o time escolhido no deck que está na memória
+    """
     from engine_card_game import CARTAS, jogar, game
 
     memoria_save = ler_save()    
@@ -173,20 +176,18 @@ def run_the_game() -> None:
         if 4 <= CARTAS[aleatorios[0]]["preco"] + CARTAS[aleatorios[1]]["preco"] + CARTAS[aleatorios[2]]["preco"] <= 5:
             break
 
-    #Adicionado cartas
-##    TIMES = [[CARTAS[aleatorios[0]].copy(),
-##              CARTAS[aleatorios[1]].copy(),
-##              CARTAS[aleatorios[2]].copy()],
-##             [CARTAS["mestre_dos_venenos"].copy(),
-##              CARTAS["vinganca_da_noite"].copy(),
-##              CARTAS["fenix"].copy()]]
-
-    TIMES = [[CARTAS[aleatorios[0]].copy(),
-              CARTAS[aleatorios[1]].copy(),
-              CARTAS[aleatorios[2]].copy()],
-             [CARTAS[memoria_save["deck"][0]].copy(),
-              CARTAS[memoria_save["deck"][1]].copy(),
-              CARTAS[memoria_save["deck"][2]].copy()]]
+    if time_inimigo == None:
+        TIMES = [[CARTAS[aleatorios[0]].copy(),
+                  CARTAS[aleatorios[1]].copy(),
+                  CARTAS[aleatorios[2]].copy()],
+                 [CARTAS[memoria_save["deck"][0]].copy(),
+                  CARTAS[memoria_save["deck"][1]].copy(),
+                  CARTAS[memoria_save["deck"][2]].copy()]]
+    else:
+        TIMES = [time_inimigo,
+                 [CARTAS[memoria_save["deck"][0]].copy(),
+                  CARTAS[memoria_save["deck"][1]].copy(),
+                  CARTAS[memoria_save["deck"][2]].copy()]]
 
     logica = Thread(target = jogar, args = [TIMES])
     game_ = Thread(target = game.run, args = [TIMES])
