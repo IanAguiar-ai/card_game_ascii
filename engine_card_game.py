@@ -574,7 +574,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
             personagem["ataques"][0]["argumentos"]["dano"] += buff
             personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
 
-            printar(personagem_amigo, image)    
+            printar(personagem_amigo, image)
 
 #=====================================================================================
 #=====================================================================================
