@@ -193,7 +193,7 @@ def choose_deck_animation() -> None:
         nomes_cartas.remove(None)
 
     #Tem que deixar ele escolher só as cartas que o usuário tem
-    if memoria_save != None and len(memoria_save) == 3:
+    if memoria_save != None and len(memoria_save["deck"]) == 3:
         escolhas = [nomes_cartas.index(memoria_save["deck"][0]),
                     nomes_cartas.index(memoria_save["deck"][1]),
                     nomes_cartas.index(memoria_save["deck"][2])]
@@ -202,6 +202,7 @@ def choose_deck_animation() -> None:
                     nomes_cartas[1],
                     nomes_cartas[2]]
 
+    print(CARTAS[nomes_cartas[escolhas[0]]])
     TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
