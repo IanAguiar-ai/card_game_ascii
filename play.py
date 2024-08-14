@@ -364,8 +364,8 @@ def entrar_loja() -> None:
             #Inventario:
 
             for x in range(5):
-                for y in range(4):
-                    game.add_effects(x = 2 + x*12, y = 2 + y*8,
+                for y in range(5):
+                    game.add_effects(x = 4 + x*16, y = 0 + y*8,
                                      image = caixa_simples,
                                      frames = 1,
                                      tipe = None,
