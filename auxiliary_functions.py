@@ -83,7 +83,7 @@ def clear_all(lines = (Y)):
         
     print("\r", end = "")  # Retorna ao início da linha
 
-def put_color(text: list, color: int = 190, back_color: int = None, style: int = 0, end = "\n") -> list:
+def put_color(text:list, color:int = 190, back_color:int = None, style:int = 0, end:str = "\n") -> list:
     if style == 0:
         for i in range(len(text)):
             if back_color is not None:
@@ -164,16 +164,16 @@ def ajustar_descricao(desc:str):
 
 def criar_save() -> dict:
     """
-    Cria o save:
+    Cria o save
     """
-    data = {"cartas": [], "moedas": 1000, "deck":None}
+    data = {"cartas": [], "moedas": 1000, "deck":None, "inventario":[], "missoes":[]}
     with open(SAVE_SAVE, "w") as json_file:
         json.dump(data, json_file, indent = 4)
     return data
 
 def ler_save() -> dict:
     """
-    Lê o save:
+    Lê o save
     """
     if os.path.exists(SAVE_SAVE):
         with open(SAVE_SAVE, "r") as json_file:
@@ -184,7 +184,7 @@ def ler_save() -> dict:
 
 def adicionar_save(data:dict) -> None:
     """
-    Adiciona ao save:
+    Adiciona ao save
     """
     with open(SAVE_SAVE, "w") as json_file:
         json.dump(data, json_file, indent = 4)  

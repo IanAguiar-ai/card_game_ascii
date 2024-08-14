@@ -9,6 +9,7 @@ from auxiliary_functions import *
 from choose_deck import choose_deck_animation
 from open_booster import abrir_pacote_com_carta
 from card_game import run_the_game
+from text_mission import missoes
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -168,6 +169,10 @@ def animacao_menu() -> None:
         sleep(0.5)
 
 def entrar_loja() -> None:
+    """
+    Animação da loja
+    """
+    
     def animacao_loja() -> None:
         em_fala = 0
         em_fala_montar_deck = 0
@@ -351,9 +356,57 @@ def entrar_loja() -> None:
             
             sleep(0.2)
 
+    def animacao_inventario() -> None:
+        memoria_save = ler_save()
+        game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Q) Para voltar uma página\n(W) Para passar uma página"
+        pag = 0
+        while True:
+            #Inventario:
+
+
+
+
+            #Missões:
+            game.add_effects(x = 84, y = 6,
+                             image = livro_aberto_grande,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+            x_, y_ = 0, 0
+            for missao in missoes[pag*32:(pag+1)*32]:
+                if missao in memoria_save["missoes"]:
+                    game.add_effects(x = 94 + x_ * 27, y = 9 + y_,
+                                     image = put_color([list(missao)], color = x_*7 + y_*32),
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
+
+                else:
+                    game.add_effects(x = 94 + x_ * 27, y = 9 + y_,
+                                     image = [list(missao)],
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
+
+                y_ += 1
+                if y_ > 15:
+                    x_ = 1
+                    y_ = 0
+
+            resp = input()
+            if resp == "q":
+                pag = max(pag - 1, 0)
+            elif resp == "w":
+                pag = min(pag + 1, len(missoes)//32)
+
+
     globals()["gatilho_loja"] = True
     memoria_save = ler_save()
-    texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Para sair da loja"
+    texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja"
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
@@ -367,21 +420,21 @@ def entrar_loja() -> None:
             resposta = int(resposta)
         except:
             pass
-        if type(resposta) == int and 1 <= resposta <= 3:
+        if type(resposta) == int and 1 <= resposta <= 4:
                 
             if resposta == 1 and len(memoria_save["cartas"]) >= 3: #Escolher o deck
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
                 del thread_animacao_loja
                 sleep(1/FPS_LOJA)
+
+                choose_deck_animation()
             
                 globals()["gatilho_loja"] = True
-                choose_deck_animation()
                 clear_all()
                 memoria_save = ler_save()
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
-                globals()["gatilho_loja"] = True
                 
             elif resposta == 2 and memoria_save["moedas"] >= 100: #Comprar um booster
                 globals()["gatilho_loja"] = False
@@ -390,19 +443,32 @@ def entrar_loja() -> None:
                 sleep(1/FPS_LOJA)
 
                 abrir_pacote_com_carta()
-                clear_all()
+
                 globals()["gatilho_loja"] = True
+                clear_all()
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 memoria_save = ler_save()
-                texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Para sair da loja"
+                texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja"
 
-            elif resposta == 3: #Sair da loja
+            elif resposta == 3:
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
                 del thread_animacao_loja
                 sleep(1/FPS_LOJA)
+
+                animacao_inventario()
                 
+                globals()["gatilho_loja"] = True
+                clear_all()
+                thread_animacao_loja = Thread(target = animacao_loja)
+                thread_animacao_loja.start()
+            
+            elif resposta == 4: #Sair da loja
+                globals()["gatilho_loja"] = False
+                thread_animacao_loja.join()
+                del thread_animacao_loja
+                sleep(1/FPS_LOJA)
                 break
 
 if __name__ == "__main__":

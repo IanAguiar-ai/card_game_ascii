@@ -21,7 +21,6 @@ from auxiliary_functions import criar_save, ler_save, adicionar_save
 
 game = Screen(x = X, y = Y, fps = FPS)
 DEBUG = False
-CONTRA_BOT = True
 #=====================================================================================
 #Engine do jogo:
 
@@ -96,13 +95,15 @@ def jogar(TIMES:list):
         conferir_habilidade(tempo = "comeco", defesa = True, time = time_atacado)
         conferir_habilidade(tempo = "comeco", ataque = True, defesa = True, time = time_atacante)
         conferir_habilidade(tempo = "comeco", ataque = True, defesa = True, time = time_atacado)
+        sleep(SLEEP_INITIAL_TURN)
 
         numero_dado = jogar_dado()
         globals()["numero_dado"][0] = numero_dado
+        sleep(SLEEP_DICE)
 
         ###Vendo ataques do personagem:
         verificar_ataques(personagem_atual, numero_dado)
-        sleep(2)
+        sleep(SLEEP_TURN)
         cl()
 
         ###Vendo se tem alguma habilidade passiva de final de turno:
@@ -110,6 +111,7 @@ def jogar(TIMES:list):
         conferir_habilidade(tempo = "final", defesa = True, time = time_atacado)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacante)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacado)
+        sleep(SLEEP_END_TURN)
 
         #Ajustando valores de turno:      
         globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
@@ -163,7 +165,7 @@ def verificar_ataques(personagem:dict, dado:int) -> None:
         while True:
             if CONTRA_BOT and globals()["turno_atual"][0] % 2 == 0:
                 escolha = int(random()*len(ataques_validos) + 1)
-                sleep(1)
+                sleep(SLEEP_BOT)
             else:
                 escolha = input()
             try:
