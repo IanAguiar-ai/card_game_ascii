@@ -306,6 +306,16 @@ cartinhas CGA vá em frente
 e monte o seu deck.""".split("\n")),
 ]
 
+caixa_simples = adjust_image("""
++------------+
+|            |
+|            |
+|            |
+|            |
+|            |
++------------+
+""".split("\n"))
+
 livro_aberto = adjust_image("""      ___________________   ___________________
   .-/|       ~~**~~      \\ /      ~~**~~       |\\-.
   ||||                    :                    ||||
