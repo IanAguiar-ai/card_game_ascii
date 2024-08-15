@@ -392,9 +392,9 @@ def entrar_loja() -> None:
 
             x_, y_ = 0, 0
             for missao in missoes[pag*32:(pag+1)*32]:
-                if missao in memoria_save["missoes"]:
+                if missao[0] in memoria_save["missoes"]:
                     game.add_effects(x = 94 + x_ * 27, y = 9 + y_,
-                                     image = put_color([list(missao)], color = x_*7 + y_*32),
+                                     image = put_color([list(missao[0])], color = x_*7 + y_*32),
                                      frames = 1,
                                      tipe = None,
                                      wait = 0,
@@ -402,7 +402,7 @@ def entrar_loja() -> None:
 
                 else:
                     game.add_effects(x = 94 + x_ * 27, y = 9 + y_,
-                                     image = [list(missao)],
+                                     image = [list(missao[0])],
                                      frames = 1,
                                      tipe = None,
                                      wait = 0,
