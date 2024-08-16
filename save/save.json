@@ -55,5 +55,7 @@
     "inventario": [],
     "missoes": [
         "Nome funcao 7"
-    ]
+    ],
+    "vitorias": 0, 
+    "derrotas": 0
 }

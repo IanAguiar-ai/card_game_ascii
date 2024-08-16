@@ -1,8 +1,15 @@
 """
 Lista com textos das missões
+
+Existem 3 tipos de missões:
+'inicio' <- confere sempre ao iniciar o jogo
+'jogo' <- confere todo turno
+'loja' <- confere sempre que entrar na loja
+
+Todos retornos de missão devem retornar True ou False
 """
 
-missoes = [("Nome funcao 1", None),
+missoes = [("Nome funcao 1", None, "jogo"),
            ("Nome funcao 2", None),
            ("Nome funcao 3", None),
            ("Nome funcao 4", None),
@@ -49,3 +56,29 @@ missoes = [("Nome funcao 1", None),
            ("Nome funcao 45", None),
            ("Nome funcao 46", None),
            ]
+
+def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
+    """
+    Separa todas missões que serão conferidas e confere
+
+    Retorna o novo save
+    """
+
+    #Confere quais missões serão conferidas:
+    missoes_validas = [missao[:2] if len(missao) == 3 and missao[2] == tipo and (not missao[0] in save["missoes"]) else None for missao in missoes]
+    while None in missoes_validas:
+        missoes_validas.remove(None)
+
+    #Confere se as missões são válidas:
+    nova_missao = []
+    for missao in missoes_validas:
+        if missao[1] != None and missao[1](**variaveis):
+            nova_missao.append(missao[0])
+
+    #Adiciona a missão comprida, se tiver alguma, no save
+    if nova_missao != []:
+        save["missoes"].extend(nova_missao)
+        adicionar_save(save)
+
+    return save
+

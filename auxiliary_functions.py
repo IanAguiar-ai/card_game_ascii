@@ -166,7 +166,7 @@ def criar_save() -> dict:
     """
     Cria o save
     """
-    data = {"cartas": [], "moedas": 1000, "deck":None, "inventario":[], "missoes":[]}
+    data = {"cartas": [], "moedas": 1000, "deck":None, "inventario":[], "missoes":[], "vitorias":0, "derrotas":0}
     with open(SAVE_SAVE, "w") as json_file:
         json.dump(data, json_file, indent = 4)
     return data
