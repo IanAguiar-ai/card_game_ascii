@@ -72,6 +72,21 @@ def missao_duelo_especial(save, **resto) -> bool:
     if len(set(save["deck"]) | set(classes["lenda"])) == 3:
         return True
     return False
-    
-    
+
+def missao_massacre(save, **resto) -> bool:
+    """
+    Se o time ganhou e todos os personagens aliados estão vivos
+    """
+    if min([personagem["hp"] for personagem in resto["TIMES"][1]]) > 0:
+        return True
+    return False
+
+def missao_parece_impossivel(save, **resto) -> bool:
+    """
+    Se o você ganhou usando um deck de 0 de mana vs um deck de 5 de mana
+    """
+    if sum([personagem["preco"] for personagem in resto["TIMES"][1]]) == 0 and sum([personagem["preco"] for personagem in resto["TIMES"][0]]) == 5:
+        return True
+    return False
+
     

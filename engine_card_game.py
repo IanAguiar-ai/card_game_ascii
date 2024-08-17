@@ -132,7 +132,7 @@ def jogar(TIMES:list):
         reset_globais()
 
         #Conferindo missões
-        conferir_missoes(tipo = "jogo", save = memoria_save)        
+        #conferir_missoes(tipo = "jogo", save = memoria_save)
     
     if venceu:
         memoria_save = ler_save()
@@ -151,6 +151,8 @@ def jogar(TIMES:list):
                      to_start = 0,
                      tipe = "aleatorio")
 
+        conferir_missoes(tipo = "vitoria", save = memoria_save, TIMES = TIMES)
+
     else:
         memoria_save = ler_save()
         if memoria_save == None:
@@ -159,6 +161,8 @@ def jogar(TIMES:list):
         memoria_save["moedas"] += 10
         memoria_save["derrotas"] += 1
         adicionar_save(memoria_save)
+
+        conferir_missoes(tipo = "derrota", save = memoria_save, TIMES = TIMES)
 
     sleep(3)
     globals()["game"].close()

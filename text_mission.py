@@ -3,7 +3,9 @@ Lista com textos das missões
 
 Existem 3 tipos de missões:
 'inicio' <- confere sempre ao iniciar o 'jogo'
-'jogo' <- confere todo turno
+'jogo' <- confere todo turno ; (desativado por enquanto)
+'vitoria' <- confere se tiver ganho
+'derrota' <- confere se tiver perdido
 'loja' <- confere sempre que entrar na loja
 
 Todos retornos de missão devem retornar True ou False
@@ -19,8 +21,8 @@ missoes = [("Estou rico!", missao_moedas, "loja"),
            ("Somos lendários", missao_somos_lendarios, "loja"),
            ("Homem comum", missao_homem_comum, "loja"),
            ("Duelo especial", missao_duelo_especial, "inicio"),
-           ("Nome funcao 9", None),
-           ("Nome funcao 10", None),
+           ("Massacre", missao_massacre, "vitoria"),
+           ("Parece impossível", missao_parece_impossivel, "vitoria"),
            ("Nome funcao 11", None),
            ("Nome funcao 12", None),
            ("Nome funcao 13", None),

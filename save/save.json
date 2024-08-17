@@ -46,7 +46,7 @@
         "meca_last_hope",
         "senhor_balao"
     ],
-    "moedas": 9920,
+    "moedas": 10040,
     "deck": [
         "curandeiro_da_vila",
         "curandeiro_da_vila",
@@ -58,8 +58,9 @@
         "Estou rico!",
         "Dono da loja",
         "Somos lend\u00e1rios",
-        "Homem comum"
+        "Homem comum",
+        "Massacre"
     ],
-    "vitorias": 5,
+    "vitorias": 8,
     "derrotas": 3
 }
