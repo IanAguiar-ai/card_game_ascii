@@ -89,4 +89,18 @@ def missao_parece_impossivel(save, **resto) -> bool:
         return True
     return False
 
-    
+def missao_zerado(save, **resto) -> bool:
+    """
+    Tenha exatamente 0 moedas
+    """
+    if save["moedas"] == 0:
+        return True
+    return False
+
+def missao_livro_cheio(save, **resto) -> bool:
+    """
+    Tenha 30 ou mais missões concluidas
+    """
+    if len(save["missoes"]) >= 30:
+        return True
+    return False
