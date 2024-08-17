@@ -1580,6 +1580,18 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                               },
           }
 
+raridades = {}
+for carta in CARTAS.keys():
+    if not CARTAS[carta]["raridade"] in raridades:
+        raridades[CARTAS[carta]["raridade"]] = []
+    raridades[CARTAS[carta]["raridade"]].append(carta)
+
+classes = {}
+for carta in CARTAS.keys():
+    if not CARTAS[carta]["classe"] in classes:
+        classes[CARTAS[carta]["classe"]] = []
+    classes[CARTAS[carta]["classe"]].append(carta)
+
 if __name__ == "__main__":
     DEBUG = True
     TIMES = [[CARTAS["prototipo_meca"].copy(),
