@@ -46,7 +46,7 @@
         "meca_last_hope",
         "senhor_balao"
     ],
-    "moedas": 9190,
+    "moedas": 10090,
     "deck": [
         "campones_corajoso",
         "milicia_fantasma",
@@ -54,8 +54,9 @@
     ],
     "inventario": [],
     "missoes": [
-        "Nome funcao 7"
+        "Nome funcao 7",
+        "Estou rico!"
     ],
-    "vitorias": 0, 
+    "vitorias": 0,
     "derrotas": 0
 }

@@ -10,6 +10,7 @@ from choose_deck import choose_deck_animation
 from open_booster import abrir_pacote_com_carta
 from card_game import run_the_game
 from text_mission import missoes
+from text_mission import conferir_missoes
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -394,7 +395,7 @@ def entrar_loja() -> None:
             for missao in missoes[pag*32:(pag+1)*32]:
                 if missao[0] in memoria_save["missoes"]:
                     game.add_effects(x = 94 + x_ * 27, y = 9 + y_,
-                                     image = put_color([list(missao[0])], color = x_*7 + y_*32),
+                                     image = put_color([list(missao[0])], color = x_*7 + y_*32+3),
                                      frames = 1,
                                      tipe = None,
                                      wait = 0,
@@ -418,10 +419,16 @@ def entrar_loja() -> None:
                 pag = max(pag - 1, 0)
             elif resp == "w":
                 pag = min(pag + 1, len(missoes)//32)
+            elif resp == "":
+                break
 
 
     globals()["gatilho_loja"] = True
     memoria_save = ler_save()
+
+    #Conferir as missões da loja:
+    conferir_missoes(tipo = "loja", save = memoria_save)
+    
     texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja"
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
