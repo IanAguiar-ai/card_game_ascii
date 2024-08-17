@@ -46,7 +46,7 @@
         "meca_last_hope",
         "senhor_balao"
     ],
-    "moedas": 10020,
+    "moedas": 9920,
     "deck": [
         "curandeiro_da_vila",
         "curandeiro_da_vila",
@@ -56,7 +56,8 @@
     "missoes": [
         "Nome funcao 7",
         "Estou rico!",
-        "Dono da loja"
+        "Dono da loja",
+        "Somos lend\u00e1rios"
     ],
     "vitorias": 5,
     "derrotas": 3

@@ -49,5 +49,14 @@ def missao_dono_da_loja(save, **resto) -> bool:
         return True
     return False
 
+def missao_somos_lendarios(save, **resto) -> bool:
+    """
+    Se o usuário tem 8 ou mais cartas lendas
+    """
+    if len(set(save["cartas"]) | set(classes["lenda"])) >= 8:
+        return True
+    return False
+    
+    
     
     
