@@ -56,7 +56,22 @@ def missao_somos_lendarios(save, **resto) -> bool:
     if len(set(save["cartas"]) | set(classes["lenda"])) >= 8:
         return True
     return False
-    
+
+def missao_homem_comum(save, **resto) -> bool:
+    """
+    Se o usuário tiver 15 ou mais cartas comuns
+    """
+    if len(set(save["cartas"]) | set(raridades["comum"])) >= 15:
+        return True
+    return False
+
+def missao_duelo_especial(save, **resto) -> bool:
+    """
+    Se o deck do usuário é composto por cartas lendas
+    """
+    if len(set(save["deck"]) | set(classes["lenda"])) == 3:
+        return True
+    return False
     
     
     
