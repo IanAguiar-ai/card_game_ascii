@@ -49,6 +49,8 @@ def jogar(TIMES:list):
     """
     Função principal com a lógica dos turnos, só termina quando o jogo acaba
     """
+    from text_mission import conferir_missoes
+    
     if not "game" in globals():
         globals()["game"] = Screen(x = X, y = Y, fps = FPS)
 
@@ -64,7 +66,11 @@ def jogar(TIMES:list):
         for p in time:
             p["hp_inicial"] = p["hp"]
 
-    ###Vendo habilidades globais:
+    #Conferindo as missões antes do jogo começar:
+    memoria_save = ler_save()
+    if memoria_save == None:
+        memoria_save = criar_save()
+    conferir_missoes(tipo = "inicio", save = memoria_save)
 
     while True:
         time_atacante = TIMES[globals()["TABULEIRO"]]
@@ -124,6 +130,9 @@ def jogar(TIMES:list):
         globals()["PARTIDA"] += 1
 
         reset_globais()
+
+        #Conferindo missões
+        conferir_missoes(tipo = "jogo", save = memoria_save)        
     
     if venceu:
         memoria_save = ler_save()
