@@ -32,7 +32,7 @@ Fazer:
 
 - Itens colecionáveis;
 
-- Inventário de itens (.py);
+- Inventário de itens e missões(.py);
 
-- Oficina para juntar itens e revelar cartas exclusivas.
+- Oficina para revelar cartas exclusivas com itens e missões.
 
