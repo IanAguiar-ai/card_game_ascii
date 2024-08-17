@@ -200,6 +200,10 @@ def run_the_game(time_inimigo:list = None) -> None:
     game.close()
     game_.join()
 
+    del game
+    del game_
+    del logica
+
 #=================================================================
 #Game definitions:
 if __name__ == "__main__":

@@ -126,6 +126,7 @@ def jogar(TIMES:list):
             memoria_save = criar_save()
             
         memoria_save["moedas"] += 40
+        memoria_save["vitorias"] += 1
         adicionar_save(memoria_save)
         
         game.add_effects(x = 50,
@@ -142,6 +143,7 @@ def jogar(TIMES:list):
             memoria_save = criar_save()
             
         memoria_save["moedas"] += 10
+        memoria_save["derrotas"] += 1
         adicionar_save(memoria_save)
 
 #=====================================================================================

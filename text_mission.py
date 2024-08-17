@@ -12,9 +12,9 @@ from missions import *
 from auxiliary_functions import criar_save, ler_save, adicionar_save
 
 missoes = [("Estou rico!", missao_moedas, "loja"),
-           ("Nome funcao 2", None),
-           ("Nome funcao 3", None),
-           ("Nome funcao 4", None),
+           ("Derrotado", missao_o_derrotado, "loja"),
+           ("Vitorioso", missao_o_vitorioso, "loja"),
+           ("Mestre do Jogo", missao_lenda_das_cartas, "loja"),
            ("Nome funcao 5", None),
            ("Nome funcao 6", None),
            ("Nome funcao 7", None),
@@ -58,6 +58,8 @@ missoes = [("Estou rico!", missao_moedas, "loja"),
            ("Nome funcao 45", None),
            ("Nome funcao 46", None),
            ]
+
+missoes = sorted(missoes, key = lambda x : x[0])
 
 #=============================================================================
 
