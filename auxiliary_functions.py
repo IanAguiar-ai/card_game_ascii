@@ -134,7 +134,8 @@ def put_color_rarity(text, rarity) -> list:
     colors_class = {"comum":219,
                     "raro":37,
                     "epico":99,
-                    "lendario":214}
+                    "lendario":214,
+                    "secreto":8}
     if rarity in colors_class:
         color = colors_class[rarity]
     else:
