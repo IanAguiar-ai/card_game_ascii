@@ -46,17 +46,17 @@
         "meca_last_hope",
         "senhor_balao"
     ],
-    "moedas": 10150,
+    "moedas": 10020,
     "deck": [
-        "milicia_fantasma",
-        "lobo_da_noite",
-        "lobo_da_noite"
+        "curandeiro_da_vila",
+        "curandeiro_da_vila",
+        "mago_suporte"
     ],
     "inventario": [],
     "missoes": [
         "Nome funcao 7",
         "Estou rico!"
     ],
-    "vitorias": 1,
-    "derrotas": 2
+    "vitorias": 5,
+    "derrotas": 3
 }

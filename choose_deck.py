@@ -4,7 +4,7 @@ from arts import *
 from threading import Thread
 from game_config import *
 from random import random
-from engine_card_game import CARTAS, jogar, game, buffer_, cl
+from engine_card_game import CARTAS, jogar, buffer_, cl
 from auxiliary_functions import *
 
 class Screen:

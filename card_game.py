@@ -207,7 +207,7 @@ def run_the_game(time_inimigo:list = None) -> None:
 #=================================================================
 #Game definitions:
 if __name__ == "__main__":
-    from engine_card_game import CARTAS, jogar, game
+    from engine_card_game import CARTAS, jogar
     
     #Object definitions:
     cards_base = []

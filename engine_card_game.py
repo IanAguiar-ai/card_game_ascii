@@ -49,6 +49,11 @@ def jogar(TIMES:list):
     """
     Função principal com a lógica dos turnos, só termina quando o jogo acaba
     """
+    if not "game" in globals():
+        globals()["game"] = Screen(x = X, y = Y, fps = FPS)
+
+    globals()["game"].in_run = True
+        
     #Valores de turno:
     globals()["TIMES"] = TIMES
     globals()["PARTIDA"] = 0 #Partida
@@ -119,7 +124,7 @@ def jogar(TIMES:list):
         globals()["PARTIDA"] += 1
 
         reset_globais()
-
+    
     if venceu:
         memoria_save = ler_save()
         if memoria_save == None:
@@ -145,6 +150,9 @@ def jogar(TIMES:list):
         memoria_save["moedas"] += 10
         memoria_save["derrotas"] += 1
         adicionar_save(memoria_save)
+
+    sleep(3)
+    globals()["game"].close()
 
 #=====================================================================================
 #Funções base:
