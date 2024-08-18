@@ -51,7 +51,7 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 10040,
+    "moedas": 10080,
     "deck": [
         "dono_da_loja",
         "curandeiro_da_vila",
@@ -66,6 +66,6 @@
         "Homem comum",
         "Massacre"
     ],
-    "vitorias": 8,
+    "vitorias": 9,
     "derrotas": 3
 }
