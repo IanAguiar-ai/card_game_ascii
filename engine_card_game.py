@@ -551,13 +551,30 @@ def habilidade_nerf_global_dado(personagem, buff:int, image:dict) -> None:
     globals()["NERF_DADO"] -= buff
     printar(personagem, image)
 
-def adicionar_abilidade(funcao:dict, image:dict) -> None:
+def adicionar_habilidade(funcao:dict, image:dict) -> None:
     """
     Adiciona uma abilidade a uma carta
     """
     personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
     personagem["ataques"].append(funcao)
     printar(personagem, image)
+
+def somar_global(variavel_global:list, soma:int, image:dict) -> None:
+    """
+    Soma ou subtrai uma variável global
+    """
+    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+    variavel_global[0] = variavel_global[0] + soma 
+    printar(personagem, image)
+
+def pular_turno(image:dict):
+    """
+    Pula o turno do inimigo
+    """
+    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+    globals()["TABULEIRO"] = (globals()["TABULEIRO"] + 1) % 2
+    printar(personagem, image)
+    
 
 #=====================================================================================
 #=====================================================================================
@@ -1636,16 +1653,12 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "arte":imagem_mestre_das_horas,
                                   "raridade":"secreto",
                                   "ataques":[
-                                      {"tipo":"habilidade",
-                                       "ataque":True,
-                                        "defesa":False,
-                                        "tempo":"comeco",
-                                        "vivo":True,
-                                        "morto":False,
-                                      "funcao":cura_,
-                                      "argumentos":{"cura":10, "aleatorio": True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
-                                      "nome":"Gás Hélio",
-                                      "descricao":f"Cure 10 de vida de um personagem aliado aleatório."}]
+                                      {"tipo":"ataque",
+                                      "funcao":pular_turno,
+                                      "dado":1,
+                                      "argumentos":{"image":{"image":item_relogio, "frames":6, "wait":70, "to_start":0, "x":12, "y":5}},
+                                      "nome":"Viajem no Tempo",
+                                      "descricao":f"Pule o turno do inimigo."},]
                               },
           "dono_da_loja":{"nome":"Dono da Loja",
                                   "hp":40,
@@ -1661,7 +1674,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Vou pegar a vassoura",
                                       "descricao":f"Dá 40 de dano a um personagem inimigo à sua escolha."},
                                       {"tipo":"ataque",
-                                      "funcao":adicionar_abilidade,
+                                      "funcao":adicionar_habilidade,
                                       "dado":6,
                                       "argumentos":{"funcao":{"tipo":"habilidade",
                                                   "tempo":"comeco",
@@ -1671,10 +1684,10 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                   "defesa":False,
                                                   "funcao":habilidade_buff_global_dado,
                                                   "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                                  "nome":"Uma ajudinha",
+                                                  "nome":"Uma Ajudinha",
                                                   "descricao":f"Enquanto vivo, some 1 aos seus dados."},
                                           "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Precisa de um dado?",
+                                      "nome":"Precisa de um Dado?",
                                       "descricao":f"Enquanto vivo, some 1 aos seus dados, acumula."},
                                       {"tipo":"habilidade",
                                       "tempo":"comeco",
@@ -1695,7 +1708,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "raridade":"secreto",
                                   "ataques":[
                                       {"tipo":"ataque",
-                                      "funcao":adicionar_abilidade,
+                                      "funcao":adicionar_habilidade,
                                       "dado":1,
                                       "argumentos":{"funcao":{"tipo":"habilidade",
                                                   "tempo":"comeco",

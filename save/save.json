@@ -51,10 +51,10 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 10080,
+    "moedas": 9980,
     "deck": [
         "dono_da_loja",
-        "curandeiro_da_vila",
+        "mestre_das_horas",
         "curandeiro_da_vila"
     ],
     "inventario": [],
