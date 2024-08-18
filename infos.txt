@@ -1,4 +1,4 @@
-Estão sendo usados 22.26 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 24.00 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (10):
 	Caçador Iniciante          50 0
@@ -12,11 +12,14 @@ Guerreiro (10):
 	Meca Fogueteiro           160 4
 	Meca Last Hope            180 5
 
-Humano (4):
+Humano (7):
 	Curandeiro da Vila         50 1
 	Camponês Corajoso          80 1
+	Dono da Loja               70 2
 	Caçador de Feras           70 3
 	Rei da Vila                70 3
+	Mago Suporte               70 3
+	Profeta das Areias         80 3
 
 Monstro (7):
 	Flores Sinistras           50 0
@@ -47,14 +50,15 @@ Assasino (6):
 	Assasina de Quadrilha      90 3
 	Mafioso Acumulador         90 3
 
-Lenda (8):
+Lenda (9):
 	Senhor Balão               40 0
 	Cubo                       60 1
 	Quan, o equilibrio         50 2
 	Fenix                      50 2
-	Mago Suporte               70 3
+	Mr.Money                   70 2
+	Mestre das Horas           70 2
+	Senhor dos Mapas           70 2
 	H@ck3r                     70 3
-	Profeta das Areias         80 3
 	Cactus Cowboy             140 4
 
 Raridades:
@@ -62,23 +66,24 @@ Raridades:
 	(raro) 18
 	(epico) 8
 	(lendario) 4
+	(secreto) 4
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	[0, 0, 0]  ->  125 |   10
 	[0, 0, 1]  ->  325 |  130
-	[0, 0, 2]  ->  250 |  100
+	[0, 0, 2]  ->  350 |  140
 	[0, 0, 3]  ->  275 |  110
 	[0, 0, 4]  ->  125 |   50
 	[0, 0, 5]  ->   25 |   10
 	[0, 1, 1]  ->  845 |  390
-	[0, 1, 2]  ->  650 |  650
+	[0, 1, 2]  ->  910 |  910
 	[0, 1, 3]  ->  715 |  715
 	[0, 1, 4]  ->  325 |  325
 	[1, 1, 1]  -> 2197 |  286
-	[1, 1, 2]  -> 1690 |  780
+	[1, 1, 2]  -> 2366 | 1092
 	[1, 1, 3]  -> 1859 |  858
-	[1, 2, 2]  -> 1300 |  585
+	[1, 2, 2]  -> 2548 | 1183
 
-Combinações totais: 10706
-Combinações únicas: 4999
-Total de cartas no jogo: 45
+Combinações totais: 12990
+Combinações únicas: 6209
+Total de cartas no jogo: 49

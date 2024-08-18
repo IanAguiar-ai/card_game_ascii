@@ -26,7 +26,8 @@ def infos(cartas:list) -> None:
     raridades = {"comum":0,
                  "raro":0,
                  "epico":0,
-                 "lendario":0}
+                 "lendario":0,
+                 "secreto":0}
 
     for i in cartas.keys():
         raridades[cartas[i]['raridade']] += 1
