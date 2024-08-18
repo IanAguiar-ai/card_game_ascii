@@ -1658,7 +1658,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "dado":1,
                                       "argumentos":{"image":{"image":item_relogio, "frames":6, "wait":70, "to_start":0, "x":12, "y":5}},
                                       "nome":"Viajem no Tempo",
-                                      "descricao":f"Pule o turno do inimigo."},]
+                                      "descricao":f"É o turno do seu próximo personagem."},]
                               },
           "dono_da_loja":{"nome":"Dono da Loja",
                                   "hp":40,
