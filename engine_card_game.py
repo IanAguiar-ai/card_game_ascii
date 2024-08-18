@@ -526,6 +526,9 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
             buffer_("Nenhuma iteração...")    
 
 def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> None:
+    """
+    Chama uma ação e possibilita um print extra no personagem que emite a ação
+    """
     buffer_(f"(HABILIDADE) habilidade de {personagem['nome']}")
 
     printar(personagem, image)
@@ -533,13 +536,27 @@ def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> N
     funcao(**argumentos_funcao)
 
 def habilidade_buff_global_dado(personagem, buff:int, image:dict) -> None:
+    """
+    Buffa o dado
+    """
     buffer_(f"Somando {buff} ao dado...")
     globals()["BUFF_DADO"] += buff
     printar(personagem, image)
 
 def habilidade_nerf_global_dado(personagem, buff:int, image:dict) -> None:
+    """
+    Nerfa o dado
+    """
     buffer_(f"Subtraindo {buff} ao dado...")
     globals()["NERF_DADO"] -= buff
+    printar(personagem, image)
+
+def adicionar_abilidade(funcao:dict, image:dict) -> None:
+    """
+    Adiciona uma abilidade a uma carta
+    """
+    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+    personagem["ataques"].append(funcao)
     printar(personagem, image)
 
 #=====================================================================================
@@ -559,6 +576,9 @@ def printar(personagem, image) -> None:
 #=====================================================================================
 
 def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False) -> None:
+    """
+    Ataque específico do acumulador
+    """
     personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
     
     if not amigos_e_inimigos:
@@ -1634,16 +1654,22 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "arte":imagem_dono_da_loja,
                                   "raridade":"secreto",
                                   "ataques":[
-                                      {"tipo":"habilidade",
-                                       "ataque":True,
-                                        "defesa":False,
-                                        "tempo":"comeco",
-                                        "vivo":True,
-                                        "morto":False,
-                                      "funcao":cura_,
-                                      "argumentos":{"cura":10, "aleatorio": True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
-                                      "nome":"Gás Hélio",
-                                      "descricao":f"Cure 10 de vida de um personagem aliado aleatório."}]
+                                      {"tipo":"ataque",
+                                      "funcao":adicionar_abilidade,
+                                      "dado":6,
+                                      "argumentos":{"funcao":{"tipo":"habilidade",
+                                                  "tempo":"comeco",
+                                                  "vivo":True,
+                                                  "morto":False,
+                                                  "ataque":True,
+                                                  "defesa":False,
+                                                  "funcao":habilidade_buff_global_dado,
+                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                  "nome":"Uma ajudinha",
+                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Precisa de um dado?",
+                                      "descricao":f"Enquanto vivo, nos seus turnos, ganhe +1 nos seus dados"},]
                               },
           "senhor_dos_mapas":{"nome":"Senhor dos Mapas",
                                   "hp":70,
@@ -1652,16 +1678,22 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "arte":imagem_senhor_dos_mapas,
                                   "raridade":"secreto",
                                   "ataques":[
-                                      {"tipo":"habilidade",
-                                       "ataque":True,
-                                        "defesa":False,
-                                        "tempo":"comeco",
-                                        "vivo":True,
-                                        "morto":False,
-                                      "funcao":cura_,
-                                      "argumentos":{"cura":10, "aleatorio": True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
-                                      "nome":"Gás Hélio",
-                                      "descricao":f"Cure 10 de vida de um personagem aliado aleatório."}]
+                                      {"tipo":"ataque",
+                                      "funcao":adicionar_abilidade,
+                                      "dado":1,
+                                      "argumentos":{"funcao":{"tipo":"habilidade",
+                                                  "tempo":"comeco",
+                                                  "vivo":True,
+                                                  "morto":False,
+                                                  "ataque":True,
+                                                  "defesa":False,
+                                                  "funcao":habilidade_buff_global_dado,
+                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                  "nome":"Uma ajudinha",
+                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Míssil Teleguiado",
+                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
                               },
           }
 
