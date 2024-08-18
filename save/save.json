@@ -44,13 +44,18 @@
         "prototipo_meca",
         "meca_fogueteiro",
         "meca_last_hope",
-        "senhor_balao"
+        "senhor_balao",
+        "mr_money",
+        "mestre_das_horas",
+        "senhor_dos_mapas",
+        "mr_money",
+        "dono_da_loja"
     ],
     "moedas": 10040,
     "deck": [
+        "dono_da_loja",
         "curandeiro_da_vila",
-        "curandeiro_da_vila",
-        "mago_suporte"
+        "curandeiro_da_vila"
     ],
     "inventario": [],
     "missoes": [

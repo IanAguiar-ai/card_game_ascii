@@ -1,3 +1,9 @@
+"""
+Tamanho padrão de uma carta:
+16 altura
+33 largura
+"""
+
 from game_config import X, Y
 TEMPO = [15, 35, 80, 170]
 
@@ -1259,6 +1265,45 @@ ovo_fenix = adjust_image("""             ████████
          ████        ████
              ████████""".split("\n"))
 
+item_relogio = adjust_image("""  _______
+ /  12   \\
+|    |    |
+|9   |   3|
+|     \   |
+|         |
+ \\___6___/""".split("\n"))
+
+item_cafe = adjust_image("""  ;)( ;
+ :----:
+C|====|
+ |    |
+ `----'""".split("\n"))
+
+item_torta = adjust_image("""    o8Oo./
+._o8o8o8Oo_.
+ \========/
+  `------'""".split("\n"))
+
+item_lampada_magica = adjust_image("""     _o_    ;:;'
+ ,-.'---`.__ ;
+((j`=====',-'
+ `-\     /
+    `-=-'""".split("\n"))
+
+item_drink = adjust_image(""" /.---.\
+ |`````|
+ \     /
+  `-.-'
+    |  
+  __|__
+ `-----`""".split("\n"))
+
+item_biscoito = adjust_image("""   ,-.
+ _(*_*)_
+(_  o  _)
+  / o \
+ (_/ \_)""".split("\n"))
+
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .
          /\\   "V"
@@ -2381,3 +2426,54 @@ imagem_senhor_balao_morto = adjust_image("""
             |
             |
             |""".split("\n"))
+
+imagem_mr_money = adjust_image("""             ________
+            |        |
+            |        |
+            |     #  |
+            |      # |
+         ===== ==========
+    █       ▓▓▓█▓▓▓▓
+    █     ▓▓ S █ s
+    ▀▄     ▄▓▓▓█▓▓▓   ▒▒▒
+      ▀▀▀▀▀    █  ▓▓▓▀▀▒▒▀▄
+               █    ▓ ▒▒▒▒▒█
+          ▓    █ ▓▓▓▓▒▒▒▒▒▒▒█
+▒▒▒▒▒     ▓▓▓▓▓█▓▓   ▒▒▒▒▒▒▒
+ ▒▒            █    ▒▒▒▒▒▒▒▒
+▒▒▒▒▒              ▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒""".split("\n"))
+
+imagem_mestre_das_horas = adjust_image("""
+                A
+              _/\\\\_
+     ______..'_|||_`..______
+    ///-------------------\\\\\\
+  3\\    /,' 11      1 `.\\
+   \\\\  // 10      /   2 \\\\
+    \\\\;;         /       ::
+     \\|| 9  ----O      3 ||
+      ::                 ;;\\
+       \\\\ 8           4 // \\\\
+        \\`. 7       5 ,'/   \\\\
+         '.`-.__6__.-'.'     \\k
+          ((-._____.-))
+          _))       ((_
+         '--'       '--'""".split("\n"))
+
+imagem_senhor_dos_mapas = adjust_image("""   ===========================
+  |     " " `-==,`,._\\{  \\  / |
+  |_.:--.       `._ )`^-. "`  |
+  |`     \\         "    _L    |
+  |   /-- |           ,` --\\  |
+  |  / U  `.         /    U \\ |
+  |        \\\\    .-. )        |
+  | `        \\  (  `(         |
+  |    )      `._,   ""  )    |
+  |    )         `=.---. )    |
+  |      /=============\\`-._  |
+  |      /=============\\    > |
+  |                 `.     /  |
+   ===========================""".split("\n"))
+
+imagem_dono_da_loja = [[loja[j][i] for i in range(13, 47)] for j in range(9, 25)]
