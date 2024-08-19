@@ -1,4 +1,4 @@
-Estão sendo usados 24.00 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 24.02 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (10):
 	Caçador Iniciante          50 0
@@ -15,7 +15,7 @@ Guerreiro (10):
 Humano (7):
 	Curandeiro da Vila         50 1
 	Camponês Corajoso          80 1
-	Dono da Loja               70 2
+	Dono da Loja               40 2
 	Caçador de Feras           70 3
 	Rei da Vila                70 3
 	Mago Suporte               70 3
@@ -52,11 +52,11 @@ Assasino (6):
 
 Lenda (9):
 	Senhor Balão               40 0
+	Mestre das Horas           50 1
 	Cubo                       60 1
 	Quan, o equilibrio         50 2
 	Fenix                      50 2
 	Mr.Money                   70 2
-	Mestre das Horas           70 2
 	Senhor dos Mapas           70 2
 	H@ck3r                     70 3
 	Cactus Cowboy             140 4
@@ -70,20 +70,20 @@ Raridades:
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	[0, 0, 0]  ->  125 |   10
-	[0, 0, 1]  ->  325 |  130
-	[0, 0, 2]  ->  350 |  140
+	[0, 0, 1]  ->  350 |  140
+	[0, 0, 2]  ->  325 |  130
 	[0, 0, 3]  ->  275 |  110
 	[0, 0, 4]  ->  125 |   50
 	[0, 0, 5]  ->   25 |   10
-	[0, 1, 1]  ->  845 |  390
+	[0, 1, 1]  ->  980 |  455
 	[0, 1, 2]  ->  910 |  910
-	[0, 1, 3]  ->  715 |  715
-	[0, 1, 4]  ->  325 |  325
-	[1, 1, 1]  -> 2197 |  286
-	[1, 1, 2]  -> 2366 | 1092
-	[1, 1, 3]  -> 1859 |  858
-	[1, 2, 2]  -> 2548 | 1183
+	[0, 1, 3]  ->  770 |  770
+	[0, 1, 4]  ->  350 |  350
+	[1, 1, 1]  -> 2744 |  364
+	[1, 1, 2]  -> 2548 | 1183
+	[1, 1, 3]  -> 2156 | 1001
+	[1, 2, 2]  -> 2366 | 1092
 
-Combinações totais: 12990
-Combinações únicas: 6209
+Combinações totais: 14049
+Combinações únicas: 6575
 Total de cartas no jogo: 49
