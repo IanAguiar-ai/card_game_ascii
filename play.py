@@ -370,8 +370,7 @@ def entrar_loja() -> None:
         if not "dono_da_loja" in memoria_save["cartas"] and "Dono da loja" in memoria_save["missoes"]:
             memoria_save["cartas"].append("dono_da_loja")
             adicionar_save(memoria_save)
-            
-        
+
         while True:
             #Inventario:
             for x in range(5):
