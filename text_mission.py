@@ -9,15 +9,23 @@ Existem 3 tipos de missões:
 'loja' <- confere sempre que entrar na loja
 
 Todos retornos de missão devem retornar True ou False
+
+A missoes é uma lista de listas onde os elementos são:
+
+0: Nome da missão
+1: Função para conferir missão
+2: Aonde a missão pode ser desbloqueada
+3: tipo de premio, pode ser "carta", "item" ou "moeda"
+4: O nome da carta ou do item a ser ganho, ou a quantidade de moedas
 """
 from missions import *
 from auxiliary_functions import criar_save, ler_save, adicionar_save
 
-missoes = [("Estou rico!", missao_moedas, "loja"),
+missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Derrotado", missao_o_derrotado, "loja"),
            ("Vitorioso", missao_o_vitorioso, "loja"),
            ("Mestre do Jogo", missao_lenda_das_cartas, "loja"),
-           ("Dono da loja", missao_dono_da_loja, "loja"),
+           ("Dono da loja", missao_dono_da_loja, "loja", "carta", "dono_da_loja"),
            ("Somos lendários", missao_somos_lendarios, "loja"),
            ("Homem comum", missao_homem_comum, "loja"),
            ("Duelo especial", missao_duelo_especial, "inicio"),
@@ -69,6 +77,7 @@ missoes = sorted(missoes, key = lambda x : x[0])
 def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
     """
     Separa todas missões que serão conferidas e confere
+    Desbloqueia os itens das missões
 
     Retorna o novo save
     """
@@ -83,6 +92,15 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
     for missao in missoes_validas:
         if missao[1] != None and missao[1](save, **variaveis):
             nova_missao.append(missao[0])
+            if len(missao) >= 5:
+                if missao[3] == "carta":
+                    if not missao[4] in save["cartas"]:
+                        save["cartas"].append(missao[4])
+                elif missao[3] == "item":
+                    if not missao[4] in save["inventario"]:
+                        save["inventario"].append(missao[4])
+                elif type(missao[3]) == int:
+                    save["inventario"] += missao[4]
 
     #Adiciona a missão comprida, se tiver alguma, no save
     if nova_missao != []:

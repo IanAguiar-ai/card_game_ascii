@@ -360,16 +360,7 @@ def entrar_loja() -> None:
     def animacao_inventario() -> None:
         memoria_save = ler_save()
         game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Q) Para voltar uma página\n(W) Para passar uma página"
-        pag = 0
-
-        #Dar os premios das missões:
-        if not "mr_money" in memoria_save["cartas"] and "Estou rico!" in memoria_save["missoes"]:
-            memoria_save["cartas"].append("mr_money")
-            adicionar_save(memoria_save)
-
-        if not "dono_da_loja" in memoria_save["cartas"] and "Dono da loja" in memoria_save["missoes"]:
-            memoria_save["cartas"].append("dono_da_loja")
-            adicionar_save(memoria_save)
+        pag = 0       
 
         while True:
             #Inventario:
