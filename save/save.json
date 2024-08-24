@@ -51,11 +51,11 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 9880,
+    "moedas": 10020,
     "deck": [
         "dono_da_loja",
         "mestre_das_horas",
-        "curandeiro_da_vila"
+        "guarda_do_rei"
     ],
     "inventario": [],
     "missoes": [
@@ -66,6 +66,6 @@
         "Homem comum",
         "Massacre"
     ],
-    "vitorias": 9,
-    "derrotas": 3
+    "vitorias": 12,
+    "derrotas": 5
 }

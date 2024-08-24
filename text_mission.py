@@ -34,7 +34,7 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Zerado", missao_zerado, "loja"),
            ("Livro cheio", missao_livro_cheio, "loja"),
            ("Reviravolta", missao_reviravolta, "vitoria"),
-           ("Nome funcao 13", None),
+           ("Primeira vez", missao_primeira_vez, "vitoria", "moeda", 100),
            ("Nome funcao 14", None),
            ("Nome funcao 15", None),
            ("Nome funcao 16", None),
@@ -99,8 +99,8 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                 elif missao[3] == "item":
                     if not missao[4] in save["inventario"]:
                         save["inventario"].append(missao[4])
-                elif type(missao[3]) == int:
-                    save["inventario"] += missao[4]
+                elif missao[3] == "moeda":
+                    save["inventario"] += int(missao[4])
 
     #Adiciona a missão comprida, se tiver alguma, no save
     if nova_missao != []:

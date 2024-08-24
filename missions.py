@@ -130,3 +130,10 @@ def missao_reviravolta(save, **resto) -> bool:
     if "ze_mao_de_alface" in [personagem["preco"] for personagem in resto["TIMES"][0]]:
         return True
     return False
+
+def missao_primeira_vez(save, **resto) -> bool:
+    """
+    Ganhe uma partida
+    Libera: 100 moedas
+    """
+    return True

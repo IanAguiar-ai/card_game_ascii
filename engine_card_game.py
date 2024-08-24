@@ -293,6 +293,14 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
+def base_ataque(personagem_inimigo:dict, dano:int):
+    """
+    Base do ataque
+    """
+    globals()["ultimo_ataque"][0] = dano
+    return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+    
+
 def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None, chance:float = 1) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
@@ -311,7 +319,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
 
                 for personagem_inimigo in personagens_inimigos:
                     buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-                    personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+                    personagem_inimigo["hp"] = base_ataque(personagem_inimigo, dano)
 
                     printar(personagem_inimigo, image)
 
@@ -320,7 +328,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
             time_inimigo = (globals()["TABULEIRO"] + 1) % 2
             personagens_inimigos = globals()["TIMES"][time_inimigo]
             for personagem_inimigo in personagens_inimigos:
-                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem_inimigo["hp"] = base_ataque(personagem_inimigo, dano)
 
                 printar(personagem_inimigo, image)
 
@@ -572,7 +580,9 @@ def pular_turno(image:dict):
     Pula o turno do inimigo
     """
     personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+    globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
     globals()["TABULEIRO"] = (globals()["TABULEIRO"] + 1) % 2
+    globals()["PARTIDA"] += 1
     printar(personagem, image)
     
 
@@ -608,7 +618,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
 
             for personagem_inimigo in personagens_inimigos:
                 buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-                personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem_inimigo["hp"] = base_ataque(personagem_inimigo, dano)
                 personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
                 personagem["ataques"][0]["argumentos"]["dano"] += buff
                 personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
@@ -620,7 +630,7 @@ def dano_e_cura_acumulador(dano:int, buff:int, image:dict, aleatorio:bool = Fals
         personagens_inimigos = globals()["TIMES"][time_inimigo]
         for personagem_inimigo in personagens_inimigos:
             buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
-            personagem_inimigo["hp"] = max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+            personagem_inimigo["hp"] = base_ataque(personagem_inimigo, dano)
             personagem["hp"] = min(personagem["hp"] + dano + globals()["BUFF_CURA"], personagem["hp_inicial"])
             personagem["ataques"][0]["argumentos"]["dano"] += buff
             personagem["ataques"][0]["descricao"] = f"De {personagem['ataques'][0]['argumentos']['dano']} de dano a um personagem inimigo aleatório e se cure nesse valor."
@@ -662,6 +672,8 @@ ESCOLHIDO = [0, 0]
 LIMITES_DADO = [1, 6]
 NERF_DADO = 0
 BUFF_DADO = 0
+
+ultimo_ataque = [0]
 
 CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "hp":80,
@@ -1655,10 +1667,16 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                   "ataques":[
                                       {"tipo":"ataque",
                                       "funcao":pular_turno,
-                                      "dado":1,
+                                      "dado":3,
                                       "argumentos":{"image":{"image":item_relogio, "frames":6, "wait":70, "to_start":0, "x":12, "y":5}},
                                       "nome":"Viajem no Tempo",
-                                      "descricao":f"É o turno do seu próximo personagem."},]
+                                      "descricao":f"É o turno do seu próximo personagem."},
+                                      {"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":4,
+                                      "argumentos":{"dano":ultimo_ataque, "aleatorio": True, "multiplicador":1, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Déjà-vu",
+                                      "descricao":f"Dá o último dano da partida em um personagem aleatório."},]
                               },
           "dono_da_loja":{"nome":"Dono da Loja",
                                   "hp":40,
