@@ -100,7 +100,7 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                     if not missao[4] in save["inventario"]:
                         save["inventario"].append(missao[4])
                 elif missao[3] == "moeda":
-                    save["inventario"] += int(missao[4])
+                    save["moedas"] += int(missao[4])
 
     #Adiciona a missão comprida, se tiver alguma, no save
     if nova_missao != []:
