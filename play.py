@@ -361,6 +361,24 @@ def entrar_loja() -> None:
         memoria_save = ler_save()
         game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Q) Para voltar uma página\n(W) Para passar uma página"
         pag = 0       
+        missoes_por_pag = 7
+        texto_aleatorio = ["-- --- -",
+                           "--- - ----",
+                           "- -- --- --",
+                           "-- -- - --",
+                           "--- --- -- -",
+                           "---- -- - ----",
+                           "--- ---- -- -",
+                           "----- ---- -",
+                           "---- ----- -- --",
+                           "--- --- -- ---",
+                           "- -- - -- ----",
+                           "--- -- - ---- - -",
+                           "- ----- - --- - ---",
+                           "-- - --- - --- - -- --",
+                           "-- -- ---- -- -- -",
+                           "-- - - --- - - ----",
+                           "--- --- - --- --- --"]
 
         while True:
             #Inventario:
@@ -390,7 +408,7 @@ def entrar_loja() -> None:
                              to_start = 0)
 
             x_, y_ = 0, 0
-            for missao in missoes[pag*32:(pag+1)*32]:
+            for missao in missoes[pag*(missoes_por_pag*2 + 2):(pag+1)*(missoes_por_pag*2 + 2)]:
                 x, y =  94 + x_ * 27,  9 + y_*2
                 if missao[0] in memoria_save["missoes"]:
                     game.add_effects(x = x, y = y,
@@ -407,9 +425,16 @@ def entrar_loja() -> None:
                                      tipe = None,
                                      wait = 0,
                                      to_start = 0)
+                    
+                game.add_effects(x = x, y = y+1,
+                                     image = [list(texto_aleatorio[(pag*x*y+x+y) % len(texto_aleatorio)])[:19]],
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
 
                 y_ += 1
-                if y_ > 7:
+                if y_ > missoes_por_pag:
                     x_ = 1
                     y_ = 0
 
@@ -417,7 +442,7 @@ def entrar_loja() -> None:
             if resp == "q":
                 pag = max(pag - 1, 0)
             elif resp == "w":
-                pag = min(pag + 1, len(missoes)//32)
+                pag = min(pag + 1, len(missoes)//(missoes_por_pag*2 + 2))
             elif resp == "":
                 break
 

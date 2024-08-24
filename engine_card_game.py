@@ -72,7 +72,7 @@ def jogar(TIMES:list):
         memoria_save = criar_save()
     conferir_missoes(tipo = "inicio", save = memoria_save)
 
-    while True:
+    while globals()["PARTIDA"] < 100: #Caso o jogo demore mais de 100 partidas ele termina
         time_atacante = TIMES[globals()["TABULEIRO"]]
         time_atacado = TIMES[(globals()["TABULEIRO"] + 1) % 2]
         globals()["time_atacante"] = time_atacante
@@ -1669,14 +1669,14 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":pular_turno,
                                       "dado":3,
                                       "argumentos":{"image":{"image":item_relogio, "frames":6, "wait":70, "to_start":0, "x":12, "y":5}},
-                                      "nome":"Viajem no Tempo",
-                                      "descricao":f"É o turno do seu próximo personagem."},
+                                      "nome":"Viagem no Tempo",
+                                      "descricao":f"Pule para o turno do próximo personagem aliado."},
                                       {"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
                                       "argumentos":{"dano":ultimo_ataque, "aleatorio": True, "multiplicador":1, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Déjà-vu",
-                                      "descricao":f"Dá o último dano da partida em um personagem aleatório."},]
+                                      "descricao":f"Dá o último dano da partida em um personagem inimigo aleatório."},]
                               },
           "dono_da_loja":{"nome":"Dono da Loja",
                                   "hp":40,
