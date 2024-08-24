@@ -51,7 +51,7 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 10020,
+    "moedas": 10160,
     "deck": [
         "dono_da_loja",
         "mestre_das_horas",
@@ -64,8 +64,9 @@
         "Dono da loja",
         "Somos lend\u00e1rios",
         "Homem comum",
-        "Massacre"
+        "Massacre",
+        "Primeira vez"
     ],
-    "vitorias": 12,
+    "vitorias": 13,
     "derrotas": 5
 }

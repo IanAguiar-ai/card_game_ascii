@@ -83,7 +83,7 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
     """
 
     #Confere quais missões serão conferidas:
-    missoes_validas = [missao[:2] if len(missao) == 3 and missao[2] == tipo and (not missao[0] in save["missoes"]) else None for missao in missoes]
+    missoes_validas = [missao if len(missao) >= 3 and missao[2] == tipo and (not missao[0] in save["missoes"]) else None for missao in missoes]
     while None in missoes_validas:
         missoes_validas.remove(None)
 
@@ -100,7 +100,7 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                     if not missao[4] in save["inventario"]:
                         save["inventario"].append(missao[4])
                 elif missao[3] == "moeda":
-                    save["moedas"] += int(missao[4])
+                    save["moedas"] = int(save["moedas"]) + int(missao[4])
 
     #Adiciona a missão comprida, se tiver alguma, no save
     if nova_missao != []:
@@ -108,3 +108,8 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
         adicionar_save(save)
 
     return save
+
+if __name__ == "__main__":
+    #Debug:
+    a = ler_save()
+    b = conferir_missoes(tipo = "vitoria", save = a)
