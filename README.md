@@ -32,7 +32,8 @@ Fazer:
 
 - Itens colecionáveis;
 
-- Inventário de itens e missões(.py);
+- Missões;
 
-- Oficina para revelar cartas exclusivas com itens e missões.
+- Loja genérica;
 
+- Inventário de itens e missões(.py).
