@@ -137,3 +137,12 @@ def missao_primeira_vez(save, **resto) -> bool:
     Libera: 100 moedas
     """
     return True
+
+def missao_genio_da_lampada(save, **resto) -> bool:
+    """
+    Tenha a lâmpada mágica no inventário
+    Libera: genio_da_lampada
+    """
+    if "lampada_magica" in save["inventario"]:
+        return True
+    return False

@@ -49,7 +49,8 @@
         "mestre_das_horas",
         "senhor_dos_mapas",
         "mr_money",
-        "dono_da_loja"
+        "dono_da_loja",
+        "genio_da_lampada"
     ],
     "moedas": 9110,
     "deck": [
@@ -70,7 +71,8 @@
         "Somos lend\u00e1rios",
         "Homem comum",
         "Massacre",
-        "Primeira vez"
+        "Primeira vez",
+        "Esfregue a l\u00e2mpada"
     ],
     "vitorias": 13,
     "derrotas": 5
