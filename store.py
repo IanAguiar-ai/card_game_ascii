@@ -122,7 +122,6 @@ class Element:
         self.y = y
         self.image = image
 
-
 def store(itens:list):
     """
     Printa a loja
@@ -142,9 +141,9 @@ def store(itens:list):
 
     while True:
         try:
-            texto_principal = f"Aperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar {itens[pos_caixa]['nome'].lower()}"
+            texto_principal = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar {itens[pos_caixa]['nome'].lower()}"
         except:
-            texto_principal = f"Aperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar"
+            texto_principal = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar"
         game.buffer_text = texto_principal
         
         game.add_effects(x = 85, y = 0,
@@ -176,47 +175,55 @@ def store(itens:list):
                          to_start = 0)
 
         for x in range(2):
-                for y in range(2):
-                    if pos_caixa == x + y*2:
-                        game.add_effects(x = 14 + x*36, y = 6 + y*16,
-                                     image = caixa_maior,
-                                     frames = 1,
-                                     tipe = None,
-                                     wait = 0,
-                                     to_start = 0)
-                    
-                    game.add_effects(x = 15 + x*36, y = 7 + y*16,
-                                     image = caixa_simples,
+            for y in range(2):
+                if pos_caixa == x + y*2:
+                    game.add_effects(x = 14 + x*36, y = 6 + y*16,
+                                 image = caixa_maior,
+                                 frames = 1,
+                                 tipe = None,
+                                 wait = 0,
+                                 to_start = 0)
+                
+                game.add_effects(x = 15 + x*36, y = 7 + y*16,
+                                 image = caixa_simples,
+                                 frames = 1,
+                                 tipe = None,
+                                 wait = 0,
+                                 to_start = 0)
+
+                if len(itens) > x + y*2:
+                    game.add_effects(x = 16 + x*36, y = 8 + y*16,
+                                     image = itens[x+y*2]["imagem"],
                                      frames = 1,
                                      tipe = None,
                                      wait = 0,
                                      to_start = 0)
 
-                    if len(itens) > x + y*2:
+                    preco_ = list("$" + str(itens[x+y*2]["preco"]))
+                    preco_[0] = "\033[93m" + preco_[0]
+                    preco_[-1] = preco_[-1] + "\033[0m"
+                    game.add_effects(x = 20 + x*36, y = 14 + y*16,
+                                     image = [preco_],
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
+
+                    if itens[x+y*2]["id"] in memoria_save["inventario"]:
                         game.add_effects(x = 16 + x*36, y = 8 + y*16,
-                                         image = itens[x+y*2]["imagem"],
-                                         frames = 1,
-                                         tipe = None,
-                                         wait = 0,
-                                         to_start = 0)
+                                     image = caixa_simples_fechada,
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
 
-                        preco_ = list("$" + str(itens[x+y*2]["preco"]))
-                        preco_[0] = "\033[93m" + preco_[0]
-                        preco_[-1] = preco_[-1] + "\033[0m"
-                        game.add_effects(x = 20 + x*36, y = 14 + y*16,
-                                         image = [preco_],
-                                         frames = 1,
-                                         tipe = None,
-                                         wait = 0,
-                                         to_start = 0)
-
-                        if itens[x+y*2]["id"] in memoria_save["inventario"]:
-                            game.add_effects(x = 16 + x*36, y = 8 + y*16,
-                                         image = caixa_simples_fechada,
-                                         frames = 1,
-                                         tipe = None,
-                                         wait = 0,
-                                         to_start = 0)
+        if "descricao" in itens[pos_caixa]:
+            game.add_effects(x = 14, y = 32,
+                             image = caixa_texto(itens[pos_caixa]["descricao"], limite = 50),
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
                     
         resp = input()
         if resp.lower() == "w":

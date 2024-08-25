@@ -142,7 +142,7 @@ def put_color_rarity(text, rarity) -> list:
         color = 15
     return put_color(text = text, color = color)
 
-def ajustar_descricao(desc:str):
+def ajustar_descricao(desc:str) -> list:
     """
     Ajusta a descrição para mostrar no choose_deck.py
     """
@@ -162,6 +162,34 @@ def ajustar_descricao(desc:str):
 
     final.append(temp)
     return final
+
+def caixa_texto(texto:str, limite:int) -> list:
+    #Criar texto
+    texto = texto.split(" ")
+    texto_final = []
+    temp = [" ", " "]
+    tamanho = 2
+
+    for i in range(len(texto)):
+        tamanho += len(texto[i]) + 1
+        if tamanho <= limite:
+            temp.extend([*list(texto[i]), " "])
+        else:
+            texto_final.append(temp)
+            temp = [*list(texto[i]), " "]
+            tamanho = len(texto[i]) + 1
+
+    texto_final.append(temp)
+
+    #Criar caixa
+    for i in range(len(texto_final)):
+        while len(texto_final[i]) < limite:
+            texto_final[i].append(" ")
+        texto_final[i] = ["|", *texto_final[i], "|"]
+    return [["-" for i in range(limite+2)], *texto_final, ["-" for i in range(limite+2)]]
+
+a = caixa_texto("Teste 123 de texto, essa é uma caixa de texto para teste, o objetivo é ver se é possível encaixar a caixa texto",
+                limite = 15)
 
 def criar_save() -> dict:
     """
