@@ -51,7 +51,7 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 9260,
+    "moedas": 9110,
     "deck": [
         "dono_da_loja",
         "mestre_das_horas",
@@ -60,7 +60,8 @@
     "inventario": [
         "lampada_magica",
         "torta",
-        "drink"
+        "drink",
+        "cafe"
     ],
     "missoes": [
         "Nome funcao 7",

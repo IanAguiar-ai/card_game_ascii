@@ -147,8 +147,29 @@ def store(itens:list):
             texto_principal = f"Aperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar"
         game.buffer_text = texto_principal
         
-        game.add_effects(x = 85, y = 3,
-                         image = loja,
+        game.add_effects(x = 85, y = 0,
+                         image = estante,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 95, y = 22,
+                         image = teia_de_aranha,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 1, y = 0,
+                         image = teia_de_aranha_3,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 105, y = 20,
+                         image = poutrona,
                          frames = 1,
                          tipe = None,
                          wait = 0,
