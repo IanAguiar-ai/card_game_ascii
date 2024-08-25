@@ -6,12 +6,7 @@ from arts import *
 from time import sleep, time
 from colors_terminal import colors
 from auxiliary_functions import *
-from choose_deck import choose_deck_animation
-from open_booster import abrir_pacote_com_carta
 from card_game import run_the_game
-from text_mission import missoes
-from text_mission import conferir_missoes
-from itens import itens
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -174,6 +169,11 @@ def entrar_loja() -> None:
     """
     Animação da loja
     """
+
+    from choose_deck import choose_deck_animation
+    from open_booster import abrir_pacote_com_carta
+    from text_mission import missoes
+    from text_mission import conferir_missoes
     
     def animacao_loja() -> None:
         em_fala = 0
@@ -359,6 +359,8 @@ def entrar_loja() -> None:
             sleep(0.2)
 
     def animacao_inventario() -> None:
+        from itens import itens
+
         memoria_save = ler_save()
         game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Q) Para voltar uma página\n(W) Para passar uma página"
         pag = 0       
