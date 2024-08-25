@@ -308,19 +308,34 @@ cartas!
 começar!""".split("\n")),
 adjust_image(""" Agora que você gastou
 todo seu dinheiro em
-cartinhas CGA vá em frente
+cartinhas CGA vá em frentes
 e monte o seu deck.""".split("\n")),
 ]
 
-caixa_simples = adjust_image("""
-+------------+
+caixa_simples = adjust_image("""+------------+
 |            |
 |            |
 |            |
 |            |
 |            |
-+------------+
-""".split("\n"))
++------------+""".split("\n"))
+
+caixa_simples_fechada = adjust_image(""" |  |  |  |
+ |  |  |  |
+ |  |  |  |
+ |  |  |  |
+ |  |  |  |""".split("\n"), replace_ = True)
+
+caixa_maior = adjust_image("""+--------------+
+|              |
+|              |
+|              |
+|              |
+|              |
+|              |
+|              |
+|              |
++--------------+""".split("\n"))
 
 livro_aberto = adjust_image("""      ___________________   ___________________
   .-/|       ~~**~~      \\ /      ~~**~~       |\\-.
@@ -1273,36 +1288,35 @@ item_relogio = adjust_image("""  _______
 |         |
  \\___6___/""".split("\n"))
 
-item_cafe = adjust_image("""  ;)( ;
- :----:
-C|====|
- |    |
- `----'""".split("\n"))
+item_cafe = adjust_image("""    ;)( ;
+   :----:
+  C|====|
+   |    |
+   `----'""".split("\n"))
 
-item_torta = adjust_image("""    o8Oo./
+item_torta = adjust_image("""
+    o8Oo./
 ._o8o8o8Oo_.
  \========/
   `------'""".split("\n"))
 
-item_lampada_magica = adjust_image("""     _o_    ;:;'
- ,-.'---`.__ ;
-((j`=====',-'
+item_lampada_magica = adjust_image("""     _o_
+ ,-.'---`.__
+((j`=====',-
  `-\     /
     `-=-'""".split("\n"))
 
-item_drink = adjust_image(""" /.---.\
- |`````|
- \     /
-  `-.-'
-    |  
-  __|__
- `-----`""".split("\n"))
+item_drink = adjust_image("""  |`````|
+  \\     /
+   `-.-'
+     |  
+   __|__""".split("\n"))
 
-item_biscoito = adjust_image("""   ,-.
- _(*_*)_
-(_  o  _)
-  / o \
- (_/ \_)""".split("\n"))
+item_biscoito = adjust_image("""    ,-.
+  _(*_*)_
+ (_  o  _)
+   / o \\
+  (_/ \_)""".split("\n"))
 
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .

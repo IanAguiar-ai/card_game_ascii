@@ -51,13 +51,17 @@
         "mr_money",
         "dono_da_loja"
     ],
-    "moedas": 10160,
+    "moedas": 9360,
     "deck": [
         "dono_da_loja",
         "mestre_das_horas",
         "guarda_do_rei"
     ],
-    "inventario": [],
+    "inventario": [
+        "lampada_magica",
+        "torta",
+        "drink"
+    ],
     "missoes": [
         "Nome funcao 7",
         "Estou rico!",
