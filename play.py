@@ -11,6 +11,7 @@ from open_booster import abrir_pacote_com_carta
 from card_game import run_the_game
 from text_mission import missoes
 from text_mission import conferir_missoes
+from itens import itens
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -390,14 +391,15 @@ def entrar_loja() -> None:
                                      tipe = None,
                                      wait = 0,
                                      to_start = 0)
+
+                    if len(memoria_save["inventario"]) > x+y*5:
+                        game.add_effects(x = 5 + x*16, y = 1 + y*8,
+                                     image = itens[memoria_save["inventario"][x+y*5]]["imagem"],
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
             
-##            x_, y_ = 0, 0
-##            for iten in memoria_save["inventario"]:
-##
-##                y_ += 1
-##                if y_ > 15:
-##                    x_ = 1
-##                    y_ = 0
 
             #Missões:
             game.add_effects(x = 84, y = 6,
