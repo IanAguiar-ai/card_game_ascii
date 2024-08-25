@@ -362,8 +362,9 @@ def entrar_loja() -> None:
         from itens import itens
 
         memoria_save = ler_save()
-        game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Q) Para voltar uma página\n(W) Para passar uma página"
-        pag = 0       
+        game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Z, X) Para alternar entre páginas\n(A, W, S, D) Para escolher entre itens"
+        pag = 0
+        pos_inventario = 0
         missoes_por_pag = 7
         texto_aleatorio = ["-- --- -",
                            "--- - ----",
@@ -401,8 +402,22 @@ def entrar_loja() -> None:
                                      tipe = None,
                                      wait = 0,
                                      to_start = 0)
-            
 
+            game.add_effects(x = 4 + (pos_inventario%5)*16, y = 0 + (pos_inventario//5)*8,
+                             image = caixa_pontilhada,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+            if len(memoria_save["inventario"]) > pos_inventario and "descricao" in itens[memoria_save["inventario"][pos_inventario]]:
+                game.add_effects(x = 86, y = 28,
+                                 image = caixa_texto(itens[memoria_save["inventario"][pos_inventario]]["descricao"], limite = 57),
+                                 frames = 1,
+                                 tipe = None,
+                                 wait = 0,
+                                 to_start = 0)
+                
             #Missões:
             game.add_effects(x = 84, y = 6,
                              image = livro_aberto_grande,
@@ -443,10 +458,18 @@ def entrar_loja() -> None:
                     y_ = 0
 
             resp = input()
-            if resp == "q":
+            if resp.lower() == "z":
                 pag = max(pag - 1, 0)
-            elif resp == "w":
+            elif resp.lower() == "x":
                 pag = min(pag + 1, len(missoes)//(missoes_por_pag*2 + 2))
+            elif resp.lower() == "a" or resp.lower() == "q":
+                pos_inventario = max(0, pos_inventario - 1)
+            elif resp.lower() == "d" or resp.lower() == "e":
+                pos_inventario = min(24, pos_inventario + 1)
+            elif resp.lower() == "w":
+                pos_inventario = max(0, pos_inventario - 5)
+            elif resp.lower() == "s":
+                pos_inventario = min(24, pos_inventario + 5)
             elif resp == "":
                 break
 

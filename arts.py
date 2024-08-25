@@ -320,6 +320,14 @@ caixa_simples = adjust_image("""+------------+
 |            |
 +------------+""".split("\n"))
 
+caixa_pontilhada = adjust_image("""**************
+*            *
+*            *
+*            *
+*            *
+*            *
+**************""".split("\n"), replace_ = True)
+
 caixa_simples_fechada = adjust_image(""" |  |  |  |
  |  |  |  |
  |  |  |  |
