@@ -218,8 +218,8 @@ def store(itens:list):
                                      to_start = 0)
 
         if "descricao" in itens[pos_caixa]:
-            game.add_effects(x = 14, y = 32,
-                             image = caixa_texto(itens[pos_caixa]["descricao"], limite = 50),
+            game.add_effects(x = 4, y = 32,
+                             image = caixa_texto(itens[pos_caixa]["descricao"], limite = 70),
                              frames = 1,
                              tipe = None,
                              wait = 0,
@@ -244,7 +244,7 @@ def store(itens:list):
     game.close()
 
 if __name__ == "__main__":
-    store(itens = [itens["cafe"],
+    store(itens = [itens["pocao_pequena"],
                    itens["torta"],
                    itens["drink"],
-                   itens["lampada_magica"]])
+                   itens["biscoito"]])
