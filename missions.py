@@ -124,7 +124,7 @@ def missao_livro_cheio(save, **resto) -> bool:
 
 def missao_reviravolta(save, **resto) -> bool:
     """
-    Se o você ganhou usando um deck de 0 de mana vs um deck de 5 de mana
+    Se o você ganhou usando o zé mão de alface
     Libera: ???
     """
     if "ze_mao_de_alface" in [personagem["preco"] for personagem in resto["TIMES"][0]]:
