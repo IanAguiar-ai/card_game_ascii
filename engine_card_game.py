@@ -1742,7 +1742,87 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Míssil Teleguiado",
                                       "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
                               },
+          "aranha_rainha":{"nome":"Aranha rainha",
+                                  "hp":70,
+                                  "preco":2,
+                                  "classe":"lenda",
+                                  "arte":imagem_aranha,
+                                  "raridade":"secreto",
+                                  "ataques":[
+                                      {"tipo":"ataque",
+                                      "funcao":adicionar_habilidade,
+                                      "dado":1,
+                                      "argumentos":{"funcao":{"tipo":"habilidade",
+                                                  "tempo":"comeco",
+                                                  "vivo":True,
+                                                  "morto":False,
+                                                  "ataque":True,
+                                                  "defesa":False,
+                                                  "funcao":habilidade_buff_global_dado,
+                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                  "nome":"Uma ajudinha",
+                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Míssil Teleguiado",
+                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
+                              },
+          "genio_da_lampada":{"nome":"Gênio da Lâmpada",
+                                  "hp":70,
+                                  "preco":2,
+                                  "classe":"lenda",
+                                  "arte":imagem_genio_da_lampada,
+                                  "raridade":"secreto",
+                                  "ataques":[
+                                      {"tipo":"ataque",
+                                      "funcao":adicionar_habilidade,
+                                      "dado":1,
+                                      "argumentos":{"funcao":{"tipo":"habilidade",
+                                                  "tempo":"comeco",
+                                                  "vivo":True,
+                                                  "morto":False,
+                                                  "ataque":True,
+                                                  "defesa":False,
+                                                  "funcao":habilidade_buff_global_dado,
+                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                  "nome":"Uma ajudinha",
+                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Míssil Teleguiado",
+                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
+                              },
+          "balao":{"nome":"Balão",
+                                  "hp":70,
+                                  "preco":2,
+                                  "classe":"lenda",
+                                  "arte":imagem_balao,
+                                  "raridade":"secreto",
+                                  "ataques":[
+                                      {"tipo":"ataque",
+                                      "funcao":adicionar_habilidade,
+                                      "dado":1,
+                                      "argumentos":{"funcao":{"tipo":"habilidade",
+                                                  "tempo":"comeco",
+                                                  "vivo":True,
+                                                  "morto":False,
+                                                  "ataque":True,
+                                                  "defesa":False,
+                                                  "funcao":habilidade_buff_global_dado,
+                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                                  "nome":"Uma ajudinha",
+                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
+                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Míssil Teleguiado",
+                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
+                              },
           }
+
+for carta in CARTAS.keys():
+    if len(CARTAS[carta]["arte"]) > 16:
+        CARTAS[carta]["arte"] = CARTAS[carta]["arte"][:16]
+        
+    for i in range(len(CARTAS[carta]["arte"])):
+        if len(CARTAS[carta]["arte"][i]) > 34:
+            CARTAS[carta]["arte"][i] = CARTAS[carta]["arte"][i][:33]
 
 raridades = {}
 for carta in CARTAS.keys():

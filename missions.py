@@ -146,3 +146,12 @@ def missao_genio_da_lampada(save, **resto) -> bool:
     if "lampada_magica" in save["inventario"]:
         return True
     return False
+
+def missao_por_um_triz(save, **resto) -> bool:
+    """
+    Se o você ganhou por 10 de vida ou menos na soma dos seus personagens
+    Libera: 300 moedas
+    """
+    if sum([personagem["hp"] for personagem in resto["TIMES"][1]]) <= 10:
+        return True
+    return False

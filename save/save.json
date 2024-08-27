@@ -50,9 +50,11 @@
         "senhor_dos_mapas",
         "mr_money",
         "dono_da_loja",
-        "genio_da_lampada"
+        "genio_da_lampada",
+        "aranha_rainha",
+        "balao"
     ],
-    "moedas": 9110,
+    "moedas": 8910,
     "deck": [
         "dono_da_loja",
         "mestre_das_horas",
