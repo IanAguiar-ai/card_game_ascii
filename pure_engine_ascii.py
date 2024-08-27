@@ -14,7 +14,7 @@ class Screen:
     O usuário faz pedidos de animação a engine e ela processa
     """
     
-    def __init__(self, x:int, y:int, fps:int = 30):
+    def __init__(self, x:int, y:int, fps:int = 30, campo:list = None):
         self.x = x
         self.y = y
         self.fps = fps
@@ -25,6 +25,7 @@ class Screen:
         self.animation = True
         self.effects = {}
         self.in_run = True
+        self.campo = campo
 
     def close(self) -> None:
         """
@@ -71,8 +72,10 @@ class Screen:
         while self.in_run:
             if self.animation or self.estats_animation():
                 #Empty space:
-                buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
-                #buffer = campo[].copy()
+                if self.campo == None:
+                    buffer = ["\n" if i % self.x == 0 else " " for i in range(self.x * self.y)]
+                else:
+                    buffer = self.campo.copy()
                 
                 #Print buffer:
                 self.add_temporary(Element(x = DISPOSITION_X_TEXT, y = DISPOSITION_Y_TEXT, image = to_list(self.buffer_text)))
