@@ -34,6 +34,9 @@ class Screen:
         self.in_run = False
 
     def add_effects(self, x:int, y:int, image:list, frames:int = 8, tipe:str = None, wait:int = 16, to_start:int = 0) -> None:
+        """
+        Adiciona as animações temporarias
+        """
         self.effects[str(random()*1_000_000)] = {"x":x,
                                                  "y":y,
                                                  "frames":frames,
@@ -44,6 +47,9 @@ class Screen:
                                                  "to_start":to_start}
         
     def estats_animation(self) -> bool:
+        """
+        Printa cada frame de animação
+        """
         continua = False
         #Animacoes:
         to_pop = []
