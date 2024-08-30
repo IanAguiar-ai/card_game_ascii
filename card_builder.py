@@ -1,3 +1,7 @@
+"""
+Sistema de construção de cartas
+"""
+
 from random import random
 from threading import Thread
 from game_config import *

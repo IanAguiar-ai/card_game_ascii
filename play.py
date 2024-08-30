@@ -1,3 +1,7 @@
+"""
+Jogo, parte lógica e gráfica que faz a interseção entre todas as telas do jogo
+"""
+
 from random import random
 from threading import Thread
 from time import sleep, time

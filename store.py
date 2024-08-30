@@ -1,3 +1,7 @@
+"""
+Parte gráfica e lógica da loja
+"""
+
 from random import random
 from threading import Thread
 from game_config import *
