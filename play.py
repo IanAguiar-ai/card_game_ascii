@@ -1,10 +1,9 @@
-from engine_card_game import CARTAS
 from random import random
-from game_config import *
 from threading import Thread
-from arts import *
 from time import sleep, time
-from colors_terminal import colors
+from game_config import *
+from engine_card_game import CARTAS
+from arts import *
 from auxiliary_functions import *
 from card_game import run_the_game
 from pure_engine_ascii import Screen

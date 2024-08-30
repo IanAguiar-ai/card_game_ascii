@@ -3,10 +3,9 @@ from threading import Thread
 from game_config import *
 from arts import *
 from auxiliary_functions import *
-from itens import itens
 from pure_engine_ascii import Screen
 
-def store(itens:list):
+def card_builder(itens:list):
     """
     Printa a loja
     O usuário pode comprar itens nela
