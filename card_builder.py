@@ -11,8 +11,18 @@ from pure_engine_ascii import Screen
 
 def card_builder(itens:list):
     """
-    Printa a loja
-    O usuário pode comprar itens nela
+    Sistema de construção de carta
+
+    O usuário pode escolher entre:
+
+    - Classe
+    - Raridade
+    - HP
+    - Custo
+    - Nome
+    - Imagem
+    - Ataques
+    - Abilidades    
     """
     memoria_save = ler_save()
     if memoria_save == None:
