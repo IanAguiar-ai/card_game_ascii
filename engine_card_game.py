@@ -686,6 +686,8 @@ NERF_DADO = 0
 BUFF_DADO = 0
 
 ultimo_ataque = [0]
+maior_ataque = [0]
+menor_ataque = [0]
 
 CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "hp":80,
@@ -1850,7 +1852,7 @@ for carta in CARTAS.keys():
 
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
-lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "numero_dado", "turno_atual"]
+lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
 lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "multiplicador", "dado", "voltar"]
 lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar"]
 
