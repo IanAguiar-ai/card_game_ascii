@@ -45,7 +45,12 @@ def card_builder():
 
     tela = ["principal"]
     textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
-              "HP":[str(int(i)) for i in range(1, 21)],
+              "HP":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
+              "0 ~ 100":[str(i*10) for i in range(10)],
+              "100 ~ 200":[str(i*10) for i in range(10, 20)],
+              "200 ~ 300":[str(i*10) for i in range(20, 30)],
+              "300 ~ 400":[str(i*10) for i in range(30, 40)],
+              "400 ~ 500":[str(i*10) for i in range(40, 50)],
               "CLASSE":classes,
               "RARIDADE":raridades,
               "PRECO":[str(i) for i in range(6)]}
@@ -175,8 +180,8 @@ def card_builder():
             pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]) - 1)
         elif resp == "":
             if "principal" in tela:
-                if len(tela) == 2 and "HP" in tela[1]:
-                    carta["hp"] = int(textos[tela[-1]][pos_ponteiro]) * 10
+                if len(tela) == 3 and "HP" in tela[1]:
+                    carta["hp"] = int(textos[tela[-1]][pos_ponteiro])
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
@@ -195,10 +200,11 @@ def card_builder():
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
-                elif len(tela) == 2 and "NOME" in tela[1]:
-                    carta["preco"] = input("Coloque o nome: ")
+                elif len(tela) == 1 and "NOME" == textos[tela[-1]][pos_ponteiro]:
+                    carta["nome"] = input("Coloque o nome: ")
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
