@@ -47,14 +47,15 @@ def card_builder():
     tela = ["principal"]
     textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
               "HP":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
-              "0 ~ 100":[str(i*10) for i in range(10)],
+              "0 ~ 100":[str(i*5) for i in range(20)],#"0 ~ 100":[str(i*10) for i in range(10)],
               "100 ~ 200":[str(i*10) for i in range(10, 20)],
               "200 ~ 300":[str(i*10) for i in range(20, 30)],
               "300 ~ 400":[str(i*10) for i in range(30, 40)],
               "400 ~ 500":[str(i*10) for i in range(40, 50)],
               "CLASSE":classes,
               "RARIDADE":raridades,
-              "PRECO":[str(i) for i in range(6)]}
+              "PRECO":[str(i) for i in range(6)],
+              "ATAQUES":["ATAQUE", "ABILIDADE"]}
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
