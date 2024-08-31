@@ -305,6 +305,12 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
     """
+    if type(vezes) == list:
+        vezes:int = vezes[0]
+
+    if type(multiplicador) == list:
+        multiplicador:int = multiplicador[0]
+    
     if random() < chance:
         if type(dano) == list: #Casos que recebem listas com variáveis
             dano = dano[0] * multiplicador
@@ -340,6 +346,9 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
                 printar(personagem_amigo, image)
 
 def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False):
+    if type(vezes) == list:
+        vezes:int = vezes[0]
+        
     for _ in range(vezes):
         time_inimigo = (globals()["TABULEIRO"] + 1) % 2
         if todos:
@@ -357,6 +366,9 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
+    if type(vezes) == list:
+        vezes:int = vezes[0]
+        
     if curar_todos:
         buffer_(f"Curando todos...")
         for i in range(len(TIMES)):
@@ -1839,12 +1851,13 @@ for carta in CARTAS.keys():
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "numero_dado", "turno_atual", "HP"]
-lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "dado", "voltar"]
+lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "multiplicador", "dado", "voltar"]
 lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar"]
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
-                      "vezes":["~ 0 ~ 50"],
+                      "vezes":["~ 0 ~ 50", *lista_variaveis_globais],
+                      "multiplicador":["~ 0 ~ 50", *lista_variaveis_globais],
                       "dado":[str(i) for i in range(1, 7)]}
 
 for ataque_ in lista_ataques:
