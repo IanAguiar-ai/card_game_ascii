@@ -44,7 +44,8 @@ def card_builder():
     pos_ponteiro = 0
 
     tela = ["principal"]
-    textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"]}
+    textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
+              "HP":[str(int(i)) for i in range(1, 21)]}
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
@@ -52,11 +53,9 @@ def card_builder():
     game_t = Thread(target = game.run)
     game_t.start()
     
-    texto_principal = f"Use as teclas (A, W, S, D) para iteragir"
-    game.buffer_text = texto_principal
+    
 
-    while True:
-        
+    while True:        
         x_carta = 105
         y_carta = 0
         
@@ -129,7 +128,7 @@ def card_builder():
                              to_start = 0)
 
             descricao = ajustar_descricao(iteracao["descricao"])
-            
+
             game.add_effects(x = x_carta + 2, y = y_carta + pos + 2,
                              image = descricao,
                              frames = 1,
@@ -141,33 +140,39 @@ def card_builder():
 
         iteracao = 0
         pos_texto_x, pos_texto_y = 3, 0
-        if tela[-1] == "principal":
-            adicao_x = 0
-            for texto in textos[tela[-1]]:
-                game.add_effects(x = pos_texto_x + adicao_x, y = pos_texto_y,
-                                 image = caixa_texto(texto, limite = len(texto) + 4),
-                                 frames = 1,
-                                 tipe = None,
-                                 wait = 0,
-                                 to_start = 0)
+        if tela[0] == "principal":
+            texto_principal = f"Use as teclas (A, W, S, D, ENTER) para iteragir"
+            game.buffer_text = texto_principal
 
-                if iteracao == pos_ponteiro:
-                    game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = pos_texto_y + 3,
-                                     image = seta_cima_pequena,
+            for nivel in range(len(tela)):
+                adicao_x = 0
+                for texto in textos[tela[nivel]]:
+                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 4) * len(tela),
+                                     image = caixa_texto(texto, limite = len(texto) + 4),
                                      frames = 1,
                                      tipe = None,
                                      wait = 0,
                                      to_start = 0)
-                    
-                adicao_x += len(texto) + 5
-                iteracao += 1
+
+                    if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
+                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 4) * len(tela) + 3,
+                                         image = seta_cima_pequena,
+                                         frames = 1,
+                                         tipe = None,
+                                         wait = 0,
+                                         to_start = 0)
+
+                    adicao_x += len(texto) + 5
+                    iteracao += 1
 
         resp = input()
         if resp.lower() == "a" or resp.lower() == "q":
             pos_ponteiro = max(pos_ponteiro - 1, 0)
         elif resp.lower() == "d" or resp.lower() == "e":
-            pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]))
-
+            pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]) - 1)
+        elif resp == "":
+            tela.append(textos[tela[-1]][pos_ponteiro])
+            pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
     game_t.join()
     game.close()
