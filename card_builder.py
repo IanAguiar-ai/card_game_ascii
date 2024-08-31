@@ -194,7 +194,11 @@ def card_builder():
                     carta["preco"] = int(textos[tela[-1]][pos_ponteiro])
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
-            
+
+                elif len(tela) == 2 and "NOME" in tela[1]:
+                    carta["preco"] = input("Coloque o nome: ")
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
