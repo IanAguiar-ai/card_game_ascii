@@ -2,24 +2,29 @@
 Configurações do jogo
 """
 
-X = 145
-Y = 53
-FPS = 12
-FPS_LOJA = 8
+X:int = 145
+Y:int = 53
+FPS:int = 12
+FPS_LOJA:int = 8
 
-DISPOSITION_X_CARDS = [5, 55, 105]
-DISPOSITION_Y_CARDS = [1, 22]
+DISPOSITION_X_CARDS:list = [5, 55, 105]
+DISPOSITION_Y_CARDS:list = [1, 22]
 
-DISPOSITION_X_TEXT = 5
-DISPOSITION_Y_TEXT = 43
+DISPOSITION_X_TEXT:int = 5
+DISPOSITION_Y_TEXT:int = 43
 
-FOLDER_SAVE = "save"
-SAVE_SAVE = f"{FOLDER_SAVE}/save.json"
+ART_WIDTH:int = 16
+HEIGHT_ART:int = 34
 
-CONTRA_BOT = True
+FOLDER_SAVE:str = "save"
+SAVE_SAVE:str = f"{FOLDER_SAVE}/save.json"
+FOLDER_MODS:str = "mods"
+FOLDER_ART:str = f"{FOLDER_MODS}/arts"
 
-SLEEP_TURN = 2
-SLEEP_BOT = 1.5
-SLEEP_INITIAL_TURN = 0
-SLEEP_END_TURN = 0
-SLEEP_DICE = 0
+CONTRA_BOT:bool = True
+
+SLEEP_TURN:float = 2
+SLEEP_BOT:float = 1.5
+SLEEP_INITIAL_TURN:float = 0
+SLEEP_END_TURN:float = 0
+SLEEP_DICE:float = 0

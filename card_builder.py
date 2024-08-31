@@ -4,6 +4,7 @@ Sistema de construção de cartas
 
 from random import random
 from threading import Thread
+from os import listdir
 from game_config import *
 from arts import *
 from auxiliary_functions import *
@@ -36,7 +37,7 @@ def card_builder():
              "hp":50,
              "preco":1,
              "classe":classes[index_classes],
-             "arte":janela,
+             "arte":None,
              "raridade":raridades[index_raridades],
              "ataques":[]
              }
@@ -73,6 +74,14 @@ def card_builder():
                          tipe = None,
                          wait = 0,
                          to_start = 0)
+
+        if carta["arte"] != None:
+            game.add_effects(x = x_carta + 1, y = y_carta + 2,
+                             image = carta["arte"],
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
 
         game.add_effects(x = x_carta + 1, y = y_carta + 19,
                          image = put_color_rarity([list(f"{carta['raridade'].title().center(34,'=')}")],
@@ -147,6 +156,7 @@ def card_builder():
             pos += 3 + len(descricao)
 
         pos_texto_x, pos_texto_y = 2, 0
+        nivel_complementar = 0
         if tela[0] == "principal":
             texto_principal = f"Use as teclas (A, W, S, D, ENTER) para iteragir"
             game.buffer_text = texto_principal
@@ -155,7 +165,12 @@ def card_builder():
                 adicao_x = 0
                 iteracao = 0
                 for texto in textos[tela[nivel]]:
-                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel),
+
+                    if adicao_x >= x_carta - 3:
+                        adicao_x = 0
+                        nivel_complementar += 1
+                    
+                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
                                      image = caixa_texto(texto, limite = len(texto) + 4),
                                      frames = 1,
                                      tipe = None,
@@ -163,7 +178,7 @@ def card_builder():
                                      to_start = 0)
 
                     if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
-                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 3) * (nivel) + 3,
+                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 3) * (nivel + nivel_complementar) + 3,
                                          image = seta_cima_pequena,
                                          frames = 1,
                                          tipe = None,
@@ -205,9 +220,28 @@ def card_builder():
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
+                elif len(tela) == 1 and "ARTE" == textos[tela[-1]][pos_ponteiro]:
+                    artes = sorted(listdir(FOLDER_ART))
+                    textos["ARTE"] = artes
+                    tela.append(textos[tela[-1]][pos_ponteiro])
+                    pos_ponteiro = min(pos_ponteiro, len(artes) - 1)
+
+                elif len(tela) == 2 and "ARTE" in tela[1]:
+                    with open(f"{FOLDER_ART}/{textos[tela[-1]][pos_ponteiro]}") as arte_da_carta:
+                        arte_final = arte_da_carta.read().split("\n")
+                        arte_final = arte_final[:ART_WIDTH]
+                        for i in range(len(arte_final)):
+                            if len(arte_final[i]) > HEIGHT_ART:
+                                arte_final[i] = arte_final[i][:HEIGHT_ART]
+                    carta["arte"] = adjust_image(arte_final)
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+            elif resp.lower() == "m":
+                break
             else:
                 pass
 
