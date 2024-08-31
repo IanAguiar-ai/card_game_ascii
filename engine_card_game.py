@@ -298,6 +298,11 @@ def base_ataque(personagem_inimigo:dict, dano:int):
     Base do ataque
     """
     globals()["ultimo_ataque"][0] = dano
+    if globals()["maior_ataque"][0] < dano:
+        globals()["maior_ataque"][0] = dano
+    if globals()["menor_ataque"][0] > dano:
+        globals()["menor_ataque"][0] = dano
+
     return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
     
 
@@ -1831,12 +1836,12 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
           }
 
 for carta in CARTAS.keys():
-    if len(CARTAS[carta]["arte"]) > 16:
-        CARTAS[carta]["arte"] = CARTAS[carta]["arte"][:16]
+    if len(CARTAS[carta]["arte"]) > ART_WIDTH:
+        CARTAS[carta]["arte"] = CARTAS[carta]["arte"][:ART_WIDTH]
         
     for i in range(len(CARTAS[carta]["arte"])):
-        if len(CARTAS[carta]["arte"][i]) > 34:
-            CARTAS[carta]["arte"][i] = CARTAS[carta]["arte"][i][:33]
+        if len(CARTAS[carta]["arte"][i]) > HEIGHT_ART:
+            CARTAS[carta]["arte"][i] = CARTAS[carta]["arte"][i][:HEIGHT_ART - 1]
 
 raridades = {}
 for carta in CARTAS.keys():
