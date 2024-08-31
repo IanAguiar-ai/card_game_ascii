@@ -1,0 +1,9 @@
+{
+ "nome": "???",
+ "hp": 50,
+ "preco": 1,
+ "classe": "guerreiro",
+ "arte": null,
+ "raridade": "comum",
+ "ataques": []
+}

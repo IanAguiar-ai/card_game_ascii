@@ -5,6 +5,7 @@ Sistema de construção de cartas
 from random import random
 from threading import Thread
 from os import listdir
+from json import dump
 from game_config import *
 from arts import *
 from auxiliary_functions import *
@@ -45,7 +46,8 @@ def card_builder():
     pos_ponteiro = 0
 
     tela = ["principal"]
-    textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
+    textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES", "SAVE", "LIMPAR ATAQUES"],
+              "ATAQUES":["ataques", "habilidades"],
               "HP":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
               "0 ~ 100":[str(i*10) for i in range(0, 10)],
               "100 ~ 200":[str(i*10) for i in range(10, 20)],
@@ -60,8 +62,7 @@ def card_builder():
               "40 ~ 50":[str(i) for i in range(40, 51)],
               "CLASSE":classes,
               "RARIDADE":raridades,
-              "PRECO":[str(i) for i in range(6)],
-              "ATAQUES":["ataques", "habilidades"]}
+              "PRECO":[str(i) for i in range(6)]}
 
     textos = textos | dicionario_ataques
     
@@ -70,6 +71,10 @@ def card_builder():
     
     game_t = Thread(target = game.run)
     game_t.start()
+
+    salvar_ataque_temporario = {"argumentos":{"image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                "nome":"???",
+                                "descricao":f"???"}
 
     while True:
         x_carta = 105
@@ -205,6 +210,15 @@ def card_builder():
                 if "voltar" == textos[tela[-1]][pos_ponteiro]:
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+                    carta["ataques"].append(salvar_ataque_temporario)
+                    salvar_ataque_temporario = {"argumentos":{"image":{"image":animacao_espada,
+                                                                       "frames":6,
+                                                                       "wait":5,
+                                                                       "to_start":0,
+                                                                       "x":10,
+                                                                       "y":3}},
+                                                "nome":"???",
+                                                "descricao":f"???"}
                     
                 elif len(tela) == 3 and "HP" in tela[1]:
                     carta["hp"] = int(textos[tela[-1]][pos_ponteiro])
@@ -237,6 +251,13 @@ def card_builder():
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(artes) - 1)
 
+                elif len(tela) == 1 and "SAVE" == textos[tela[-1]][pos_ponteiro]:
+                    with open(f"{FOLDER_CARDS_MODS}/{carta['nome']}", "w") as salvar_carta:
+                        json.dump(carta, salvar_carta, indent = 1)
+
+                elif len(tela) == 1 and "LIMPAR ATAQUES" == textos[tela[-1]][pos_ponteiro]:
+                    carta["ataques"] = []
+
                 elif len(tela) == 2 and "ARTE" in tela[1]:
                     with open(f"{FOLDER_ART}/{textos[tela[-1]][pos_ponteiro]}") as arte_da_carta:
                         arte_final = arte_da_carta.read().split("\n")
@@ -249,8 +270,17 @@ def card_builder():
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
                 elif (not textos[tela[-1]][pos_ponteiro] in textos) and (tela[2] == "ataques" or tela[2] == "habilidades"):
+                    if tela[2] == "ataques":
+                        salvar_ataque_temporario["funcao"] = tela[3]
+                        salvar_ataque_temporario["tipo"] = "ataque"
+                        if tela[4] == "dado":
+                            salvar_ataque_temporario["dado"] = int(textos[tela[-1]][pos_ponteiro])
+                        else:
+                            salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
                     tela = tela[0:4]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+                    print(salvar_ataque_temporario)
+                    input()
 
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])

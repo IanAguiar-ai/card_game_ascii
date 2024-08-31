@@ -20,6 +20,7 @@ FOLDER_SAVE:str = "save"
 SAVE_SAVE:str = f"{FOLDER_SAVE}/save.json"
 FOLDER_MODS:str = "mods"
 FOLDER_ART:str = f"{FOLDER_MODS}/arts"
+FOLDER_CARDS_MODS:str = f"{FOLDER_MODS}/cards"
 
 CONTRA_BOT:bool = True
 
