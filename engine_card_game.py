@@ -1836,6 +1836,12 @@ for carta in CARTAS.keys():
         classes[CARTAS[carta]["classe"]] = []
     classes[CARTAS[carta]["classe"]].append(carta)
 
+lista_ataques = [dano_, assasinato_, cura_, trocar_vida, copiar_atributo]
+
+lista_habilidades = [habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
+
+
+
 if __name__ == "__main__":
     DEBUG = True
     TIMES = [[CARTAS["prototipo_meca"].copy(),
