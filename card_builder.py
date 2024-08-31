@@ -33,61 +33,140 @@ def card_builder():
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
 
     carta = {"nome":"???",
-             "hp":999,
+             "hp":50,
              "preco":1,
              "classe":classes[index_classes],
              "arte":janela,
              "raridade":raridades[index_raridades],
              "ataques":[]
              }
+
+    pos_ponteiro = 0
+
+    tela = ["principal"]
+    textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"]}
     
     clear_all()
-    game = Screen(x = X, y = Y, fps = 1)
+    game = Screen(x = X, y = Y, fps = FPS_LOJA)
     
     game_t = Thread(target = game.run)
     game_t.start()
+    
+    texto_principal = f"Use as teclas (A, W, S, D) para iteragir"
+    game.buffer_text = texto_principal
 
     while True:
-        texto_principal = f"Use as teclas para iteragir"
-        game.buffer_text = texto_principal
-
+        
         x_carta = 105
         y_carta = 0
         
         game.add_effects(x = x_carta, y = y_carta,
-                         image = base_card_complete,
+                         image = base_card_complete_transparent,
                          frames = 1,
                          tipe = None,
                          wait = 0,
                          to_start = 0)
 
         game.add_effects(x = x_carta + 1, y = y_carta + 19,
-                         image = [*put_color_rarity([list(f"{raridades[index_raridades].title().center(34,'=')}")], rarity = raridades[index_raridades])],
+                         image = put_color_rarity([list(f"{carta['raridade'].title().center(34,'=')}")],
+                                                  rarity = carta["raridade"]),
                          frames = 1,
                          tipe = None,
                          wait = 0,
                          to_start = 0)
-##
-##        self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
-##        self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
-##        self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{self.TIMES[y__][x__]['classe'].title().center(23)}")], class_ = self.TIMES[y__][x__]['classe'])]))
-##        self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
-##        self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{self.TIMES[y__][x__]['hp_temp']:3}")], life = self.TIMES[y__][x__]['hp_temp'])]))
-##        self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{self.TIMES[y__][x__]['nome'].center(34)}")]))
-##        self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({self.TIMES[y__][x__]['preco']})")], rarity = self.TIMES[y__][x__]['raridade'])]))
-##        pos = 21
-##        for t in self.TIMES[y__][x__]["ataques"]:
-##            if t["tipo"] == "ataque":
-##                self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo'])))
-##                descricao = ajustar_descricao(t["descricao"])
-##                self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
-##            else:
-##                self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo'])))
-##                descricao = ajustar_descricao(t["descricao"])
-##                self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
-##            pos += 3 + len(descricao)
+
+        game.add_effects(x = x_carta + 5, y = y_carta + 1,
+                         image = put_color_class([list(f"{carta['classe'].title().center(23)}")],
+                                                 class_ = carta["classe"]),
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = x_carta + 29, y = y_carta + 1,
+                         image = [list("HP:")],
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = x_carta + 32, y = y_carta + 1,
+                         image = put_color_life([list(f"{carta['hp']:3}")],
+                                                life = carta['hp']),
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = x_carta + 1, y = y_carta + 18,
+                         image = [list(carta['nome'].center(34))],
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = x_carta + 2, y = y_carta + 1,
+                         image = put_color_rarity([list(f"({carta['preco']})")],
+                                                  rarity = carta["raridade"]),
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        pos = 21
+        for iteracao in carta["ataques"]:
+            if iteracao["tipo"] == "ataque":
+                texto_descricao = [list(f"{iteracao['nome']} ({iteracao['dado']}) ({iteracao['tipo'].title()})")]
+            else:
+                texto_descricao = [list(f"{iteracao['nome']} ({iteracao['tipo'].title()})")]
+                
+            game.add_effects(x = x_carta + 2, y = y_carta + pos,
+                             image = put_color_tipo(texto_descricao,
+                                                    tipo = iteracao["tipo"]),
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+            descricao = ajustar_descricao(iteracao["descricao"])
+            
+            game.add_effects(x = x_carta + 2, y = y_carta + pos + 2,
+                             image = descricao,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+            pos += 3 + len(descricao)
+
+        iteracao = 0
+        pos_texto_x, pos_texto_y = 3, 0
+        if tela[-1] == "principal":
+            adicao_x = 0
+            for texto in textos[tela[-1]]:
+                game.add_effects(x = pos_texto_x + adicao_x, y = pos_texto_y,
+                                 image = caixa_texto(texto, limite = len(texto) + 4),
+                                 frames = 1,
+                                 tipe = None,
+                                 wait = 0,
+                                 to_start = 0)
+
+                if iteracao == pos_ponteiro:
+                    game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = pos_texto_y + 3,
+                                     image = seta_cima_pequena,
+                                     frames = 1,
+                                     tipe = None,
+                                     wait = 0,
+                                     to_start = 0)
+                    
+                adicao_x += len(texto) + 5
+                iteracao += 1
 
         resp = input()
+        if resp.lower() == "a" or resp.lower() == "q":
+            pos_ponteiro = max(pos_ponteiro - 1, 0)
+        elif resp.lower() == "d" or resp.lower() == "e":
+            pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]))
 
 
     game_t.join()

@@ -102,6 +102,7 @@ base_card_complete = [f"+{'-'*34}+",
              f"|{' '*34}|",
              f"+{'-'*34}+"]
 base_card = adjust_image(base_card)
+base_card_complete_transparent = adjust_image(base_card_complete)
 
 vitoria = adjust_image(""" /$$      /$$ /$$$$$$ /$$   /$$
 | $$  /$ | $$|_  $$_/| $$$ | $$
@@ -1034,6 +1035,11 @@ seta_cima = ["   /\\",
              "  |  |",
              "   --"]
 seta_cima = adjust_image(seta_cima, replace_ = False)
+
+seta_cima_pequena = adjust_image("""   _
+  / \\
+ /   \\
+  |_|""".split("\n"), replace_ = True)
 
 escudo = """|`-._/\_.-`|
 |    ||    |

@@ -56,7 +56,6 @@ class Screen:
 
                 #Cartas:
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{self.TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = self.TIMES[y__][x__]['raridade'])]))
                 self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{self.TIMES[y__][x__]['classe'].title().center(23)}")], class_ = self.TIMES[y__][x__]['classe'])]))
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
                 self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{self.TIMES[y__][x__]['hp_temp']:3}")], life = self.TIMES[y__][x__]['hp_temp'])]))
