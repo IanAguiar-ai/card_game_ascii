@@ -9,7 +9,7 @@ from game_config import *
 from arts import *
 from auxiliary_functions import *
 from pure_engine_ascii import Screen
-from engine_card_game import raridades, classes
+from engine_card_game import raridades, classes, lista_ataques, lista_habilidades, lista_variaveis_globais, dicionario_ataques
 
 def card_builder():
     """
@@ -47,25 +47,30 @@ def card_builder():
     tela = ["principal"]
     textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
               "HP":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
-              "0 ~ 100":[str(i*10) for i in range(10)],
-              "100 ~ 200":[str(i*10) for i in range(10, 20)],
               "200 ~ 300":[str(i*10) for i in range(20, 30)],
               "300 ~ 400":[str(i*10) for i in range(30, 40)],
               "400 ~ 500":[str(i*10) for i in range(40, 50)],
+              "~ 0 ~ 50":["0 ~ 10", "10 ~ 20", "20 ~ 30", "30 ~ 40", "40 ~ 50"],
+              "0 ~ 10":[str(i) for i in range(0, 10)],
+              "10 ~ 10":[str(i) for i in range(10, 20)],
+              "20 ~ 30":[str(i) for i in range(20, 30)],
+              "30 ~ 40":[str(i) for i in range(30, 40)],
+              "40 ~ 50":[str(i) for i in range(40, 51)],
+              "100 ~ 200":[str(i*10) for i in range(10, 20)],
               "CLASSE":classes,
               "RARIDADE":raridades,
               "PRECO":[str(i) for i in range(6)],
-              "ATAQUES":["ataque", "abilidade"]}
+              "ATAQUES":["ataques", "habilidades"]}
+
+    textos = textos | dicionario_ataques
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
     
     game_t = Thread(target = game.run)
     game_t.start()
-    
-    
 
-    while True:        
+    while True:
         x_carta = 105
         y_carta = 0
         
@@ -196,7 +201,11 @@ def card_builder():
             pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]) - 1)
         elif resp == "":
             if "principal" in tela:
-                if len(tela) == 3 and "HP" in tela[1]:
+                if "voltar" == textos[tela[-1]][pos_ponteiro]:
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+                    
+                elif len(tela) == 3 and "HP" in tela[1]:
                     carta["hp"] = int(textos[tela[-1]][pos_ponteiro])
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
@@ -238,15 +247,19 @@ def card_builder():
                     tela = tela[0:1]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
+                elif (not textos[tela[-1]][pos_ponteiro] in textos) and (tela[2] == "ataques" or tela[2] == "habilidades"):
+                    tela = tela[0:4]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
-                    
-            elif resp.lower() == "m":
-                break
-            
+                            
             else:
                 pass
+
+        elif resp.lower() == "m":
+            break
 
     game_t.join()
     game.close()

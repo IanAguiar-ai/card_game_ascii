@@ -1836,11 +1836,34 @@ for carta in CARTAS.keys():
         classes[CARTAS[carta]["classe"]] = []
     classes[CARTAS[carta]["classe"]].append(carta)
 
-lista_ataques = [dano_, assasinato_, cura_, trocar_vida, copiar_atributo]
-
+lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
+lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "numero_dado", "turno_atual", "HP"]
+lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "dado", "voltar"]
+lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar"]
 
+dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
+                      "habilidades":[nome.__name__ for nome in lista_habilidades],
+                      "vezes":["~ 0 ~ 50"],
+                      "dado":[str(i) for i in range(1, 7)]}
 
+for ataque_ in lista_ataques:
+    dicionario_ataques[ataque_.__name__] = lista_opcoes_ataques
+
+for opcoes in lista_opcoes_ataques[0:1]:
+    dicionario_ataques[opcoes] = ["True", "False"]
+    
+for opcoes in lista_opcoes_ataques[1:3]:
+    dicionario_ataques[opcoes] = ["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"]
+
+for opcoes in lista_opcoes_habilidades[0:4]:
+    dicionario_ataques[opcoes] = ["True", "False"]
+
+for ataque_ in lista_habilidades:
+    dicionario_ataques[ataque_.__name__] = lista_opcoes_habilidades
+
+for opcoes in lista_opcoes_habilidades[4:6]:
+    dicionario_ataques[opcoes] = ["~ 0 ~ 50"]
 
 if __name__ == "__main__":
     DEBUG = True
