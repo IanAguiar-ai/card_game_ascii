@@ -1036,10 +1036,10 @@ seta_cima = ["   /\\",
              "   --"]
 seta_cima = adjust_image(seta_cima, replace_ = False)
 
-seta_cima_pequena = adjust_image("""   _
-  / \\
- /   \\
-  |_|""".split("\n"), replace_ = True)
+seta_cima_pequena = adjust_image("""&&&_
+&&/ \\
+&/   \\
+&&|_|""".split("\n"), replace_ = False)
 
 escudo = """|`-._/\_.-`|
 |    ||    |

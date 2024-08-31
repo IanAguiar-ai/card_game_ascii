@@ -1880,7 +1880,10 @@ for opcoes in lista_opcoes_habilidades[0:4]:
     dicionario_ataques[opcoes] = ["True", "False"]
 
 for ataque_ in lista_habilidades:
-    dicionario_ataques[ataque_.__name__] = lista_opcoes_habilidades
+    if ataque_.__name__ in dicionario_ataques:
+        dicionario_ataques[ataque_.__name__] = sorted(list(set(lista_opcoes_habilidades) | set(dicionario_ataques[ataque_.__name__])))
+    else:
+        dicionario_ataques[ataque_.__name__] = lista_opcoes_habilidades
 
 for opcoes in lista_opcoes_habilidades[4:6]:
     dicionario_ataques[opcoes] = ["~ 0 ~ 50"]

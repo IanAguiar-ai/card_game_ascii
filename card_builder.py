@@ -190,16 +190,18 @@ def card_builder():
                                      to_start = 0)
 
                     if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
-                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 3) * (nivel + nivel_complementar) + 3,
-                                         image = seta_cima_pequena,
-                                         frames = 1,
-                                         tipe = None,
-                                         wait = 0,
-                                         to_start = 0)
+                        pos_seta_x = pos_texto_x + adicao_x + (len(texto) - 1)//2
+                        pos_seta_y = (pos_texto_y + 3) * (nivel + nivel_complementar) + 3
 
                     adicao_x += len(texto) + 5
                     iteracao += 1
 
+            game.add_effects(x = pos_seta_x, y = pos_seta_y,
+                             image = seta_cima_pequena,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
         resp = input()
         if resp.lower() == "a" or resp.lower() == "q":
             pos_ponteiro = max(pos_ponteiro - 1, 0)
