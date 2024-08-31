@@ -45,7 +45,10 @@ def card_builder():
 
     tela = ["principal"]
     textos = {"principal":["NOME", "HP", "PRECO", "CLASSE", "ARTE", "RARIDADE", "ATAQUES"],
-              "HP":[str(int(i)) for i in range(1, 21)]}
+              "HP":[str(int(i)) for i in range(1, 21)],
+              "CLASSE":classes,
+              "RARIDADE":raridades,
+              "PRECO":[str(i) for i in range(6)]}
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
@@ -138,16 +141,16 @@ def card_builder():
 
             pos += 3 + len(descricao)
 
-        iteracao = 0
-        pos_texto_x, pos_texto_y = 3, 0
+        pos_texto_x, pos_texto_y = 2, 0
         if tela[0] == "principal":
             texto_principal = f"Use as teclas (A, W, S, D, ENTER) para iteragir"
             game.buffer_text = texto_principal
 
             for nivel in range(len(tela)):
                 adicao_x = 0
+                iteracao = 0
                 for texto in textos[tela[nivel]]:
-                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 4) * len(tela),
+                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel),
                                      image = caixa_texto(texto, limite = len(texto) + 4),
                                      frames = 1,
                                      tipe = None,
@@ -155,7 +158,7 @@ def card_builder():
                                      to_start = 0)
 
                     if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
-                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 4) * len(tela) + 3,
+                        game.add_effects(x = pos_texto_x + adicao_x + (len(texto) - 1)//2, y = (pos_texto_y + 3) * (nivel) + 3,
                                          image = seta_cima_pequena,
                                          frames = 1,
                                          tipe = None,
@@ -171,8 +174,32 @@ def card_builder():
         elif resp.lower() == "d" or resp.lower() == "e":
             pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]) - 1)
         elif resp == "":
-            tela.append(textos[tela[-1]][pos_ponteiro])
-            pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+            if "principal" in tela:
+                if len(tela) == 2 and "HP" in tela[1]:
+                    carta["hp"] = int(textos[tela[-1]][pos_ponteiro]) * 10
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
+                elif len(tela) == 2 and "CLASSE" in tela[1]:
+                    carta["classe"] = textos[tela[-1]][pos_ponteiro]
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
+                elif len(tela) == 2 and "RARIDADE" in tela[1]:
+                    carta["raridade"] = textos[tela[-1]][pos_ponteiro]
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
+                elif len(tela) == 2 and "PRECO" in tela[1]:
+                    carta["preco"] = int(textos[tela[-1]][pos_ponteiro])
+                    tela = tela[0:1]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+            
+                else:
+                    tela.append(textos[tela[-1]][pos_ponteiro])
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+            else:
+                pass
 
     game_t.join()
     game.close()
