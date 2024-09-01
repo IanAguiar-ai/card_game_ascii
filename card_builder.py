@@ -70,7 +70,12 @@ def card_builder():
                          "dano": "Quanto de dano será dado.",
                          "cura": "Quanto de cura será dado.",
                          "vezes": "Quantidade de vezes que o abilidade ou oataque acontecerá.",
-                         "aleatorio": "Se a abilidade ou o ataque será aplicado de forma aleatória ou a escolha do usuário."}
+                         "aleatorio": "Se a abilidade ou o ataque será aplicado de forma aleatória ou a escolha do usuário.",
+                         "atributo": "Lista de itens que será copiada.",
+                         "amigos_e_inimigos": "Se o ataque ou a abilidade pode ser usada nos dois lados do tabuleiro.",
+                         "multiplicador": "Caso esteja usando uma variável global como valor para um ataque ou abilidade, o multiplicador multiplica essa variável pelo valor indicado.",
+                         "vida": "Limite de vida para algum tipo de cura.",
+                         "variavel_global": "Alguma variável global."}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
