@@ -45,8 +45,11 @@ def card_builder():
                          "ataques": "Cria um ataque (só acontece obtendo o valor igual ou maior no dado).",
                          "habilidades": "Cria uma abilidade passiva.",
                          "dano_": "Dá dano a um inimigo específico, os parâmetros são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance).",
-                         "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos)",
-                         "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance)"}
+                         "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos).",
+                         "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance).",
+                         "copiar_atributo": "Copia o atributo de um personagem inimigo, os parâmetros são (atributo, aleatorio, copia_completa).",
+                         "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
+                         "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador)"}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
@@ -73,7 +76,7 @@ def card_builder():
               "400 ~ 500":[str(i*10) for i in range(40, 51)],
               "~ 0 ~ 50":["0 ~ 10", "10 ~ 20", "20 ~ 30", "30 ~ 40", "40 ~ 50"],
               "0 ~ 10":[str(i) for i in range(0, 10)],
-              "10 ~ 10":[str(i) for i in range(10, 20)],
+              "10 ~ 20":[str(i) for i in range(10, 20)],
               "20 ~ 30":[str(i) for i in range(20, 30)],
               "30 ~ 40":[str(i) for i in range(30, 40)],
               "40 ~ 50":[str(i) for i in range(40, 51)],
@@ -82,6 +85,7 @@ def card_builder():
               "PRECO":[str(i) for i in range(6)]}
 
     textos = textos | dicionario_ataques
+    print(textos)
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)

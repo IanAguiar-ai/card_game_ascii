@@ -1860,15 +1860,21 @@ for carta in CARTAS.keys():
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
-lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome", "chance"]
-lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome"]
+lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome", "chance", "copia_completa"]
+lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome", "apenas_caracteristico", "soma_por_caracteristicas", "caracteristicas", "multiplicador"]
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
                       "vezes":["~ 0 ~ 50", *lista_variaveis_globais],
                       "multiplicador":["~ 0 ~ 50", *lista_variaveis_globais],
                       "dado":[str(i) for i in range(1, 7)],
-                      "chance":[f"{i/20:4}" for i in range(1, 21)]}
+                      "chance":[f"{i/20:4}" for i in range(1, 21)],
+                      "copia_completa":["True", "False"],
+                      "caracteristicas":["classe", "raridade", "hp", "preco"],
+                      "classe":list(classes.keys()),
+                      "raridade":list(raridades.keys()),
+                      "preco":[str(i) for i in range(6)],
+                      "hp":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"]}
 
 for ataque_ in lista_ataques:
     dicionario_ataques[ataque_.__name__] = lista_opcoes_ataques
@@ -1880,6 +1886,9 @@ for opcoes in lista_opcoes_ataques[3:5]:
     dicionario_ataques[opcoes] = ["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500", *lista_variaveis_globais]
 
 for opcoes in lista_opcoes_habilidades[0:4]:
+    dicionario_ataques[opcoes] = ["True", "False"]
+
+for opcoes in lista_opcoes_habilidades[8:10]:
     dicionario_ataques[opcoes] = ["True", "False"]
 
 for ataque_ in lista_habilidades:
