@@ -82,7 +82,9 @@ def card_builder():
                          "soma_por_caracteristicas": "Se uma habilidade deve somar a habilidade para cada personagem com aquela característica.",
                          "voltar": "Volta para o primeiro nível de criação da carta, salvando as modificações feitas nesse nível.",
                          "nome": "Nome do ataque ou da habilidade.",
-                         "copia_completa": "Se deve fazer a cópia completa de outro personagem."}
+                         "copia_completa": "Se deve fazer a cópia completa de outro personagem.",
+                         "variavel_global": "Qual variável global será modificada.",
+                         "funcao": "Função que será adicionada a carta, essa caracteristica é bem complexa, deve ser adicionada manualmente no arquivo da carta."}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
