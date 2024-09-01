@@ -25,7 +25,7 @@ def card_builder():
     - Nome
     - Imagem
     - Ataques
-    - Abilidades    
+    - habilidades    
     """
     memoria_save = ler_save()
     if memoria_save == None:
@@ -43,10 +43,10 @@ def card_builder():
                          "secreto": "Só é obtido por meio de missões ou itens.",
                          "":"",
                          "ataques": "Cria um ataque (só acontece obtendo o valor igual ou maior no dado).",
-                         "habilidades": "Cria uma abilidade passiva. Você obrigatoriamente precisa passar os parâmetros (tempo, vivo, morto, ataque, defesa)",
+                         "habilidades": "Cria uma habilidade passiva. Você obrigatoriamente precisa passar os parâmetros (tempo, vivo, morto, ataque, defesa)",
                          "dano_": "Dá dano a um inimigo específico, os parâmetros são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance).",
                          "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos).",
-                         "assasinato": "Destroi um personagem inimigo, os parâmetros são (aleatorio, vezes, todos).",
+                         "assasinato_": "Destroi um personagem inimigo, os parâmetros são (aleatorio, vezes, todos).",
                          "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance).",
                          "copiar_atributo": "Copia o atributo de um personagem inimigo, os parâmetros são (atributo, aleatorio, copia_completa).",
                          "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
@@ -54,28 +54,35 @@ def card_builder():
                          "habilidade_reviver": "Revive um personagem com um limite de vida superior, os parâmetros são (chance, vida, si_mesmo, vivo)",
                          "habilidade_buff_global_dado": "Dá um buff global no dado, os parâmetros são (buff, chance).",
                          "habilidade_nerf_global_dado": "Dá um nerf global no dado, os parâmetros são (buff, chance).",
-                         "adicionar_habilidade": "Adiciona uma abilidade a carta, os parâmetros são (funcao)",
-                         "soma_global": "Soma ou subtrai uma variável global, os parâmetros são (variavel_global, soma).",
+                         "adicionar_habilidade": "Adiciona uma habilidade a carta, os parâmetros são (funcao)",
+                         "somar_global": "Soma ou subtrai uma variável global, os parâmetros são (variavel_global, soma).",
                          "pular_turno": "Pula o turno da carta seguinte.",
-                         "tempo": "O tempo em que ocorrera a abilidade, pode ser: 'comeco' ou 'final' do turno.",
+                         "tempo": "O tempo em que ocorrera a habilidade, pode ser: 'comeco' ou 'final' do turno.",
                          "vivo": "Se a habilidade acontecerá enquanto o personagem estiver vivo.",
                          "morto": "Se a habilidade acontecerá enquanto o personagem estiver morto.",
-                         "ataque": "Se a abilidade acontecerá no turno de ataque do personagem.",
-                         "defesa": "Se a abilidade acontecerá no turno de defesa do personagem.",
-                         "si_mesmo": "Se a abilidade acontece com o próprio personagem.",
-                         "chance": "Chance da abilidade ou do ataque acontecer.",
-                         "buff": "Valor de buff da abilidade.",
-                         "nerf": "Valor de nerf da abilidade.",
-                         "todos": "Se a abilidade ou o ataque pode acontecer em qualquer lado do tabuleiro.",
+                         "ataque": "Se a habilidade acontecerá no turno de ataque do personagem.",
+                         "defesa": "Se a habilidade acontecerá no turno de defesa do personagem.",
+                         "si_mesmo": "Se a habilidade acontece com o próprio personagem.",
+                         "chance": "Chance da habilidade ou do ataque acontecer.",
+                         "buff": "Valor de buff da habilidade.",
+                         "nerf": "Valor de nerf da habilidade.",
+                         "todos": "Se a habilidade ou o ataque pode acontecer em qualquer lado do tabuleiro.",
                          "dano": "Quanto de dano será dado.",
                          "cura": "Quanto de cura será dado.",
-                         "vezes": "Quantidade de vezes que o abilidade ou oataque acontecerá.",
-                         "aleatorio": "Se a abilidade ou o ataque será aplicado de forma aleatória ou a escolha do usuário.",
+                         "vezes": "Quantidade de vezes que o habilidade ou oataque acontecerá.",
+                         "aleatorio": "Se a habilidade ou o ataque será aplicado de forma aleatória ou a escolha do usuário.",
                          "atributo": "Lista de itens que será copiada.",
-                         "amigos_e_inimigos": "Se o ataque ou a abilidade pode ser usada nos dois lados do tabuleiro.",
-                         "multiplicador": "Caso esteja usando uma variável global como valor para um ataque ou abilidade, o multiplicador multiplica essa variável pelo valor indicado.",
+                         "amigos_e_inimigos": "Se o ataque ou a habilidade pode ser usada nos dois lados do tabuleiro.",
+                         "multiplicador": "Caso esteja usando uma variável global como valor para um ataque ou habilidade, o multiplicador multiplica essa variável pelo valor indicado.",
                          "vida": "Limite de vida para algum tipo de cura.",
-                         "variavel_global": "Alguma variável global."}
+                         "variavel_global": "Alguma variável global.",
+                         "dado": "Quanto que tem que cair no dado para aquilo ocorrer.",
+                         "apenas_caracteristico": "A habilidade só funciona com caracteristicas específicas, que é definida pelo dicionário de características",
+                         "caracteristicas": "Características específicas para uma habilidade ocorrer.",
+                         "soma_por_caracteristicas": "Se uma habilidade deve somar a habilidade para cada personagem com aquela característica.",
+                         "voltar": "Volta para o primeiro nível de criação da carta, salvando as modificações feitas nesse nível.",
+                         "nome": "Nome do ataque ou da habilidade.",
+                         "copia_completa": "Se deve fazer a cópia completa de outro personagem."}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
@@ -120,15 +127,17 @@ def card_builder():
 
     salvar_ataque_temporario = {"argumentos":{"image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                 "nome":"???",
-                                "descricao":f"???"}
+                                "descricao":f"???",
+                                "dado":1}
 
     while True:
         x_carta = 105
         y_carta = 0
 
         if textos[tela[-1]][pos_ponteiro] in descricoes_opcoes:
-            game.add_effects(x = 2, y = 36,
-                             image = caixa_texto(descricoes_opcoes[textos[tela[-1]][pos_ponteiro]], limite = 100),
+            caixa_de_ajuda = caixa_texto(descricoes_opcoes[textos[tela[-1]][pos_ponteiro]], limite = 100)
+            game.add_effects(x = 2, y = 38 - len(caixa_de_ajuda),
+                             image = caixa_de_ajuda,
                              frames = 1,
                              tipe = None,
                              wait = 0,
@@ -141,8 +150,8 @@ def card_builder():
                          wait = 0,
                          to_start = 0)
 
-        game.add_effects(x = 2, y = 30,
-                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} | Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 100),
+        game.add_effects(x = 2, y = 38,
+                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} | Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 137),
                          frames = 1,
                          tipe = None,
                          wait = 0,
@@ -244,7 +253,15 @@ def card_builder():
                         nivel_complementar += 1
 
                     try:
-                        if texto == tela[nivel + 1]:
+                        if texto in salvar_ataque_temporario or texto in salvar_ataque_temporario["argumentos"]:
+                            game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
+                                             image = caixa_texto(f"{texto}!", limite = len(texto) + 4),
+                                             frames = 1,
+                                             tipe = None,
+                                             wait = 0,
+                                             to_start = 0)
+                            
+                        elif texto == tela[nivel + 1]:
                             game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
                                              image = caixa_texto(f"{texto}*", limite = len(texto) + 4),
                                              frames = 1,
@@ -344,6 +361,11 @@ def card_builder():
                     tela = tela[0:4]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
 
+                elif len(tela) == 4 and "descricao" == textos[tela[-1]][pos_ponteiro]:
+                    salvar_ataque_temporario["descricao"] = input("Coloque a descrição: ")
+                    tela = tela[0:4]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
                 elif len(tela) == 2 and "ARTE" in tela[1]:
                     with open(f"{FOLDER_ART}/{textos[tela[-1]][pos_ponteiro]}") as arte_da_carta:
                         arte_final = arte_da_carta.read().split("\n")
@@ -361,8 +383,30 @@ def card_builder():
                         salvar_ataque_temporario["tipo"] = "ataque"
                         if tela[4] == "dado":
                             salvar_ataque_temporario["dado"] = int(textos[tela[-1]][pos_ponteiro])
+                        elif tela[4] == "caracteristicas":
+                            if not "caracteristicas" in salvar_ataque_temporario["argumentos"]:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"] = {}
+                            try:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"] = int(textos[tela[-1]][pos_ponteiro])
+                            except:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"] = textos[tela[-1]][pos_ponteiro]
                         else:
                             salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
+
+                    elif tela[2] == "habilidades":
+                        salvar_ataque_temporario["funcao"] = tela[3]
+                        salvar_ataque_temporario["tipo"] = "habilidade"
+                        if "caracteristicas" in tela:
+                            if not "caracteristicas" in salvar_ataque_temporario["argumentos"]:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"] = {}
+                            try:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"][tela[5]] = int(textos[tela[-1]][pos_ponteiro])
+                            except:
+                                salvar_ataque_temporario["argumentos"]["caracteristicas"][tela[5]] = textos[tela[-1]][pos_ponteiro]
+                        else:
+                            salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
+
+                        
                     tela = tela[0:4]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
                     

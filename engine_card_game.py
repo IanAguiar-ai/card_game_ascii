@@ -14,6 +14,7 @@ As habilidades podem ser ativas em uma ou mais situações:
 
 from time import sleep
 from random import random
+from inspect import signature
 from card_game import Screen
 from os import listdir
 from json import load
@@ -1864,6 +1865,8 @@ lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, ha
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
 lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome", "chance", "copia_completa"]
 lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome", "apenas_caracteristico", "soma_por_caracteristicas", "si_mesmo", "caracteristicas", "multiplicador"]
+todos_ataques = {"nome", "voltar", "dado", "descricao"}
+todos_habilidades = {"nome", "voltar", "descricao", "vivo", "morto", "ataque", "defesa"}
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
@@ -1879,7 +1882,7 @@ dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "hp":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"]}
 
 for ataque_ in lista_ataques:
-    dicionario_ataques[ataque_.__name__] = lista_opcoes_ataques
+    dicionario_ataques[ataque_.__name__] = sorted(list((set(lista_opcoes_ataques) & set(signature(ataque_).parameters)) | todos_ataques))
 
 for opcoes in lista_opcoes_ataques[0:3]:
     dicionario_ataques[opcoes] = ["True", "False"]
@@ -1893,11 +1896,11 @@ for opcoes in lista_opcoes_habilidades[0:4]:
 for opcoes in lista_opcoes_habilidades[8:11]:
     dicionario_ataques[opcoes] = ["True", "False"]
 
-for ataque_ in lista_habilidades:
-    if ataque_.__name__ in dicionario_ataques:
-        dicionario_ataques[ataque_.__name__] = sorted(list(set(lista_opcoes_habilidades) | set(dicionario_ataques[ataque_.__name__])))
+for habilidade_ in lista_habilidades:
+    if habilidade_.__name__ in dicionario_ataques:
+        dicionario_ataques[habilidade_.__name__] = sorted(list(((set(lista_opcoes_habilidades) | set(dicionario_ataques[habilidade_.__name__])) & set(signature(ataque_).parameters)) | todos_habilidades))
     else:
-        dicionario_ataques[ataque_.__name__] = lista_opcoes_habilidades
+        dicionario_ataques[habilidade_.__name__] = sorted(list((set(lista_opcoes_habilidades) & set(signature(habilidade_).parameters)) | todos_habilidades))
 
 for opcoes in lista_opcoes_habilidades[4:6]:
     dicionario_ataques[opcoes] = ["~ 0 ~ 50"]
@@ -1929,7 +1932,6 @@ if USE_MODS:
                         carta_temporaria["ataques"][i]["argumentos"][key] = eval(valor)
                     except Exception as e:
                         print(f"Erro ao avaliar {arquivo}: {e}")
-
 
         CARTAS[carta_temporaria["nome"]] = carta_temporaria
 
