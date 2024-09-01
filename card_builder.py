@@ -31,6 +31,21 @@ def card_builder():
     if memoria_save == None:
         memoria_save = criar_save()
 
+    descricoes_opcoes = {"NOME": "Escolha o nome da carta.",
+                         "HP": "Vida da carta.",
+                         "PRECO": "Custo da carta.",
+                         "CLASSE": "Classe da carta.",
+                         "ARTE": "Arte da carta.",
+                         "RARIDADE": "Raridade da carta.",
+                         "ATAQUES": "Monte um ataque ou uma habilidade para a carta.",
+                         "SAVE": f"Salve a carta na pasta {FOLDER_CARDS_MODS} com o nome da carta.",
+                         "LIMPAR ATAQUES": "Limpa os ataques da carta.",
+                         "secreto": "Só é obtido por meio de missões ou itens.",
+                         "":"",
+                         "ataques": "Cria um ataque (só acontece obtendo o valor igual ou maior no dado).",
+                         "habilidades": "Cria uma abilidade passiva.",
+                         "dano_": "Dá dano a um inimigo específico, os argumentos são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance)."}
+
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
 
@@ -79,9 +94,24 @@ def card_builder():
     while True:
         x_carta = 105
         y_carta = 0
+
+        if textos[tela[-1]][pos_ponteiro] in descricoes_opcoes:
+            game.add_effects(x = 2, y = 36,
+                             image = caixa_texto(descricoes_opcoes[textos[tela[-1]][pos_ponteiro]], limite = 100),
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
         
         game.add_effects(x = x_carta, y = y_carta,
                          image = base_card_complete_transparent,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 2, y = 30,
+                         image = caixa_texto(f"{list(salvar_ataque_temporario.keys())}, {list(salvar_ataque_temporario['argumentos'].keys())}", limite = 100),
                          frames = 1,
                          tipe = None,
                          wait = 0,
@@ -281,9 +311,7 @@ def card_builder():
                             salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
                     tela = tela[0:4]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
-                    print(salvar_ataque_temporario)
-                    input()
-
+                    
                 else:
                     tela.append(textos[tela[-1]][pos_ponteiro])
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
