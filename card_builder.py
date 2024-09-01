@@ -44,7 +44,9 @@ def card_builder():
                          "":"",
                          "ataques": "Cria um ataque (só acontece obtendo o valor igual ou maior no dado).",
                          "habilidades": "Cria uma abilidade passiva.",
-                         "dano_": "Dá dano a um inimigo específico, os argumentos são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance)."}
+                         "dano_": "Dá dano a um inimigo específico, os parâmetros são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance).",
+                         "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos)",
+                         "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance)"}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
@@ -111,7 +113,7 @@ def card_builder():
                          to_start = 0)
 
         game.add_effects(x = 2, y = 30,
-                         image = caixa_texto(f"{list(salvar_ataque_temporario.keys())}, {list(salvar_ataque_temporario['argumentos'].keys())}", limite = 100),
+                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} \n| Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 100),
                          frames = 1,
                          tipe = None,
                          wait = 0,

@@ -1860,14 +1860,15 @@ for carta in CARTAS.keys():
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
-lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome"]
+lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome", "chance"]
 lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome"]
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
                       "vezes":["~ 0 ~ 50", *lista_variaveis_globais],
                       "multiplicador":["~ 0 ~ 50", *lista_variaveis_globais],
-                      "dado":[str(i) for i in range(1, 7)]}
+                      "dado":[str(i) for i in range(1, 7)],
+                      "chance":[f"{i/20:4}" for i in range(1, 21)]}
 
 for ataque_ in lista_ataques:
     dicionario_ataques[ataque_.__name__] = lista_opcoes_ataques
