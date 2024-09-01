@@ -48,9 +48,11 @@ def card_builder():
                          "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos).",
                          "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance).",
                          "copiar_atributo": "Copia o atributo de um personagem inimigo, os parâmetros são (atributo, aleatorio, copia_completa).",
-                         "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
-                         "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador).",
-                         "habilidade_reviver": "Revive um personagem com um limite de vida superior, os parâmetros são (chance, vida, si_mesmo, vivo)"}
+                         "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (tempo, vivo, morto, ataque, defesa, apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
+                         "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (tempo, vivo, morto, ataque, defesa, apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador).",
+                         "habilidade_reviver": "Revive um personagem com um limite de vida superior, os parâmetros são (tempo, vivo, morto, ataque, defesa, chance, vida, si_mesmo, vivo)",
+                         "habilidade_buff_global_dado": "Dá um buff global no dado, os parâmetros são (tempo, vivo, morto, ataque, defesa, buff, chance).",
+                         "habilidade_nerf_global_dado": "Dá um nerf global no dado, os parâmetros são (tempo, vivo, morto, ataque, defesa, buff, chance)."}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
@@ -218,13 +220,31 @@ def card_builder():
                     if adicao_x >= x_carta - 10:
                         adicao_x = 0
                         nivel_complementar += 1
-                    
-                    game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
-                                     image = caixa_texto(texto, limite = len(texto) + 4),
-                                     frames = 1,
-                                     tipe = None,
-                                     wait = 0,
-                                     to_start = 0)
+
+                    try:
+                        if texto == tela[nivel + 1]:
+                            game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
+                                             image = caixa_texto(f"{texto}*", limite = len(texto) + 4),
+                                             frames = 1,
+                                             tipe = None,
+                                             wait = 0,
+                                             to_start = 0)
+
+
+                        else:
+                            game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
+                                             image = caixa_texto(texto, limite = len(texto) + 4),
+                                             frames = 1,
+                                             tipe = None,
+                                             wait = 0,
+                                             to_start = 0)
+                    except IndexError:
+                        game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
+                                         image = caixa_texto(texto, limite = len(texto) + 4),
+                                         frames = 1,
+                                         tipe = None,
+                                         wait = 0,
+                                         to_start = 0)
 
                     if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
                         pos_seta_x = pos_texto_x + adicao_x + (len(texto) - 1)//2
