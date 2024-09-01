@@ -1864,7 +1864,7 @@ lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
 lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome", "chance", "copia_completa"]
-lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome", "apenas_caracteristico", "soma_por_caracteristicas", "si_mesmo", "caracteristicas", "multiplicador"]
+lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome", "apenas_caracteristico", "soma_por_caracteristicas", "si_mesmo", "caracteristicas", "multiplicador", "funcao", "variavel_global"]
 todos_ataques = {"nome", "voltar", "dado", "descricao"}
 todos_habilidades = {"nome", "voltar", "descricao", "vivo", "morto", "ataque", "defesa"}
 
@@ -1872,6 +1872,7 @@ dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
                       "vezes":["~ 0 ~ 50", *lista_variaveis_globais],
                       "multiplicador":["~ 0 ~ 50", *lista_variaveis_globais],
+                      "variavel_global":lista_variaveis_globais,
                       "dado":[str(i) for i in range(1, 7)],
                       "chance":[f"{i/20:4}" for i in range(1, 21)],
                       "copia_completa":["True", "False"],
@@ -1879,7 +1880,8 @@ dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "classe":list(classes.keys()),
                       "raridade":list(raridades.keys()),
                       "preco":[str(i) for i in range(6)],
-                      "hp":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"]}
+                      "hp":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
+                      "funcao":["Adicione manualmente"]}
 
 for ataque_ in lista_ataques:
     dicionario_ataques[ataque_.__name__] = sorted(list((set(lista_opcoes_ataques) & set(signature(ataque_).parameters)) | todos_ataques))
