@@ -1907,18 +1907,29 @@ if USE_MODS:
         with open(f"{FOLDER_CARDS_MODS}/{arquivo}") as carta:
             carta_temporaria = load(carta)
         for key in carta_temporaria.keys():
-            if not key in ["nome", "descricao", "tipo", "image", "classe", "arte", "raridade", "ataques"]:
+            if not key in ["nome", "descricao", "tipo", "image", "classe", "arte", "raridade", "ataques", "caracteristicas"]:
                 exec(f"""carta_temporaria[key] = {str(carta_temporaria[key]).replace('"','')}""")
 
         for i in range(len(carta_temporaria["ataques"])):
             for key in carta_temporaria["ataques"][i].keys():
-                if not key in ["nome", "descricao", "image", "classe", "tipo"]:
-                    exec(f"""carta_temporaria["ataques"][i][key] = {str(carta_temporaria["ataques"][i][key]).replace('"','')}""")
+                if not key in ["nome", "descricao", "image", "classe", "tipo", "caracteristicas"]:
+                    valor = str(carta_temporaria["ataques"][i][key]).replace('"','')
+
+                    try:
+                        carta_temporaria["ataques"][i][key] = eval(valor)
+                    except Exception as e:
+                        print(f"Erro ao avaliar: {e}")
+
 
         for i in range(len(carta_temporaria["ataques"])):
             for key in carta_temporaria["ataques"][i]["argumentos"].keys():
-                if not key in ["nome", "descricao", "image", "classe", "tipo"]:
-                    exec(f"""carta_temporaria["ataques"][i]["argumentos"][key] = {str(carta_temporaria["ataques"][i]["argumentos"][key]).replace('"','')}""")
+                if key not in ["nome", "descricao", "image", "classe", "tipo", "caracteristicas"]:
+                    valor = str(carta_temporaria["ataques"][i]["argumentos"][key]).replace('"', '')
+                    try:
+                        carta_temporaria["ataques"][i]["argumentos"][key] = eval(valor)
+                    except Exception as e:
+                        print(f"Erro ao avaliar: {e}")
+
 
         CARTAS[carta_temporaria["nome"]] = carta_temporaria
 
