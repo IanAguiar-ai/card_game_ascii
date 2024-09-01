@@ -49,7 +49,8 @@ def card_builder():
                          "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance).",
                          "copiar_atributo": "Copia o atributo de um personagem inimigo, os parâmetros são (atributo, aleatorio, copia_completa).",
                          "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
-                         "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador)"}
+                         "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador).",
+                         "habilidade_reviver": "Revive um personagem com um limite de vida superior, os parâmetros são (chance, vida, si_mesmo, vivo)"}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
