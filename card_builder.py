@@ -88,7 +88,6 @@ def card_builder():
               "PRECO":[str(i) for i in range(6)]}
 
     textos = textos | dicionario_ataques
-    print(textos)
     
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)

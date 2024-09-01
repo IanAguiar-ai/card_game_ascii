@@ -1918,7 +1918,7 @@ if USE_MODS:
                     try:
                         carta_temporaria["ataques"][i][key] = eval(valor)
                     except Exception as e:
-                        print(f"Erro ao avaliar: {e}")
+                        print(f"Erro ao avaliar {arquivo}: {e}")
 
 
         for i in range(len(carta_temporaria["ataques"])):
@@ -1928,7 +1928,7 @@ if USE_MODS:
                     try:
                         carta_temporaria["ataques"][i]["argumentos"][key] = eval(valor)
                     except Exception as e:
-                        print(f"Erro ao avaliar: {e}")
+                        print(f"Erro ao avaliar {arquivo}: {e}")
 
 
         CARTAS[carta_temporaria["nome"]] = carta_temporaria
