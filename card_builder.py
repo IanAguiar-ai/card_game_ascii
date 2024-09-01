@@ -255,7 +255,7 @@ def card_builder():
 
                 elif len(tela) == 1 and "SAVE" == textos[tela[-1]][pos_ponteiro]:
                     with open(f"{FOLDER_CARDS_MODS}/{carta['nome']}", "w") as salvar_carta:
-                        json.dump(carta, salvar_carta, indent = 1)
+                        json.dump(carta, salvar_carta, indent = 4)
 
                 elif len(tela) == 1 and "LIMPAR ATAQUES" == textos[tela[-1]][pos_ponteiro]:
                     carta["ataques"] = []

@@ -1858,7 +1858,7 @@ for carta in CARTAS.keys():
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
-lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "multiplicador", "dado", "voltar"]
+lista_opcoes_ataques = ["aleatorio", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome"]
 lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar"]
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
