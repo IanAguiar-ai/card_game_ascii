@@ -15,6 +15,8 @@ As habilidades podem ser ativas em uma ou mais situações:
 from time import sleep
 from random import random
 from card_game import Screen
+from os import listdir
+from json import load
 from game_config import *
 from arts import *
 from auxiliary_functions import criar_save, ler_save, adicionar_save
@@ -1859,7 +1861,7 @@ lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
 lista_variaveis_globais = ["PARTIDA", "TABULEIRO", "ultimo_ataque", "maior_ataque", "menor_ataque", "numero_dado", "turno_atual"]
 lista_opcoes_ataques = ["aleatorio", "todos", "amigos_e_inimigos", "dano", "cura", "vezes", "multiplicador", "dado", "voltar", "nome"]
-lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar"]
+lista_opcoes_habilidades = ["vivo", "morto", "ataque", "defesa", "buff", "nerf", "voltar", "nome"]
 
 dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "habilidades":[nome.__name__ for nome in lista_habilidades],
@@ -1887,6 +1889,26 @@ for ataque_ in lista_habilidades:
 
 for opcoes in lista_opcoes_habilidades[4:6]:
     dicionario_ataques[opcoes] = ["~ 0 ~ 50"]
+
+if USE_MODS:
+    for arquivo in listdir(FOLDER_CARDS_MODS):
+        with open(f"{FOLDER_CARDS_MODS}/{arquivo}") as carta:
+            carta_temporaria = load(carta)
+        for key in carta_temporaria.keys():
+            if not key in ["nome", "descricao", "tipo", "image", "classe", "arte", "raridade", "ataques"]:
+                exec(f"""carta_temporaria[key] = {str(carta_temporaria[key]).replace('"','')}""")
+
+        for i in range(len(carta_temporaria["ataques"])):
+            for key in carta_temporaria["ataques"][i].keys():
+                if not key in ["nome", "descricao", "image", "classe", "tipo"]:
+                    exec(f"""carta_temporaria["ataques"][i][key] = {str(carta_temporaria["ataques"][i][key]).replace('"','')}""")
+
+        for i in range(len(carta_temporaria["ataques"])):
+            for key in carta_temporaria["ataques"][i]["argumentos"].keys():
+                if not key in ["nome", "descricao", "image", "classe", "tipo"]:
+                    exec(f"""carta_temporaria["ataques"][i]["argumentos"][key] = {str(carta_temporaria["ataques"][i]["argumentos"][key]).replace('"','')}""")
+
+        CARTAS[carta_temporaria["nome"]] = carta_temporaria
 
 if __name__ == "__main__":
     DEBUG = True

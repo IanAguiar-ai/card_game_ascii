@@ -290,6 +290,11 @@ def card_builder():
                 elif len(tela) == 1 and "LIMPAR ATAQUES" == textos[tela[-1]][pos_ponteiro]:
                     carta["ataques"] = []
 
+                elif len(tela) == 4 and "nome" == textos[tela[-1]][pos_ponteiro]:
+                    salvar_ataque_temporario["nome"] = input("Coloque o nome: ")
+                    tela = tela[0:4]
+                    pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
+
                 elif len(tela) == 2 and "ARTE" in tela[1]:
                     with open(f"{FOLDER_ART}/{textos[tela[-1]][pos_ponteiro]}") as arte_da_carta:
                         arte_final = arte_da_carta.read().split("\n")

@@ -29,3 +29,5 @@ SLEEP_BOT:float = 1.5
 SLEEP_INITIAL_TURN:float = 0
 SLEEP_END_TURN:float = 0
 SLEEP_DICE:float = 0
+
+USE_MODS:bool = True
