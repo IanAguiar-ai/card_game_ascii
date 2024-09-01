@@ -120,7 +120,7 @@ class Screen:
                 
                 self.put(buffer)        
                 clear()
-                print("".join(buffer))
+                print("".join(buffer)) #NÃO TIRAR ESSE PRINT
                 self.animation = False
             sleep(1/self.fps)
 
@@ -201,7 +201,7 @@ def choose_deck_animation() -> None:
                     nomes_cartas[1],
                     nomes_cartas[2]]
 
-    print(CARTAS[nomes_cartas[escolhas[0]]])
+    #print(CARTAS[nomes_cartas[escolhas[0]]])
     TIMES = [[CARTAS[nomes_cartas[escolhas[0]]].copy(),
               CARTAS[nomes_cartas[escolhas[1]]].copy(),
               CARTAS[nomes_cartas[escolhas[2]]].copy()]]
