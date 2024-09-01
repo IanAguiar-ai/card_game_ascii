@@ -46,13 +46,31 @@ def card_builder():
                          "habilidades": "Cria uma abilidade passiva. Você obrigatoriamente precisa passar os parâmetros (tempo, vivo, morto, ataque, defesa)",
                          "dano_": "Dá dano a um inimigo específico, os parâmetros são (dano, aleatorio, vezes, todos, amigos_e_inimigos, multiplicador, chance).",
                          "cura_": "Cura um personagem aliado, os parâmetros são (cura, aleatorio, vezes, todos, curar_todos).",
+                         "assasinato": "Destroi um personagem inimigo, os parâmetros são (aleatorio, vezes, todos).",
                          "trocar_vida": "Troca a vida de um personagem inimigo com si mesmo ou com outro personagem, os parâmetros são (si_mesmo, chance).",
                          "copiar_atributo": "Copia o atributo de um personagem inimigo, os parâmetros são (atributo, aleatorio, copia_completa).",
                          "habilidade_buff_global_dano": "Dá um buff aos persagens aliados, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas).",
                          "habilidade_nerf_global_dano": "Dá um nerf aos personagens inimigos, os parâmetros são (apenas_caracteristico, soma_por_caracteristicas, caracteristicas, multiplicador).",
                          "habilidade_reviver": "Revive um personagem com um limite de vida superior, os parâmetros são (chance, vida, si_mesmo, vivo)",
                          "habilidade_buff_global_dado": "Dá um buff global no dado, os parâmetros são (buff, chance).",
-                         "habilidade_nerf_global_dado": "Dá um nerf global no dado, os parâmetros são (buff, chance)."}
+                         "habilidade_nerf_global_dado": "Dá um nerf global no dado, os parâmetros são (buff, chance).",
+                         "adicionar_habilidade": "Adiciona uma abilidade a carta, os parâmetros são (funcao)",
+                         "soma_global": "Soma ou subtrai uma variável global, os parâmetros são (variavel_global, soma).",
+                         "pular_turno": "Pula o turno da carta seguinte.",
+                         "tempo": "O tempo em que ocorrera a abilidade, pode ser: 'comeco' ou 'final' do turno.",
+                         "vivo": "Se a habilidade acontecerá enquanto o personagem estiver vivo.",
+                         "morto": "Se a habilidade acontecerá enquanto o personagem estiver morto.",
+                         "ataque": "Se a abilidade acontecerá no turno de ataque do personagem.",
+                         "defesa": "Se a abilidade acontecerá no turno de defesa do personagem.",
+                         "si_mesmo": "Se a abilidade acontece com o próprio personagem.",
+                         "chance": "Chance da abilidade ou do ataque acontecer.",
+                         "buff": "Valor de buff da abilidade.",
+                         "nerf": "Valor de nerf da abilidade.",
+                         "todos": "Se a abilidade ou o ataque pode acontecer em qualquer lado do tabuleiro.",
+                         "dano": "Quanto de dano será dado.",
+                         "cura": "Quanto de cura será dado.",
+                         "vezes": "Quantidade de vezes que o abilidade ou oataque acontecerá.",
+                         "aleatorio": "Se a abilidade ou o ataque será aplicado de forma aleatória ou a escolha do usuário."}
 
     classes, index_classes = tuple(globals()["classes"].keys()), 0
     raridades, index_raridades = tuple(globals()["raridades"].keys()), 0
