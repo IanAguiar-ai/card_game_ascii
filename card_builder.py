@@ -113,7 +113,7 @@ def card_builder():
                          to_start = 0)
 
         game.add_effects(x = 2, y = 30,
-                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} \n| Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 100),
+                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} | Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 100),
                          frames = 1,
                          tipe = None,
                          wait = 0,
