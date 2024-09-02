@@ -303,7 +303,9 @@ def base_ataque(personagem_inimigo:dict, dano:int):
     globals()["ultimo_ataque"][0] = dano
     if globals()["maior_ataque"][0] < dano:
         globals()["maior_ataque"][0] = dano
-    if globals()["menor_ataque"][0] > dano:
+    if globals()["menor_ataque"][0] == None:
+        globals()["menor_ataque"][0] = dano
+    elif globals()["menor_ataque"][0] > dano:
         globals()["menor_ataque"][0] = dano
 
     return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
@@ -321,7 +323,10 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     
     if random() < chance:
         if type(dano) == list: #Casos que recebem listas com variáveis
-            dano = dano[0] * multiplicador
+            if multiplicador != None:
+                dano = dano[0] * multiplicador
+            else:
+                dano = dano[0]
             
         if not amigos_e_inimigos:
             for _ in range(vezes):
@@ -352,6 +357,9 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
                 personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
                 printar(personagem_amigo, image)
+
+    else:
+        buffer_(f"Nada aconteceu!")
 
 def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False):
     if type(vezes) == list:
@@ -697,7 +705,7 @@ BUFF_DADO = 0
 
 ultimo_ataque = [0]
 maior_ataque = [0]
-menor_ataque = [0]
+menor_ataque = [None]
 
 CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                  "hp":80,
@@ -1760,38 +1768,37 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                   "defesa":False,
                                                   "funcao":habilidade_buff_global_dado,
                                                   "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                                  "nome":"Uma ajudinha",
+                                                  "nome":"Uma Ajudinha",
                                                   "descricao":f"Enquanto vivo, some 1 aos seus dados."},
                                           "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Míssil Teleguiado",
                                       "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
                               },
           "aranha_rainha":{"nome":"Aranha rainha",
-                                  "hp":70,
+                                  "hp":80,
                                   "preco":2,
-                                  "classe":"lenda",
+                                  "classe":"monstro",
                                   "arte":imagem_aranha,
                                   "raridade":"secreto",
-                                  "ataques":[
-                                      {"tipo":"ataque",
-                                      "funcao":adicionar_habilidade,
-                                      "dado":1,
-                                      "argumentos":{"funcao":{"tipo":"habilidade",
-                                                  "tempo":"comeco",
-                                                  "vivo":True,
-                                                  "morto":False,
-                                                  "ataque":True,
-                                                  "defesa":False,
-                                                  "funcao":habilidade_buff_global_dado,
-                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                                  "nome":"Uma ajudinha",
-                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
-                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Míssil Teleguiado",
-                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
+                                  "ataques":[{"tipo":"ataque",
+                                              "funcao":assasinato_,
+                                              "dado":6,
+                                              "argumentos":{"aleatorio": True, "image":{"image":caveira, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "nome":"Mordida Final",
+                                              "descricao":f"Destrua um personagem inimigo aleatório."},
+                                             {"tipo":"habilidade",
+                                              "ataque":True,
+                                              "defesa":False,
+                                              "tempo":"comeco",
+                                              "vivo":True,
+                                              "morto":False,
+                                              "funcao":dano_,
+                                              "argumentos":{"dano":40, "chance":0.2, "aleatorio": True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "nome":"Salto Surpreza",
+                                              "descricao":f"Todo final de turno aliado, enquanto vivo, tem 20% de dar 40 de dano em um personagem inimigo aleatório."}]
                               },
           "genio_da_lampada":{"nome":"Gênio da Lâmpada",
-                                  "hp":70,
+                                  "hp":90,
                                   "preco":2,
                                   "classe":"lenda",
                                   "arte":imagem_genio_da_lampada,
@@ -1800,13 +1807,13 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "funcao":dano_,
                                               "dado":4,
                                               "argumentos":{"dano":menor_ataque, "aleatorio":True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"3 desejos",
+                                              "nome":"3 Desejos",
                                               "descricao":f"Dá o menor dano de ataque da partida 3 vezes em personagens inimigos aleatórios."},
                                              {"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":6,
                                               "argumentos":{"dano":maior_ataque, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"Último desejo",
+                                              "nome":"Último Desejo",
                                               "descricao":f"Dá o maior dano de ataque da partida em personagens inimigos à sua escolha."}] #ABILIDADE, chance de dar o maior ataque em um lacaio inimigo aleatório
                               },
           "balao":{"nome":"Balão",
@@ -1827,7 +1834,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                                   "defesa":False,
                                                   "funcao":habilidade_buff_global_dado,
                                                   "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                                  "nome":"Uma ajudinha",
+                                                  "nome":"Uma Ajudinha",
                                                   "descricao":f"Enquanto vivo, some 1 aos seus dados."},
                                           "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                       "nome":"Míssil Teleguiado",

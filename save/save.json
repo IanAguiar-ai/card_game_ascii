@@ -54,11 +54,11 @@
         "aranha_rainha",
         "balao"
     ],
-    "moedas": 8410,
+    "moedas": 8480,
     "deck": [
-        "dono_da_loja",
-        "mestre_das_horas",
-        "guarda_do_rei"
+        "aranha_rainha",
+        "genio_da_lampada",
+        "bandido_cinico"
     ],
     "inventario": [
         "lampada_magica",
@@ -76,6 +76,6 @@
         "Primeira vez",
         "Esfregue a l\u00e2mpada"
     ],
-    "vitorias": 13,
-    "derrotas": 5
+    "vitorias": 14,
+    "derrotas": 8
 }
