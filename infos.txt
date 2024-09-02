@@ -1,4 +1,4 @@
-Estão sendo usados 25.30 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 24.05 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (10):
 	Caçador Iniciante          50 0
@@ -21,10 +21,11 @@ Humano (7):
 	Mago Suporte               70 3
 	Profeta das Areias         80 3
 
-Monstro (7):
+Monstro (8):
 	Flores Sinistras           50 0
 	Esqueleto Insano           80 1
 	Orc Rejeitado             100 1
+	Aranha rainha              80 2
 	Fantasma Solitario        100 2
 	Milicia Fantasma          110 2
 	Cogumelo Venenoso          70 3
@@ -50,7 +51,7 @@ Assasino (6):
 	Assasina de Quadrilha      90 3
 	Mafioso Acumulador         90 3
 
-Lenda (12):
+Lenda (11):
 	Senhor Balão               40 0
 	Mestre das Horas           50 1
 	Cubo                       60 1
@@ -58,9 +59,8 @@ Lenda (12):
 	Fenix                      50 2
 	Mr.Money                   70 2
 	Senhor dos Mapas           70 2
-	Aranha rainha              70 2
-	Gênio da Lâmpada           70 2
 	Balão                      70 2
+	Gênio da Lâmpada           90 2
 	H@ck3r                     70 3
 	Cactus Cowboy             140 4
 

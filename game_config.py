@@ -30,4 +30,4 @@ SLEEP_INITIAL_TURN:float = 0
 SLEEP_END_TURN:float = 0
 SLEEP_DICE:float = 0
 
-USE_MODS:bool = True
+USE_MODS:bool = False
