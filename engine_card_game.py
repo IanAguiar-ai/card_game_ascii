@@ -1814,7 +1814,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "dado":6,
                                               "argumentos":{"dano":maior_ataque, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                               "nome":"Último Desejo",
-                                              "descricao":f"Dá o maior dano de ataque da partida em personagens inimigos à sua escolha."}] #ABILIDADE, chance de dar o maior ataque em um lacaio inimigo aleatório
+                                              "descricao":f"Dá o maior dano de ataque da partida em um personagem inimigo à sua escolha."}] #ABILIDADE, chance de dar o maior ataque em um lacaio inimigo aleatório
                               },
           "balao":{"nome":"Balão",
                                   "hp":70,
