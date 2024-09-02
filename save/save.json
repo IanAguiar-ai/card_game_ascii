@@ -54,7 +54,7 @@
         "aranha_rainha",
         "balao"
     ],
-    "moedas": 8480,
+    "moedas": 8530,
     "deck": [
         "aranha_rainha",
         "genio_da_lampada",
@@ -76,6 +76,6 @@
         "Primeira vez",
         "Esfregue a l\u00e2mpada"
     ],
-    "vitorias": 14,
-    "derrotas": 8
+    "vitorias": 15,
+    "derrotas": 9
 }
