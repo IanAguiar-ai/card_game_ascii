@@ -1886,7 +1886,8 @@ dicionario_ataques = {"ataques":[nome.__name__ for nome in lista_ataques],
                       "raridade":list(raridades.keys()),
                       "preco":[str(i) for i in range(6)],
                       "hp":["0 ~ 100", "100 ~ 200", "200 ~ 300", "300 ~ 400", "400 ~ 500"],
-                      "funcao":["Adicione manualmente"]}
+                      "funcao":["Adicione manualmente"],
+                      "atributo":list(CARTAS["guerreiro_preparado"].keys())}
 
 for ataque_ in lista_ataques:
     dicionario_ataques[ataque_.__name__] = sorted(list((set(lista_opcoes_ataques) & set(signature(ataque_).parameters)) | todos_ataques))
@@ -1905,7 +1906,7 @@ for opcoes in lista_opcoes_habilidades[8:11]:
 
 for habilidade_ in lista_habilidades:
     if habilidade_.__name__ in dicionario_ataques:
-        dicionario_ataques[habilidade_.__name__] = sorted(list(((set(lista_opcoes_habilidades) | set(dicionario_ataques[habilidade_.__name__])) & set(signature(ataque_).parameters)) | todos_habilidades))
+        dicionario_ataques[habilidade_.__name__] = sorted(set(dicionario_ataques[habilidade_.__name__]) | set(signature(ataque_).parameters) | todos_habilidades | todos_ataques)
     else:
         dicionario_ataques[habilidade_.__name__] = sorted(list((set(lista_opcoes_habilidades) & set(signature(habilidade_).parameters)) | todos_habilidades))
 

@@ -242,7 +242,7 @@ def card_builder():
         pos_texto_x, pos_texto_y = 2, 0
         nivel_complementar = 0
         if tela[0] == "principal":
-            texto_principal = f"Use as teclas (A, W, S, D, ENTER) para iteragir"
+            texto_principal = f"Use as teclas (A, S, ENTER) para iteragir\n(E) para sair"
             game.buffer_text = texto_principal
 
             for nivel in range(len(tela)):
@@ -303,7 +303,7 @@ def card_builder():
         resp = input()
         if resp.lower() == "a" or resp.lower() == "q":
             pos_ponteiro = max(pos_ponteiro - 1, 0)
-        elif resp.lower() == "d" or resp.lower() == "e":
+        elif resp.lower() == "s" or resp.lower() == "w" or resp.lower() == "d":
             pos_ponteiro = min(pos_ponteiro + 1, len(textos[tela[-1]]) - 1)
         elif resp == "":
             if "principal" in tela:
@@ -381,8 +381,18 @@ def card_builder():
 
                 elif (not textos[tela[-1]][pos_ponteiro] in textos) and (tela[2] == "ataques" or tela[2] == "habilidades"):
                     if tela[2] == "ataques":
-                        salvar_ataque_temporario["funcao"] = tela[3]
                         salvar_ataque_temporario["tipo"] = "ataque"
+
+                    elif tela[2] == "habilidades":
+                        salvar_ataque_temporario["tipo"] = "habilidade"
+                    
+                    if "copiar_atributo" in tela and "atributo" in tela:
+                        if not "atributo" in salvar_ataque_temporario["argumentos"]:
+                            salvar_ataque_temporario["argumentos"]["atributo"] = []
+                        salvar_ataque_temporario["argumentos"]["atributo"].append(tela[5])
+                        
+                    elif tela[2] == "ataques":
+                        salvar_ataque_temporario["funcao"] = tela[3]
                         if tela[4] == "dado":
                             salvar_ataque_temporario["dado"] = int(textos[tela[-1]][pos_ponteiro])
                         elif tela[4] == "caracteristicas":
@@ -394,10 +404,9 @@ def card_builder():
                                 salvar_ataque_temporario["argumentos"]["caracteristicas"] = textos[tela[-1]][pos_ponteiro]
                         else:
                             salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
-
+                        
                     elif tela[2] == "habilidades":
                         salvar_ataque_temporario["funcao"] = tela[3]
-                        salvar_ataque_temporario["tipo"] = "habilidade"
                         if "caracteristicas" in tela:
                             if not "caracteristicas" in salvar_ataque_temporario["argumentos"]:
                                 salvar_ataque_temporario["argumentos"]["caracteristicas"] = {}
@@ -407,7 +416,6 @@ def card_builder():
                                 salvar_ataque_temporario["argumentos"]["caracteristicas"][tela[5]] = textos[tela[-1]][pos_ponteiro]
                         else:
                             salvar_ataque_temporario["argumentos"][tela[4]] = textos[tela[-1]][pos_ponteiro]
-
                         
                     tela = tela[0:4]
                     pos_ponteiro = min(pos_ponteiro, len(textos[tela[-1]]) - 1)
@@ -419,11 +427,11 @@ def card_builder():
             else:
                 pass
 
-        elif resp.lower() == "m":
+        elif resp.lower() == "m" or resp.lower() == "e":
             break
 
-    game_t.join()
     game.close()
+    game_t.join()
 
 if __name__ == "__main__":
     card_builder()
