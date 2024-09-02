@@ -496,7 +496,7 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
             printar(personagem, image)
 
 
-def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, multiplicador:int = None) -> None:
+def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, multiplicador:int = None, chance:float = 1) -> None:
     """
     Da um nerf...
 
@@ -506,6 +506,10 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
         "time_atacante":True,
         "time_atacado":False}
     """
+    if not (random() < chance):
+        buffer_(f"Nada aconteceu!")
+        return None
+        
     if type(buff) == list:
         buff = buff[0] * multiplicador
         
@@ -1817,28 +1821,27 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "descricao":f"Dá o maior dano de ataque da partida em um personagem inimigo à sua escolha."}] #ABILIDADE, chance de dar o maior ataque em um lacaio inimigo aleatório
                               },
           "balao":{"nome":"Balão",
-                                  "hp":70,
-                                  "preco":2,
+                                  "hp":130,
+                                  "preco":3,
                                   "classe":"lenda",
                                   "arte":imagem_balao,
                                   "raridade":"secreto",
-                                  "ataques":[
-                                      {"tipo":"ataque",
-                                      "funcao":adicionar_habilidade,
-                                      "dado":1,
-                                      "argumentos":{"funcao":{"tipo":"habilidade",
-                                                  "tempo":"comeco",
-                                                  "vivo":True,
-                                                  "morto":False,
-                                                  "ataque":True,
-                                                  "defesa":False,
-                                                  "funcao":habilidade_buff_global_dado,
-                                                  "argumentos":{"buff":1, "image":{"image":soma_dado, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
-                                                  "nome":"Uma Ajudinha",
-                                                  "descricao":f"Enquanto vivo, some 1 aos seus dados."},
-                                          "image":{"image":soma_dado, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                      "nome":"Míssil Teleguiado",
-                                      "descricao":f"Dá 80 de dano quatro em um personagem inimigo à sua escolha."},]
+                                  "ataques":[{"tipo":"ataque",
+                                              "funcao":dano_,
+                                              "dado":4,
+                                              "argumentos":{"dano":50, "chance": 0.2, "aleatorio":True, "vezes":4, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "nome":"Bombardeio Aéreo",
+                                              "descricao":f"20% de chance de dar 50 de dano 4 vezes em personagens inimigos aleatórios."},
+                                             {"tipo":"habilidade",
+                                              "ataque":False,
+                                              "defesa":True,
+                                              "tempo":"comeco",
+                                              "vivo":True,
+                                              "morto":False,
+                                              "funcao":habilidade_nerf_global_dano,
+                                              "argumentos":{"buff":50, "chance":0.2 ,"image":{"image":escudo, "frames":4, "wait":50, "to_start":TEMPO[1], "x":12, "y":5}},
+                                              "nome":"Fulga",
+                                              "descricao":f"Enquanto vivo, tem 20% de chance de que os personagens do seu lado do campo tomem -50 de dano."}]
                               },
           }
 

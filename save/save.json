@@ -54,11 +54,11 @@
         "aranha_rainha",
         "balao"
     ],
-    "moedas": 8530,
+    "moedas": 8540,
     "deck": [
-        "aranha_rainha",
+        "balao",
         "genio_da_lampada",
-        "bandido_cinico"
+        "lesma"
     ],
     "inventario": [
         "lampada_magica",
@@ -77,5 +77,5 @@
         "Esfregue a l\u00e2mpada"
     ],
     "vitorias": 15,
-    "derrotas": 9
+    "derrotas": 10
 }
