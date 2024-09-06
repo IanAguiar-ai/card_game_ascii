@@ -155,3 +155,12 @@ def missao_por_um_triz(save, **resto) -> bool:
     if sum([personagem["hp"] for personagem in resto["TIMES"][1]]) <= 10:
         return True
     return False
+
+def missao_passando_o_tempo(save, **resto) -> bool:
+    """
+    Se o usuário tem mais de 100 (vitorias + derrotas) e 10 ou mais itens no iventário
+    Libera: "Zé Mão de Alface"
+    """
+    if save["vitorias"] + save["derrotas"] > 100 and len(save) >= 10:
+        return True
+    return False
