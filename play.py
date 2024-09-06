@@ -448,7 +448,7 @@ if __name__ == "__main__":
         
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
-    texto_principal = f"Aperte:\n(1) Para jogar\n(2) Para ir até a loja\n(3) Para construtor de cartas"
+    texto_principal = f"Aperte:\n(1) Jogar\n(2) Ir a loja\n(3) Construtor de cartas"
     game.buffer_text = texto_principal
     game_t = Thread(target = game.run)
     game_t.start()
