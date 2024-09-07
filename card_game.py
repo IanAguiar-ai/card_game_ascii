@@ -9,6 +9,7 @@ from threading import Thread
 from game_config import *
 from random import random
 from auxiliary_functions import *
+from translator import translate
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -57,11 +58,11 @@ class Screen:
                     continua = True
 
                 #Cartas:
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}")], rarity = TIMES[y__][x__]['raridade'])]))
-                self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{TIMES[y__][x__]['classe'].title().center(23)}")], class_ = TIMES[y__][x__]['classe'])]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(translate(f"{TIMES[y__][x__]['raridade'].title().center(34,'=')}"))], rarity = TIMES[y__][x__]['raridade'])]))
+                self.add_temporary(Element(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(translate(f"{TIMES[y__][x__]['classe'].title().center(23)}"))], class_ = TIMES[y__][x__]['classe'])]))
                 self.add_temporary(Element(x = x_ + 29, y = y_ + 1, image = [list("HP:")]))
                 self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{TIMES[y__][x__]['hp_temp']:3}")], life = TIMES[y__][x__]['hp_temp'])]))
-                self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{TIMES[y__][x__]['nome'].center(34)}")]))
+                self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(translate(f"{TIMES[y__][x__]['nome'].center(34)}"))]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({TIMES[y__][x__]['preco']})")], rarity = TIMES[y__][x__]['raridade'])]))
                 if TIMES[y__][x__]['arte'] != None:
                     if not "arte_morto" in TIMES[y__][x__]:
