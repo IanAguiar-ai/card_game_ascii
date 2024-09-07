@@ -9,6 +9,7 @@ from arts import *
 from auxiliary_functions import *
 from itens import itens
 from pure_engine_ascii import Screen
+from translator import translate
 
 def store(itens:list):
     """
@@ -29,9 +30,9 @@ def store(itens:list):
 
     while True:
         try:
-            texto_principal = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar {itens[pos_caixa]['nome'].lower()}"
+            texto_principal = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para escolher entre os itens\n(C) Para comprar {itens[pos_caixa]['nome'].lower()}")
         except:
-            texto_principal = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para andar entre os itens\n(C) Para comprar"
+            texto_principal = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\n\nAperte:\n(A, W, S, D) Para escolher entre os itens\n(C) Para comprar")
         game.buffer_text = texto_principal
         
         game.add_effects(x = 85, y = 0,

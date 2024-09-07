@@ -2,6 +2,7 @@
 Lista de itens que são vendidos nas lojas
 """
 from arts import *
+from translator import translate
 
 def add_espaco(imagem:list, espaco:int) -> list:
     """
@@ -26,6 +27,11 @@ itens = {"cafe":{"imagem":item_cafe, "nome":"Café", "preco":150,
                          "descricao":"Essa é maior que o normal. Faz parte de um conjunto de poções misteriosas, cujo dono ninguém conhece. Dizem que os anões do norte sabem algo sobre a origem dessas poções. Talvez, investigando mais, você possa descobrir histórias intrigantes sobre essas poções e seus segredos."},
          "pocao_pequena":{"imagem":add_espaco(pocao[1], espaco = 3), "nome":"Poção Pequena", "preco": 150,
                           "descricao":"Essa é menorzinha. Faz parte de um conjunto de poções misteriosas, cujo dono ninguém conhece. Dizem que os anões do norte sabem algo sobre a origem dessas poções. Talvez, investigando mais, você possa descobrir histórias intrigantes sobre essas poções e seus segredos."}}
+
+for key in itens.keys():
+    for key_ in itens[key].keys():
+        itens[key][key_] = translate(itens[key][key_])
+    
 
 for key in itens.keys():
     itens[key]["id"] = key

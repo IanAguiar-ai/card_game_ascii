@@ -12,6 +12,7 @@ from auxiliary_functions import *
 from card_game import run_the_game
 from pure_engine_ascii import Screen
 from card_builder import card_builder
+from translator import translate
 
 def animacao_menu() -> None:
     pos_n = [0, 50, 0]
@@ -258,7 +259,6 @@ def entrar_loja() -> None:
         from itens import itens
 
         memoria_save = ler_save()
-        game.buffer_text = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Z, X) Para alternar entre páginas\n(A, W, S, D) Para escolher entre itens"
         pag = 0
         pos_inventario = 0
         missoes_por_pag = 7
@@ -281,6 +281,11 @@ def entrar_loja() -> None:
                            "--- --- - --- --- --"]
 
         while True:
+            try:
+                game.buffer_text = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n({itens[memoria_save['inventario'][pos_inventario]]['nome']})\n\nAperte:\n(Z, X) Para alternar entre páginas\n(A, W, S, D) Para escolher entre itens")
+            except:
+                game.buffer_text = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(Z, X) Para alternar entre páginas\n(A, W, S, D) Para escolher entre itens")
+
             #Inventario:
             for x in range(5):
                 for y in range(5):
@@ -376,7 +381,7 @@ def entrar_loja() -> None:
     #Conferir as missões da loja:
     conferir_missoes(tipo = "loja", save = memoria_save)
     
-    texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja"
+    texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja")
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
@@ -419,7 +424,7 @@ def entrar_loja() -> None:
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 memoria_save = ler_save()
-                texto_loja = f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja"
+                texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar boster \033[93m(100 moedas)\033[0m\n(3) Inventário\n(4) Para sair da loja")
 
             elif resposta == 3:
                 globals()["gatilho_loja"] = False
@@ -448,7 +453,7 @@ if __name__ == "__main__":
         
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
-    texto_principal = f"Aperte:\n(1) Jogar\n(2) Ir a loja\n(3) Construtor de cartas"
+    texto_principal = translate(f"Aperte:\n(1) Jogar\n(2) Ir a loja\n(3) Construtor de cartas")
     game.buffer_text = texto_principal
     game_t = Thread(target = game.run)
     game_t.start()
