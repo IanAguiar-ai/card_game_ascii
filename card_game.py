@@ -105,7 +105,7 @@ class Screen:
                 buffer = campo.copy()
                 
                 #Print buffer:
-                self.add_temporary(Element(x = DISPOSITION_X_TEXT, y = DISPOSITION_Y_TEXT, image = to_list(self.buffer_text)))
+                self.add_temporary(Element(x = DISPOSITION_X_TEXT, y = DISPOSITION_Y_TEXT, image = to_list(translate(self.buffer_text))))
                 
                 self.put(buffer)        
                 clear()
