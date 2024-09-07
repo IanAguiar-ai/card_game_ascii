@@ -35,13 +35,19 @@ dict_translate_text = {"Aperte": "Press",
                        "Poção Pequena": "Small Potion",
                        "Para escolher entre os itens": "To choose between items",
                        "Para comprar": "To buy",
+                       "Para iteragir": "To iterate",
+                       "Para sair": "To leave",
                        "NOME": "NAME",
                        "PRECO": "PRICE",
                        "CLASSE": "CLASS",
                        "ARTE": "ART",
                        "RARIDADE": "RARITY",
                        "ATAQUES": "ATTACKS",
-                       "LIMPAR ATAQUES": "CLEAN ATTACKS"}
+                       "LIMPAR ATAQUES": "CLEAN ATTACKS",
+                       "Parâmetros base": "Base parameters",
+                       "Parâmetros ataque": "Attack parameters",
+                       "ataques": "attacks",
+                       "habilidades": "skills"}
 
 dict_translate_reorganized = sorted(dict_translate_text.keys(),
                                      key = lambda x: len(x), reverse=True)

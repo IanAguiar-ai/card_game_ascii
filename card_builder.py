@@ -11,6 +11,7 @@ from arts import *
 from auxiliary_functions import *
 from pure_engine_ascii import Screen
 from engine_card_game import raridades, classes, lista_ataques, lista_habilidades, lista_variaveis_globais, dicionario_ataques
+from translator import translate
 
 def card_builder():
     """
@@ -137,7 +138,7 @@ def card_builder():
         y_carta = 0
 
         if textos[tela[-1]][pos_ponteiro] in descricoes_opcoes:
-            caixa_de_ajuda = caixa_texto(descricoes_opcoes[textos[tela[-1]][pos_ponteiro]], limite = 100)
+            caixa_de_ajuda = caixa_texto(translate(descricoes_opcoes[textos[tela[-1]][pos_ponteiro]]), limite = 100)
             game.add_effects(x = 2, y = 38 - len(caixa_de_ajuda),
                              image = caixa_de_ajuda,
                              frames = 1,
@@ -153,7 +154,7 @@ def card_builder():
                          to_start = 0)
 
         game.add_effects(x = 2, y = 38,
-                         image = caixa_texto(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} | Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}", limite = 137),
+                         image = caixa_texto(translate(f"Parâmetros base: {', '.join(list(salvar_ataque_temporario.keys()))} | Parâmetros ataque: {', '.join(list(salvar_ataque_temporario['argumentos'].keys()))}"), limite = 137),
                          frames = 1,
                          tipe = None,
                          wait = 0,
@@ -168,7 +169,7 @@ def card_builder():
                              to_start = 0)
 
         game.add_effects(x = x_carta + 1, y = y_carta + 19,
-                         image = put_color_rarity([list(f"{carta['raridade'].title().center(34,'=')}")],
+                         image = put_color_rarity([list(translate(f"{carta['raridade'].title().center(34,'=')}"))],
                                                   rarity = carta["raridade"]),
                          frames = 1,
                          tipe = None,
@@ -176,7 +177,7 @@ def card_builder():
                          to_start = 0)
 
         game.add_effects(x = x_carta + 5, y = y_carta + 1,
-                         image = put_color_class([list(f"{carta['classe'].title().center(23)}")],
+                         image = put_color_class([list(translate(f"{carta['classe'].title().center(23)}"))],
                                                  class_ = carta["classe"]),
                          frames = 1,
                          tipe = None,
@@ -199,7 +200,7 @@ def card_builder():
                          to_start = 0)
 
         game.add_effects(x = x_carta + 1, y = y_carta + 18,
-                         image = [list(carta['nome'].center(34))],
+                         image = [list(translate(carta['nome'].center(34)))],
                          frames = 1,
                          tipe = None,
                          wait = 0,
@@ -216,9 +217,9 @@ def card_builder():
         pos = 21
         for iteracao in carta["ataques"]:
             if iteracao["tipo"] == "ataque":
-                texto_descricao = [list(f"{iteracao['nome']} ({iteracao['dado']}) ({iteracao['tipo'].title()})")]
+                texto_descricao = [list(translate(f"{iteracao['nome']} ({iteracao['dado']}) ({iteracao['tipo'].title()})"))]
             else:
-                texto_descricao = [list(f"{iteracao['nome']} ({iteracao['tipo'].title()})")]
+                texto_descricao = [list(translate(f"{iteracao['nome']} ({iteracao['tipo'].title()})"))]
                 
             game.add_effects(x = x_carta + 2, y = y_carta + pos,
                              image = put_color_tipo(texto_descricao,
@@ -228,7 +229,7 @@ def card_builder():
                              wait = 0,
                              to_start = 0)
 
-            descricao = ajustar_descricao(iteracao["descricao"])
+            descricao = ajustar_descricao(translate(iteracao["descricao"]))
 
             game.add_effects(x = x_carta + 2, y = y_carta + pos + 2,
                              image = descricao,
@@ -242,7 +243,7 @@ def card_builder():
         pos_texto_x, pos_texto_y = 2, 0
         nivel_complementar = 0
         if tela[0] == "principal":
-            texto_principal = f"Use as teclas (A, S, ENTER) para iteragir\n(E) para sair"
+            texto_principal = translate(f"Use as teclas (A, S, ENTER) Para iteragir\n(E) Para sair")
             game.buffer_text = texto_principal
 
             for nivel in range(len(tela)):
@@ -257,7 +258,7 @@ def card_builder():
                     try:
                         if texto in salvar_ataque_temporario or texto in salvar_ataque_temporario["argumentos"]:
                             game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
-                                             image = caixa_texto(f"{texto}!", limite = len(texto) + 4),
+                                             image = caixa_texto(translate(f"{texto}!"), limite = len(translate(texto)) + 4),
                                              frames = 1,
                                              tipe = None,
                                              wait = 0,
@@ -265,7 +266,7 @@ def card_builder():
                             
                         elif texto == tela[nivel + 1]:
                             game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
-                                             image = caixa_texto(f"{texto}*", limite = len(texto) + 4),
+                                             image = caixa_texto(translate(f"{texto}*"), limite = len(translate(texto)) + 4),
                                              frames = 1,
                                              tipe = None,
                                              wait = 0,
@@ -274,24 +275,24 @@ def card_builder():
 
                         else:
                             game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
-                                             image = caixa_texto(texto, limite = len(texto) + 4),
+                                             image = caixa_texto(translate(texto), limite = len(translate(texto)) + 4),
                                              frames = 1,
                                              tipe = None,
                                              wait = 0,
                                              to_start = 0)
                     except IndexError:
                         game.add_effects(x = pos_texto_x + adicao_x, y = (pos_texto_y + 3) * (nivel + nivel_complementar),
-                                         image = caixa_texto(texto, limite = len(texto) + 4),
+                                         image = caixa_texto(translate(texto), limite = len(translate(texto)) + 4),
                                          frames = 1,
                                          tipe = None,
                                          wait = 0,
                                          to_start = 0)
 
                     if nivel == len(tela) - 1 and iteracao == pos_ponteiro:
-                        pos_seta_x = pos_texto_x + adicao_x + (len(texto) - 1)//2
+                        pos_seta_x = pos_texto_x + adicao_x + (len(translate(texto)) - 1)//2
                         pos_seta_y = (pos_texto_y + 3) * (nivel + nivel_complementar) + 3
 
-                    adicao_x += len(texto) + 5
+                    adicao_x += len(translate(texto)) + 5
                     iteracao += 1
 
             game.add_effects(x = pos_seta_x, y = pos_seta_y,
