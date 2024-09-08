@@ -47,7 +47,17 @@ dict_translate_text = {"Aperte": "Press",
                        "Parâmetros base": "Base parameters",
                        "Parâmetros ataque": "Attack parameters",
                        "ataques": "attacks",
-                       "habilidades": "skills"}
+                       "habilidades": "skills",
+                       "Lendario": "Legendary",
+                       "lendario": "legendary",
+                       "Lenda": "Legend",
+                       "Epico": "Epic",
+                       "Raro": "Rare",
+                       "Comum": "Common",
+                       "lenda": "legend",
+                       "epico": "epic",
+                       "raro": "rare",
+                       "comum": "common"}
 
 dict_translate_reorganized = sorted(dict_translate_text.keys(),
                                      key = lambda x: len(x), reverse=True)
@@ -61,24 +71,28 @@ del dict_translate_text
 
 #Ajustar dicionário da maior key para a menor
 
-def translate(text:str, dict_translate:dict = dict_translate) -> str:
-    """
-    Traduz o texto de acordo com o dicionario conhecido
-    """
-    if type(text) == str:
-        if LANGUAGE == "pt":
-            return text
-        
-        elif LANGUAGE == "ing":
+if LANGUAGE == "pt":
+    def translate(text:str) -> str:
+        """
+        Traduz o texto de acordo com o dicionario conhecido
+        """
+        return text
+
+elif LANGUAGE == "ing":
+    def translate(text:str, dict_translate:dict = dict_translate) -> str:
+        """
+        Traduz o texto de acordo com o dicionario conhecido
+        """
+        if type(text) == str:
             for key in dict_translate:
                 if key in text:
                     text = text.replace(key, dict_translate[key])
 
             return text
-    return text
+        return text
 
 if __name__ == "__main__":
     print(dict_translate)
     texto = f"Aperte:\n(1) Jogar\n(2) Ir a loja\n(3) Construtor de cartas"
-    novo_texto = translator(texto)
+    novo_texto = translate(texto)
     print(novo_texto)

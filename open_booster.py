@@ -7,6 +7,7 @@ from time import sleep, time
 from choose_deck import to_list, animation_image, put_color, clear, put_color_life, put_color_class, put_color_tipo, put_color_rarity, ajustar_descricao
 from auxiliary_functions import criar_save, ler_save, adicionar_save, clear_all
 from pure_engine_ascii import Screen
+from translator import translate
 
 def abrir_pacote() -> None:
     chances = [0.02, 0.08, 0.30, 0.60]
@@ -31,7 +32,7 @@ def abrir_pacote() -> None:
 def abrir_pacote_com_carta() -> None:
     game = Screen(x = X, y = Y, fps = FPS, campo = campo)      
 
-    game.buffer_text = f"Aperte qualquer tecla para abrir o pacote..."
+    game.buffer_text = translate(f"Aperte qualquer tecla para abrir o pacote...")
     
     game_t = Thread(target = game.run)
     game_t.start()
@@ -99,21 +100,20 @@ def abrir_pacote_com_carta() -> None:
                     wait = espera,
                     to_start = 0)
     
-    game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{carta_descoberta['raridade'].title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{carta_descoberta['classe'].title().center(23)}")], class_ = carta_descoberta['classe'])], frames = 1, wait = espera)
+    game.add_effects(x = x_ + 1, y = y_ + 19, image = [*put_color_rarity([list(f"{translate(carta_descoberta['raridade']).title().center(34,'=')}")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
+    game.add_effects(x = x_ + 5, y = y_ + 1, image = [*put_color_class([list(f"{translate(carta_descoberta['classe']).title().center(23)}")], class_ = carta_descoberta['classe'])], frames = 1, wait = espera)
     game.add_effects(x = x_ + 29, y = y_ + 1, image = [list("HP:")], frames = frames, wait = espera)
     game.add_effects(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{carta_descoberta['hp']:3}")], life = carta_descoberta['hp'])], frames = 1, wait = espera)
-    game.add_effects(x = x_ + 1, y = y_ + 18, image = [list(f"{carta_descoberta['nome'].center(34)}")], frames = frames, wait = espera)
+    game.add_effects(x = x_ + 1, y = y_ + 18, image = [list(f"{translate(carta_descoberta['nome']).center(34)}")], frames = frames, wait = espera)
     game.add_effects(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({carta_descoberta['preco']})")], rarity = carta_descoberta['raridade'])], frames = 1, wait = espera)
     pos = 21
     for t in carta_descoberta["ataques"]:
         if t["tipo"] == "ataque":
-            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
+            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(translate(f"{t['nome']} ({t['dado']}) ({t['tipo'].title()})"))], tipo = t['tipo']), frames = 1, wait = espera)
             descricao = ajustar_descricao(t["descricao"])
             game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
         else:
-            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(f"{t['nome']} ({t['tipo'].title()})")], tipo = t['tipo']), frames = 1, wait = espera)
+            game.add_effects(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(translate(f"{t['nome']} ({t['tipo'].title()})"))], tipo = t['tipo']), frames = 1, wait = espera)
             descricao = ajustar_descricao(t["descricao"])
             game.add_effects(x = x_ + 2, y = y_ + pos + 2, image = descricao, frames = frames, wait = espera)
         pos += 3 + len(descricao)
@@ -121,8 +121,8 @@ def abrir_pacote_com_carta() -> None:
     if carta_descoberta['arte'] != None:
         game.add_effects(x = x_ + 1, y = y_ + 2, image = carta_descoberta['arte'], frames = frames, wait = espera)
 
-    game.buffer_text = "".join(put_color_rarity([list(f"Desbloqueado {carta[1]}!")], rarity = carta_descoberta['raridade'])[0])
-    game.buffer_text += "\n\nAperte ENTER para sair..."
+    game.buffer_text = "".join(put_color_rarity([list(translate(f"Desbloqueado {carta[1]}!"))], rarity = carta_descoberta['raridade'])[0])
+    game.buffer_text += translate("\n\nAperte ENTER para sair...")
 
     #Salvando a carta desbloqueada:
     save_atual = ler_save()
