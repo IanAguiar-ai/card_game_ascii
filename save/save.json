@@ -52,7 +52,8 @@
         "dono_da_loja",
         "genio_da_lampada",
         "aranha_rainha",
-        "balao"
+        "balao",
+        "a_lua"
     ],
     "moedas": 8040,
     "deck": [
@@ -74,7 +75,8 @@
         "Homem comum",
         "Massacre",
         "Primeira vez",
-        "Esfregue a l\u00e2mpada"
+        "Esfregue a l\u00e2mpada",
+        "De noite"
     ],
     "vitorias": 15,
     "derrotas": 10

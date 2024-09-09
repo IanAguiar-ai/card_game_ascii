@@ -10,6 +10,7 @@ O "resto" depende de onde a missão será ativada, por exemplo, se for no inicio
 As cartas liberadas pelas missões estão em ./play.py na função 'animacao_inventario'
 """
 from engine_card_game import CARTAS, raridades, classes
+from datetime import datetime
 
 def missao_moedas(save, **resto) -> bool:
     """
@@ -163,4 +164,28 @@ def missao_passando_o_tempo(save, **resto) -> bool:
     """
     if save["vitorias"] + save["derrotas"] > 100 and len(save) >= 10:
         return True
+    return False
+
+def missao_de_dia(save, **resto) -> bool:
+    """
+    Se o usuário acessa a loja ao meio dia
+    Libera: "O Sol"
+    """
+    try:
+        if datetime.now().hour == 12:
+            return True
+    except:
+        pass
+    return False
+
+def missao_de_noite(save, **resto) -> bool:
+    """
+    Se o usuário acessa a loja a meia noite
+    Libera: "A Lua"
+    """
+    try:
+        if datetime.now().hour == 0:
+            return True
+    except:
+        pass
     return False
