@@ -1868,7 +1868,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Todo começo de turno, dá 10 de dano em todos os personagens."}]
                               },
           "a_lua":{"nome":"A Lua",
-                                  "hp":190,
+                                  "hp":180,
                                   "preco":5,
                                   "classe":"lenda",
                                   "arte":imagem_lua,
