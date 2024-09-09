@@ -53,13 +53,14 @@
         "genio_da_lampada",
         "aranha_rainha",
         "balao",
-        "a_lua"
+        "a_lua",
+        "o_sol"
     ],
-    "moedas": 8040,
+    "moedas": 8050,
     "deck": [
         "balao",
         "genio_da_lampada",
-        "lesma"
+        "o_sol"
     ],
     "inventario": [
         "lampada_magica",
@@ -76,8 +77,9 @@
         "Massacre",
         "Primeira vez",
         "Esfregue a l\u00e2mpada",
-        "De noite"
+        "De noite",
+        "De dia"
     ],
     "vitorias": 15,
-    "derrotas": 10
+    "derrotas": 11
 }

@@ -1843,6 +1843,30 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "nome":"Fulga",
                                               "descricao":f"Enquanto vivo, tem 20% de chance de que os personagens do seu lado do campo tomem -50 de dano."}]
                               },
+          "o_sol":{"nome":"O Sol",
+                                  "hp":240,
+                                  "preco":5,
+                                  "classe":"lenda",
+                                  "arte":imagem_sol,
+                                  "raridade":"secreto",
+                                  "ataques":[
+                                      {"tipo":"ataque",
+                                       "funcao":dano_,
+                                       "dado":3,
+                                       "argumentos":{"dano":30,  "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                       "nome":"Explosão Solar",
+                                       "descricao":f"Dá 30 de dano em todos os personagens."},
+                                      {"tipo":"habilidade",
+                                       "ataque":True,
+                                        "defesa":False,
+                                        "tempo":"comeco",
+                                        "vivo":True,
+                                        "morto":True,
+                                      "funcao":dano_,
+                                      "argumentos":{"dano":10, "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":40, "to_start":TEMPO[2], "x":10, "y":3}},
+                                      "nome":"Queimadura",
+                                      "descricao":f"Todo começo de turno, dá 10 de dano em todos os personagens."}]
+                              },
           }
 
 for carta in CARTAS.keys():
