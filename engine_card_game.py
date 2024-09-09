@@ -1867,6 +1867,30 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Queimadura",
                                       "descricao":f"Todo começo de turno, dá 10 de dano em todos os personagens."}]
                               },
+          "a_lua":{"nome":"A Lua",
+                                  "hp":190,
+                                  "preco":5,
+                                  "classe":"lenda",
+                                  "arte":imagem_lua,
+                                  "raridade":"secreto",
+                                  "ataques":[
+                                      {"tipo":"ataque",
+                                       "funcao":dano_,
+                                       "dado":4,
+                                       "argumentos":{"dano":40, "aleatorio":True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                       "nome":"Meteoros",
+                                       "descricao":f"Dá 40 de dano em personagens inimigos aleatórios 3 vezes."},
+                                      {"tipo":"habilidade",
+                                       "ataque":True,
+                                        "defesa":False,
+                                        "tempo":"comeco",
+                                        "vivo":True,
+                                        "morto":True,
+                                      "funcao":cura_,
+                                      "argumentos":{"cura":10, "aleatorio":True, "vezes": 2, "image":{"image":cruz, "frames":4, "wait":40, "to_start":TEMPO[2], "x":8, "y":2}},
+                                      "nome":"Descanso Norturno",
+                                      "descricao":f"Todo começo de turno, cura 10 de dano de um personagens aliado aleatório 2 vezes."}]
+                              },
           }
 
 for carta in CARTAS.keys():

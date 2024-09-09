@@ -56,11 +56,11 @@
         "a_lua",
         "o_sol"
     ],
-    "moedas": 8050,
+    "moedas": 8090,
     "deck": [
         "balao",
         "genio_da_lampada",
-        "o_sol"
+        "a_lua"
     ],
     "inventario": [
         "lampada_magica",
@@ -80,6 +80,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 15,
+    "vitorias": 16,
     "derrotas": 11
 }

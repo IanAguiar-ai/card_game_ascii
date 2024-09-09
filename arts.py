@@ -2622,20 +2622,20 @@ imagem_lua = adjust_image("""
          .          .^       /       ( )      .
                +   {_.---._ /         ~ 
                    /    .  Y
-                  /      \\_j
+                  /      \\_j      +
    .             Y     ( --l__
                  |            "-.
                  |      (___     \\
-         .       |        .)~-.__/
+         .       |        .)~-.__/     .
                  l        _)
-.                 \\      "l
-    +              \\       \\
-                    \\       ^.
-        .            ^.       "-.                    .
-                       "-._      ~-.___,
-                 .         "--.._____.^
+.                 \\      "l                 +
+    +              \\       ^.    .
+        .           ^.       "-.                    .
+                      "-._      ~-.___,
+                .         "--.._____.^
   .                                         .       """.split("\n"))
-for i in range(3, len(imagem_lua) - 1):
+imagem_lua = imagem_lua[3:]
+for i in range(len(imagem_lua) - 1):
     imagem_lua[i] = imagem_lua[i][9:9+34]
 
 imagem_sol = adjust_image("""     \\         |         /      
