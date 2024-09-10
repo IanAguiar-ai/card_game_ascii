@@ -48,17 +48,22 @@ def buffer_(texto:str, end:str = "\n") -> None:
             game.buffer_text += f"{texto}{end}"
             game.animation = True
 
-def jogar(TIMES:list):
+def jogar(TIMES:list, graphic:bool = True) -> None:
     """
     Função principal com a lógica dos turnos, só termina quando o jogo acaba
     """
     from text_mission import conferir_missoes
-    
-    if not "game" in globals():
-        globals()["game"] = Screen(x = X, y = Y, fps = FPS)
+
+    if graphic == True:
+        if not "game" in globals():
+            globals()["game"] = Screen(x = X, y = Y, fps = FPS)
+    else:
+        globals()["game"] = graphic() #graphic deve ser uma classe falsa para que não seja ativado os gráficos
+        for VARIAVEL_CONFIGURACAO in ["SLEEP_TURN", "SLEEP_BOT", "SLEEP_INITIAL_TURN", "SLEEP_END_TURN", "SLEEP_DICE"]:
+            globals()[VARIAVEL_CONFIGURACAO] = 0
 
     globals()["game"].in_run = True
-        
+
     #Valores de turno:
     globals()["TIMES"] = TIMES
     globals()["PARTIDA"] = 0 #Partida
@@ -1912,6 +1917,12 @@ for carta in CARTAS.keys():
     if not CARTAS[carta]["classe"] in classes:
         classes[CARTAS[carta]["classe"]] = []
     classes[CARTAS[carta]["classe"]].append(carta)
+
+precos = {}
+for carta in CARTAS.keys():
+    if not CARTAS[carta]["preco"] in precos:
+        precos[CARTAS[carta]["preco"]] = []
+    precos[CARTAS[carta]["preco"]].append(carta)
 
 lista_ataques = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo]
 lista_habilidades = [dano_, cura_, assasinato_, trocar_vida, copiar_atributo, habilidade_buff_global_dano, habilidade_nerf_global_dano, habilidade_reviver, habilidade_buff_global_dado, habilidade_nerf_global_dado, adicionar_habilidade, somar_global, pular_turno]
