@@ -9,9 +9,9 @@ from game_config import X, Y
 TEMPO = [15, 35, 80, 170]
 
 tipo_clima = "ensolarado"
-clima = {"chuvoso":{"nuvem":0.9},
-         "nublado":{"nuvem":0.95},
-         "ensolarado":{"nuvem":0.98}}
+clima = {"chuvoso":{"onda":0.9, "nuvem":3},
+         "nublado":{"onda":0.95, "nuvem":2},
+         "ensolarado":{"onda":0.98, "nuvem":1}}
 
 def adjust_image(image:(list), replace_:bool = False) -> (list):
     n_image = []
@@ -151,22 +151,22 @@ mapa_base = adjust_image("""                                                    
                               _.-':_.-'                                             '.''-._
                           _.-'                                                             '-._.'-._
                    .-'.-,'                                                                          '-..
-                   '-._                           /\   /\                                           _.-'
-                       '-.                       /   \/  \                                        _'
-                          '-._                     /\  (                                 ..'-._,-'
-                              '-._                /  \  )      _.-.                     '.
-                                .-'                   (     .'     :                     :
-                             .-'                       )    '-._.--'                  ..-'
-                             '-._                     /                               '-._
-                                 '-._                (                                    '. 
-                                     '.               )                                     '-._
-                                   _.-'              /                                        _.'                              _--_
-                                  '-._              /                                        '-._-'-.             _.--.     _-'    '.
-                                      '-._         (                                              .-'         _.-'     '-.-'         '._
-                                          '-.       ) /\                                  _.-"._,'         .-'                          '.
-                                          _.'      / /  \ /\                             '.               '-.                             '.
-                                _.-'-._.-'        / /    \  \                              '-._._           '.                              '.
-                            _.-'                 /                                               '-.        .'                               '-.
+                   '-._                                                                             _.-'
+                       '-.                                                                        _'
+                          '-._                                                           ..'-._,-'
+                              '-._                             _.-.                     '.
+                                .-'                         .'     :                     :
+                             .-'                            '-._.--'                  ..-'
+                             '-._                                                     '-._
+                                 '-._                                                     '. 
+                                     '.                                                     '-._
+                                   _.-'                                                       _.'                              _--_
+                                  '-._                                                       '-._-'-.             _.--.     _-'    '.
+                                      '-._                                                        .-'         _.-'     '-.-'         '._
+                                          '-.                                             _.-"._,'         .-'                          '.
+                                          _.'                                            '.               '-.                             '.
+                                _.-'-._.-'                                                 '-._._           '.                              '.
+                            _.-'                                                                 '-.        .'                               '-.
                          .-'               .--'-._                                                  '-.   .'                                  .'
                       _.'          _.-'-.-'       '.                                                 .'   '-.-'._.'-.                         '.
              .-'=_.'-'          .-'           __.-'                                               .-'               '.                        .'
@@ -191,7 +191,7 @@ mapa_ondas = ["" for i in range(20)]
 for i in range(20):
     for j in range(10):
         for _ in range(10):
-            if random() > clima[tipo_clima]["nuvem"]:
+            if random() > clima[tipo_clima]["onda"]:
                 mapa_ondas[i] += "~"
             else:
                 mapa_ondas[i] += " "
@@ -222,8 +222,7 @@ mapa_flor = adjust_image("""
  |
 """.split("\n"))
 
-mapa_torre = adjust_image("""
-       _
+mapa_torre = adjust_image("""       _
   _   /_\   _
  / \_/   \_/ \
  \     /\    /
@@ -236,8 +235,34 @@ mapa_torre = adjust_image("""
      |   |
  \\ /|___|\ 
              ///
-        \\
-""".split("\n"))
+        \\""".split("\n"))
+
+mapa_sol = adjust_image("""     .
+   \ | /
+ '-.;;;.-'
+-==;;;;;==-
+ .-';;;'-.
+   / | \ 
+     '""".split("\n"), replace_ = True)
+
+mapa_espaconave = adjust_image("""&&.
+&.'.
+&|o|
+.'o'.
+|.-.|
+'&&&'""".split("\n"), replace_ = True)
+
+mapa_lua = adjust_image("""&&&_.._
+&.' .-'`
+/  /
+|  |
+\  '.___.;
+&'._  _.'""".split("\n"), replace_ = False)
+
+mapa_nuvem_1 = adjust_image("""   __&&&_
+&_(  )_( )_
+(_   _    _)
+&&(_) (__)""".split("\n"), replace_ = False)
 
 vitoria = adjust_image(""" /$$      /$$ /$$$$$$ /$$   /$$
 | $$  /$ | $$|_  $$_/| $$$ | $$
