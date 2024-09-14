@@ -25,6 +25,8 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
 
     if random() < .1:
         ovni = True
+    else:
+        ovni = False
 
     iteracao = 0
     while True:
@@ -93,8 +95,8 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
-        if ovni and not com_sol:
-            game.add_effects(x = 120, y = 37,
+        if (ovni and not com_sol) or debug:
+            game.add_effects(x = 130, y = 15,
                              image = mapa_ovni,
                              frames = 1,
                              tipe = None,
