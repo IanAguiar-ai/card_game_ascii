@@ -20,7 +20,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
 
     #Nuvens
     pos_nuvem = []
-    for i in range(clima[tipo_clima]["nuvem"]):
+    for i in range(clima[tipo_clima]["nuvem"] * 3):
         pos_nuvem.append([int(random() * 125) + 1, int(random() * 35) + 1])
 
     iteracao = 0
@@ -83,7 +83,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              to_start = 0)
 
         if "objeto_nao_indentificado" in memoria["missoes"] or debug:
-            game.add_effects(x = 11, y = 30,
+            game.add_effects(x = 11, y = 31,
                              image = mapa_espaconave,
                              frames = 1,
                              tipe = None,
@@ -92,16 +92,32 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
 
 
         #Nuvem ===================================================
-        if random() < 0.05:
-            for i in range(len(pos_nuvem)):
+        for i in range(len(pos_nuvem)):
+            if random() < 0.05:
                 if random() > .5:
                     pos_nuvem[i][0] = min(pos_nuvem[i][0] + 1, 125)
                 else:
                     pos_nuvem[i][0] = max(pos_nuvem[i][0] - 1, 1)
                                 
-        for x, y in pos_nuvem:
+        for x, y in pos_nuvem[:clima[tipo_clima]["nuvem"]]:
             game.add_effects(x = x, y = y,
                              image = mapa_nuvem_1,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+        for x, y in pos_nuvem[clima[tipo_clima]["nuvem"]:clima[tipo_clima]["nuvem"]*2]:
+            game.add_effects(x = x, y = y,
+                             image = mapa_nuvem_2,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+        for x, y in pos_nuvem[clima[tipo_clima]["nuvem"]*2:]:
+            game.add_effects(x = x, y = y,
+                             image = mapa_nuvem_3,
                              frames = 1,
                              tipe = None,
                              wait = 0,

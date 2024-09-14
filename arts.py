@@ -264,6 +264,16 @@ mapa_nuvem_1 = adjust_image("""   __&&&_
 (_   _    _)
 &&(_) (__)""".split("\n"), replace_ = False)
 
+mapa_nuvem_2 = adjust_image("""&,')
+(_&&)
+""".split("\n"), replace_ = False)
+
+mapa_nuvem_3 = adjust_image("""&&&&.--
+&.=(&&&)
+&(&&&.&&)
+(&&&&(&&))
+&'-&__.'""".split("\n"), replace_ = False)
+
 vitoria = adjust_image(""" /$$      /$$ /$$$$$$ /$$   /$$
 | $$  /$ | $$|_  $$_/| $$$ | $$
 | $$ /$$$| $$  | $$  | $$$$| $$
