@@ -8,9 +8,10 @@ from random import random
 from game_config import X, Y
 TEMPO = [15, 35, 80, 170]
 
-tipo_clima = "nublado"
-clima = {"chuvoso":{},
-         "nublado":{"nuvem":0.9}}
+tipo_clima = "ensolarado"
+clima = {"chuvoso":{"nuvem":0.9},
+         "nublado":{"nuvem":0.95},
+         "ensolarado":{"nuvem":0.98}}
 
 def adjust_image(image:(list), replace_:bool = False) -> (list):
     n_image = []
