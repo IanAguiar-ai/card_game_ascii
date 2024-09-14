@@ -96,7 +96,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              to_start = 0)
 
         if (ovni and not com_sol) or debug:
-            game.add_effects(x = 135, y = 15,
+            game.add_effects(x = 136, y = 14,
                              image = mapa_ovni,
                              frames = 1,
                              tipe = None,
