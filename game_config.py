@@ -6,6 +6,7 @@ X:int = 145
 Y:int = 53
 FPS:int = 12
 FPS_LOJA:int = 8
+FPS_MAPA:int = 2
 
 DISPOSITION_X_CARDS:list = [5, 55, 105]
 DISPOSITION_Y_CARDS:list = [1, 22]

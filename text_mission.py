@@ -16,7 +16,7 @@ A missoes é uma lista de listas onde os elementos são:
 1: Função para conferir missão
 2: Aonde a missão pode ser desbloqueada
 3: tipo de premio, pode ser "carta", "item" ou "moeda"
-4: O nome da carta ou do item a ser ganho, ou a quantidade de moedas
+4: O nome da carta ou do item a ser ganho, ou a quantidade de moedas, ou as missoes a serem liberadas em uma tupla
 """
 from missions import *
 from auxiliary_functions import criar_save, ler_save, adicionar_save
@@ -101,6 +101,11 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                         save["inventario"].append(missao[4])
                 elif missao[3] == "moeda":
                     save["moedas"] = int(save["moedas"]) + int(missao[4])
+                elif missao[3] == "missao":
+                    if type(missao[4]) == list:
+                        save["missoes"].extend(missao[4])
+                    else:
+                        save["missoes"] = missao[4]
 
     #Adiciona a missão comprida, se tiver alguma, no save
     if nova_missao != []:
