@@ -203,24 +203,22 @@ mapa_navio = adjust_image("""&&&&_( )_
 &&&&) " (&&&&--'--
 &&&)  "  (&&&(('((
 &&)___"___(&&(('((
-&&&&&&&"&&&&&&&&'& ___
+&&&&&&"&&&&&&&&'& ___
 &&/___"________'_| ~ |&
-&--._-|--|--|--|--|--/
+&--._|--|--|--|--|---/
 &&&&&\\ o  o  o  o  o/ 
 &&&&~~~~~~~~~~~~~~~~~ """.split("\n"), replace_ = False)
 
-mapa_piramide = adjust_image("""&&&&&/\'.
-&&&&/  \ '.
-&&&/    \  '.
-&&/      \   '.
-&/   __   \  / 
-/____||____\/""".split("\n"), replace_ = False)
+mapa_piramide = adjust_image("""&&&&&/\\'.
+&&&&/  \\ '.
+&&&/    \\  '.
+&&/      \\   '.
+&/   __   \\  / 
+/____||____\\/""".split("\n"), replace_ = False)
 
-mapa_flor = adjust_image("""
-(()v
+mapa_flor = adjust_image("""(()v
  |/
- |
-""".split("\n"))
+ |""".split("\n"))
 
 mapa_torre = adjust_image("""       _
   _   /_\   _
@@ -255,6 +253,48 @@ mapa_espaconave = adjust_image("""&&.
 mapa_ovni = adjust_image("""&&&__
 .-'HH'-.
 '-.__.-'""".split("\n"))
+
+mapa_farol = adjust_image("""&&/^\\
+&&|#|
+&|===|
+&&|0|
+&&| |
+&=====
+_||_||_""".split("\n"), replace_ = False)
+
+mapa_castelo = adjust_image("""&&&&&&&+
+&&&&&&&A
+&&&&__/_\\__
+&&&/\\-'o'-/\\
+&&_||:<_>:||_
+&/\\_/=====\_/\\
+_|:_:_[I]_:_:|_""".split("\n"), replace_ = False)
+
+mapa_castelo_2 = adjust_image(""" _   |~  _
+[_]--'--[_]
+|'|""`""|'|
+| | /^\ | |
+|_|_|I|_|_|""".split("\n"), replace_ = False)
+
+mapa_cidade_1 = adjust_image('''&__&&&&&&&&&&&&
+|""|&&___&&&&_& 
+|""|&|"""|&&|"|
+|""|&|"""|&&|"|
+|""|&|"""|&&|"|
+---------------'''.split("\n"), replace_ = False)
+
+mapa_cidade_2 = adjust_image('''&&&&&&___
+&__ &|"""|&&__ 
+|""|&|"""|&|""|
+|""|&|"""|&|""|
+|""|&|"""|&|""|
+----&-----&----&'''.split("\n"), replace_ = False)
+
+mapa_cemiterio = adjust_image("""&&&+
+&&&A_
+&&/\-\\
+&_||"|_
+~^~^~^~^""".split("\n"), replace_ = False)
 
 mapa_lua = adjust_image("""&&&_.._
 &.' .-'`

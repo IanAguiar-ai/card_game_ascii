@@ -54,6 +54,8 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
         if iteracao == 0:
             if 6 <= datetime.now().hour < 18:
                 com_sol = True
+            else:
+                com_sol = False
 
         if com_sol:
             game.add_effects(x = 130, y = 3,
@@ -78,6 +80,40 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                          wait = 0,
                          to_start = 0)
 
+        game.add_effects(x = 92, y = 0,
+                         image = mapa_farol,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 28, y = 0,
+                         image = mapa_castelo,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 45, y = 0,
+                         image = mapa_castelo_2,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 73, y = 30,
+                         image = mapa_cidade_2,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+        
+        game.add_effects(x = 70, y = 32,
+                         image = mapa_cidade_1,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
     
         if "varios_piratas" in memoria["missoes"] or debug:
             game.add_effects(x = 5, y = 11,
@@ -106,7 +142,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
 
         #Nuvem ===================================================
         for i in range(len(pos_nuvem)):
-            if random() < 0.05:
+            if random() < 0.1:
                 if random() > .5:
                     pos_nuvem[i][0] = min(pos_nuvem[i][0] + 1, 125)
                 else:
