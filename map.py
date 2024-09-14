@@ -83,7 +83,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              to_start = 0)
 
         if "objeto_nao_indentificado" in memoria["missoes"] or debug:
-            game.add_effects(x = 12, y = 30,
+            game.add_effects(x = 11, y = 30,
                              image = mapa_espaconave,
                              frames = 1,
                              tipe = None,
