@@ -252,6 +252,10 @@ mapa_espaconave = adjust_image("""&&.
 |.-.|
 '&&&'""".split("\n"), replace_ = True)
 
+mapa_ovni = adjust_image("""&&&__
+.-'HH'-.
+'-.__.-'""".split("\n"))
+
 mapa_lua = adjust_image("""&&&_.._
 &.' .-'`
 /  /

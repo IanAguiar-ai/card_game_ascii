@@ -23,6 +23,9 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
     for i in range(clima[tipo_clima]["nuvem"] * 3):
         pos_nuvem.append([int(random() * 125) + 1, int(random() * 35) + 1])
 
+    if random() < .1:
+        ovni = True
+
     iteracao = 0
     while True:
         game.add_effects(x = 1, y = 0,
@@ -85,6 +88,14 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
         if "objeto_nao_indentificado" in memoria["missoes"] or debug:
             game.add_effects(x = 11, y = 31,
                              image = mapa_espaconave,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+        if ovni and not com_sol:
+            game.add_effects(x = 120, y = 37,
+                             image = mapa_ovni,
                              frames = 1,
                              tipe = None,
                              wait = 0,
