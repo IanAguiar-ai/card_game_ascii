@@ -9,7 +9,8 @@ from game_config import X, Y
 TEMPO = [15, 35, 80, 170]
 
 tipo_clima = "ensolarado"
-clima = {"chuvoso":{"onda":0.9, "nuvem":3},
+clima = {"tempestade":{"onda":0.90, "nuvem":4},
+         "chuvoso":{"onda":0.93, "nuvem":3},
          "nublado":{"onda":0.95, "nuvem":2},
          "ensolarado":{"onda":0.98, "nuvem":1}}
 

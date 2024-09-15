@@ -219,3 +219,13 @@ def missao_cavalo_alado(save, **resto) -> bool:
         if personagem["id"] == "pegasus":
             return True
     return False
+
+def missao_tempestade(save, **resto) -> bool:
+    """
+    Se o usuário acessa o mapa em momento tempestoso e de noite
+    Libera: "Senhor Trovão"
+    """
+    print(resto)
+    if resto["tipo_clima"] == "tempestade" and com_sol == False:
+        return True
+    return False

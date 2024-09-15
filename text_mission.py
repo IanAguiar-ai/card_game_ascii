@@ -49,6 +49,7 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Volta na cidade", None, "vitoria", "carta", "detetive"),
            ("Duelo na neve", missao_duelo_na_neve, "vitoria", "carta", "boneco_de_neve"),
            ("Cavalo alado", missao_cavalo_alado, "vitoria", "carta", "pegasus"),
+           ("Tempestade", missao_tempestade, "mapa", "carta", "senhor_trovao")
            ]
 
 missoes = sorted(missoes, key = lambda x : x[0])
@@ -71,6 +72,7 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
     #Confere se as missões são válidas:
     nova_missao = []
     for missao in missoes_validas:
+        print(missao)
         if missao[1] != None and missao[1](save, **variaveis):
             nova_missao.append(missao[0])
             if len(missao) >= 5:

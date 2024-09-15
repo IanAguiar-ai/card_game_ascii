@@ -29,7 +29,12 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     else:
         ovni = False
 
-    conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima)
+    if 6 <= datetime.now().hour < 18:
+        com_sol = True
+    else:
+        com_sol = False
+
+    conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima, com_sol = com_sol)
 
     iteracao = 0
     while True:
