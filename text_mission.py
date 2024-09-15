@@ -7,6 +7,7 @@ Existem 3 tipos de missões:
 'vitoria' <- confere se tiver ganho
 'derrota' <- confere se tiver perdido
 'loja' <- confere sempre que entrar na loja
+'mapa' <- confere sempre que entrar no mapa
 
 Todos retornos de missão devem retornar True ou False
 
@@ -22,8 +23,8 @@ from missions import *
 from auxiliary_functions import criar_save, ler_save, adicionar_save
 
 missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
-           ("Derrotado", missao_o_derrotado, "loja"),
-           ("Vitorioso", missao_o_vitorioso, "loja"),
+           ("Derrotado", missao_o_derrotado, "loja"), #Não completei pois falta a carta
+           ("Vitorioso", missao_o_vitorioso, "loja"), #Falta decidir
            ("Mestre do Jogo", missao_lenda_das_cartas, "loja"),
            ("Dono da loja", missao_dono_da_loja, "loja", "carta", "dono_da_loja"),
            ("Somos lendários", missao_somos_lendarios, "loja"),

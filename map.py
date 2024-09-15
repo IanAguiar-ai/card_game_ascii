@@ -13,6 +13,7 @@ from arts import *
 from auxiliary_functions import *
 from pure_engine_ascii import Screen
 from translator import translate
+from text_mission import conferir_missoes
 
 def animacao_mapa(memoria:dict, debug:bool = True) -> None:
     pos_ondas = [(1, 1), (10, 2), (20, 10), (1, 14), (112, 1), (122, 5), (102, 7), (102, 32), (125, 40), (80, 40),
@@ -27,6 +28,8 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
         ovni = True
     else:
         ovni = False
+
+    conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima)
 
     iteracao = 0
     while True:
