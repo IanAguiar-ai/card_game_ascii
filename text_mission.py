@@ -41,9 +41,12 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Passando o tempo", missao_passando_o_tempo, "loja", "carta", "mestre_das_horas"),
            ("De dia", missao_de_dia, "loja", "carta", "o_sol"),
            ("De noite", missao_de_noite, "loja", "carta", "a_lua"),
+           ("Conheça o porto", None, "vitoria", "missao", "Terra a vista"),
            ("Terra a vista", None),
+           ("Lançamento adiado", None, "vitoria", "missao", "OVNI"),
            ("OVNI", None),
-           ("Conheço os guerreiros", None),
+           ("Conheço os guerreiros", None, "mapa", "missao", "castelo_flutuante"),
+           ("Volta na cidade", None, "vitoria", "carta", "detetive"),
            ]
 
 missoes = sorted(missoes, key = lambda x : x[0])
@@ -78,7 +81,7 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                 elif missao[3] == "moeda":
                     save["moedas"] = int(save["moedas"]) + int(missao[4])
                 elif missao[3] == "missao":
-                    if type(missao[4]) == list:
+                    if type(missao[4]) == list or type(missao[4]) == tuple:
                         save["missoes"].extend(missao[4])
                     else:
                         save["missoes"] = missao[4]
