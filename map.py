@@ -73,7 +73,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              to_start = 0)        
 
         #Monumentos ===================================================
-        game.add_effects(x = 55, y = 22,
+        game.add_effects(x = 55, y = 20,
                          image = mapa_piramide,
                          frames = 1,
                          tipe = None,
@@ -101,6 +101,13 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                          wait = 0,
                          to_start = 0)
 
+        game.add_effects(x = 65, y = 27,
+                         image = mapa_cidade_3,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
         game.add_effects(x = 73, y = 30,
                          image = mapa_cidade_2,
                          frames = 1,
@@ -114,8 +121,15 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                          tipe = None,
                          wait = 0,
                          to_start = 0)
+
+        game.add_effects(x = 40, y = 33,
+                         image = mapa_fazenda,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
     
-        if "varios_piratas" in memoria["missoes"] or debug:
+        if "terra_a_vista" in memoria["missoes"] or debug:
             game.add_effects(x = 5, y = 11,
                              image = mapa_navio,
                              frames = 1,
@@ -123,13 +137,22 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
-        if "objeto_nao_indentificado" in memoria["missoes"] or debug:
+        if "ovni" in memoria["missoes"] or debug:
             game.add_effects(x = 12, y = 30,
                              image = mapa_espaconave,
                              frames = 1,
                              tipe = None,
                              wait = 0,
                              to_start = 0)
+
+        if "conheco_os_guerreiros" in memoria["missoes"] or debug:
+            game.add_effects(x = 100, y = 33,
+                             image = mapa_castelo_voador,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
 
         if (ovni and not com_sol) or debug:
             game.add_effects(x = 136, y = 14,

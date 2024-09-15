@@ -290,17 +290,46 @@ mapa_cidade_2 = adjust_image('''&&&&&&___
 |""|&|"""|&|""|
 ----&-----&----&'''.split("\n"), replace_ = False)
 
+mapa_cidade_3 = adjust_image("""&.|
+&| |
+&|'|&&&&&&._____
+&|  |&&&&&|.   |'&.---"|
+&|  |&&&&&||   |&_|    |
+|   '-__&&|    ||      |
+|       |&|    ||      |
+"       '.'    '`      |
+------------------------""".split("\n"), replace_ = False)
+
 mapa_cemiterio = adjust_image("""&&&+
 &&&A_
 &&/\-\\
 &_||"|_
 ~^~^~^~^""".split("\n"), replace_ = False)
 
+mapa_castelo_voador = adjust_image("""&&&&&&&&P
+&&&&&P&/\\&&P
+&&&&/\\|  |/\\
+&[]&||_/\\_||&[]
+&||_||____||_||
+&||____[]____||
+{::     \\__    }
+&\\v:    .'"  _V
+&&\\_      __/
+&&&&|::\\ :/
+&&&&&\\::\\/
+&&&&&&&\\/""".split("\n"), replace_ = False)
+
+mapa_fazenda =adjust_image("""&&&&&&&&&&&x
+.-.&_______|
+|=|/     /  \\
+| |_____|_""_|
+|_|_[X]_|____|""".split("\n"), replace_ = False)
+
 mapa_lua = adjust_image("""&&&_.._
 &.' .-'`
 /  /
 |  |
-\  '.___.;
+\\  '.___.;
 &'._  _.'""".split("\n"), replace_ = False)
 
 mapa_nuvem_1 = adjust_image("""   __&&&_
