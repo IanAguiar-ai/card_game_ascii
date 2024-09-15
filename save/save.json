@@ -58,7 +58,7 @@
         "pirata",
         "barba_negra"
     ],
-    "moedas": 8090,
+    "moedas": 8100,
     "deck": [
         "barba_negra",
         "morcego",
@@ -83,5 +83,5 @@
         "De dia"
     ],
     "vitorias": 16,
-    "derrotas": 11
+    "derrotas": 12
 }

@@ -1305,15 +1305,15 @@ impacto_fraco = adjust_image(impacto_fraco, replace_ = True)
 
 caveira = """
    .-"      "-.
-  /            \
+  /            \\
  |              |
  |,  .-.  .-.  ,|
- | )(__/  \__)( |
- |/     /\     \|
+ | )(__/  \\__)( |
+ |/     /\\     \\|
  (_     ^^     _)
-  \__|IIIIII|__/
-   | \IIIIII/ |
-   \          /
+  \\__|IIIIII|__/
+   | \\IIIIII/ |
+   \\          /
     `--------`⠀⠀
 """.split("\n")
 caveira = adjust_image(caveira, replace_ = False)
