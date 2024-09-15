@@ -56,13 +56,14 @@
         "a_lua",
         "o_sol",
         "pirata",
-        "barba_negra"
-    ],
-    "moedas": 8100,
-    "deck": [
         "barba_negra",
+        "boneco_de_neve"
+    ],
+    "moedas": 8140,
+    "deck": [
+        "boneco_de_neve",
         "morcego",
-        "pirata"
+        "lesma"
     ],
     "inventario": [
         "lampada_magica",
@@ -82,6 +83,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 16,
+    "vitorias": 17,
     "derrotas": 12
 }

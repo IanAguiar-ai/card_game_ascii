@@ -189,4 +189,13 @@ def missao_de_noite(save, **resto) -> bool:
     except:
         pass
     return False
- 
+
+def missao_duelo_na_neve(save, **resto) -> bool:
+    """
+    Se o usuário ganha do boneco de neve no mapa
+    Libera: "Boneco de Neve"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "boneco_de_neve":
+            return True
+    return False

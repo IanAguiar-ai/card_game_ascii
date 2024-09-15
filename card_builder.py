@@ -169,7 +169,7 @@ def card_builder():
                              to_start = 0)
 
         game.add_effects(x = x_carta + 1, y = y_carta + 19,
-                         image = put_color_rarity([list(translate(f"{carta['raridade'].title().center(34,'=')}"))],
+                         image = put_color_rarity([list(f"{translate(carta['raridade']).title().center(34,'=')}")],
                                                   rarity = carta["raridade"]),
                          frames = 1,
                          tipe = None,

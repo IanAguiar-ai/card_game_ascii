@@ -383,32 +383,38 @@ def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = 
 
             printar(personagem_inimigo, image)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, curar_todos = False, personagem = None) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, chance:float = 1, si_mesmo:bool = False, curar_todos:bool = False, personagem = None) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
-    if type(vezes) == list:
-        vezes:int = vezes[0]
-        
-    if curar_todos:
-        buffer_(f"Curando todos...")
-        for i in range(len(TIMES)):
-            for j in range(len(TIMES[i])):
-                TIMES[i][j]["hp"] = min(TIMES[i][j]["hp"] + cura + globals()["BUFF_CURA"], TIMES[i][j]["hp_inicial"])
-                printar(TIMES[i][j], image)
-    else:
-        for _ in range(vezes):
-            time_amigo = globals()["TABULEIRO"]
-            if todos:
-                personagens_amigos = globals()["TIMES"][time_amigo]
-            else:
-                personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
+    if random() < chance:
+        if type(vezes) == list:
+            vezes:int = vezes[0]
 
-            for personagem_amigo in personagens_amigos:
-                buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
-                personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
+        if type(cura) == list:
+            cura = cura[0]
+            
+        if curar_todos:
+            buffer_(f"Curando todos...")
+            for i in range(len(TIMES)):
+                for j in range(len(TIMES[i])):
+                    TIMES[i][j]["hp"] = min(TIMES[i][j]["hp"] + cura + globals()["BUFF_CURA"], TIMES[i][j]["hp_inicial"])
+                    printar(TIMES[i][j], image)
+        else:
+            for _ in range(vezes):
+                time_amigo = globals()["TABULEIRO"]
+                if todos:
+                    personagens_amigos = globals()["TIMES"][time_amigo]
+                elif si_mesmo:
+                    personagens_amigos = [personagem]
+                else:
+                    personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
 
-                printar(personagem_amigo, image)             
+                for personagem_amigo in personagens_amigos:
+                    buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
+                    personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
+
+                    printar(personagem_amigo, image)             
 
 def trocar_vida(image:dict, si_mesmo:bool = False, chance:float = 1):
     """
@@ -704,7 +710,7 @@ BUFF_TEMPORARIO = 0
 NERF_TEMPORARIO = 0
 BUFF_CURA = 0
 
-PARTIDA = 0
+PARTIDA = 0 #GLOBAL = turno_atual
 TABULEIRO = 0
 ESCOLHIDO = [0, 0]
 
@@ -2021,7 +2027,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                 "dado":4,
                                 "argumentos":{"dano":20, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                 "nome":"Passe tudo!",
-                                "descricao":f"Dá o 15 de dano em um personagem inimigo aleatório."},
+                                "descricao":f"Dá o 20 de dano em um personagem inimigo aleatório."},
                                {"tipo":"habilidade",
                                 "tempo":"comeco",
                                 "vivo":True,
@@ -2045,7 +2051,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                      "dado":5,
                                      "argumentos":{"dano":10, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                      "nome":"Para prancha!",
-                                     "descricao":f"Dá 10 de dano 2 vezes em personagens inimigos a sua aleatórios."},
+                                     "descricao":f"Dá 10 de dano 2 vezes em personagens inimigos aleatórios."},
                                     {"tipo":"habilidade",
                                      "tempo":"comeco",
                                      "vivo":True,
@@ -2062,26 +2068,25 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                          "hp":120,
                          "preco":4,
                          "classe":"lenda",
-                         "arte":imagem_barba_negra,
+                         "arte":imagem_boneco_de_neve,
                          "raridade":"secreto",
                          "ataques":[{"tipo":"ataque",
                                      "funcao":dano_,
-                                     "dado":5,
-                                     "argumentos":{"dano":10, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                     "nome":"Para prancha!",
-                                     "descricao":f"Dá 10 de dano 2 vezes em personagens inimigos a sua aleatórios."},
+                                     "dado":4,
+                                     "argumentos":{"dano":4, "vezes":turno_atual, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                     "nome":"Nevasca",
+                                     "descricao":f"Dá 4 de dano vezes o número da partida em personagens inimigos aleatórios."},
                                     {"tipo":"habilidade",
+                                     "ataque":True,
+                                     "defesa":False,
                                      "tempo":"comeco",
                                      "vivo":True,
                                      "morto":False,
-                                     "ataque":True,
-                                     "defesa":False,
-                                     "funcao":habilidade_buff_global_dano,
-                                     "argumentos":{"buff":10, "soma_por_caracteristicas":True, "caracteristicas":{"key":"classe", "valor":"assasino", "time_atacante":True, "time_atacado":False},
-                                                   "image":{"image":bandeira_pirata, "frames":4, "wait":50, "to_start":TEMPO[1], "x":2, "y":2}},
-                                     "nome":"Ilha a vista!",
-                                     "descricao":f"Enquanto vivo, todos os personagens do seu lado do campo ganham +10 para cada assassino aliado."}]
-                         },                    
+                                     "funcao":cura_,
+                                     "argumentos":{"cura":120, "chance":0.1, "si_mesmo":True,"image":{"image":floco_neve_2, "frames":4, "wait":80, "to_start":0, "x":1, "y":0}},
+                                     "nome":"Clima de natal",
+                                     "descricao":f"Todo inicio de turno, enquanto vivo, tem 10% de chance de recuperar 120 de vida."}]
+                         },
           }
 
 for carta in CARTAS.keys():
@@ -2091,6 +2096,8 @@ for carta in CARTAS.keys():
     for i in range(len(CARTAS[carta]["arte"])):
         if len(CARTAS[carta]["arte"][i]) > HEIGHT_ART:
             CARTAS[carta]["arte"][i] = CARTAS[carta]["arte"][i][:HEIGHT_ART - 1]
+
+    CARTAS[carta]["id"] = carta
 
 raridades = {}
 for carta in CARTAS.keys():
@@ -2193,7 +2200,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["prototipo_meca"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
-             [CARTAS["o_imitador"].copy(),
+             [CARTAS["boneco_de_neve"].copy(),
               CARTAS["gigante"].copy(),
               CARTAS["cubo"].copy()]]
     
