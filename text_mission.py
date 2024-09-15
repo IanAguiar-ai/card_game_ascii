@@ -44,10 +44,11 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Conheça o porto", None, "vitoria", "missao", "Terra a vista"),
            ("Terra a vista", None, "vitoria", "carta", "barba_negra"),
            ("Lançamento adiado", None, "vitoria", "missao", "OVNI"),
-           ("OVNI", None, "vitoria", "carta", "alien"),
+           ("OVNI", missao_ovni, "vitoria", "carta", "alien"),
            ("Conheço os guerreiros", None, "mapa", "missao", "castelo_flutuante"),
            ("Volta na cidade", None, "vitoria", "carta", "detetive"),
-           ("Duelo na neve", missao_duelo_na_neve, "vitoria", "carta", "boneco_de_neve")
+           ("Duelo na neve", missao_duelo_na_neve, "vitoria", "carta", "boneco_de_neve"),
+           ("Cavalo alado", missao_cavalo_alado, "vitoria", "carta", "pegasus"),
            ]
 
 missoes = sorted(missoes, key = lambda x : x[0])

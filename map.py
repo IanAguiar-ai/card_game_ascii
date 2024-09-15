@@ -15,7 +15,7 @@ from pure_engine_ascii import Screen
 from translator import translate
 from text_mission import conferir_missoes
 
-def animacao_mapa(memoria:dict, debug:bool = True) -> None:
+def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     pos_ondas = [(1, 1), (10, 2), (20, 10), (1, 14), (112, 1), (122, 5), (102, 7), (102, 32), (125, 40), (80, 40),
                  (55, 42), (10, 12), (112, 6), (132, 1), (135, 7), (91, 36), (68, 40), (114, 37), (135, 38)]
 
@@ -152,6 +152,27 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                          tipe = None,
                          wait = 0,
                          to_start = 0)
+
+        game.add_effects(x = 32, y = 26,
+                         image = mapa_maquina_escavar,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 86, y = 21,
+                         image = mapa_pegasus,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 122, y = 26,
+                         image = mapa_vulcao,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
     
         if "terra_a_vista" in memoria["missoes"] or debug:
             game.add_effects(x = 5, y = 11,
@@ -169,7 +190,7 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
-        if "conheco_os_guerreiros" in memoria["missoes"] or debug:
+        if "castelo_flutuante" in memoria["missoes"] or debug:
             game.add_effects(x = 100, y = 33,
                              image = mapa_castelo_voador,
                              frames = 1,
@@ -186,6 +207,23 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
+        #Palmeiras ===============================================
+
+        for x, y in ((114, 14), (122, 16), (130, 15)):
+            game.add_effects(x = x, y = y,
+                             image = mapa_palmeira_1,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
+
+        for x, y in ((111, 19), (117, 17), (126, 18)):
+            game.add_effects(x = x, y = y,
+                             image = mapa_palmeira_2,
+                             frames = 1,
+                             tipe = None,
+                             wait = 0,
+                             to_start = 0)
 
         #Nuvem ===================================================
         for i in range(len(pos_nuvem)):
@@ -236,4 +274,4 @@ if __name__ == "__main__":
     game_t = Thread(target = game.run)
     game_t.start()
 
-    animacao_mapa(memoria_save)
+    animacao_mapa(game, memoria_save)

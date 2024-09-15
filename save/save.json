@@ -57,11 +57,12 @@
         "o_sol",
         "pirata",
         "barba_negra",
-        "boneco_de_neve"
+        "boneco_de_neve",
+        "hidrante"
     ],
     "moedas": 8140,
     "deck": [
-        "boneco_de_neve",
+        "hidrante",
         "morcego",
         "lesma"
     ],

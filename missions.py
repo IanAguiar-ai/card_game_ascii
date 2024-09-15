@@ -190,6 +190,16 @@ def missao_de_noite(save, **resto) -> bool:
         pass
     return False
 
+def missao_ovni(save, **resto) -> bool:
+    """
+    Se o usuário ganha do alien no mapa
+    Libera: "Alien"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "alien":
+            return True
+    return False
+
 def missao_duelo_na_neve(save, **resto) -> bool:
     """
     Se o usuário ganha do boneco de neve no mapa
@@ -197,5 +207,15 @@ def missao_duelo_na_neve(save, **resto) -> bool:
     """
     for personagem in TIMES[0]:
         if personagem["id"] == "boneco_de_neve":
+            return True
+    return False
+
+def missao_cavalo_alado(save, **resto) -> bool:
+    """
+    Se o usuário ganha do pegasus no mapa
+    Libera: "Pegasus"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "pegasus":
             return True
     return False
