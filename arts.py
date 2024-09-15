@@ -1284,13 +1284,13 @@ seta_cima_pequena = adjust_image("""&&&_
 &/   \\
 &&|_|""".split("\n"), replace_ = False)
 
-escudo = """|`-._/\_.-`|
+escudo = """|`-._/\\_.-`|
 |    ||    |
 |___o()o___|
 |__((<>))__|
-\   o\/o   /
- \   ||   /
-  \  ||  /
+\\   o\\/o   /
+ \\   ||   /
+  \\  ||  /
    '.||.'""".split("\n")
 escudo = adjust_image(escudo, replace_ = False)
 
@@ -1351,7 +1351,7 @@ luz = """
 <          >
  `.      .'
    `.  .'
-     \/
+     \\/
 """.split("\n")
 luz = adjust_image(luz, replace_ = True)
 
@@ -1597,13 +1597,13 @@ item_cafe = adjust_image("""    ;)( ;
 item_torta = adjust_image("""
     o8Oo./
 ._o8o8o8Oo_.
- \========/
+ \\========/
   `------'""".split("\n"))
 
 item_lampada_magica = adjust_image("""     _o_
  ,-.'---`.__
 ((j`=====',-
- `-\     /
+ `-\\     /
     `-=-'""".split("\n"))
 
 item_drink = adjust_image("""  |`````|
@@ -1616,7 +1616,7 @@ item_biscoito = adjust_image("""    ,-.
   _(*_*)_
  (_  o  _)
    / o \\
-  (_/ \_)""".split("\n"))
+  (_/ \\_)""".split("\n"))
 
 imagem_profeta_das_arreias = adjust_image("""                        .
               /^\\     .
