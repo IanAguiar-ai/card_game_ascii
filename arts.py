@@ -154,9 +154,9 @@ mapa_base = adjust_image("""                                                    
                    '-._                                                                             _.-'
                        '-.                                                                        _'
                           '-._                                                           ..'-._,-'
-                              '-._                             _.-.                     '.
-                                .-'                         .'     :                     :
-                             .-'                            '-._.--'                  ..-'
+                              '-._                                                      '.
+                                .-'                                                      :
+                             .-'                                                      ..-'
                              '-._                                                     '-._
                                  '-._                                                     '. 
                                      '.                                                     '-._
@@ -243,6 +243,13 @@ mapa_sol = adjust_image("""     .
    / | \ 
      '""".split("\n"), replace_ = True)
 
+mapa_lua = adjust_image("""&&&_.._
+&.' .-'`
+/  /
+|  |
+\\  '.___.;
+&'._  _.'""".split("\n"), replace_ = False)
+
 mapa_espaconave = adjust_image("""&&.
 &.'.
 &|o|
@@ -319,18 +326,55 @@ mapa_castelo_voador = adjust_image("""&&&&&&&&P
 &&&&&\\::\\/
 &&&&&&&\\/""".split("\n"), replace_ = False)
 
-mapa_fazenda =adjust_image("""&&&&&&&&&&&x
+mapa_fazenda = adjust_image("""&&&&&&&&&&&x
 .-.&_______|
 |=|/     /  \\
 | |_____|_""_|
 |_|_[X]_|____|""".split("\n"), replace_ = False)
 
-mapa_lua = adjust_image("""&&&_.._
-&.' .-'`
-/  /
-|  |
-\\  '.___.;
-&'._  _.'""".split("\n"), replace_ = False)
+mapa_trem = adjust_image("""
+           /=/
+        __/=/
+       /::/|
+     _/::/ /
+    /_~/||/
+   [__]/|'
+   / ///
+  (o)|/
+   y//
+  /=/
+ /=/""".split("\n"), replace_ = True)
+
+mapa_loja = adjust_image("""&/^\\
+/^\\/
+| |//""".split("\n"), replace_ = False)
+
+mapa_montanha = adjust_image("""&&&&&&&&_
+&&&&&&&/ \\_&&&&/ \\_
+&&&&&&/    \\&&/    \\,
+&&&&&/\\/\\  /\\/ :' __ \\_
+&&&&/    \\/  \\  _/  \\-'\\_
+&&/\\  .-   `. \\/     \\ / \\
+&/  `-.__ ^   / .-'.--\\   \\
+/        `.  / /       `.  \\""".split("\n"), replace_ = False)
+
+mapa_boneco_de_neve = adjust_image("""&&_==_&_
+_,(",)|_|
+&\/. \\-|
+&( :  )|""".split("\n"), replace_ = False)
+
+mapa_arvore_seca = adjust_image("""           \\/ |    |/
+        \\/ / \\||/  /_/___/_
+         \\/   |/ \\/
+    _\\__\\_\\   |  /_____/_
+           \\  | /          /
+  __ _-----`  |{,-----------~
+            \\ }{
+             }{{
+             }}{
+             {{}
+       , -=-~{ .-^- _
+             `}""".split("\n"), replace_ = True)
 
 mapa_nuvem_1 = adjust_image("""   __&&&_
 &_(  )_( )_
@@ -338,13 +382,12 @@ mapa_nuvem_1 = adjust_image("""   __&&&_
 &&(_) (__)""".split("\n"), replace_ = False)
 
 mapa_nuvem_2 = adjust_image("""&,')
-(_&&)
-""".split("\n"), replace_ = False)
+(_  )""".split("\n"), replace_ = False)
 
 mapa_nuvem_3 = adjust_image("""&&&&.--
-&.=(&&&)
-&(&&&.&&)
-(&&&&(&&))
+&.=(   )
+&(   .  )
+(    (  ))
 &'-&__.'""".split("\n"), replace_ = False)
 
 vitoria = adjust_image(""" /$$      /$$ /$$$$$$ /$$   /$$

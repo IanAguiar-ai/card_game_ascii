@@ -131,6 +131,27 @@ def animacao_mapa(memoria:dict, debug:bool = True) -> None:
                          tipe = None,
                          wait = 0,
                          to_start = 0)
+
+        game.add_effects(x = 18, y = 22,
+                         image = mapa_trem,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 58, y = 5,
+                         image = mapa_montanha,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = 47, y = 8,
+                         image = mapa_boneco_de_neve,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
     
         if "terra_a_vista" in memoria["missoes"] or debug:
             game.add_effects(x = 5, y = 11,
