@@ -189,3 +189,4 @@ def missao_de_noite(save, **resto) -> bool:
     except:
         pass
     return False
+ 

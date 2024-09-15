@@ -54,13 +54,15 @@
         "aranha_rainha",
         "balao",
         "a_lua",
-        "o_sol"
+        "o_sol",
+        "pirata",
+        "barba_negra"
     ],
     "moedas": 8090,
     "deck": [
-        "balao",
-        "genio_da_lampada",
-        "a_lua"
+        "barba_negra",
+        "morcego",
+        "pirata"
     ],
     "inventario": [
         "lampada_magica",
