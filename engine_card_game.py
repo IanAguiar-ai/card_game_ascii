@@ -366,22 +366,23 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     else:
         buffer_(f"Nada aconteceu!")
 
-def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False):
-    if type(vezes) == list:
-        vezes:int = vezes[0]
-        
-    for _ in range(vezes):
-        time_inimigo = (globals()["TABULEIRO"] + 1) % 2
-        if todos:
-            personagens_inimigos = globals()["TIMES"][time_inimigo]
-        else:
-            personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
+def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, chance:float = 1, todos:bool = False, personagem = None):
+    if random() < chance:
+        if type(vezes) == list:
+            vezes:int = vezes[0]
+            
+        for _ in range(vezes):
+            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+            if todos:
+                personagens_inimigos = globals()["TIMES"][time_inimigo]
+            else:
+                personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
-        for personagem_inimigo in personagens_inimigos:
-            buffer_(f"Destruindo {personagem_inimigo['nome']}...")
-            personagem_inimigo["hp"] = 0
+            for personagem_inimigo in personagens_inimigos:
+                buffer_(f"Destruindo {personagem_inimigo['nome']}...")
+                personagem_inimigo["hp"] = 0
 
-            printar(personagem_inimigo, image)
+                printar(personagem_inimigo, image)
 
 def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, chance:float = 1, si_mesmo:bool = False, curar_todos:bool = False, personagem = None) -> None:
     """
@@ -1903,23 +1904,27 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Todo começo de turno, cura 10 de dano de um personagens aliado aleatório 2 vezes."}]
                               },
           "senhor_trovao":{"nome":"Senhor Trovão",
-                                  "hp":90,
-                                  "preco":2,
-                                  "classe":"lenda",
-                                  "arte":imagem_senhor_trovao,
-                                  "raridade":"secreto",
-                                  "ataques":[{"tipo":"ataque",
-                                              "funcao":dano_,
-                                              "dado":4,
-                                              "argumentos":{"dano":menor_ataque, "aleatorio":True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"3 Desejos",
-                                              "descricao":f"Dá o menor dano de ataque da partida 3 vezes em personagens inimigos aleatórios."},
-                                             {"tipo":"ataque",
-                                              "funcao":dano_,
-                                              "dado":6,
-                                              "argumentos":{"dano":maior_ataque, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"Último Desejo",
-                                              "descricao":f"Dá o maior dano de ataque da partida em um personagem inimigo à sua escolha."}]
+                           "hp":80,
+                           "preco":2,
+                           "classe":"lenda",
+                           "arte":imagem_senhor_trovao,
+                           "raridade":"secreto",
+                           "ataques":[{"tipo":"ataque",
+                                       "funcao":dano_,
+                                       "dado":1,
+                                       "argumentos":{"dano":10, "vezes":numero_dado, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                       "nome":"Chuva Forte",
+                                       "descricao":f"Dá 10 de dano vezes o número que caiu no dado em personagens inimigos aleatórios."},
+                                      {"tipo":"habilidade",
+                                       "ataque":True,
+                                       "defesa":False,
+                                       "tempo":"comeco",
+                                       "vivo":True,
+                                       "morto":False,
+                                       "funcao":assasinato_,
+                                       "argumentos":{"chance":0.1, "aleatorio":True, "image":{"image":trovao, "frames":6, "wait":60, "to_start":TEMPO[2], "x":7, "y":7}},
+                                       "nome":"Raio",
+                                       "descricao":f"Todo final de turno aliado, enquanto vivo, tem 10% de destruir um personagem inimigo aleatório."}]
                               },
           "grifo":{"nome":"Grifo",
                                   "hp":90,
@@ -2247,7 +2252,7 @@ if __name__ == "__main__":
     TIMES = [[CARTAS["prototipo_meca"].copy(),
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
-             [CARTAS["boneco_de_neve"].copy(),
+             [CARTAS["senhor_trovao"].copy(),
               CARTAS["gigante"].copy(),
               CARTAS["cubo"].copy()]]
     

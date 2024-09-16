@@ -58,11 +58,12 @@
         "pirata",
         "barba_negra",
         "boneco_de_neve",
-        "hidrante"
-    ],
-    "moedas": 8140,
-    "deck": [
         "hidrante",
+        "senhor_trovao"
+    ],
+    "moedas": 8180,
+    "deck": [
+        "senhor_trovao",
         "morcego",
         "lesma"
     ],
@@ -84,6 +85,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 17,
+    "vitorias": 18,
     "derrotas": 12
 }
