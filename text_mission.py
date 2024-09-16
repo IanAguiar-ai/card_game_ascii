@@ -72,7 +72,6 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
     #Confere se as missões são válidas:
     nova_missao = []
     for missao in missoes_validas:
-        print(missao)
         if missao[1] != None and missao[1](save, **variaveis):
             nova_missao.append(missao[0])
             if len(missao) >= 5:
