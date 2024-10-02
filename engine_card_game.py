@@ -469,7 +469,7 @@ def copiar_atributo(image:dict, atributo:list ,aleatorio:bool = False, copia_com
 #-------------------------------------------------------------------------------------
 #Funções de habilidade:
 
-def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None) -> None:
+def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, chance:float = 1) -> None:
     """
     Da um buff...
 
@@ -479,6 +479,10 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
         "time_atacante":True,
         "time_atacado":False}
     """
+    if not (random() < chance):
+        buffer_(f"Nada aconteceu!")
+        return None
+    
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
             globals()["BUFF_TEMPORARIO"] += buff
@@ -1946,23 +1950,27 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                               "descricao":f"Dá o maior dano de ataque da partida em um personagem inimigo à sua escolha."}]
                               },
           "detetive":{"nome":"Detetive",
-                                  "hp":90,
+                                  "hp":70,
                                   "preco":2,
-                                  "classe":"noturno",
+                                  "classe":"humano",
                                   "arte":imagem_detetive,
                                   "raridade":"secreto",
                                   "ataques":[{"tipo":"ataque",
                                               "funcao":dano_,
                                               "dado":4,
-                                              "argumentos":{"dano":menor_ataque, "aleatorio":True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"3 Desejos",
-                                              "descricao":f"Dá o menor dano de ataque da partida 3 vezes em personagens inimigos aleatórios."},
-                                             {"tipo":"ataque",
-                                              "funcao":dano_,
-                                              "dado":6,
-                                              "argumentos":{"dano":maior_ataque, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                              "nome":"Último Desejo",
-                                              "descricao":f"Dá o maior dano de ataque da partida em um personagem inimigo à sua escolha."}]
+                                              "argumentos":{"dano":10, "aleatorio":True, "vezes":3, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                              "nome":"Queima Roupa",
+                                              "descricao":f"Dá 10 dano 3 vezes em personagens inimigos aleatórios."},
+                                             {"tipo":"habilidade",
+                                              "ataque":True,
+                                              "defesa":False,
+                                              "tempo":"comeco",
+                                              "vivo":True,
+                                              "morto":False,
+                                              "funcao":habilidade_buff_global_dano,
+                                              "argumentos":{"buff":30, "chance":0.25 ,"image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":12, "y":5}},
+                                              "nome":"Investigação",
+                                              "descricao":f"Enquanto vivo, tem 25% de chance de que os personagens do seu lado do campo de +30 de dano."}]
                               },
           "alien":{"nome":"Alien",
                                   "hp":90,

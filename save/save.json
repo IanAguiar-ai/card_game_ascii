@@ -59,11 +59,12 @@
         "barba_negra",
         "boneco_de_neve",
         "hidrante",
-        "senhor_trovao"
-    ],
-    "moedas": 8180,
-    "deck": [
         "senhor_trovao",
+        "detetive"
+    ],
+    "moedas": 8220,
+    "deck": [
+        "detetive",
         "morcego",
         "lesma"
     ],
@@ -85,6 +86,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 18,
+    "vitorias": 19,
     "derrotas": 12
 }
