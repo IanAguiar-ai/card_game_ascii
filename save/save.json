@@ -61,13 +61,14 @@
         "hidrante",
         "senhor_trovao",
         "detetive",
-        "rei_carangueijo"
-    ],
-    "moedas": 8240,
-    "deck": [
         "rei_carangueijo",
-        "morcego",
-        "genio_da_lampada"
+        "soldado_romano"
+    ],
+    "moedas": 8280,
+    "deck": [
+        "soldado_romano",
+        "soldado_romano",
+        "soldado_romano"
     ],
     "inventario": [
         "lampada_magica",
@@ -87,6 +88,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 19,
+    "vitorias": 20,
     "derrotas": 14
 }
