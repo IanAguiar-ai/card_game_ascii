@@ -231,8 +231,8 @@ def missao_tempestade(save, **resto) -> bool:
 
 def missao_detetive(save, **resto) -> bool:
     """
-    Se o usuário ganha do pegasus no mapa
-    Libera: "Rei Carangueijo"
+    Se o usuário ganha do Detetive no mapa
+    Libera: "Detetive"
     """
     for personagem in TIMES[0]:
         if personagem["id"] == "detetive":
@@ -241,10 +241,20 @@ def missao_detetive(save, **resto) -> bool:
 
 def missao_rei_carangueijo(save, **resto) -> bool:
     """
-    Se o usuário ganha do pegasus no mapa
+    Se o usuário ganha do Rei Carangueijo no mapa
     Libera: "Rei Carangueijo"
     """
     for personagem in TIMES[0]:
         if personagem["id"] == "rei_carangueijo":
+            return True
+    return False
+
+def missao_barba_negra(save, **resto) -> bool:
+    """
+    Se o usuário ganha do Barba Negra no mapa
+    Libera: "Barba Negra"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "barba_negra":
             return True
     return False
