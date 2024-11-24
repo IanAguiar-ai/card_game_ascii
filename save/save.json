@@ -60,13 +60,14 @@
         "boneco_de_neve",
         "hidrante",
         "senhor_trovao",
-        "detetive"
-    ],
-    "moedas": 8220,
-    "deck": [
         "detetive",
+        "rei_carangueijo"
+    ],
+    "moedas": 8240,
+    "deck": [
+        "rei_carangueijo",
         "morcego",
-        "lesma"
+        "genio_da_lampada"
     ],
     "inventario": [
         "lampada_magica",
@@ -87,5 +88,5 @@
         "De dia"
     ],
     "vitorias": 19,
-    "derrotas": 12
+    "derrotas": 14
 }

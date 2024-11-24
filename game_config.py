@@ -33,4 +33,4 @@ SLEEP_DICE:float = 0
 
 USE_MODS:bool = False
 
-LANGUAGE = "ing"#"pt"
+LANGUAGE = "pt"

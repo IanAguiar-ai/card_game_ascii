@@ -228,3 +228,23 @@ def missao_tempestade(save, **resto) -> bool:
     if resto["tipo_clima"] == "tempestade" and com_sol == False:
         return True
     return False
+
+def missao_detetive(save, **resto) -> bool:
+    """
+    Se o usuário ganha do pegasus no mapa
+    Libera: "Rei Carangueijo"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "detetive":
+            return True
+    return False
+
+def missao_rei_carangueijo(save, **resto) -> bool:
+    """
+    Se o usuário ganha do pegasus no mapa
+    Libera: "Rei Carangueijo"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "rei_carangueijo":
+            return True
+    return False
