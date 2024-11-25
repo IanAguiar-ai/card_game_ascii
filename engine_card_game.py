@@ -88,12 +88,14 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
 
         #Escolhedo o personagem que atacara nesse round
         personagem_atual = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+        globals()["personagem_atual"] = personagem_atual
 
         n = 0
         while personagem_atual["hp"] <= 0 and n < 3:
             buffer_(f"Pulando personagem {personagem_atual['nome']}...")
             globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
             personagem_atual = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+            globals()["personagem_atual"] = personagem_atual
             n += 1
         
         if n >= 3: #Termina o jogo
@@ -1949,7 +1951,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                "ataque":False,
                                "defesa":True,
                                "funcao":habilidade_nerf_global_dano,
-                               "argumentos":{"buff":10, "apenas_caracteristico":True, "caracteristicas":{"key":"nome", "valor":"grifo"},
+                               "argumentos":{"buff":10, "apenas_caracteristico":True, "caracteristicas":{"key":"nome", "valor":"Grifo"},
                                              "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                "nome":"Couro grosso",
                                "descricao":f"Enquanto vivo, recebe -10 de dano de qualquer ataque."}]
