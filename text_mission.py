@@ -51,6 +51,7 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Cavalo alado", missao_cavalo_alado, "vitoria", "carta", "pegasus"),
            ("Tempestade", missao_tempestade, "mapa", "carta", "senhor_trovao"),
            ("Rei do deserto", missao_rei_carangueijo, "vitoria", "carta", "rei_carangueijo"),
+           ("Criatura antiga", missao_grifo, "vitoria", "carta", "grifo"),
            ]
 
 missoes = sorted(missoes, key = lambda x : x[0])

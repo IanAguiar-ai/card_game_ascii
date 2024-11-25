@@ -258,3 +258,13 @@ def missao_barba_negra(save, **resto) -> bool:
         if personagem["id"] == "barba_negra":
             return True
     return False
+
+def missao_grifo(save, **resto) -> bool:
+    """
+    Se o usuário ganha do Grifo no mapa
+    Libera: "grifo"
+    """
+    for personagem in TIMES[0]:
+        if personagem["id"] == "grifo":
+            return True
+    return False
