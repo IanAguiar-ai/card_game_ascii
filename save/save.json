@@ -67,7 +67,8 @@
         "grifo",
         "o_cozinheiro"
     ],
-    "moedas": 8520,
+    "moedas": 8280,
+    "exp": 135,
     "deck": [
         "o_cozinheiro",
         "rei_carangueijo",

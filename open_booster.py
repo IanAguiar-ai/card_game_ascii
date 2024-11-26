@@ -9,8 +9,7 @@ from auxiliary_functions import criar_save, ler_save, adicionar_save, clear_all
 from pure_engine_ascii import Screen
 from translator import translate
 
-def abrir_pacote() -> None:
-    chances = [0.02, 0.08, 0.30, 0.60]
+def abrir_pacote(chances:list = [0.02, 0.08, 0.30, 0.60]) -> None:
     chances = [sum(chances[0:i+1]) for i in range(0, len(chances))]
     raridade = ["lendario", "epico", "raro", "comum"]
 
@@ -29,7 +28,7 @@ def abrir_pacote() -> None:
 
     return abrir, carta
 
-def abrir_pacote_com_carta() -> None:
+def abrir_pacote_com_carta(chances:list = [0.02, 0.08, 0.30, 0.60], moedas:int = 100, exp:int = 0) -> None:
     game = Screen(x = X, y = Y, fps = FPS, campo = campo)      
 
     game.buffer_text = translate(f"Aperte qualquer tecla para abrir o pacote...")
@@ -38,7 +37,7 @@ def abrir_pacote_com_carta() -> None:
     game_t.start()
 
     #game.effects = {}
-    raridade, carta = abrir_pacote()
+    raridade, carta = abrir_pacote(chances)
 
     if raridade == "comum":
         imagem_verso = verso_comum
@@ -131,7 +130,17 @@ def abrir_pacote_com_carta() -> None:
     else:
         if not carta[0] in save_atual["cartas"]:
             save_atual["cartas"].append(carta[0])
-        save_atual["moedas"] -= 100
+        else:
+            if carta_descoberta['raridade'] == "comum":
+                save_atual["exp"] += 5
+            elif carta_descoberta['raridade'] == "raro":
+                save_atual["exp"] += 10
+            elif carta_descoberta['raridade'] == "epico":
+                save_atual["exp"] += 25
+            elif carta_descoberta['raridade'] == "lendario":
+                save_atual["exp"] += 60
+        save_atual["moedas"] -= moedas
+        save_atual["moedas"] -= exp
         adicionar_save(save_atual)
             
     input()

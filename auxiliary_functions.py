@@ -195,7 +195,7 @@ def criar_save() -> dict:
     """
     Cria o save
     """
-    data = {"cartas": [], "moedas": 1000, "deck":None, "inventario":[], "missoes":[], "vitorias":0, "derrotas":0}
+    data = {"cartas":[], "moedas":1000, "exp":0, "deck":None, "inventario":[], "missoes":[], "vitorias":0, "derrotas":0}
     with open(SAVE_SAVE, "w") as json_file:
         json.dump(data, json_file, indent = 4)
     return data
@@ -218,3 +218,13 @@ def adicionar_save(data:dict) -> None:
     with open(SAVE_SAVE, "w") as json_file:
         json.dump(data, json_file, indent = 4)  
 
+def RANDOM_DIA() -> float:
+    """
+    Valor de 0 a 1
+    """
+    return random()
+
+def BOOSTER_DO_DIA() -> dict:
+    lista_boosters:list = list(BOOSTERS_ESPECIAIS.keys())
+    nome_booster = lista_boosters[int(RANDOM_DIA()*len(lista_boosters))]
+    return BOOSTERS_ESPECIAIS[nome_booster]
