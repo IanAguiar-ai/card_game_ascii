@@ -66,7 +66,7 @@
         "pegasus",
         "grifo"
     ],
-    "moedas": 8320,
+    "moedas": 8440,
     "deck": [
         "soldado_romano",
         "morcego",
@@ -90,6 +90,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 21,
+    "vitorias": 24,
     "derrotas": 14
 }
