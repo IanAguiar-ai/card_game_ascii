@@ -43,7 +43,7 @@ def loop_buffer_() -> None:
     """
     while not globals()["QUEBRA_LOOP_TEXTO"]:
         if globals()["BUFFER_TEXTO"] != "":
-            i = min(int(random()*10) + int((len(globals()["BUFFER_TEXTO"]) + 0.5)/2), len(globals()["BUFFER_TEXTO"]) + 1)
+            i = min(int(random()*5) + int((len(globals()["BUFFER_TEXTO"]) + 0.5)/2), len(globals()["BUFFER_TEXTO"]) + 1)
             texto = globals()["BUFFER_TEXTO"][:i]
             globals()["BUFFER_TEXTO"] = globals()["BUFFER_TEXTO"][i:]
             
