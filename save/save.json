@@ -64,13 +64,14 @@
         "rei_carangueijo",
         "soldado_romano",
         "pegasus",
-        "grifo"
+        "grifo",
+        "o_cozinheiro"
     ],
-    "moedas": 8440,
+    "moedas": 8520,
     "deck": [
-        "soldado_romano",
-        "morcego",
-        "grifo"
+        "o_cozinheiro",
+        "rei_carangueijo",
+        "hidrante"
     ],
     "inventario": [
         "lampada_magica",
@@ -90,6 +91,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 24,
+    "vitorias": 26,
     "derrotas": 14
 }

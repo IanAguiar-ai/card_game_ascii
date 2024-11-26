@@ -43,7 +43,7 @@ def loop_buffer_() -> None:
     """
     while not globals()["QUEBRA_LOOP_TEXTO"]:
         if globals()["BUFFER_TEXTO"] != "":
-            i = min(int(random()*5) + int((len(globals()["BUFFER_TEXTO"]) + 0.5)/2), len(globals()["BUFFER_TEXTO"]) + 1)
+            i = min(int(random()*5) + int((len(globals()["BUFFER_TEXTO"])*3)/4), len(globals()["BUFFER_TEXTO"]) + 1)
             texto = globals()["BUFFER_TEXTO"][:i]
             globals()["BUFFER_TEXTO"] = globals()["BUFFER_TEXTO"][i:]
             
@@ -54,7 +54,7 @@ def loop_buffer_() -> None:
                 if len(game.buffer_text.split("\n")) > 9:
                     game.buffer_text = game.buffer_text[game.buffer_text.find("\n") + 1:]
                 
-        sleep(1/FPS)
+        sleep(0.9/FPS)
                 
 
 def jogar(TIMES:list, graphic:bool = True) -> None:
@@ -399,7 +399,7 @@ def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, chance:float 
 
                 printar(personagem_inimigo, image)
 
-def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, chance:float = 1, si_mesmo:bool = False, curar_todos:bool = False, personagem = None) -> None:
+def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, chance:float = 1, si_mesmo:bool = False, curar_todos:bool = False, multiplicador:int = None, personagem = None) -> None:
     """
     Cura um personagem amigo, pode ser aleatorio ou não
     """
@@ -409,6 +409,12 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
 
         if type(cura) == list:
             cura = cura[0]
+
+        if type(multiplicador) == list:
+            multiplicador:int = multiplicador[0]
+
+        if multiplicador != None:
+            cura *= multiplicador
             
         if curar_todos:
             buffer_(f"Curando todos...")
@@ -540,7 +546,7 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
         "time_atacado":False}
     """
     if not (random() < chance):
-        buffer_(f"Nada aconteceu!")
+        buffer_(f"Nenhuma iteração...")
         return None
         
     if type(buff) == list:
@@ -610,6 +616,17 @@ def habilidade_acao(funcao, argumentos_funcao:dict, personagem, image:dict) -> N
 
     funcao(**argumentos_funcao)
 
+def habilidade_buff_global_cura(personagem, buff:int, image:dict, chance:float = 1) -> None:
+    """
+    Buffa de cura
+    """
+    if random() < chance:
+        buffer_(f"Buff de cura de +{buff}...")
+        globals()["BUFF_CURA"] += buff
+        printar(personagem, image)
+    else:
+        buffer_(f"Nenhuma iteração...")
+
 def habilidade_buff_global_dado(personagem, buff:int, image:dict, chance:float = 1) -> None:
     """
     Buffa o dado
@@ -618,6 +635,8 @@ def habilidade_buff_global_dado(personagem, buff:int, image:dict, chance:float =
         buffer_(f"Somando {buff} ao dado...")
         globals()["BUFF_DADO"] += buff
         printar(personagem, image)
+    else:
+        buffer_(f"Nenhuma iteração...")
 
 def habilidade_nerf_global_dado(personagem, buff:int, image:dict, chance:float = 1) -> None:
     """
@@ -627,6 +646,8 @@ def habilidade_nerf_global_dado(personagem, buff:int, image:dict, chance:float =
         buffer_(f"Subtraindo {buff} ao dado...")
         globals()["NERF_DADO"] -= buff
         printar(personagem, image)
+    else:
+        buffer_(f"Nenhuma iteração...")
 
 def adicionar_habilidade(funcao:dict, image:dict) -> None:
     """
@@ -2193,6 +2214,38 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                      "raridade":"epico",
                      "ataques":[]
                      },
+          "o_cozinheiro":{"nome":"O Cozinheiro",
+                          "hp":80,
+                          "preco":2,
+                          "classe":"humano",
+                          "arte":imagem_cozinheiro,
+                          "raridade":"secreto",
+                          "ataques":[{"tipo":"ataque",
+                                      "funcao":dano_,
+                                      "dado":5,
+                                      "argumentos":{"dano":40, "aleatorio": False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                      "nome":"Prato Quente",
+                                      "descricao":f"Dá 40 de dano a um personagem inimigo à sua escolha."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"comeco",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":True,
+                                      "funcao":habilidade_buff_global_cura,
+                                      "argumentos":{"buff":30, "chance":0.4, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Especiarias",
+                                      "descricao":f"Enquanto vivo, todos tem 40% de chance de ganhar um buff em cura de +30."},
+                                     {"tipo":"habilidade",
+                                      "tempo":"final",
+                                      "vivo":True,
+                                      "morto":False,
+                                      "ataque":True,
+                                      "defesa":False,
+                                      "funcao":cura_,
+                                      "argumentos":{"cura":numero_dado, "multiplicador":5, "aleatorio": True, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
+                                      "nome":"Culinária Especial",
+                                      "descricao":f"Enquanto vivo, no final do turno aliado, cure 5 vezes o número que caiu no dado."},]}
           }
 
 for carta in CARTAS.keys():
