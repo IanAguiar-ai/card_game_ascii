@@ -177,7 +177,8 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         memoria_save = ler_save()
         if memoria_save == None:
             memoria_save = criar_save()
-            
+
+        memoria_save["exp"] += 3
         memoria_save["moedas"] += 40
         memoria_save["vitorias"] += 1
         adicionar_save(memoria_save)
@@ -196,7 +197,8 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         memoria_save = ler_save()
         if memoria_save == None:
             memoria_save = criar_save()
-            
+
+        memoria_save["exp"] += 1
         memoria_save["moedas"] += 10
         memoria_save["derrotas"] += 1
         adicionar_save(memoria_save)
