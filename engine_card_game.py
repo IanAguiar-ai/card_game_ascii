@@ -39,7 +39,7 @@ def cl() -> None:
 def buffer_(texto:str, end:str = "\n") -> None:
     globals()["BUFFER_TEXTO"] += f"{texto}{end}"
 
-    i = len(globals()["BUFFER_TEXTO"]) + 1 #min(10 + int((len(globals()["BUFFER_TEXTO"])*0.8)), len(globals()["BUFFER_TEXTO"]) + 1)
+    i = len(globals()["BUFFER_TEXTO"]) + 1
     texto = globals()["BUFFER_TEXTO"][:i]
     globals()["BUFFER_TEXTO"] = globals()["BUFFER_TEXTO"][i:]
     
