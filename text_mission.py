@@ -30,7 +30,7 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Somos lendários", missao_somos_lendarios, "loja"),
            ("Homem comum", missao_homem_comum, "loja"),
            ("Duelo especial", missao_duelo_especial, "inicio"),
-           ("Massacre", missao_massacre, "vitoria"),
+           ("Massacre", missao_massacre, "vitoria", "exp", 50),
            ("Parece impossível", missao_parece_impossivel, "vitoria"),
            ("Zerado", missao_zerado, "loja"),
            ("Livro cheio", missao_livro_cheio, "loja"),
@@ -85,6 +85,8 @@ def conferir_missoes(tipo:str, save:dict, **variaveis) -> dict:
                         save["inventario"].append(missao[4])
                 elif missao[3] == "moeda":
                     save["moedas"] = int(save["moedas"]) + int(missao[4])
+                elif missao[3] == "exp":
+                    save["exp"] = int(save["exp"]) + int(missao[4])
                 elif missao[3] == "missao":
                     if type(missao[4]) == list or type(missao[4]) == tuple:
                         save["missoes"].extend(missao[4])
