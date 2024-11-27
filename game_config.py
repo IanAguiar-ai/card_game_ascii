@@ -35,8 +35,8 @@ USE_MODS:bool = False
 
 LANGUAGE = "pt"
 
-BOOSTERS_ESPECIAIS = {"comum":{"nome":"Comum", "moedas":40, "exp":0, "chances":[0, 0, 0, 1]},
-                      "raro":{"nome":"Raro", "moedas":200, "exp":0, "chances":[0, 0, 1, 0]},
-                      "epico":{"nome":"Épico", "moedas":800, "exp":0, "chances":[0, 1, 0, 0]},
-                      "sorte":{"nome":"Sorte", "moedas":0, "exp":100, "chances":[0.2, 0.3, 0.3, 0.2]},
-                      "lendario":{"nome":"Lendário", "moedas":1000, "exp":100, "chances":[1, 0, 0, 0]}}
+BOOSTERS_ESPECIAIS = {"comum":{"nome":"bosster comum", "moedas":40, "exp":0, "chances":[0, 0, 0, 1]},
+                      "raro":{"nome":"booster raro", "moedas":200, "exp":0, "chances":[0, 0, 1, 0]},
+                      "epico":{"nome":"booster épico", "moedas":800, "exp":0, "chances":[0, 1, 0, 0]},
+                      "sorte":{"nome":"booster da sorte", "moedas":0, "exp":100, "chances":[0.2, 0.3, 0.4, 0.1]},
+                      "lendario":{"nome":"booster lendário", "moedas":1000, "exp":100, "chances":[1, 0, 0, 0]}}

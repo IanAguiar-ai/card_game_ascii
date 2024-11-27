@@ -140,7 +140,7 @@ def abrir_pacote_com_carta(chances:list = [0.02, 0.08, 0.30, 0.60], moedas:int =
             elif carta_descoberta['raridade'] == "lendario":
                 save_atual["exp"] += 60
         save_atual["moedas"] -= moedas
-        save_atual["moedas"] -= exp
+        save_atual["exp"] -= exp
         adicionar_save(save_atual)
             
     input()
