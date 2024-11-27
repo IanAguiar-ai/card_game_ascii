@@ -1,6 +1,8 @@
-from random import random
+from random import random, seed
 import json
 import os
+from datetime import datetime
+
 from game_config import *
 
 def to_list(text:str) -> list:
@@ -222,6 +224,8 @@ def RANDOM_DIA() -> float:
     """
     Valor de 0 a 1
     """
+    data_atual = datetime.now().strftime("%Y-%m-%d")
+    seed(data_atual)
     return random()
 
 def BOOSTER_DO_DIA() -> dict:

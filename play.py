@@ -382,7 +382,7 @@ def entrar_loja() -> None:
     #Conferir as missões da loja:
     conferir_missoes(tipo = "loja", save = memoria_save)
     
-    texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nEXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
+    texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m | EXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
     game.buffer_text = texto_loja
     thread_animacao_loja = Thread(target = animacao_loja)
     thread_animacao_loja.start()
@@ -396,7 +396,7 @@ def entrar_loja() -> None:
             resposta = int(resposta)
         except:
             pass
-        if type(resposta) == int and 1 <= resposta <= 4:
+        if type(resposta) == int and 1 <= resposta <= 5:
                 
             if resposta == 1 and len(memoria_save["cartas"]) >= 3: #Escolher o deck
                 globals()["gatilho_loja"] = False
@@ -425,7 +425,7 @@ def entrar_loja() -> None:
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 memoria_save = ler_save()
-                texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nEXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
+                texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m | EXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
             elif resposta == 3 and memoria_save["moedas"] >= booster_do_dia["moedas"] and memoria_save["exp"] >= booster_do_dia["exp"]:
                 globals()["gatilho_loja"] = False
                 thread_animacao_loja.join()
@@ -439,7 +439,7 @@ def entrar_loja() -> None:
                 thread_animacao_loja = Thread(target = animacao_loja)
                 thread_animacao_loja.start()
                 memoria_save = ler_save()
-                texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m\nEXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
+                texto_loja = translate(f"MOEDAS: \033[93m{memoria_save['moedas']}\033[0m | EXP: \033[94m{memoria_save['exp']}\033[0m\nCARTAS OBTIDAS: {len(memoria_save['cartas'])}/{len(CARTAS)}\n\nAperte:\n(1) Para escolher o deck\n(2) Para comprar booster \033[93m(100 moedas)\033[0m\n(3) Para comprar booster especial ({booster_do_dia['nome']}) (Preço: {booster_do_dia['moedas']} moedas + {booster_do_dia['exp']} exp)\n(4) Inventário\n(5) Para sair da loja")
 
             elif resposta == 4:
                 globals()["gatilho_loja"] = False
