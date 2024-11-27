@@ -33,9 +33,24 @@ def cl() -> None:
     Limpa o texto do buffer
     """
     buffer_("§")
+    #sleep(1/FPS)
+    #game.animation = True
 
 def buffer_(texto:str, end:str = "\n") -> None:
     globals()["BUFFER_TEXTO"] += f"{texto}{end}"
+
+    i = len(globals()["BUFFER_TEXTO"]) + 1 #min(10 + int((len(globals()["BUFFER_TEXTO"])*0.8)), len(globals()["BUFFER_TEXTO"]) + 1)
+    texto = globals()["BUFFER_TEXTO"][:i]
+    globals()["BUFFER_TEXTO"] = globals()["BUFFER_TEXTO"][i:]
+    
+    if DEBUG:
+        print(texto)
+    else:
+        game.buffer_text += f"{texto.replace('§', '')}"
+        if len(game.buffer_text.split("\n")) > 9:
+            game.buffer_text = game.buffer_text[game.buffer_text.find("\n") + 1:]
+            game.animation = True
+            
 
 def loop_buffer_() -> None:
     """
@@ -43,7 +58,7 @@ def loop_buffer_() -> None:
     """
     while not globals()["QUEBRA_LOOP_TEXTO"]:
         if globals()["BUFFER_TEXTO"] != "":
-            i = min(int(random()*5) + int((len(globals()["BUFFER_TEXTO"])*3)/4), len(globals()["BUFFER_TEXTO"]) + 1)
+            i = len(globals()["BUFFER_TEXTO"]) + 1 #min(10 + int((len(globals()["BUFFER_TEXTO"])*0.8)), len(globals()["BUFFER_TEXTO"]) + 1)
             texto = globals()["BUFFER_TEXTO"][:i]
             globals()["BUFFER_TEXTO"] = globals()["BUFFER_TEXTO"][i:]
             
@@ -53,8 +68,9 @@ def loop_buffer_() -> None:
                 game.buffer_text += f"{texto.replace('§', '')}"
                 if len(game.buffer_text.split("\n")) > 9:
                     game.buffer_text = game.buffer_text[game.buffer_text.find("\n") + 1:]
-                
-        sleep(0.9/FPS)
+                    game.animation = True
+                    
+        sleep(1/FPS)
                 
 
 def jogar(TIMES:list, graphic:bool = True) -> None:
@@ -64,8 +80,8 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
     from text_mission import conferir_missoes
     globals()["BUFFER_TEXTO"] = ""
     globals()["QUEBRA_LOOP_TEXTO"] = False
-    thread_texto = Thread(target = loop_buffer_)
-    thread_texto.start()
+    #thread_texto = Thread(target = loop_buffer_)
+    #thread_texto.start()
 
     if graphic == True:
         if not "game" in globals():
