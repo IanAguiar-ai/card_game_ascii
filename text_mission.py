@@ -27,7 +27,7 @@ missoes = [("Estou rico!", missao_moedas, "loja", "carta", "mr_money"),
            ("Vitorioso", missao_o_vitorioso, "loja"), #Falta decidir
            ("Mestre do Jogo", missao_lenda_das_cartas, "loja"),
            ("Dono da loja", missao_dono_da_loja, "loja", "carta", "dono_da_loja"),
-           ("Somos lendários", missao_somos_lendarios, "loja"),
+           ("Somos lendários", missao_somos_lendarios, "loja", "exp", 200),
            ("Homem comum", missao_homem_comum, "loja"),
            ("Duelo especial", missao_duelo_especial, "inicio"),
            ("Massacre", missao_massacre, "vitoria", "exp", 50),
