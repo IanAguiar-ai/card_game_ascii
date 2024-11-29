@@ -114,7 +114,6 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
 
     posicao_atual = jogos["mapa_farol"]
     
-    
     if random() < .1:
         ovni = True
     else:
