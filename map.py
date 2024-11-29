@@ -46,7 +46,8 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
                   "mapa_espaconave": {"x":12, "y":30},
                   "mapa_castelo_voador": {"x":100, "y":33},
                   "mapa_ovni": {"x":136, "y":14},
-                  "mapa_oasis": {"x":45, "y":20},}
+                  "mapa_oasis": {"x":40, "y":22},
+                  "mapa_praia": {"x":122, "y":16}}
 
     #Nuvens
     pos_nuvem = []
@@ -77,6 +78,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
     jogos["mapa_espaconave"].time = None
     jogos["mapa_castelo_voador"].time = None
     jogos["mapa_ovni"].time = None
+    jogos["mapa_praia"].time = None
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
@@ -102,15 +104,55 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
     jogos["mapa_oasis"].l = jogos["mapa_trem"]
     jogos["mapa_oasis"].d = jogos["mapa_maquina_escavar"]
 
+    jogos["mapa_boneco_de_neve"].r = jogos["mapa_montanha"]
+    jogos["mapa_boneco_de_neve"].u = jogos["mapa_castelo_2"]
+    jogos["mapa_boneco_de_neve"].d = jogos["mapa_oasis"]
+
     jogos["mapa_trem"].l = jogos["mapa_espaconave"]
     jogos["mapa_trem"].d = jogos["mapa_espaconave"]
     jogos["mapa_trem"].r = jogos["mapa_maquina_escavar"]
     jogos["mapa_trem"].u = jogos["mapa_oasis"]
 
+    jogos["mapa_espaconave"].u = jogos["mapa_trem"]
+    jogos["mapa_espaconave"].r = jogos["mapa_trem"]
+
     jogos["mapa_maquina_escavar"].u = jogos["mapa_oasis"]
     jogos["mapa_maquina_escavar"].l = jogos["mapa_trem"]
     jogos["mapa_maquina_escavar"].d = jogos["mapa_fazenda"]
     jogos["mapa_maquina_escavar"].r = jogos["mapa_cidade"]
+
+    jogos["mapa_fazenda"].u = jogos["mapa_maquina_escavar"]
+    jogos["mapa_fazenda"].l = jogos["mapa_espaconave"]
+    jogos["mapa_fazenda"].r = jogos["mapa_cidade"]
+
+    jogos["mapa_cidade"].u = jogos["mapa_piramide"]
+    jogos["mapa_cidade"].l = jogos["mapa_fazenda"]
+    jogos["mapa_cidade"].r = jogos["mapa_pegasus"]
+
+    jogos["mapa_pegasus"].l = jogos["mapa_piramide"]
+    jogos["mapa_pegasus"].d = jogos["mapa_cidade"]
+    jogos["mapa_pegasus"].r = jogos["mapa_vulcao"]
+    jogos["mapa_pegasus"].u = jogos["mapa_montanha"]
+
+    jogos["mapa_vulcao"].l = jogos["mapa_pegasus"]
+    jogos["mapa_vulcao"].u = jogos["mapa_praia"]
+
+    jogos["mapa_praia"].d = jogos["mapa_vulcao"]
+    jogos["mapa_praia"].l = jogos["mapa_pegasus"]
+
+    #Especiais
+    jogos["mapa_ovni"].d = jogos["mapa_praia"]
+    
+    jogos["mapa_sol"].u = jogos["mapa_ovni"]
+    jogos["mapa_lua"].u = jogos["mapa_ovni"]
+
+    jogos["mapa_navio"].u = jogos["mapa_castelo"]
+    jogos["mapa_navio"].d = jogos["mapa_trem"]
+    jogos["mapa_navio"].r = jogos["mapa_oasis"]
+
+    jogos["mapa_castelo_voador"].l = jogos["mapa_cidade"]
+    jogos["mapa_castelo_voador"].r = jogos["mapa_vulcao"]
+    jogos["mapa_castelo_voador"].u = jogos["mapa_pegasus"]
 
     posicao_atual = jogos["mapa_farol"]
     
@@ -121,21 +163,29 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
 
     if 6 <= datetime.now().hour < 18:
         com_sol = True
+        jogos["mapa_ovni"].u = jogos["mapa_sol"]
+        jogos["mapa_sol"].d = jogos["mapa_ovni"]
     else:
         com_sol = False
+        jogos["mapa_ovni"].u = jogos["mapa_lua"]
+        jogos["mapa_lua"].d = jogos["mapa_ovni"]
 
     if "terra_a_vista" in memoria["missoes"]:
         terra_a_vista = True
     else:
         terra_a_vista = False
 
-    if "ovni" in memoria["missoes"]:
+    if "ovni" in memoria["missoes"] or debug:
         ovni_ = True
+        jogos["mapa_praia"].r = jogos["mapa_ovni"]
+        jogos["mapa_praia"].u = jogos["mapa_ovni"]
     else:
         ovni_ = False
 
-    if "castelo_flutuante" in memoria["missoes"]:
+    if "castelo_flutuante" in memoria["missoes"] or debug:
         castelo_flutuante = True
+        jogos["mapa_cidade"].d = jogos["mapa_castelo_voador"]
+        jogos["mapa_vulcao"].d = jogos["mapa_castelo_voador"]
     else:
         castelo_flutuante = False
 
@@ -321,7 +371,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
 
         #Palmeiras ===============================================
 
-        for x, y in ((114, 14), (122, 16), (130, 15)):
+        for x, y in ((114, 14), (122, 16), (130, 15), (49, 18)):
             game.add_effects(x = x, y = y,
                              image = mapa_palmeira_1,
                              frames = 1,
@@ -329,7 +379,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
                              wait = 0,
                              to_start = 0)
 
-        for x, y in ((111, 19), (117, 17), (126, 18)):
+        for x, y in ((111, 19), (117, 17), (126, 18), (46, 17), (43, 18)):
             game.add_effects(x = x, y = y,
                              image = mapa_palmeira_2,
                              frames = 1,
