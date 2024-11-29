@@ -16,8 +16,9 @@ from translator import translate
 from text_mission import conferir_missoes
 
 class Selecionar:
-    def __init__(self, pos:tuple):
+    def __init__(self, pos:tuple, time:list = None):
         self.pos:tuple = pos
+        self.time:list = None
         self.r = None
         self.l = None
         self.u = None
@@ -51,6 +52,31 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     for i in range(clima[tipo_clima]["nuvem"] * 3):
         pos_nuvem.append([int(random() * 125) + 1, int(random() * 35) + 1])
 
+    #Existencia dos itens no mapa
+
+    for locais in pos_locais.keys():
+        xy = (pos_locais[locais]["x"], pos_locais[locais]["y"])
+        exec(f"jogo_{locais} = Selecionar(pos = xy)")
+
+    jogo_mapa_sol.time = None
+    jogo_mapa_lua.time = None
+    jogo_mapa_piramide.time = None
+    jogo_mapa_farol.time = None
+    jogo_mapa_castelo.time = None
+    jogo_mapa_castelo_2.time = None
+    jogo_mapa_cidade.time = None
+    jogo_mapa_fazenda.time = None
+    jogo_mapa_trem.time = None
+    jogo_mapa_montanha.time = None
+    jogo_mapa_boneco_de_neve.time = None
+    jogo_mapa_maquina_escavar.time = None
+    jogo_mapa_pegasus.time = None
+    jogo_mapa_vulcao.time = None
+    jogo_mapa_navio.time = None
+    jogo_mapa_espaconave.time = None
+    jogo_mapa_castelo_voador.time = None
+    jogo_mapa_ovni.time = None
+    
     if random() < .1:
         ovni = True
     else:
@@ -75,6 +101,8 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
         castelo_flutuante = True
     else:
         castelo_flutuante = False
+
+    
 
     conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima, com_sol = com_sol)
 
