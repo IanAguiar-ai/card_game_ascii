@@ -508,7 +508,7 @@ def copiar_atributo(image:dict, atributo:list ,aleatorio:bool = False, copia_com
 #-------------------------------------------------------------------------------------
 #Funções de habilidade:
 
-def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, chance:float = 1) -> None:
+def habilidade_buff_global_dano(buff:int, personagem, image:dict, multiplicador:int = 1, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, chance:float = 1) -> None:
     """
     Da um buff...
 
@@ -521,6 +521,12 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, apenas_caracte
     if not (random() < chance):
         buffer_(f"Nada aconteceu!")
         return None
+
+    if type(buff) == list:
+        buff = buff[0]
+    if type(multiplicador) == list:
+        multiplicador:int = multiplicador[0]
+    buff *= multiplicador
     
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
@@ -568,7 +574,10 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
         return None
         
     if type(buff) == list:
-        buff = buff[0] * multiplicador
+        buff = buff[0]
+    if type(multiplicador) == list:
+        multiplicador:int = multiplicador[0]
+    buff *= multiplicador
         
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
@@ -1840,7 +1849,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                    "dado":1,
                                    "argumentos":{"dano":10, "aleatorio":False, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                    "nome":"Qual o Destino?",
-                                   "descricao":f"Dá 10 de dano em personagem inimigo a sua escolha."},
+                                   "descricao":f"Dá 10 de dano em personagem inimigo à sua escolha."},
                                   {"tipo":"habilidade",
                                    "ataque":True,
                                    "defesa":False,

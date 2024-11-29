@@ -67,12 +67,12 @@
         "grifo",
         "o_cozinheiro"
     ],
-    "moedas": 7970,
-    "exp": 175,
+    "moedas": 7210,
+    "exp": 203,
     "deck": [
-        "o_cozinheiro",
         "cubo",
-        "aranha_rainha"
+        "cubo",
+        "senhor_dos_mapas"
     ],
     "inventario": [
         "lampada_magica",
@@ -92,6 +92,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 28,
+    "vitorias": 29,
     "derrotas": 15
 }
