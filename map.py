@@ -24,7 +24,7 @@ class Selecionar:
         self.u = None
         self.d = None
 
-def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
+def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> None:
     pos_ondas = [(1, 1), (10, 2), (20, 10), (1, 14), (112, 1), (122, 5), (102, 7), (102, 32), (125, 40), (80, 40),
                  (55, 42), (10, 12), (112, 6), (132, 1), (135, 7), (91, 36), (68, 40), (114, 37), (135, 38)]
 
@@ -369,6 +369,23 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
+        if memoria_input[0] != None:
+            andar, memoria_input[0] = memoria_input[0], None
+
+            if andar == "a":
+                if posicao_atual.l != None:
+                    posicao_atual = posicao_atual.l
+            elif andar == "d":
+                if posicao_atual.r != None:
+                    posicao_atual = posicao_atual.r
+            elif andar == "s":
+                if posicao_atual.d != None:
+                    posicao_atual = posicao_atual.d
+            elif andar == "w":
+                if posicao_atual.u != None:
+                    posicao_atual = posicao_atual.u
+
+
         #Parte da escolha
         x_:int = max(1, posicao_atual.pos[0] - 10)
         y_:int = max(1, posicao_atual.pos[1] - 3)
@@ -384,23 +401,15 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
         iteracao %= 4096
 
 def mapa_completo():
-    thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save))
+    memoria_input = [None]
+    thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save, memoria_input))
     thread_animacao.start()
 
     while True:
         direcao = input()
 
-        if direcao.lower() == "a":
-            pass
-
-        elif direcao.lower() == "w":
-            pass
-
-        elif direcao.lower() == "s":
-            pass
-
-        elif direcao.lower() == "d":
-            pass
+        if type(direcao) == str:
+            memoria_input[0] = direcao.lower()
         
 if __name__ == "__main__":
     memoria_save = ler_save()
