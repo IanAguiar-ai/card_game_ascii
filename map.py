@@ -77,7 +77,23 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     jogos["mapa_castelo_voador"].time = None
     jogos["mapa_ovni"].time = None
 
+    jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
+    jogos["mapa_farol"].d = jogos["mapa_montanha"]
+
+    jogos["mapa_castelo_2"].r = jogos["mapa_farol"]
+    jogos["mapa_castelo_2"].l = jogos["mapa_castelo"]
+    jogos["mapa_castelo_2"].d = jogos["mapa_boneco_de_neve"]
+
+    jogos["mapa_castelo"].r = jogos["mapa_castelo_2"]
+    jogos["mapa_castelo"].d = jogos["mapa_boneco_de_neve"]
+
+    jogos["mapa_montanha"].u = jogos["mapa_farol"]
+    jogos["mapa_montanha"].l = jogos["mapa_boneco_de_neve"]
+    jogos["mapa_montanha"].d = jogos["mapa_piramide"]
+    
+
     posicao_atual = jogos["mapa_farol"]
+    
     
     if random() < .1:
         ovni = True
@@ -260,7 +276,7 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
                              to_start = 0)
 
         if ovni_ or debug:
-            game.add_effects(x = pos_locais["mapa_ovni"]["x"], y = pos_locais["mapa_ovni"]["y"],
+            game.add_effects(x = pos_locais["mapa_espaconave"]["x"], y = pos_locais["mapa_espaconave"]["y"],
                              image = mapa_espaconave,
                              frames = 1,
                              tipe = None,
