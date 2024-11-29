@@ -53,29 +53,32 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
         pos_nuvem.append([int(random() * 125) + 1, int(random() * 35) + 1])
 
     #Existencia dos itens no mapa
-
+    jogos = {}
     for locais in pos_locais.keys():
         xy = (pos_locais[locais]["x"], pos_locais[locais]["y"])
-        exec(f"jogo_{locais} = Selecionar(pos = xy)")
+        jogos[locais] = Selecionar(pos=xy)
+        print(locais)
 
-    jogo_mapa_sol.time = None
-    jogo_mapa_lua.time = None
-    jogo_mapa_piramide.time = None
-    jogo_mapa_farol.time = None
-    jogo_mapa_castelo.time = None
-    jogo_mapa_castelo_2.time = None
-    jogo_mapa_cidade.time = None
-    jogo_mapa_fazenda.time = None
-    jogo_mapa_trem.time = None
-    jogo_mapa_montanha.time = None
-    jogo_mapa_boneco_de_neve.time = None
-    jogo_mapa_maquina_escavar.time = None
-    jogo_mapa_pegasus.time = None
-    jogo_mapa_vulcao.time = None
-    jogo_mapa_navio.time = None
-    jogo_mapa_espaconave.time = None
-    jogo_mapa_castelo_voador.time = None
-    jogo_mapa_ovni.time = None
+    jogos["mapa_sol"].time = None
+    jogos["mapa_lua"].time = None
+    jogos["mapa_piramide"].time = None
+    jogos["mapa_farol"].time = None
+    jogos["mapa_castelo"].time = None
+    jogos["mapa_castelo_2"].time = None
+    jogos["mapa_cidade"].time = None
+    jogos["mapa_fazenda"].time = None
+    jogos["mapa_trem"].time = None
+    jogos["mapa_montanha"].time = None
+    jogos["mapa_boneco_de_neve"].time = None
+    jogos["mapa_maquina_escavar"].time = None
+    jogos["mapa_pegasus"].time = None
+    jogos["mapa_vulcao"].time = None
+    jogos["mapa_navio"].time = None
+    jogos["mapa_espaconave"].time = None
+    jogos["mapa_castelo_voador"].time = None
+    jogos["mapa_ovni"].time = None
+
+    posicao_atual = jogos["mapa_farol"]
     
     if random() < .1:
         ovni = True
