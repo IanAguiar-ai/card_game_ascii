@@ -383,6 +383,25 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
         iteracao += 1
         iteracao %= 4096
 
+def mapa_completo():
+    thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save))
+    thread_animacao.start()
+
+    while True:
+        direcao = input()
+
+        if direcao.lower() == "a":
+            pass
+
+        elif direcao.lower() == "w":
+            pass
+
+        elif direcao.lower() == "s":
+            pass
+
+        elif direcao.lower() == "d":
+            pass
+        
 if __name__ == "__main__":
     memoria_save = ler_save()
     if memoria_save == None:
@@ -395,4 +414,6 @@ if __name__ == "__main__":
     game_t = Thread(target = game.run)
     game_t.start()
 
-    animacao_mapa(game, memoria_save)
+    mapa_completo()
+
+    
