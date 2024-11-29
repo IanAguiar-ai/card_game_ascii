@@ -1362,6 +1362,11 @@ seta_cima_pequena = adjust_image("""&&&_
 &/   \\
 &&|_|""".split("\n"), replace_ = False)
 
+seta_diagonal = adjust_image("""/-._
+-._&-._
+   -._&-/\\
+&&&&&&¨/__\\""".split("\n"), replace_ = False)
+
 escudo = """|`-._/\\_.-`|
 |    ||    |
 |___o()o___|

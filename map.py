@@ -56,8 +56,7 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     jogos = {}
     for locais in pos_locais.keys():
         xy = (pos_locais[locais]["x"], pos_locais[locais]["y"])
-        jogos[locais] = Selecionar(pos=xy)
-        print(locais)
+        jogos[locais] = Selecionar(pos = xy)
 
     jogos["mapa_sol"].time = None
     jogos["mapa_lua"].time = None
@@ -105,8 +104,8 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     else:
         castelo_flutuante = False
 
-    
 
+    #Conferindo missões
     conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima, com_sol = com_sol)
 
     iteracao = 0
@@ -335,6 +334,15 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
                              wait = 0,
                              to_start = 0)
 
+        #Parte da escolha
+        x_:int = max(1, posicao_atual.pos[0] - 10)
+        y_:int = max(1, posicao_atual.pos[1] - 3)
+        game.add_effects(x = x_, y = y_,
+                         image = seta_diagonal,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
                     
         sleep(1/FPS_MAPA)
         iteracao += 1
