@@ -102,8 +102,8 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     jogos["mapa_oasis"].l = jogos["mapa_trem"]
     jogos["mapa_oasis"].d = jogos["mapa_maquina_escavar"]
 
-    jogos["mapa_trem"].l = jogos["mapa_foguete"]
-    jogos["mapa_trem"].d = jogos["mapa_foguete"]
+    jogos["mapa_trem"].l = jogos["mapa_espaconave"]
+    jogos["mapa_trem"].d = jogos["mapa_espaconave"]
     jogos["mapa_trem"].r = jogos["mapa_maquina_escavar"]
     jogos["mapa_trem"].u = jogos["mapa_oasis"]
 
