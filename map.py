@@ -45,7 +45,8 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
                   "mapa_navio": {"x":5, "y":11},
                   "mapa_espaconave": {"x":12, "y":30},
                   "mapa_castelo_voador": {"x":100, "y":33},
-                  "mapa_ovni": {"x":136, "y":14},}
+                  "mapa_ovni": {"x":136, "y":14},
+                  "mapa_oasis": {"x":45, "y":20},}
 
     #Nuvens
     pos_nuvem = []
@@ -90,7 +91,26 @@ def animacao_mapa(game, memoria:dict, debug:bool = True) -> None:
     jogos["mapa_montanha"].u = jogos["mapa_farol"]
     jogos["mapa_montanha"].l = jogos["mapa_boneco_de_neve"]
     jogos["mapa_montanha"].d = jogos["mapa_piramide"]
-    
+
+    jogos["mapa_piramide"].l = jogos["mapa_oasis"]
+    jogos["mapa_piramide"].r = jogos["mapa_pegasus"]
+    jogos["mapa_piramide"].d = jogos["mapa_cidade"]
+    jogos["mapa_piramide"].u = jogos["mapa_montanha"]
+
+    jogos["mapa_oasis"].u = jogos["mapa_boneco_de_neve"]
+    jogos["mapa_oasis"].r = jogos["mapa_piramide"]
+    jogos["mapa_oasis"].l = jogos["mapa_trem"]
+    jogos["mapa_oasis"].d = jogos["mapa_maquina_escavar"]
+
+    jogos["mapa_trem"].l = jogos["mapa_foguete"]
+    jogos["mapa_trem"].d = jogos["mapa_foguete"]
+    jogos["mapa_trem"].r = jogos["mapa_maquina_escavar"]
+    jogos["mapa_trem"].u = jogos["mapa_oasis"]
+
+    jogos["mapa_maquina_escavar"].u = jogos["mapa_oasis"]
+    jogos["mapa_maquina_escavar"].l = jogos["mapa_trem"]
+    jogos["mapa_maquina_escavar"].d = jogos["mapa_fazenda"]
+    jogos["mapa_maquina_escavar"].r = jogos["mapa_cidade"]
 
     posicao_atual = jogos["mapa_farol"]
     
