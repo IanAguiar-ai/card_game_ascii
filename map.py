@@ -19,6 +19,8 @@ class Selecionar:
     def __init__(self, pos:tuple, time:list = None):
         self.pos:tuple = pos
         self.time:list = None
+        self.tipo:str = "jogo" #loja
+        self.nome:str = None
         self.r = None
         self.l = None
         self.u = None
@@ -170,8 +172,11 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
         jogos["mapa_ovni"].u = jogos["mapa_lua"]
         jogos["mapa_lua"].d = jogos["mapa_ovni"]
 
-    if "terra_a_vista" in memoria["missoes"]:
+    if "terra_a_vista" in memoria["missoes"] or debug:
         terra_a_vista = True
+        jogos["mapa_trem"].u = jogos["mapa_navio"]
+        jogos["mapa_oasis"].u = jogos["mapa_navio"]
+        jogos["mapa_boneco_de_neve"].l = jogos["mapa_navio"]
     else:
         terra_a_vista = False
 
