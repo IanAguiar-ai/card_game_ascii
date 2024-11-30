@@ -155,6 +155,18 @@ class Element:
         self.y = y
         self.image = image
 
+def build_cards(time_inimigo:list) -> list:
+    """
+    Pega o nome das cartas e coloca elas com todas suas propriedades na lista
+    """
+    from engine_card_game import CARTAS
+    
+    nova_lista = []
+    for inimigo in time_inimigo:
+        nova_lista.append(CARTAS[inimigo])
+
+    return nova_lista
+
 def run_the_game(time_inimigo:list = None) -> None:
     """
     Roda o jogo, caso receba o parâmetro time_inimigo, ele roda o jogo com o time inimigo vs o time escolhido no deck que está na memória
@@ -172,12 +184,12 @@ def run_the_game(time_inimigo:list = None) -> None:
     #Add elements in game:
     game.add([*cards_base, ])
 
-    while True:
-        aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
-        if 4 <= CARTAS[aleatorios[0]]["preco"] + CARTAS[aleatorios[1]]["preco"] + CARTAS[aleatorios[2]]["preco"] <= 5:
-            break
-
     if time_inimigo == None:
+        while True:
+            aleatorios = [list(CARTAS.keys())[int(len(CARTAS.keys())*random())] for i in range(3)]
+            if 4 <= CARTAS[aleatorios[0]]["preco"] + CARTAS[aleatorios[1]]["preco"] + CARTAS[aleatorios[2]]["preco"] <= 5:
+                break
+
         TIMES = [[CARTAS[aleatorios[0]].copy(),
                   CARTAS[aleatorios[1]].copy(),
                   CARTAS[aleatorios[2]].copy()],

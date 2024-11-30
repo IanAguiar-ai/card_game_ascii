@@ -68,8 +68,8 @@
         "o_cozinheiro",
         "cavalo_xadrez"
     ],
-    "moedas": 7340,
-    "exp": 213,
+    "moedas": 7350,
+    "exp": 214,
     "deck": [
         "senhor_trovao",
         "bandido_cinico",
@@ -94,5 +94,5 @@
         "De dia"
     ],
     "vitorias": 32,
-    "derrotas": 16
+    "derrotas": 17
 }

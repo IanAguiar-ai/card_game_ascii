@@ -5,6 +5,7 @@ Jogo, parte lógica e gráfica que faz a interseção entre todas as telas do jo
 from random import random
 from threading import Thread
 from time import sleep, time
+
 from game_config import *
 from engine_card_game import CARTAS
 from arts import *

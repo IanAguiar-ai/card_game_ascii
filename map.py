@@ -8,12 +8,14 @@ from time import sleep, time
 from datetime import datetime
 from copy import deepcopy
 from random import sample
+
 from game_config import *
 from arts import *
 from auxiliary_functions import *
 from pure_engine_ascii import Screen
 from translator import translate
 from text_mission import conferir_missoes
+from card_game import run_the_game, build_cards
 
 class Selecionar:
     def __init__(self, pos:tuple, time:list = None):
@@ -26,7 +28,7 @@ class Selecionar:
         self.u = None
         self.d = None
 
-def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> None:
+def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list, debug:bool = True) -> None:
     pos_ondas = [(1, 1), (10, 2), (20, 10), (1, 14), (112, 1), (122, 5), (102, 7), (102, 32), (125, 40), (80, 40),
                  (55, 42), (10, 12), (112, 6), (132, 1), (135, 7), (91, 36), (68, 40), (114, 37), (135, 38)]
 
@@ -61,26 +63,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
     for locais in pos_locais.keys():
         xy = (pos_locais[locais]["x"], pos_locais[locais]["y"])
         jogos[locais] = Selecionar(pos = xy)
-
-    jogos["mapa_sol"].time = None
-    jogos["mapa_lua"].time = None
-    jogos["mapa_piramide"].time = None
-    jogos["mapa_farol"].time = None
-    jogos["mapa_castelo"].time = None
-    jogos["mapa_castelo_2"].time = None
-    jogos["mapa_cidade"].time = None
-    jogos["mapa_fazenda"].time = None
-    jogos["mapa_trem"].time = None
-    jogos["mapa_montanha"].time = None
-    jogos["mapa_boneco_de_neve"].time = None
-    jogos["mapa_maquina_escavar"].time = None
-    jogos["mapa_pegasus"].time = None
-    jogos["mapa_vulcao"].time = None
-    jogos["mapa_navio"].time = None
-    jogos["mapa_espaconave"].time = None
-    jogos["mapa_castelo_voador"].time = None
-    jogos["mapa_ovni"].time = None
-    jogos["mapa_praia"].time = None
+        jogos[locais].time = TIMES_MAPA[locais]
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
@@ -199,7 +182,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
     conferir_missoes(tipo = "mapa", save = memoria, tipo_clima = tipo_clima, com_sol = com_sol)
 
     iteracao = 0
-    while True:
+    while not gatilho_terminar[0]:
         game.add_effects(x = 1, y = 0,
                          image = mapa_base,
                          frames = 1,
@@ -439,6 +422,12 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
             elif andar == "w":
                 if posicao_atual.u != None:
                     posicao_atual = posicao_atual.u
+            elif andar == "":
+                if posicao_atual.tipo == "jogo" and posicao_atual.time != None:
+                    memoria_input[0] = posicao_atual.time[0]
+                    memoria_input[1] = posicao_atual.time[1]
+                    memoria_input[2] = posicao_atual.time[2]
+                    gatilho_terminar[0] = True
 
 
         #Parte da escolha
@@ -450,21 +439,30 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, debug:bool = True) -> 
                          tipe = None,
                          wait = 0,
                          to_start = 0)
-                    
+
         sleep(1/FPS_MAPA)
         iteracao += 1
         iteracao %= 4096
 
 def mapa_completo():
-    memoria_input = [None]
-    thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save, memoria_input))
+    memoria_input:list = [None, None, None, None]
+    gatilho_terminar:list = [False]
+    thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save, memoria_input, gatilho_terminar))
     thread_animacao.start()
 
     while True:
         direcao = input()
 
-        if type(direcao) == str:
+        if type(direcao) == str and direcao != "": #Para andar
             memoria_input[0] = direcao.lower()
+        elif type(direcao) == str and direcao == "": #Para entrar em jogo ou loja
+            memoria_input[0] = direcao
+            while memoria_input[2] == None:
+                sleep(1/FPS_MAPA)
+            gatilho_terminar[0] = True
+            sleep(1/FPS_MAPA)
+            run_the_game(time_inimigo = build_cards(memoria_input[:3]))
+            
         
 if __name__ == "__main__":
     memoria_save = ler_save()
