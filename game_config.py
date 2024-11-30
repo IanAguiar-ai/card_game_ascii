@@ -42,7 +42,7 @@ BOOSTERS_ESPECIAIS = {"comum":{"nome":"bosster comum", "moedas":40, "exp":0, "ch
                       "lendario":{"nome":"booster lendário", "moedas":1000, "exp":100, "chances":[1, 0, 0, 0]}}
 
 TIMES_MAPA = {"mapa_sol": ["balao", "o_sol", "balao"],
-              "mapa_lua": None,
+              "mapa_lua": ["balao", "a_lua", "balao"],
               "mapa_piramide": None,
               "mapa_farol": None,
               "mapa_castelo": None,

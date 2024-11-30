@@ -444,7 +444,10 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
         iteracao += 1
         iteracao %= 4096
 
-def mapa_completo():
+def mapa_completo(game, memoria_save):
+    texto_principal = translate(f"(A, W, S, D) para escolher entre missões\n(E) para sair")
+    game.buffer_text = texto_principal
+    
     memoria_input:list = [None, None, None, None]
     gatilho_terminar:list = [False]
     thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save, memoria_input, gatilho_terminar))
@@ -453,7 +456,11 @@ def mapa_completo():
     while True:
         direcao = input()
 
-        if type(direcao) == str and direcao != "": #Para andar
+        if type(direcao) == str and direcao.lower() == "e":
+            gatilho_terminar[0] = True
+            thread_animacao.join()
+            return None
+        elif type(direcao) == str and direcao != "": #Para andar
             memoria_input[0] = direcao.lower()
         elif type(direcao) == str and direcao == "": #Para entrar em jogo ou loja
             memoria_input[0] = direcao
@@ -461,8 +468,7 @@ def mapa_completo():
                 sleep(1/FPS_MAPA)
             gatilho_terminar[0] = True
             sleep(1/FPS_MAPA)
-            run_the_game(time_inimigo = build_cards(memoria_input[:3]))
-            
+            run_the_game(time_inimigo = build_cards(memoria_input[:3]))            
         
 if __name__ == "__main__":
     memoria_save = ler_save()
@@ -471,11 +477,9 @@ if __name__ == "__main__":
         
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_MAPA)
-    texto_principal = translate(f"(A, W, S, D) para escolher entre missões")
-    game.buffer_text = texto_principal
     game_t = Thread(target = game.run)
     game_t.start()
 
-    mapa_completo()
+    mapa_completo(game, memoria_save)
 
     

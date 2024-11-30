@@ -11,6 +11,7 @@ As cartas liberadas pelas missões estão em ./play.py na função 'animacao_inv
 """
 from engine_card_game import CARTAS, raridades, classes
 from datetime import datetime
+from game_config import TIMES_MAPA
 
 def missao_moedas(save, **resto) -> bool:
     """
@@ -267,4 +268,31 @@ def missao_grifo(save, **resto) -> bool:
     for personagem in TIMES[0]:
         if personagem["id"] == "grifo":
             return True
+    return False
+
+def missao_vitoria_sol(save, **resto) -> bool:
+    """
+    Quando ganha do sol no mapa
+    libera: exp
+    """
+    if [TIMES[0][i] for i in TIMES[0]] == TIMES_MAPA["mapa_sol"]:
+        return True
+    return False
+
+def missao_vitoria_lua(save, **resto) -> bool:
+    """
+    Quando ganha da lua no mapa
+    Libera: exp
+    """
+    if [TIMES[0][i] for i in TIMES[0]] == TIMES_MAPA["mapa_lua"]:
+        return True
+    return False
+
+def missao_balao(save, **resto) -> bool:
+    """
+    Quando ganha do sol e da lua
+    Libera: balao
+    """
+    if save["missoes"] == "Derrotando o sol" and save["missoes"] == "Derrotando a lua":
+        return True
     return False

@@ -14,6 +14,7 @@ from card_game import run_the_game
 from pure_engine_ascii import Screen
 from card_builder import card_builder
 from translator import translate
+from mapa import mapa_completo
 
 def animacao_menu() -> None:
     pos_n = [0, 50, 0]
@@ -469,7 +470,7 @@ if __name__ == "__main__":
         
     clear_all()
     game = Screen(x = X, y = Y, fps = FPS_LOJA)
-    texto_principal = translate(f"Aperte:\n(1) Jogar\n(2) Ir a loja\n(3) Construtor de cartas")
+    texto_principal = translate(f"Aperte:\n(1) Jogar história\n(2) Jogar aleatório\n(3) Ir a loja\n(4) Construtor de cartas")
     game.buffer_text = texto_principal
     game_t = Thread(target = game.run)
     game_t.start()
@@ -484,26 +485,34 @@ if __name__ == "__main__":
             resposta = int(resposta)
         except:
             pass
-        if type(resposta) == int and 1 <= resposta <= 3:
+        if type(resposta) == int and 1 <= resposta <= 4:
             gatilho_menu = False
             animacao_menu_thread.join()
             del animacao_menu_thread
 
             if resposta == 1: #Ir para o jogo
+                mapa_completo(game, memoria_save)
+                gatilho_menu = True
+                game.buffer_text = texto_principal
+                animacao_menu_thread = Thread(target = animacao_menu)
+                animacao_menu_thread.start()
+
+
+            elif resposta == 2: #Ir para o jogo
                 run_the_game()
                 gatilho_menu = True
                 game.buffer_text = texto_principal
                 animacao_menu_thread = Thread(target = animacao_menu)
                 animacao_menu_thread.start()
 
-            elif resposta == 2: #Ir para a loja
+            elif resposta == 3: #Ir para a loja
                 entrar_loja()
                 gatilho_menu = True
                 game.buffer_text = texto_principal
                 animacao_menu_thread = Thread(target = animacao_menu)
                 animacao_menu_thread.start()
 
-            elif resposta == 3:
+            elif resposta == 4:
                 card_builder()
                 gatilho_menu = True
                 game.buffer_text = texto_principal
