@@ -275,7 +275,7 @@ def missao_vitoria_sol(save, **resto) -> bool:
     Quando ganha do sol no mapa
     libera: exp
     """
-    if [TIMES[0][i] for i in TIMES[0]] == TIMES_MAPA["mapa_sol"]:
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_sol"]:
         return True
     return False
 
@@ -284,7 +284,7 @@ def missao_vitoria_lua(save, **resto) -> bool:
     Quando ganha da lua no mapa
     Libera: exp
     """
-    if [TIMES[0][i] for i in TIMES[0]] == TIMES_MAPA["mapa_lua"]:
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_lua"]:
         return True
     return False
 
@@ -296,3 +296,148 @@ def missao_balao(save, **resto) -> bool:
     if save["missoes"] == "Derrotando o sol" and save["missoes"] == "Derrotando a lua":
         return True
     return False
+
+def missao_vitoria_piramide(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_piramide"]:
+        return True
+    return False
+
+def missao_vitoria_farol(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_farol"]:
+        return True
+    return False
+
+def missao_vitoria_castelo_1(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_castelo"]:
+        return True
+    return False
+
+def missao_vitoria_castelo_2(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_castelo_2"]:
+        return True
+    return False
+
+def missao_vitoria_cidade(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_piramide"]:
+        return True
+    return False
+
+def missao_vitoria_fazenda(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_fazenda"]:
+        return True
+    return False
+
+def missao_vitoria_trem(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_trem"]:
+        return True
+    return False
+
+def missao_vitoria_montanha(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_montanha"]:
+        return True
+    return False
+
+def missao_vitoria_boneco_de_neve(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_boneco_de_neve"]:
+        return True
+    return False
+
+def missao_vitoria_maquina_escavar(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_maquina_escavar"]:
+        return True
+    return False
+
+def missao_vitoria_pegasus(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_pegasus"]:
+        return True
+    return False
+
+def missao_vitoria_vulcao(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_vulcao"]:
+        return True
+    return False
+
+def missao_vitoria_navio(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_navio"]:
+        return True
+    return False
+
+def missao_vitoria_espaconave(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_espaconave"]:
+        return True
+    return False
+
+def missao_vitoria_castelo_voador(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_castelo_voador"]:
+        return True
+    return False
+
+def missao_vitoria_ovni(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_ovni"]:
+        return True
+    return False
+
+def missao_vitoria_oasis(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_oasis"]:
+        return True
+    return False
+
+def missao_vitoria_praia(save, **resto) -> bool:
+    """
+    Libera: ???
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_praia"]:
+        return True
+    return False
+
