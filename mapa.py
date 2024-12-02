@@ -16,6 +16,7 @@ from pure_engine_ascii import Screen
 from translator import translate
 from text_mission import conferir_missoes
 from card_game import run_the_game, build_cards
+from engine_card_game import CARTAS
 
 class Selecionar:
     def __init__(self, pos:tuple, time:list = None):
@@ -23,6 +24,7 @@ class Selecionar:
         self.time:list = None
         self.tipo:str = "jogo" #loja
         self.nome:str = None
+        self.dificuldade:str = None
         self.r = None
         self.l = None
         self.u = None
@@ -65,6 +67,16 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
         jogos[locais] = Selecionar(pos = xy)
         jogos[locais].time = TIMES_MAPA[locais]
         jogos[locais].nome = locais[locais.find("_")+1:].replace("_"," ").title()
+        if TIMES_MAPA[locais] != None:
+            dificuldade = sum([int(CARTAS[personagem]["preco"]) for personagem in TIMES_MAPA[locais]])
+            if dificuldade <= 3:
+                jogos[locais].dificuldade = "Facil"
+            elif dificuldade <= 5:
+                jogos[locais].dificuldade = "Normal"
+            elif dificuldade <= 8:
+                jogos[locais].dificuldade = "Difícil"
+            else:
+                jogos[locais].dificuldade = "Épico"
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
