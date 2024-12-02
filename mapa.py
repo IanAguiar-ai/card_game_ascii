@@ -64,6 +64,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
         xy = (pos_locais[locais]["x"], pos_locais[locais]["y"])
         jogos[locais] = Selecionar(pos = xy)
         jogos[locais].time = TIMES_MAPA[locais]
+        jogos[locais].nome = locais[locais.find("_")+1:].replace("_"," ").title()
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
@@ -439,6 +440,9 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
                          tipe = None,
                          wait = 0,
                          to_start = 0)
+
+        texto_principal = translate(f"(A, W, S, D) para escolher entre missões\n(E) para sair\n(ENTER) PARA entrar em {posicao_atual.nome}")
+        game.buffer_text = texto_principal
 
         sleep(1/FPS_MAPA)
         iteracao += 1
