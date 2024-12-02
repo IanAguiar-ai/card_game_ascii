@@ -453,7 +453,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
                          wait = 0,
                          to_start = 0)
 
-        texto_principal = translate(f"(A, W, S, D) para escolher entre missões\n(E) para sair\n(ENTER) PARA entrar em {posicao_atual.nome}")
+        texto_principal = translate(f"(A, W, S, D) para escolher entre missões\n(E) para sair\n(ENTER) PARA entrar em {posicao_atual.nome} (DIFICULDADE: {posicao_atual.dificuldade})")
         game.buffer_text = texto_principal
 
         sleep(1/FPS_MAPA)
