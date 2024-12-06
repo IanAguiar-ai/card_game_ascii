@@ -75,8 +75,10 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
                 jogos[locais].dificuldade = "Normal"
             elif dificuldade <= 8:
                 jogos[locais].dificuldade = "Difícil"
-            else:
+            elif dificuldade <= 12:
                 jogos[locais].dificuldade = "Épico"
+            else:
+                jogos[locais].dificuldade = "Impossível"
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
