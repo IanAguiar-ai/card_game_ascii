@@ -68,6 +68,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
         jogos[locais].time = TIMES_MAPA[locais]
         jogos[locais].nome = locais[locais.find("_")+1:].replace("_"," ").title()
         if TIMES_MAPA[locais] != None:
+            #print(TIMES_MAPA[locais])
             dificuldade = sum([int(CARTAS[personagem]["preco"]) for personagem in TIMES_MAPA[locais]])
             if dificuldade <= 3:
                 jogos[locais].dificuldade = "Facil"
@@ -93,6 +94,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
     jogos["mapa_montanha"].u = jogos["mapa_farol"]
     jogos["mapa_montanha"].l = jogos["mapa_boneco_de_neve"]
     jogos["mapa_montanha"].d = jogos["mapa_piramide"]
+    jogos["mapa_montanha"].r = jogos["mapa_farol"]
 
     jogos["mapa_piramide"].l = jogos["mapa_oasis"]
     jogos["mapa_piramide"].r = jogos["mapa_pegasus"]
