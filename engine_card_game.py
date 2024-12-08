@@ -2291,6 +2291,30 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                             "raridade":"secreto",
                             "ataques":[]
                             },
+          "guardiao_da_ponte":{"nome":"Guardião da Ponte",
+                               "hp":60,
+                               "preco":2,
+                               "classe":"humano",
+                               "arte":imagem_guardiao_da_ponte,
+                               "raridade":"raro",
+                               "ataques":[]
+                               },
+          "tartaruga_gigante":{"nome":"Tartaruga Gigante",
+                               "hp":160,
+                               "preco":4,
+                               "classe":"monstro",
+                               "arte":imagem_tartaruga_gigante,
+                               "raridade":"secreto",
+                               "ataques":[]
+                               },
+          "dinossauro":{"nome":"Dinossauro",
+                        "hp":170,
+                        "preco":4,
+                        "classe":"monstro",
+                        "arte":imagem_dinossauro,
+                        "raridade":"secreto",
+                        "ataques":[]
+                        },
           }
 
 for carta in CARTAS.keys():

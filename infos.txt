@@ -1,4 +1,4 @@
-Estão sendo usados 34.74 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 36.07 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (11):
 	Caçador Iniciante          50 0
@@ -13,10 +13,11 @@ Guerreiro (11):
 	Meca Fogueteiro           160 4
 	Meca Last Hope            180 5
 
-Humano (9):
+Humano (10):
 	Curandeiro da Vila         50 1
 	Camponês Corajoso          80 1
 	Dono da Loja               40 2
+	Guardião da Ponte          60 2
 	Detetive                   70 2
 	O Cozinheiro               80 2
 	Caçador de Feras           70 3
@@ -24,7 +25,7 @@ Humano (9):
 	Mago Suporte               70 3
 	Profeta das Areias         80 3
 
-Monstro (10):
+Monstro (12):
 	Flores Sinistras           50 0
 	Esqueleto Insano           80 1
 	Orc Rejeitado             100 1
@@ -34,6 +35,8 @@ Monstro (10):
 	Milicia Fantasma          110 2
 	Cogumelo Venenoso          70 3
 	Grifo                     120 4
+	Tartaruga Gigante         160 4
+	Dinossauro                170 4
 	Gigante                   180 4
 
 Noturno (13):
@@ -83,51 +86,51 @@ Lenda (18):
 
 Raridades:
 	(comum) 15
-	(raro) 20
+	(raro) 21
 	(epico) 10
 	(lendario) 4
-	(secreto) 20
+	(secreto) 22
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	(-1, -1, -1) ->    1 |    0
 	(-1, -1, 0) ->    6 |    0
 	(-1, -1, 1) ->   15 |    0
-	(-1, -1, 2) ->   22 |    0
+	(-1, -1, 2) ->   23 |    0
 	(-1, -1, 3) ->   14 |    0
-	(-1, -1, 4) ->    8 |    0
+	(-1, -1, 4) ->   10 |    0
 	(-1, -1, 5) ->    3 |    0
 	(-1, 0, 0) ->   36 |   15
 	(-1, 0, 1) ->   90 |   90
-	(-1, 0, 2) ->  132 |  132
+	(-1, 0, 2) ->  138 |  138
 	(-1, 0, 3) ->   84 |   84
-	(-1, 0, 4) ->   48 |   48
+	(-1, 0, 4) ->   60 |   60
 	(-1, 0, 5) ->   18 |   18
 	(-1, 1, 1) ->  225 |  105
-	(-1, 1, 2) ->  330 |  330
+	(-1, 1, 2) ->  345 |  345
 	(-1, 1, 3) ->  210 |  210
-	(-1, 1, 4) ->  120 |  120
+	(-1, 1, 4) ->  150 |  150
 	(-1, 1, 5) ->   45 |   45
-	(-1, 2, 2) ->  484 |  231
-	(-1, 2, 3) ->  308 |  308
-	(-1, 2, 4) ->  176 |  176
+	(-1, 2, 2) ->  529 |  253
+	(-1, 2, 3) ->  322 |  322
+	(-1, 2, 4) ->  230 |  230
 	(-1, 3, 3) ->  196 |   91
 	(0, 0, 0)  ->  216 |   20
 	(0, 0, 1)  ->  540 |  225
-	(0, 0, 2)  ->  792 |  330
+	(0, 0, 2)  ->  828 |  345
 	(0, 0, 3)  ->  504 |  210
-	(0, 0, 4)  ->  288 |  120
+	(0, 0, 4)  ->  360 |  150
 	(0, 0, 5)  ->  108 |   45
 	(0, 1, 1)  -> 1350 |  630
-	(0, 1, 2)  -> 1980 | 1980
+	(0, 1, 2)  -> 2070 | 2070
 	(0, 1, 3)  -> 1260 | 1260
-	(0, 1, 4)  ->  720 |  720
-	(0, 2, 2)  -> 2904 | 1386
-	(0, 2, 3)  -> 1848 | 1848
+	(0, 1, 4)  ->  900 |  900
+	(0, 2, 2)  -> 3174 | 1518
+	(0, 2, 3)  -> 1932 | 1932
 	(1, 1, 1)  -> 3375 |  454
-	(1, 1, 2)  -> 4950 | 2310
+	(1, 1, 2)  -> 5175 | 2415
 	(1, 1, 3)  -> 3150 | 1470
-	(1, 2, 2)  -> 7260 | 3465
+	(1, 2, 2)  -> 7935 | 3795
 
-Combinações totais: 33816
-Combinações únicas: 18477
-Total de cartas no jogo: 69
+Combinações totais: 35627
+Combinações únicas: 19596
+Total de cartas no jogo: 72
