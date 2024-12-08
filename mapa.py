@@ -53,7 +53,9 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
                   "mapa_castelo_voador": {"x":100, "y":33},
                   "mapa_ovni": {"x":136, "y":14},
                   "mapa_oasis": {"x":40, "y":22},
-                  "mapa_praia": {"x":122, "y":16}}
+                  "mapa_praia": {"x":122, "y":16},
+                  "mapa_tartaruga_gigante": {"x":52, "y":13},
+                  "mapa_dinossauro": {"x":72, "y":15},}
 
     #Nuvens
     pos_nuvem = []
@@ -93,22 +95,22 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
 
     jogos["mapa_montanha"].u = jogos["mapa_farol"]
     jogos["mapa_montanha"].l = jogos["mapa_boneco_de_neve"]
-    jogos["mapa_montanha"].d = jogos["mapa_piramide"]
+    jogos["mapa_montanha"].d = jogos["mapa_dinossauro"]
     jogos["mapa_montanha"].r = jogos["mapa_farol"]
 
     jogos["mapa_piramide"].l = jogos["mapa_oasis"]
     jogos["mapa_piramide"].r = jogos["mapa_pegasus"]
     jogos["mapa_piramide"].d = jogos["mapa_cidade"]
-    jogos["mapa_piramide"].u = jogos["mapa_montanha"]
+    jogos["mapa_piramide"].u = jogos["mapa_tartaruga_gigante"]
 
-    jogos["mapa_oasis"].u = jogos["mapa_boneco_de_neve"]
+    jogos["mapa_oasis"].u = jogos["mapa_tartaruga_gigante"]
     jogos["mapa_oasis"].r = jogos["mapa_piramide"]
     jogos["mapa_oasis"].l = jogos["mapa_trem"]
     jogos["mapa_oasis"].d = jogos["mapa_maquina_escavar"]
 
     jogos["mapa_boneco_de_neve"].r = jogos["mapa_montanha"]
     jogos["mapa_boneco_de_neve"].u = jogos["mapa_castelo_2"]
-    jogos["mapa_boneco_de_neve"].d = jogos["mapa_oasis"]
+    jogos["mapa_boneco_de_neve"].d = jogos["mapa_tartaruga_gigante"]
 
     jogos["mapa_trem"].l = jogos["mapa_espaconave"]
     jogos["mapa_trem"].d = jogos["mapa_espaconave"]
@@ -134,7 +136,7 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
     jogos["mapa_pegasus"].l = jogos["mapa_piramide"]
     jogos["mapa_pegasus"].d = jogos["mapa_cidade"]
     jogos["mapa_pegasus"].r = jogos["mapa_vulcao"]
-    jogos["mapa_pegasus"].u = jogos["mapa_montanha"]
+    jogos["mapa_pegasus"].u = jogos["mapa_dinossauro"]
 
     jogos["mapa_vulcao"].l = jogos["mapa_pegasus"]
     jogos["mapa_vulcao"].u = jogos["mapa_praia"]
@@ -155,6 +157,16 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
     jogos["mapa_castelo_voador"].l = jogos["mapa_cidade"]
     jogos["mapa_castelo_voador"].r = jogos["mapa_vulcao"]
     jogos["mapa_castelo_voador"].u = jogos["mapa_pegasus"]
+
+    jogos["mapa_tartaruga_gigante"].u = jogos["mapa_boneco_de_neve"]
+    jogos["mapa_tartaruga_gigante"].d = jogos["mapa_piramide"]
+    jogos["mapa_tartaruga_gigante"].l = jogos["mapa_oasis"]
+    jogos["mapa_tartaruga_gigante"].r = jogos["mapa_dinossauro"]
+
+    jogos["mapa_dinossauro"].u = jogos["mapa_montanha"]
+    jogos["mapa_dinossauro"].d = jogos["mapa_pegasus"]
+    jogos["mapa_dinossauro"].l = jogos["mapa_piramide"]
+    jogos["mapa_dinossauro"].r = jogos["mapa_praia"]
 
     posicao_atual = jogos["mapa_farol"]
     
@@ -336,6 +348,20 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
 
         game.add_effects(x = pos_locais["mapa_vulcao"]["x"], y = pos_locais["mapa_vulcao"]["y"],
                          image = mapa_vulcao,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = pos_locais["mapa_tartaruga_gigante"]["x"], y = pos_locais["mapa_tartaruga_gigante"]["y"],
+                         image = mapa_tartaruga_gigante,
+                         frames = 1,
+                         tipe = None,
+                         wait = 0,
+                         to_start = 0)
+
+        game.add_effects(x = pos_locais["mapa_dinossauro"]["x"], y = pos_locais["mapa_dinossauro"]["y"],
+                         image = mapa_dinossauro,
                          frames = 1,
                          tipe = None,
                          wait = 0,

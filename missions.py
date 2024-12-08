@@ -387,7 +387,7 @@ def missao_vitoria_pegasus(save, **resto) -> bool:
 
 def missao_vitoria_vulcao(save, **resto) -> bool:
     """
-    Libera: ???
+    Libera: Lampada Vulcao
     """
     if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_vulcao"]:
         return True
@@ -438,6 +438,22 @@ def missao_vitoria_praia(save, **resto) -> bool:
     Libera: ???
     """
     if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_praia"]:
+        return True
+    return False
+
+def missao_vitoria_tartaruga_gigante(save, **resto) -> bool:
+    """
+    Libera: Tartaruga Gigante
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_tartaruga_gigante"]:
+        return True
+    return False
+
+def missao_vitoria_dinossauro(save, **resto) -> bool:
+    """
+    Libera: Dinossauro
+    """
+    if [TIMES[0][i] for i in TIMES[0]]["id"] == TIMES_MAPA["mapa_dinossauro"]:
         return True
     return False
 

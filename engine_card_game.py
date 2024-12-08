@@ -2282,7 +2282,15 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "funcao":cura_,
                                       "argumentos":{"cura":numero_dado, "multiplicador":5, "aleatorio": True, "image":{"image":seta_cima, "frames":4, "wait":50, "to_start":TEMPO[1], "x":14, "y":5}},
                                       "nome":"Culinária Especial",
-                                      "descricao":f"Enquanto vivo, no final do turno aliado, cure 5 vezes o número que caiu no dado."},]}
+                                      "descricao":f"Enquanto vivo, no final do turno aliado, cure 5 vezes o número que caiu no dado."},]},
+          "lampada_vulcao":{"nome":"Lampada Vulcao",
+                            "hp":10,
+                            "preco":-1,
+                            "classe":"lenda",
+                            "arte":imagem_lampada_vulcao,
+                            "raridade":"secreto",
+                            "ataques":[]
+                            },
           }
 
 for carta in CARTAS.keys():

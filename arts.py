@@ -3290,15 +3290,15 @@ imagem_tartaruga_gigante = adjust_image("""                _,.---.---.---.--.._
                 `._// ./`-._
                   `-._-_-_.-'""".split("\n"))
 
-imagem_mapa_tartaruga_gigante = adjust_image("""            _
-        ___/')
-       /= =\/
-      /= = =\
-      ^--|--^""".split("\n"))
+mapa_tartaruga_gigante = adjust_image("""      _
+  ___/')
+ /= =\\/
+/= = =\\
+^--|--^""".split("\n"))
 
-imagem_mapa_dinossauro = adjust_image("""               __
+mapa_dinossauro = adjust_image("""               __
               / _)
-     _/\/\/\_/ /
+     _/\\/\\/\\_/ /
    _|         /
  _|  (  | (  |
 /__.-'|_|--|_|""".split("\n"))

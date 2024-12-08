@@ -1,4 +1,4 @@
-Estão sendo usados 34.28 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 34.74 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (11):
 	Caçador Iniciante          50 0
@@ -61,7 +61,8 @@ Assasino (8):
 	Assasina de Quadrilha      90 3
 	Mafioso Acumulador         90 3
 
-Lenda (17):
+Lenda (18):
+	Lampada Vulcao             10 -1
 	Senhor Balão               40 0
 	Hidrante                  200 0
 	Mestre das Horas           50 1
@@ -85,31 +86,31 @@ Raridades:
 	(raro) 20
 	(epico) 10
 	(lendario) 4
-	(secreto) 19
+	(secreto) 20
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
-	(-1, -1, -1) ->    0 |    0
-	(-1, -1, 0) ->    0 |    0
-	(-1, -1, 1) ->    0 |    0
-	(-1, -1, 2) ->    0 |    0
-	(-1, -1, 3) ->    0 |    0
-	(-1, -1, 4) ->    0 |    0
-	(-1, -1, 5) ->    0 |    0
-	(-1, 0, 0) ->    0 |    0
-	(-1, 0, 1) ->    0 |    0
-	(-1, 0, 2) ->    0 |    0
-	(-1, 0, 3) ->    0 |    0
-	(-1, 0, 4) ->    0 |    0
-	(-1, 0, 5) ->    0 |    0
-	(-1, 1, 1) ->    0 |    0
-	(-1, 1, 2) ->    0 |    0
-	(-1, 1, 3) ->    0 |    0
-	(-1, 1, 4) ->    0 |    0
-	(-1, 1, 5) ->    0 |    0
-	(-1, 2, 2) ->    0 |    0
-	(-1, 2, 3) ->    0 |    0
-	(-1, 2, 4) ->    0 |    0
-	(-1, 3, 3) ->    0 |    0
+	(-1, -1, -1) ->    1 |    0
+	(-1, -1, 0) ->    6 |    0
+	(-1, -1, 1) ->   15 |    0
+	(-1, -1, 2) ->   22 |    0
+	(-1, -1, 3) ->   14 |    0
+	(-1, -1, 4) ->    8 |    0
+	(-1, -1, 5) ->    3 |    0
+	(-1, 0, 0) ->   36 |   15
+	(-1, 0, 1) ->   90 |   90
+	(-1, 0, 2) ->  132 |  132
+	(-1, 0, 3) ->   84 |   84
+	(-1, 0, 4) ->   48 |   48
+	(-1, 0, 5) ->   18 |   18
+	(-1, 1, 1) ->  225 |  105
+	(-1, 1, 2) ->  330 |  330
+	(-1, 1, 3) ->  210 |  210
+	(-1, 1, 4) ->  120 |  120
+	(-1, 1, 5) ->   45 |   45
+	(-1, 2, 2) ->  484 |  231
+	(-1, 2, 3) ->  308 |  308
+	(-1, 2, 4) ->  176 |  176
+	(-1, 3, 3) ->  196 |   91
 	(0, 0, 0)  ->  216 |   20
 	(0, 0, 1)  ->  540 |  225
 	(0, 0, 2)  ->  792 |  330
@@ -127,6 +128,6 @@ COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	(1, 1, 3)  -> 3150 | 1470
 	(1, 2, 2)  -> 7260 | 3465
 
-Combinações totais: 31245
-Combinações únicas: 16474
-Total de cartas no jogo: 68
+Combinações totais: 33816
+Combinações únicas: 18477
+Total de cartas no jogo: 69
