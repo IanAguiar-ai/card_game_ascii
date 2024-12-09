@@ -66,14 +66,18 @@
         "pegasus",
         "grifo",
         "o_cozinheiro",
-        "cavalo_xadrez"
+        "cavalo_xadrez",
+        "tartaruga_gigante",
+        "lampada_vulcao",
+        "guardiao_da_ponte",
+        "dinossauro"
     ],
     "moedas": 7250,
     "exp": 219,
     "deck": [
-        "senhor_trovao",
-        "bandido_cinico",
-        "cavalo_xadrez"
+        "tartaruga_gigante",
+        "lampada_vulcao",
+        "guardiao_da_ponte"
     ],
     "inventario": [
         "lampada_magica",
