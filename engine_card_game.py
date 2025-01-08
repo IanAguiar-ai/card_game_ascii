@@ -559,7 +559,7 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, multiplicador:
             printar(personagem, image)
 
 
-def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, multiplicador:int = None, chance:float = 1) -> None:
+def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracteristico:bool = False, soma_por_caracteristicas:bool = False, caracteristicas:dict = None, multiplicador:int = 1, chance:float = 1) -> None:
     """
     Da um nerf...
 
@@ -2297,7 +2297,24 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                "classe":"humano",
                                "arte":imagem_guardiao_da_ponte,
                                "raridade":"raro",
-                               "ataques":[]
+                               "ataques":[{"tipo":"ataque",
+                                           "funcao":dano_,
+                                           "dado":4,
+                                           "argumentos":{"dano":10, "aleatorio":True, "vezes":4,"image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                           "nome":"Para trás",
+                                           "descricao":f"Dá 10 de dado 4 vezes em inimigos aleatórios."},
+                                          {"tipo":"habilidade",
+                                           "ataque":True,
+                                           "defesa":False,
+                                           "tempo":"comeco",
+                                           "vivo":True,
+                                           "morto":False,
+                                           "funcao":habilidade_buff_global_dano,
+                                           "argumentos":{"buff":numero_dado, "multiplicador":5, "chance":0.3, "apenas_caracteristico":True,
+                                                         "caracteristicas":{"key":"nome", "valor":"Guardião da Ponte"},
+                                                         "image":{"image":coroa, "frames":4, "wait":50, "to_start":TEMPO[1], "x":10, "y":5}},
+                                           "nome":"Aura mágica",
+                                           "descricao":f"Enquanto vivo, no seu turno, tem 30% de chance de que o dano desse personagem seja buffado no número do dado que cair vezes 5."}]
                                },
           "tartaruga_gigante":{"nome":"Tartaruga Gigante",
                                "hp":140,
@@ -2445,7 +2462,7 @@ if __name__ == "__main__":
               CARTAS["protetor_do_tesouro"].copy(),
               CARTAS["fantasma_solitario"].copy()],
              [CARTAS["senhor_trovao"].copy(),
-              CARTAS["gigante"].copy(),
+              CARTAS["tartaruga_gigante"].copy(),
               CARTAS["cubo"].copy()]]
     
     jogar(TIMES)
