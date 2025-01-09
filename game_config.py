@@ -41,6 +41,12 @@ BOOSTERS_ESPECIAIS = {"comum":{"nome":"bosster comum", "moedas":40, "exp":0, "ch
                       "sorte":{"nome":"booster da sorte", "moedas":0, "exp":100, "chances":[0.2, 0.3, 0.4, 0.1]},
                       "lendario":{"nome":"booster lendário", "moedas":1000, "exp":100, "chances":[1, 0, 0, 0]}}
 
+DIFICULT = {"facil":{"custo":3, "nome":"Facil", "cor":45}, #\033[93m \033[0m
+            "normal":{"custo":5, "nome":"Normal", "cor":154},
+            "dificil":{"custo":8, "nome":"Difícil", "cor":196},
+            "epico":{"custo":10, "nome":"Épico", "cor":165},
+            "impossivel":{"nome":"Impossível", "cor":248}}
+
 TIMES_MAPA = {"mapa_sol": ["balao", "o_sol", "balao"],
               "mapa_lua": ["balao", "a_lua", "balao"],
               "mapa_piramide": ["rei_carangueijo", "cactus_cowboy", "profeta_das_areias"],
@@ -61,5 +67,5 @@ TIMES_MAPA = {"mapa_sol": ["balao", "o_sol", "balao"],
               "mapa_ovni": ["alien", "alien", "alien"],
               "mapa_oasis": ["cogumelo_venenoso", "flores_sinistras", "fenix"],
               "mapa_praia": ["curandeiro_da_vila", "campones_corajoso", "cacador_de_feras"],
-              "mapa_tartaruga_gigante": [],
-              "mapa_dinossauro": []}
+              "mapa_tartaruga_gigante": ["morcego", "tartaruga_gigante", "morcego"],
+              "mapa_dinossauro": ["morcego", "dinossauro", "morcego"]}

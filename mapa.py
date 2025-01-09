@@ -72,16 +72,16 @@ def animacao_mapa(game, memoria:dict, memoria_input:list, gatilho_terminar:list,
         if TIMES_MAPA[locais] != None:
             #print(TIMES_MAPA[locais])
             dificuldade = sum([int(CARTAS[personagem]["preco"]) for personagem in TIMES_MAPA[locais]])
-            if dificuldade <= 3:
-                jogos[locais].dificuldade = "Facil"
-            elif dificuldade <= 5:
-                jogos[locais].dificuldade = "Normal"
-            elif dificuldade <= 8:
-                jogos[locais].dificuldade = "Difícil"
-            elif dificuldade <= 12:
-                jogos[locais].dificuldade = "Épico"
+            if dificuldade <= DIFICULT["facil"]["custo"]:
+                jogos[locais].dificuldade = "\033[38;5;" + str(DIFICULT["facil"]["cor"]) + "m" + DIFICULT["facil"]["nome"] + "\033[0m"
+            elif dificuldade <= DIFICULT["normal"]["custo"]:
+                jogos[locais].dificuldade = "\033[38;5;" + str(DIFICULT["normal"]["cor"]) + "m" + DIFICULT["normal"]["nome"] + "\033[0m"
+            elif dificuldade <= DIFICULT["dificil"]["custo"]:
+                jogos[locais].dificuldade = "\033[38;5;" + str(DIFICULT["dificil"]["cor"]) + "m" + DIFICULT["dificil"]["nome"] + "\033[0m"
+            elif dificuldade <= DIFICULT["epico"]["custo"]:
+                jogos[locais].dificuldade = "\033[38;5;" + str(DIFICULT["epico"]["cor"]) + "m" + DIFICULT["epico"]["nome"] + "\033[0m"
             else:
-                jogos[locais].dificuldade = "Impossível"
+                jogos[locais].dificuldade = "\033[38;5;" + str(DIFICULT["impossivel"]["cor"]) + "m" + DIFICULT["impossivel"]["nome"] + "\033[0m"
 
     jogos["mapa_farol"].l = jogos["mapa_castelo_2"]
     jogos["mapa_farol"].d = jogos["mapa_montanha"]
