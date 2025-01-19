@@ -3303,7 +3303,7 @@ mapa_dinossauro = adjust_image("""               __
  _|  (  | (  |
 /__.-'|_|--|_|""".split("\n"))
 
-imagem_dinossauro = adjust_image("""                           /~~~~~~~~~~~~\\_
+imagem_dinossauro_ = adjust_image("""                           /~~~~~~~~~~~~\\_
        _+=+_             _[~  /~~~~~~~~~~~~\\_
       {''|''}         [~~~    [~   /~~~~~~~~~\\_
        ''':-'~[~[~'~[~  ((++     [~  _/~~~~~~~~\\_
@@ -3315,3 +3315,7 @@ imagem_dinossauro = adjust_image("""                           /~~~~~~~~~~~~\\_
                       <'_V_'>      \\\\  \\    ~~~~~~\\\\  \\
                                     \\\\  \\          \\\\  \\
                                     <'_V_'>        <'_V_'>""".split("\n"))
+
+imagem_dinossauro = [[],[]]
+for i in range(len(imagem_dinossauro_)):
+    imagem_dinossauro.append(imagem_dinossauro_[i][25:])

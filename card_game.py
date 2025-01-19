@@ -160,10 +160,11 @@ def build_cards(time_inimigo:list) -> list:
     Pega o nome das cartas e coloca elas com todas suas propriedades na lista
     """
     from engine_card_game import CARTAS
+    from copy import deepcopy
     
     nova_lista = []
     for inimigo in time_inimigo:
-        nova_lista.append(CARTAS[inimigo])
+        nova_lista.append(deepcopy(CARTAS[inimigo]))
 
     return nova_lista
 

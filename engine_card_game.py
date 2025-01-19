@@ -220,9 +220,15 @@ def verificar_ataques(personagem:dict, dado:int) -> None:
     for ataque in personagem["ataques"]:
         if ataque["tipo"] == "ataque":
             if ataque["dado"] <= dado:
-                ataques_validos.append(ataque)
-                buffer_(f"({n}) {ataque['nome']}: {ataque['descricao']}")
-                n += 1
+                if "usos" in ataque:
+                    if ataque["usos"] > 0:
+                        ataques_validos.append(ataque)
+                        buffer_(f"({n}) {ataque['nome']}: {ataque['descricao']}")
+                        n += 1
+                else:
+                    ataques_validos.append(ataque)
+                    buffer_(f"({n}) {ataque['nome']}: {ataque['descricao']}")
+                    n += 1
 
     #Permite que o jogador escolha um dos ataques:
     if len(ataques_validos) > 0:
@@ -241,6 +247,8 @@ def verificar_ataques(personagem:dict, dado:int) -> None:
                 pass
 
         #Atacando usando os argumentos passados e os argumentos globais que estão em 'jogar()'
+        if "usos" in ataque:
+            ataque["usos"] -= 1
         ataque["funcao"](**ataque["argumentos"])
 
 def jogar_dado() -> int:
@@ -2346,7 +2354,19 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                         "classe":"monstro",
                         "arte":imagem_dinossauro,
                         "raridade":"secreto",
-                        "ataques":[]
+                        "ataques":[{"tipo":"ataque",
+                                    "funcao":dano_,
+                                    "dado":4,
+                                    "argumentos":{"dano":30, "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                    "nome":"Pisotear antigo",
+                                    "descricao":f"Dá 30 de dano em todos personagens."},
+                                   {"tipo":"ataque",
+                                    "usos":1,
+                                    "funcao":dano_,
+                                    "dado":3,
+                                    "argumentos":{"dano":70, "amigos_e_inimigos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                    "nome":"Meteoros",
+                                    "descricao":f"Uma vez durante a partida, esse lacaio pode dar 70 de dano em todos personagens."},]
                         },
           }
 

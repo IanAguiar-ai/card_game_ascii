@@ -72,12 +72,12 @@
         "guardiao_da_ponte",
         "dinossauro"
     ],
-    "moedas": 7330,
-    "exp": 225,
+    "moedas": 7450,
+    "exp": 234,
     "deck": [
-        "tartaruga_gigante",
+        "dinossauro",
         "lampada_vulcao",
-        "guardiao_da_ponte"
+        "lampada_vulcao"
     ],
     "inventario": [
         "lampada_magica",
@@ -96,6 +96,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 34,
+    "vitorias": 37,
     "derrotas": 17
 }
