@@ -514,8 +514,13 @@ def mapa_completo(game, memoria_save):
                 sleep(1/FPS_MAPA)
             gatilho_terminar[0] = True
             sleep(1/FPS_MAPA)
-            run_the_game(time_inimigo = build_cards(memoria_input[:3]))            
-        
+            run_the_game(time_inimigo = build_cards(memoria_input[:3]))
+            
+            memoria_input:list = [None, None, None, None]
+            gatilho_terminar:list = [False]
+            thread_animacao = Thread(target = animacao_mapa, args = (game, memoria_save, memoria_input, gatilho_terminar))
+            thread_animacao.start()
+            
 if __name__ == "__main__":
     memoria_save = ler_save()
     if memoria_save == None:
