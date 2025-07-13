@@ -35,7 +35,7 @@ USE_MODS:bool = False
 
 LANGUAGE = "pt"
 
-BOOSTERS_ESPECIAIS = {"comum":{"nome":"bosster comum", "moedas":40, "exp":0, "chances":[0, 0, 0, 1]},
+BOOSTERS_ESPECIAIS = {"comum":{"nome":"booster comum", "moedas":40, "exp":0, "chances":[0, 0, 0, 1]},
                       "raro":{"nome":"booster raro", "moedas":200, "exp":0, "chances":[0, 0, 1, 0]},
                       "epico":{"nome":"booster épico", "moedas":800, "exp":0, "chances":[0, 1, 0, 0]},
                       "sorte":{"nome":"booster da sorte", "moedas":0, "exp":100, "chances":[0.2, 0.3, 0.4, 0.1]},

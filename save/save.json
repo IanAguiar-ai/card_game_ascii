@@ -71,14 +71,15 @@
         "lampada_vulcao",
         "guardiao_da_ponte",
         "dinossauro",
-        "agua_viva"
-    ],
-    "moedas": 7530,
-    "exp": 240,
-    "deck": [
         "agua_viva",
-        "lampada_vulcao",
-        "hidrante"
+        "alien"
+    ],
+    "moedas": 7750,
+    "exp": 257,
+    "deck": [
+        "duas_faces",
+        "alien",
+        "senhor_trovao"
     ],
     "inventario": [
         "lampada_magica",
@@ -97,6 +98,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 39,
-    "derrotas": 17
+    "vitorias": 44,
+    "derrotas": 19
 }
