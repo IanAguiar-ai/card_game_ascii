@@ -75,8 +75,8 @@
         "alien",
         "cogumelo_venenoso"
     ],
-    "moedas": 7840,
-    "exp": 264,
+    "moedas": 7880,
+    "exp": 267,
     "deck": [
         "duas_faces",
         "alien",
@@ -99,6 +99,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 46,
+    "vitorias": 47,
     "derrotas": 20
 }

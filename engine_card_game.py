@@ -20,7 +20,7 @@ from os import listdir
 from json import load
 from game_config import *
 from arts import *
-from auxiliary_functions import criar_save, ler_save, adicionar_save
+from auxiliary_functions import criar_save, ler_save, adicionar_save, put_color_text
 from threading import Thread
 
 game = Screen(x = X, y = Y, fps = FPS)
@@ -344,8 +344,8 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
 
 def conferir_veneno(time:list):
     for personagem in time:
-        if "veneno" in personagem:
-            personagem["hp"] -= personagem["veneno"]
+        if ("veneno" in personagem) and personagem["hp"] > 0:
+            personagem["hp"] = max(personagem["hp"] - personagem["veneno"], 0)
             buffer_(f"{personagem['nome']} sofrendo {personagem['veneno']} de dano de veneno...")
 
 #-------------------------------------------------------------------------------------
@@ -392,13 +392,13 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
                     personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
                 for personagem_inimigo in personagens_inimigos:
-                    buffer_(f"Atacando {personagem_inimigo['nome']} em {dano}...")
+                    buffer_(put_color_text(f"Atacando {personagem_inimigo['nome']} em {dano}...", tipo = "ataque"))
                     personagem_inimigo["hp"] = base_ataque(personagem_inimigo, dano)
 
                     printar(personagem_inimigo, image)
 
         else:
-            buffer_(f"Atacando todos os personagens em {dano}...")
+            buffer_(put_color_text(f"Atacando todos os personagens em {dano}...", tipo = "ataque"))
             time_inimigo = (globals()["TABULEIRO"] + 1) % 2
             personagens_inimigos = globals()["TIMES"][time_inimigo]
             for personagem_inimigo in personagens_inimigos:
@@ -442,7 +442,7 @@ def veneno_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:b
                     personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
                 for personagem_inimigo in personagens_inimigos:
-                    buffer_(f"Envenenando {personagem_inimigo['nome']} em {dano}...")
+                    buffer_(put_color_text(f"Envenenando {personagem_inimigo['nome']} em {dano}...", tipo = "veneno"))
                     if not "veneno" in personagem_inimigo:
                         personagem_inimigo["veneno"] = 0
                     personagem_inimigo["veneno"] += dano
@@ -450,7 +450,7 @@ def veneno_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:b
                     printar(personagem_inimigo, image)
 
         else:
-            buffer_(f"Envenenando todos os personagens em {dano}...")
+            buffer_(put_color_text(f"Envenenando todos os personagens em {dano}...", tipo = "veneno"))
             time_inimigo = (globals()["TABULEIRO"] + 1) % 2
             personagens_inimigos = globals()["TIMES"][time_inimigo]
             for personagem_inimigo in personagens_inimigos:
@@ -485,7 +485,7 @@ def assasinato_(image:dict, aleatorio:bool = False, vezes:int = 1, chance:float 
                 personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
 
             for personagem_inimigo in personagens_inimigos:
-                buffer_(f"Destruindo {personagem_inimigo['nome']}...")
+                buffer_(put_color_text(f"Destruindo {personagem_inimigo['nome']}...", tipo = "ataque"))
                 personagem_inimigo["hp"] = 0
 
                 printar(personagem_inimigo, image)
@@ -508,7 +508,7 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
             cura *= multiplicador
             
         if curar_todos:
-            buffer_(f"Curando todos...")
+            buffer_(put_color_text(f"Curando todos...", tipo = "cura"))
             for i in range(len(TIMES)):
                 for j in range(len(TIMES[i])):
                     TIMES[i][j]["hp"] = min(TIMES[i][j]["hp"] + cura + globals()["BUFF_CURA"], TIMES[i][j]["hp_inicial"])
@@ -524,7 +524,7 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
                     personagens_amigos = [escolha_inimigo(globals()["TIMES"][time_amigo], aleatorio = aleatorio)]
 
                 for personagem_amigo in personagens_amigos:
-                    buffer_(f"Curando {personagem_amigo['nome']} em {cura}...")
+                    buffer_(put_color_text(f"Curando {personagem_amigo['nome']} em {cura}...", tipo = "cura"))
                     personagem_amigo["hp"] = min(personagem_amigo["hp"] + cura + globals()["BUFF_CURA"], personagem_amigo["hp_inicial"])
 
                     printar(personagem_amigo, image)             
@@ -604,11 +604,11 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, multiplicador:
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
             globals()["BUFF_TEMPORARIO"] += buff
-            buffer_(f"(HABILIDADE:{personagem['nome']}) Buff no dano de +{buff}")
+            buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Buff no dano de +{buff}", tipo = "habilidade"))
         else:
             if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
                 globals()["BUFF_TEMPORARIO"] += buff
-                buffer_(f"(HABILIDADE:{personagem['nome']}) Buff no dano de +{buff}")
+                buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Buff no dano de +{buff}", tipo = "habilidade"))
             else:
                 buffer_(f"Nada aconteceu!")
     else:
@@ -617,13 +617,13 @@ def habilidade_buff_global_dano(buff:int, personagem, image:dict, multiplicador:
             for personagem_ in globals()["time_atacante"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
                     globals()["BUFF_TEMPORARIO"] += buff
-                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} buff no dano de +{buff}")
+                    buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} buff no dano de +{buff}", tipo = "habilidade"))
         
         if "time_atacado" in caracteristicas and caracteristicas["time_atacado"]:
             for personagem_ in globals()["time_atacado"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
                     globals()["BUFF_TEMPORARIO"] += buff
-                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} buff no dano de +{buff}")
+                    buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} buff no dano de +{buff}", tipo = "habilidade"))
         
     if not apenas_caracteristico:
         printar(personagem, image)
@@ -655,11 +655,11 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
     if not soma_por_caracteristicas:
         if not apenas_caracteristico:
             globals()["NERF_TEMPORARIO"] += buff
-            buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
+            buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}", tipo = "habilidade"))
         else:
             if globals()["personagem_atual"][caracteristicas["key"]] == caracteristicas["valor"]:
                 globals()["NERF_TEMPORARIO"] += buff
-                buffer_(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}")
+                buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Nerf no dano de -{buff}", tipo = "habilidade"))
             else:
                 buffer_(f"Nada aconteceu!")
     else:
@@ -668,13 +668,13 @@ def habilidade_nerf_global_dano(buff:int, personagem, image:dict, apenas_caracte
             for personagem_ in globals()["time_atacante"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
                     globals()["NERF_TEMPORARIO"] += buff
-                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}")
+                    buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}", tipo = "habilidade"))
         
         if "time_atacado" in caracteristicas and caracteristicas["time_atacado"]:
             for personagem_ in globals()["time_atacado"]:
                 if personagem_[caracteristicas["key"]] == caracteristicas["valor"]:
                     globals()["NERF_TEMPORARIO"] += buff
-                    buffer_(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}")
+                    buffer_(put_color_text(f"(HABILIDADE:{personagem['nome']}) Sinergia com {personagem_['nome']} nerf no dano de -{buff}", tipo = "habilidade"))
         
     if not apenas_caracteristico:
         printar(personagem, image)
@@ -689,7 +689,7 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
     """
     if si_mesmo:
         if random() <= chance and personagem["hp"] <= 0:
-            buffer_(f"Revivendo {personagem['nome']}...")
+            buffer_(put_color_text(f"Revivendo {personagem['nome']}...", tipo = "reviver"))
             personagem["hp"] = min(personagem["hp_inicial"], vida)
             printar(personagem, image)
         else:
@@ -699,7 +699,7 @@ def habilidade_reviver(personagem, chance:float, image:dict, vida:int, si_mesmo:
         personagens_amigos = globals()["TIMES"][time_amigo]
         personagem_reviver = escolha_inimigo(personagens_amigos, aleatorio = True, vivo = vivo)
         if personagem_reviver != None and random() <= chance:
-            buffer_(f"Revivendo {personagem_reviver['nome']}...")
+            buffer_(put_color_text(f"Revivendo {personagem_reviver['nome']}...", tipo = "reviver"))
             personagem_reviver["hp"] = min(personagem_reviver["hp_inicial"], vida)
             printar(personagem_reviver, image)
             printar(personagem, image)
@@ -2474,7 +2474,7 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                "raridade":"raro",
                                "ataques":[{"tipo":"ataque",
                                            "funcao":veneno_,
-                                           "dado":3,
+                                           "dado":1,
                                            "argumentos":{"dano":5, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                            "nome":"Toxina da floresta",
                                            "descricao":f"Envenena um personagem inimigo a sua escolha (acumula)."},]

@@ -1,4 +1,4 @@
-Estão sendo usados 36.80 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 37.06 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (11):
 	Caçador Iniciante          50 0
@@ -14,30 +14,29 @@ Guerreiro (11):
 	Meca Last Hope            180 5
 
 Humano (10):
-	Curandeiro da Vila         50 1
+	Curandeiro da Vila         40 1
 	Camponês Corajoso          80 1
 	Dono da Loja               40 2
+	Detetive                   60 2
+	O Cozinheiro               60 2
 	Guardião da Ponte          60 2
-	Detetive                   70 2
-	O Cozinheiro               80 2
+	Mago Suporte               50 3
+	Profeta das Areias         60 3
 	Caçador de Feras           70 3
 	Rei da Vila                70 3
-	Mago Suporte               70 3
-	Profeta das Areias         80 3
 
-Monstro (12):
-	Flores Sinistras           50 0
+Monstro (11):
+	Flores Sinistras           40 0
 	Esqueleto Insano           80 1
 	Orc Rejeitado             100 1
 	Aranha rainha              80 2
 	Rei Carangueijo            80 2
 	Fantasma Solitario        100 2
 	Milicia Fantasma          110 2
-	Cogumelo Venenoso          70 3
 	Grifo                     120 4
 	Tartaruga Gigante         140 4
-	Dinossauro                170 4
-	Gigante                   180 4
+	Gigante                   170 4
+	Dinossauro                190 4
 
 Noturno (14):
 	Morcego                    30 0
@@ -48,17 +47,18 @@ Noturno (14):
 	Vingança da Noite          80 1
 	O Imitador                 40 2
 	Comeia                     40 2
+	Alien                      70 2
 	Gênio da Lâmpada           90 2
-	Alien                      90 2
 	Cozinheiro                 90 2
 	Acumulador de Almas       100 2
 	Dono do Cassino            90 3
-	Protetor do Tesouro       170 4
+	Protetor do Tesouro       160 4
 
-Assasino (8):
+Assassino (9):
+	Cogumelo Venenoso          40 1
 	Bandido Cínico             60 1
 	Mestre da Lamina           70 1
-	Assasino Laranja           40 2
+	Assassino Laranja          40 2
 	Pirata                     60 2
 	Mestre dos Venenos         80 3
 	Barba Negra                80 3
@@ -71,7 +71,7 @@ Lenda (18):
 	Hidrante                  200 0
 	Mestre das Horas           50 1
 	Cubo                       60 1
-	Quan, o equilibrio         50 2
+	Guardião do Equilibrio     50 2
 	Fenix                      50 2
 	Mr.Money                   70 2
 	Senhor Trovão              80 2
@@ -87,51 +87,51 @@ Lenda (18):
 
 Raridades:
 	(comum) 15
-	(raro) 22
-	(epico) 10
+	(raro) 23
+	(epico) 9
 	(lendario) 4
 	(secreto) 22
 
 COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	(-1, -1, -1) ->    1 |    0
 	(-1, -1, 0) ->    6 |    0
-	(-1, -1, 1) ->   16 |    0
+	(-1, -1, 1) ->   17 |    0
 	(-1, -1, 2) ->   23 |    0
-	(-1, -1, 3) ->   14 |    0
+	(-1, -1, 3) ->   13 |    0
 	(-1, -1, 4) ->   10 |    0
 	(-1, -1, 5) ->    3 |    0
 	(-1, 0, 0) ->   36 |   15
-	(-1, 0, 1) ->   96 |   96
+	(-1, 0, 1) ->  102 |  102
 	(-1, 0, 2) ->  138 |  138
-	(-1, 0, 3) ->   84 |   84
+	(-1, 0, 3) ->   78 |   78
 	(-1, 0, 4) ->   60 |   60
 	(-1, 0, 5) ->   18 |   18
-	(-1, 1, 1) ->  256 |  120
-	(-1, 1, 2) ->  368 |  368
-	(-1, 1, 3) ->  224 |  224
-	(-1, 1, 4) ->  160 |  160
-	(-1, 1, 5) ->   48 |   48
+	(-1, 1, 1) ->  289 |  136
+	(-1, 1, 2) ->  391 |  391
+	(-1, 1, 3) ->  221 |  221
+	(-1, 1, 4) ->  170 |  170
+	(-1, 1, 5) ->   51 |   51
 	(-1, 2, 2) ->  529 |  253
-	(-1, 2, 3) ->  322 |  322
+	(-1, 2, 3) ->  299 |  299
 	(-1, 2, 4) ->  230 |  230
-	(-1, 3, 3) ->  196 |   91
+	(-1, 3, 3) ->  169 |   78
 	(0, 0, 0)  ->  216 |   20
-	(0, 0, 1)  ->  576 |  240
+	(0, 0, 1)  ->  612 |  255
 	(0, 0, 2)  ->  828 |  345
-	(0, 0, 3)  ->  504 |  210
+	(0, 0, 3)  ->  468 |  195
 	(0, 0, 4)  ->  360 |  150
 	(0, 0, 5)  ->  108 |   45
-	(0, 1, 1)  -> 1536 |  720
-	(0, 1, 2)  -> 2208 | 2208
-	(0, 1, 3)  -> 1344 | 1344
-	(0, 1, 4)  ->  960 |  960
+	(0, 1, 1)  -> 1734 |  816
+	(0, 1, 2)  -> 2346 | 2346
+	(0, 1, 3)  -> 1326 | 1326
+	(0, 1, 4)  -> 1020 | 1020
 	(0, 2, 2)  -> 3174 | 1518
-	(0, 2, 3)  -> 1932 | 1932
-	(1, 1, 1)  -> 4096 |  560
-	(1, 1, 2)  -> 5888 | 2760
-	(1, 1, 3)  -> 3584 | 1680
-	(1, 2, 2)  -> 8464 | 4048
+	(0, 2, 3)  -> 1794 | 1794
+	(1, 1, 1)  -> 4913 |  680
+	(1, 1, 2)  -> 6647 | 3128
+	(1, 1, 3)  -> 3757 | 1768
+	(1, 2, 2)  -> 8993 | 4301
 
-Combinações totais: 38616
-Combinações únicas: 20967
+Combinações totais: 41150
+Combinações únicas: 21947
 Total de cartas no jogo: 73

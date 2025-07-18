@@ -124,13 +124,29 @@ def put_color_class(text, class_) -> list:
     return put_color(text = text, color = color)
 
 def put_color_tipo(text, tipo) -> list:
+    if type(text) == str:
+        text = list(text)
     colors_class = {"habilidade":45,
-                    "ataque":196}
+                    "ataque":196,
+                    "veneno":40,
+                    "cura":70,
+                    "reviver":20}
     if tipo in colors_class:
         color = colors_class[tipo]
     else:
         color = 15
     return put_color(text = text, color = color)
+
+def put_color_text(text:str, tipo:str) -> list:
+    colors_class = {"habilidade":45,
+                    "ataque":196,
+                    "veneno":70,
+                    "cura":150,
+                    "reviver":20}
+
+    color = colors_class[tipo]
+    
+    return text #f"\033[38;5;{color}m" + text + "\033[0m"
 
 def put_color_rarity(text, rarity) -> list:
     colors_class = {"comum":219,
