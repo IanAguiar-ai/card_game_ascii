@@ -3316,6 +3316,10 @@ imagem_dinossauro_ = adjust_image("""                           /~~~~~~~~~~~~\\_
                                     \\\\  \\          \\\\  \\
                                     <'_V_'>        <'_V_'>""".split("\n"))
 
+imagem_dinossauro = [[],[]]
+for i in range(len(imagem_dinossauro_)):
+    imagem_dinossauro.append(imagem_dinossauro_[i][25:])
+
 imagem_agua_viva = adjust_image("""
 
       ⠀⠀⠀⠀⡴⠂⢩⡉⠉⠉⡖⢄⠀
@@ -3329,6 +3333,20 @@ imagem_agua_viva = adjust_image("""
       ⠀⠀⠀⠀⠈⠣⠀⢸⠀⠀⢠⠇⠀
 ⠀      ⠀⠀⠀⠀⠀⢠⠃⠀⠔⠁⠀⠀""".split("\n"))
 
-imagem_dinossauro = [[],[]]
-for i in range(len(imagem_dinossauro_)):
-    imagem_dinossauro.append(imagem_dinossauro_[i][25:])
+imagem_cogumelo_venenoso = adjust_image("""
+               ____
+           _.-'78o `"`--._
+       ,o888o.  .o888o,   ''-.
+     ,88888P  `78888P..______.]
+    /_..__..----""        __.'
+    `-._       /""| _..-''
+        "`-----\  `\
+                |   ;.-""--..
+                | ,8o.  o88. `.
+                `;888P  `788P  :
+          .o""-.|`-._         ./
+         J88 _.-/    ";"-P----'
+         `--'\`|     /  /
+             | /     |  |
+             \|     /   |
+              `-----`---'""").split("\n"))
