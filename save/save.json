@@ -72,14 +72,15 @@
         "guardiao_da_ponte",
         "dinossauro",
         "agua_viva",
-        "alien"
+        "alien",
+        "cogumelo_venenoso"
     ],
-    "moedas": 7750,
-    "exp": 257,
+    "moedas": 7840,
+    "exp": 264,
     "deck": [
         "duas_faces",
         "alien",
-        "bandido_cinico"
+        "cogumelo_venenoso"
     ],
     "inventario": [
         "lampada_magica",
@@ -98,6 +99,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 44,
-    "derrotas": 19
+    "vitorias": 46,
+    "derrotas": 20
 }

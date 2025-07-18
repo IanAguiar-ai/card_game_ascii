@@ -140,6 +140,9 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
         globals()["turno_atual"][0] = globals()['PARTIDA']
 
+        ### Vendo se o personagem está envenenado:
+        conferir_veneno(time = [*time_atacante, *time_atacado])
+
         ###Vendo se tem alguma habilidade passiva de começo de turno:
         conferir_habilidade(tempo = "comeco", ataque = True, time = time_atacante)
         conferir_habilidade(tempo = "comeco", defesa = True, time = time_atacado)
@@ -339,6 +342,12 @@ def conferir_habilidade(tempo:str, ataque:bool = False, defesa:bool = False, tim
                         buffer_(f"{habilidade['nome']}: ", end = "")
                         habilidade["funcao"](**habilidade["argumentos"], personagem = personagem)
 
+def conferir_veneno(time:list):
+    for personagem in time:
+        if "veneno" in personagem:
+            personagem["hp"] -= personagem["veneno"]
+            buffer_(f"{personagem['nome']} sofrendo {personagem['veneno']} de dano de veneno...")
+
 #-------------------------------------------------------------------------------------
 #Funções de dano:
 
@@ -402,6 +411,62 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
             for personagem_amigo in personagens_amigos:
                 personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
+                printar(personagem_amigo, image)
+
+    else:
+        buffer_(f"Nada aconteceu!")
+
+def veneno_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None, chance:float = 1) -> None:
+    """
+    Causa dano em um personagem inimigo, pode ser aleatorio ou não
+    """
+    if type(vezes) == list:
+        vezes:int = vezes[0]
+
+    if type(multiplicador) == list:
+        multiplicador:int = multiplicador[0]
+    
+    if random() < chance:
+        if type(dano) == list: #Casos que recebem listas com variáveis
+            if multiplicador != None:
+                dano = dano[0] * multiplicador
+            else:
+                dano = dano[0]
+            
+        if not amigos_e_inimigos:
+            for _ in range(vezes):
+                time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+                if todos:
+                    personagens_inimigos = globals()["TIMES"][time_inimigo]
+                else:
+                    personagens_inimigos = [escolha_inimigo(globals()["TIMES"][time_inimigo], aleatorio = aleatorio)]
+
+                for personagem_inimigo in personagens_inimigos:
+                    buffer_(f"Envenenando {personagem_inimigo['nome']} em {dano}...")
+                    if not "veneno" in personagem_inimigo:
+                        personagem_inimigo["veneno"] = 0
+                    personagem_inimigo["veneno"] += dano
+
+                    printar(personagem_inimigo, image)
+
+        else:
+            buffer_(f"Envenenando todos os personagens em {dano}...")
+            time_inimigo = (globals()["TABULEIRO"] + 1) % 2
+            personagens_inimigos = globals()["TIMES"][time_inimigo]
+            for personagem_inimigo in personagens_inimigos:
+                if not "veneno" in personagem_inimigo:
+                    personagem_inimigo["veneno"] = 0
+                personagem_inimigo["veneno"] += dano
+
+                printar(personagem_inimigo, image)
+
+            time_amigo = (globals()["TABULEIRO"]) % 2
+            personagens_amigos = globals()["TIMES"][time_amigo]
+            for personagem_amigo in personagens_amigos:
+                if not "veneno" in personagem_amigo:
+                    personagem_amigo["veneno"] = 0
+                personagem_amigo["veneno"] += dano
+                
                 printar(personagem_amigo, image)
 
     else:
@@ -1276,12 +1341,12 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "nome":"Atrás de Você",
                                       "descricao":f"Dá 120 de dano a um personagem inimigo aleatório."}],
                           },
-          "assassino_laranja":{"nome":"assassino Laranja",
+          "assasino_laranja":{"nome":"Assassino Laranja",
                           "hp":40,
                           "preco":2,
                           "classe":"assassino",
-                          "arte":imagem_assassino_laranja,
-                          "arte_morto":imagem_assassino_laranja_morto,
+                          "arte":imagem_assasino_laranja,
+                          "arte_morto":imagem_assasino_laranja_morto,
                           "raridade":"raro",
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
@@ -2400,30 +2465,20 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                    "nome":"Pisei em algo",
                                    "descricao":f"Enquanto morto, no inicio de todo turno, de 10 de dano em um personagem aleatório, aliádo ou inimigo, todos buffs valem para esse ataque."}]
                               },
-          "cogumelo_venenoso":{"nome":"Agua Viva",
-                       "hp":40,
-                       "preco":1,
-                       "classe":"assassino",
-                       "arte":imagem_agua_viva,
-                       "arte_morto":imagem_agua_viva,
-                       "raridade":"raro",
-                       "ataques":[{"tipo":"ataque",
-                                   "funcao":dano_,
-                                   "dado":2,
-                                   "argumentos":{"dano":10, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                   "nome":"Queimadura",
-                                   "descricao":f"Dá 10 de dano em um personagem inimigo aleatório."},
-                                  {"tipo":"habilidade",
-                                   "ataque":True,
-                                   "defesa":True,
-                                   "tempo":"comeco",
-                                   "vivo":False,
-                                   "morto":True,
-                                   "funcao":dano_,
-                                   "argumentos":{"dano":10, "aleatorio":True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
-                                   "nome":"Pisei em algo",
-                                   "descricao":f"Enquanto morto, no inicio de todo turno, de 10 de dano em um personagem aleatório, aliádo ou inimigo, todos buffs valem para esse ataque."}]
-                              },
+          "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
+                               "hp":40,
+                               "preco":1,
+                               "classe":"assassino",
+                               "arte":imagem_cogumelo_venenoso,
+                               "arte_morto":imagem_cogumelo_venenoso,
+                               "raridade":"raro",
+                               "ataques":[{"tipo":"ataque",
+                                           "funcao":veneno_,
+                                           "dado":3,
+                                           "argumentos":{"dano":5, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                           "nome":"Toxina da floresta",
+                                           "descricao":f"Envenena um personagem inimigo a sua escolha (acumula)."},]
+                                          },
           }
 
 for carta in CARTAS.keys():

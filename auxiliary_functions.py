@@ -115,7 +115,7 @@ def put_color_class(text, class_) -> list:
                     "guerreiro":9,
                     "monstro":3,
                     "noturno":63,
-                    "assasino":8,
+                    "assassino":8,
                     "lenda":226}
     if class_ in colors_class:
         color = colors_class[class_]
