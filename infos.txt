@@ -1,4 +1,4 @@
-Estão sendo usados 37.06 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 37.69 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (11):
 	Caçador Iniciante          50 0
@@ -54,7 +54,7 @@ Noturno (14):
 	Dono do Cassino            90 3
 	Protetor do Tesouro       160 4
 
-Assassino (9):
+Assassino (10):
 	Cogumelo Venenoso          40 1
 	Bandido Cínico             60 1
 	Mestre da Lamina           70 1
@@ -62,6 +62,7 @@ Assassino (9):
 	Pirata                     60 2
 	Mestre dos Venenos         80 3
 	Barba Negra                80 3
+	Cobra Rei                  80 3
 	Assasina de Quadrilha      90 3
 	Mafioso Acumulador         90 3
 
@@ -86,7 +87,7 @@ Lenda (18):
 	O Sol                     240 5
 
 Raridades:
-	(comum) 15
+	(comum) 16
 	(raro) 23
 	(epico) 9
 	(lendario) 4
@@ -97,41 +98,41 @@ COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	(-1, -1, 0) ->    6 |    0
 	(-1, -1, 1) ->   17 |    0
 	(-1, -1, 2) ->   23 |    0
-	(-1, -1, 3) ->   13 |    0
+	(-1, -1, 3) ->   14 |    0
 	(-1, -1, 4) ->   10 |    0
 	(-1, -1, 5) ->    3 |    0
 	(-1, 0, 0) ->   36 |   15
 	(-1, 0, 1) ->  102 |  102
 	(-1, 0, 2) ->  138 |  138
-	(-1, 0, 3) ->   78 |   78
+	(-1, 0, 3) ->   84 |   84
 	(-1, 0, 4) ->   60 |   60
 	(-1, 0, 5) ->   18 |   18
 	(-1, 1, 1) ->  289 |  136
 	(-1, 1, 2) ->  391 |  391
-	(-1, 1, 3) ->  221 |  221
+	(-1, 1, 3) ->  238 |  238
 	(-1, 1, 4) ->  170 |  170
 	(-1, 1, 5) ->   51 |   51
 	(-1, 2, 2) ->  529 |  253
-	(-1, 2, 3) ->  299 |  299
+	(-1, 2, 3) ->  322 |  322
 	(-1, 2, 4) ->  230 |  230
-	(-1, 3, 3) ->  169 |   78
+	(-1, 3, 3) ->  196 |   91
 	(0, 0, 0)  ->  216 |   20
 	(0, 0, 1)  ->  612 |  255
 	(0, 0, 2)  ->  828 |  345
-	(0, 0, 3)  ->  468 |  195
+	(0, 0, 3)  ->  504 |  210
 	(0, 0, 4)  ->  360 |  150
 	(0, 0, 5)  ->  108 |   45
 	(0, 1, 1)  -> 1734 |  816
 	(0, 1, 2)  -> 2346 | 2346
-	(0, 1, 3)  -> 1326 | 1326
+	(0, 1, 3)  -> 1428 | 1428
 	(0, 1, 4)  -> 1020 | 1020
 	(0, 2, 2)  -> 3174 | 1518
-	(0, 2, 3)  -> 1794 | 1794
+	(0, 2, 3)  -> 1932 | 1932
 	(1, 1, 1)  -> 4913 |  680
 	(1, 1, 2)  -> 6647 | 3128
-	(1, 1, 3)  -> 3757 | 1768
+	(1, 1, 3)  -> 4046 | 1904
 	(1, 2, 2)  -> 8993 | 4301
 
-Combinações totais: 41150
-Combinações únicas: 21947
-Total de cartas no jogo: 73
+Combinações totais: 41789
+Combinações únicas: 22397
+Total de cartas no jogo: 74

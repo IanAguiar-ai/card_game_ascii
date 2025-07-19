@@ -64,8 +64,6 @@ class Screen:
                 self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{TIMES[y__][x__]['hp_temp']:3}")], life = TIMES[y__][x__]['hp_temp'])]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(translate(f"{TIMES[y__][x__]['nome'].center(34)}"))]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({TIMES[y__][x__]['preco']})")], rarity = TIMES[y__][x__]['raridade'])]))
-                if "veneno" in TIMES[y__][x__]:
-                    self.add_temporary(Element(x = x_ + 32, y = y_ + 2, image = [*put_color_tipo([list(f"-{TIMES[y__][x__]['veneno']}")], tipo = "veneno")]))
                 if TIMES[y__][x__]['arte'] != None:
                     if not "arte_morto" in TIMES[y__][x__]:
                         self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
@@ -74,6 +72,8 @@ class Screen:
                             self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
                         else:
                             self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte_morto']))
+                if "veneno" in TIMES[y__][x__]:
+                    self.add_temporary(Element(x = x_ + 32, y = y_ + 2, image = [*put_color_tipo([list(f"-{TIMES[y__][x__]['veneno']}")], tipo = "veneno")]))
                             
 
                 #Animacoes:

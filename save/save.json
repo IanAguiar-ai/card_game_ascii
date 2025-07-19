@@ -73,14 +73,18 @@
         "dinossauro",
         "agua_viva",
         "alien",
-        "cogumelo_venenoso"
+        "cogumelo_venenoso",
+        "cobra_rei",
+        "revolver",
+        "espada_de_arthur",
+        "lamina_venenosa"
     ],
-    "moedas": 7880,
-    "exp": 267,
+    "moedas": 8150,
+    "exp": 288,
     "deck": [
-        "duas_faces",
-        "alien",
-        "cogumelo_venenoso"
+        "hidrante",
+        "lamina_venenosa",
+        "lamina_venenosa"
     ],
     "inventario": [
         "lampada_magica",
@@ -99,6 +103,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 47,
-    "derrotas": 20
+    "vitorias": 53,
+    "derrotas": 23
 }

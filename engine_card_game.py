@@ -140,9 +140,6 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         buffer_(f"Turno {globals()['PARTIDA']} do {personagem_atual['nome']} | TABULEIRO: {globals()['TABULEIRO']} - POSIÇÃO: {globals()['ESCOLHIDO'][globals()['TABULEIRO']]}")
         globals()["turno_atual"][0] = globals()['PARTIDA']
 
-        ### Vendo se o personagem está envenenado:
-        conferir_veneno(time = [*time_atacante, *time_atacado])
-
         ###Vendo se tem alguma habilidade passiva de começo de turno:
         conferir_habilidade(tempo = "comeco", ataque = True, time = time_atacante)
         conferir_habilidade(tempo = "comeco", defesa = True, time = time_atacado)
@@ -164,7 +161,11 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         conferir_habilidade(tempo = "final", defesa = True, time = time_atacado)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacante)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacado)
+        
         sleep(SLEEP_END_TURN)
+
+        ### Vendo se o personagem está envenenado:
+        conferir_veneno(time = [*time_atacante, *time_atacado])
 
         #Ajustando valores de turno:      
         globals()["ESCOLHIDO"][globals()["TABULEIRO"]] = (globals()["ESCOLHIDO"][globals()["TABULEIRO"]] + 1) % 3
@@ -365,7 +366,6 @@ def base_ataque(personagem_inimigo:dict, dano:int):
 
     return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
     
-
 def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None, chance:float = 1) -> None:
     """
     Causa dano em um personagem inimigo, pode ser aleatorio ou não
@@ -749,13 +749,16 @@ def habilidade_nerf_global_dado(personagem, buff:int, image:dict, chance:float =
     else:
         buffer_(f"Nenhuma iteração...")
 
-def adicionar_habilidade(funcao:dict, image:dict) -> None:
+def adicionar_habilidade(funcao:dict, image:dict, chance:float = 1) -> None:
     """
     Adiciona uma abilidade a uma carta
     """
-    personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
-    personagem["ataques"].append(funcao)
-    printar(personagem, image)
+    if random() < chance:
+        personagem = TIMES[globals()["TABULEIRO"]][globals()["ESCOLHIDO"][globals()["TABULEIRO"]]]
+        personagem["ataques"].append(funcao)
+        printar(personagem, image)
+    else:
+        buffer_(f"Nenhuma iteração...")
 
 def somar_global(variavel_global:list, soma:int, image:dict) -> None:
     """
@@ -2471,14 +2474,114 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                "classe":"assassino",
                                "arte":imagem_cogumelo_venenoso,
                                "arte_morto":imagem_cogumelo_venenoso,
+                               "raridade":"comum",
+                               "ataques":[{"tipo":"ataque",
+                                           "funcao":veneno_,
+                                           "dado":4,
+                                           "argumentos":{"dano":5, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                           "nome":"Toxina da floresta",
+                                           "descricao":f"Envenena um personagem inimigo a sua escolha."},]
+                                          },
+          "cobra_rei":{"nome":"Cobra Rei",
+                               "hp":80,
+                               "preco":3,
+                               "classe":"assassino",
+                               "arte":imagem_cobra_rei,
+                               "arte_morto":imagem_cobra_rei,
                                "raridade":"raro",
                                "ataques":[{"tipo":"ataque",
                                            "funcao":veneno_,
-                                           "dado":1,
-                                           "argumentos":{"dano":5, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
-                                           "nome":"Toxina da floresta",
-                                           "descricao":f"Envenena um personagem inimigo a sua escolha (acumula)."},]
+                                           "dado":5,
+                                           "usos":1,
+                                           "argumentos":{"dano":20, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                           "nome":"Veneno mortal",
+                                           "descricao":f"Uma vez durante a partida pode envenenar um lacaio inimigo a sua escolha em 20."},
+                                          {"tipo":"ataque",
+                                           "funcao":veneno_,
+                                           "dado":5,
+                                           "argumentos":{"dano":10, "aleatorio":True, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                           "nome":"Picada",
+                                           "descricao":f"Envenene um lacaio inimigo aleatório em 10."}]
                                           },
+          "revolver":{"nome":"Revolver 38",
+                      "hp":40,
+                      "preco":1,
+                      "classe":"lenda",
+                      "arte":imagem_revolver,
+                      "arte_morto":imagem_revolver,
+                      "raridade":"epico",
+                      "ataques":[{"tipo":"ataque",
+                                  "funcao":adicionar_habilidade,
+                                  "dado":1,
+                                  "nome":"Colocar Bala",
+                                  "usos":1,
+                                  "descricao":f"Uma vez na partida, coloca 6 balas no tambor.",
+                                  "argumentos":{"image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3},
+                                                "funcao":{"tipo":"ataque",
+                                                          "funcao":adicionar_habilidade,
+                                                          "dado":1,
+                                                          "usos":1,
+                                                          "nome":"Carregar",
+                                                          "descricao":"Carrega e prepara o revolver.",
+                                                          "argumentos":{"image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3},
+                                                                        "funcao":{"tipo":"ataque",
+                                                                                  "funcao":dano_,
+                                                                                  "dado":1,
+                                                                                  "usos":6,
+                                                                                  "argumentos":{"dano":90, "aleatorio":False,
+                                                                                                "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                                                                  "nome":"Apertar gatilho",
+                                                                                  "descricao":f"Dá 90 de dano em um personagem inimigo a sua escolha."
+                                                                                  }
+                                                                        },
+                                                          },
+                                                },
+                                  },]
+                      },
+          "espada_de_arthur":{"nome":"Espada de Arthur",
+                             "hp":90,
+                             "preco":2,
+                             "classe":"lenda",
+                             "arte":imagem_espada_de_arthur,
+                             "arte_morto":imagem_espada_de_arthur,
+                             "raridade":"epico",
+                             "ataques":[{"tipo":"ataque",
+                                         "funcao":adicionar_habilidade,
+                                         "dado":6,
+                                         "nome":"Tirar da pedra",
+                                         "usos":1,
+                                         "descricao":f"Uma vez na partida, você pode tirar a espada da pedra.",
+                                         "argumentos":{"image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3},
+                                                       "funcao":{"tipo":"ataque",
+                                                                 "funcao":dano_,
+                                                                 "dado":4,
+                                                                 "argumentos":{"dano":40, "todos":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                                                 "nome":"Lâmida da justiça",
+                                                                 "descricao":f"Dá 40 de dano em todos personagens inimigos."
+                                                                 },
+                                                       },
+                                         },]
+                             },
+          "lamina_venenosa":{"nome":"Lamina Venenosa",
+                             "hp":50,
+                             "preco":2,
+                             "classe":"assassino",
+                             "arte":imagem_lamina_venenosa,
+                             "arte_morto":imagem_lamina_venenosa,
+                             "raridade":"epico",
+                             "ataques":[{"tipo":"ataque",
+                                         "funcao":veneno_,
+                                         "dado":1,
+                                         "argumentos":{"dano":2, "todos":True, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                         "nome":"Corte leve",
+                                         "descricao":f"Envenena todos personagens inimigos em 2."},
+                                        {"tipo":"ataque",
+                                         "funcao":veneno_,
+                                         "dado":6,
+                                         "argumentos":{"dano":10, "aleatorio":False, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                         "nome":"Corte profundo",
+                                         "descricao":f"Envenena em 10 um personagem inimigo a sua escolha."}]
+                             },
           }
 
 for carta in CARTAS.keys():
