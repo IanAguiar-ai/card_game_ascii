@@ -147,6 +147,10 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         conferir_habilidade(tempo = "comeco", ataque = True, defesa = True, time = time_atacado)
         sleep(SLEEP_INITIAL_TURN)
 
+        personagem_atual["buff_cura"] = globals()["BUFF_CURA"]
+        personagem_atual["buff_dano"] = globals()["BUFF_TEMPORARIO"]
+        personagem_atual["buff_escudo"] = globals()["NERF_TEMPORARIO"]
+
         numero_dado = jogar_dado()
         globals()["numero_dado"][0] = numero_dado
         sleep(SLEEP_DICE)
@@ -161,6 +165,10 @@ def jogar(TIMES:list, graphic:bool = True) -> None:
         conferir_habilidade(tempo = "final", defesa = True, time = time_atacado)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacante)
         conferir_habilidade(tempo = "final", ataque = True, defesa = True, time = time_atacado)
+
+        personagem_atual["buff_cura"] = globals()["BUFF_CURA"]
+        personagem_atual["buff_dano"] = globals()["BUFF_TEMPORARIO"]
+        personagem_atual["buff_escudo"] = globals()["NERF_TEMPORARIO"]
         
         sleep(SLEEP_END_TURN)
 
@@ -356,13 +364,20 @@ def base_ataque(personagem_inimigo:dict, dano:int):
     """
     Base do ataque
     """
+    if type(dano) == list:
+        dano = dano[0]
+        
     globals()["ultimo_ataque"][0] = dano
-    if globals()["maior_ataque"][0] < dano:
-        globals()["maior_ataque"][0] = dano
+
     if globals()["menor_ataque"][0] == None:
         globals()["menor_ataque"][0] = dano
+    elif globals()["maior_ataque"][0] < dano:
+        globals()["maior_ataque"][0] = dano
     elif globals()["menor_ataque"][0] > dano:
-        globals()["menor_ataque"][0] = dano
+        globals()["menor_ataque"][0] = dan
+
+    if dano == None:
+        dano = 0
 
     return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
     
@@ -378,10 +393,11 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     
     if random() < chance:
         if type(dano) == list: #Casos que recebem listas com variáveis
-            if multiplicador != None:
-                dano = dano[0] * multiplicador
-            else:
-                dano = dano[0]
+            if dano[0] != None:
+                if multiplicador != None:
+                    dano = dano[0] * multiplicador
+                else:
+                    dano = dano[0]
             
         if not amigos_e_inimigos:
             for _ in range(vezes):
@@ -409,7 +425,7 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
             time_amigo = (globals()["TABULEIRO"]) % 2
             personagens_amigos = globals()["TIMES"][time_amigo]
             for personagem_amigo in personagens_amigos:
-                personagem_amigo["hp"] = max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
+                personagem_amigo["hp"] = base_ataque(personagem_amigo, dano) #max(personagem_amigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
 
                 printar(personagem_amigo, image)
 
@@ -428,11 +444,12 @@ def veneno_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:b
     
     if random() < chance:
         if type(dano) == list: #Casos que recebem listas com variáveis
-            if multiplicador != None:
-                dano = dano[0] * multiplicador
-            else:
-                dano = dano[0]
-            
+            if dano[0] != None:
+                if multiplicador != None:
+                    dano = dano[0] * multiplicador
+                else:
+                    dano = dano[0]
+                
         if not amigos_e_inimigos:
             for _ in range(vezes):
                 time_inimigo = (globals()["TABULEIRO"] + 1) % 2
@@ -496,10 +513,16 @@ def cura_(cura:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
     """
     if random() < chance:
         if type(vezes) == list:
-            vezes:int = vezes[0]
+            if vezes[0] == None:
+                vezes = 1
+            else:
+                vezes:int = vezes[0]
 
         if type(cura) == list:
-            cura = cura[0]
+            if cura[0] == None:
+                cura = 0
+            else:
+                cura = cura[0]
 
         if type(multiplicador) == list:
             multiplicador:int = multiplicador[0]

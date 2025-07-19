@@ -128,8 +128,10 @@ def put_color_tipo(text, tipo) -> list:
         text = list(text)
     colors_class = {"habilidade":45,
                     "ataque":196,
+                    "dano":198,
+                    "escudo":31,
                     "veneno":40,
-                    "cura":70,
+                    "cura":15,
                     "reviver":20}
     if tipo in colors_class:
         color = colors_class[tipo]

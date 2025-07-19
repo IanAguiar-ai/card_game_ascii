@@ -72,8 +72,15 @@ class Screen:
                             self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte']))
                         else:
                             self.add_temporary(Element(x = x_ + 1, y = y_ + 2, image = TIMES[y__][x__]['arte_morto']))
+                            
                 if "veneno" in TIMES[y__][x__]:
                     self.add_temporary(Element(x = x_ + 32, y = y_ + 2, image = [*put_color_tipo([list(f"-{TIMES[y__][x__]['veneno']}")], tipo = "veneno")]))
+                if "buff_cura" in TIMES[y__][x__]:
+                    self.add_temporary(Element(x = x_ + 36, y = y_ + 1, image = [*put_color_tipo([list(f"+{TIMES[y__][x__]['buff_cura']}")], tipo = "cura")]))
+                if "buff_dano" in TIMES[y__][x__]:
+                    self.add_temporary(Element(x = x_ + 36, y = y_ + 2, image = [*put_color_tipo([list(f"+{TIMES[y__][x__]['buff_dano']}")], tipo = "dano")]))
+                if "buff_escudo" in TIMES[y__][x__]:
+                    self.add_temporary(Element(x = x_ + 36, y = y_ + 3, image = [*put_color_tipo([list(f"-{TIMES[y__][x__]['buff_escudo']}")], tipo = "escudo")]))
                             
 
                 #Animacoes:

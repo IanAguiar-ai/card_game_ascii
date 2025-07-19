@@ -79,8 +79,8 @@
         "espada_de_arthur",
         "lamina_venenosa"
     ],
-    "moedas": 8150,
-    "exp": 288,
+    "moedas": 8440,
+    "exp": 311,
     "deck": [
         "hidrante",
         "lamina_venenosa",
@@ -103,6 +103,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 53,
-    "derrotas": 23
+    "vitorias": 59,
+    "derrotas": 28
 }
