@@ -1,4 +1,4 @@
-Estão sendo usados 39.64 Kilo Bytes para armazenar as cartas.
+Estão sendo usados 40.92 Kilo Bytes para armazenar as cartas.
 
 Guerreiro (11):
 	Caçador Iniciante          50 0
@@ -25,12 +25,13 @@ Humano (10):
 	Caçador de Feras           70 3
 	Rei da Vila                70 3
 
-Monstro (11):
+Monstro (12):
 	Flores Sinistras           40 0
 	Esqueleto Insano           80 1
 	Orc Rejeitado             100 1
 	Aranha rainha              80 2
 	Rei Carangueijo            80 2
+	Lata de Lixo               80 2
 	Fantasma Solitario        100 2
 	Milicia Fantasma          110 2
 	Grifo                     120 4
@@ -84,14 +85,14 @@ Lenda (20):
 	H@ck3r                     70 3
 	Balão                     130 3
 	Boneco de Neve            120 4
+	Cactus Cowboy             130 4
 	Pegasus                   130 4
-	Cactus Cowboy             140 4
 	A Lua                     180 5
 	O Sol                     240 5
 
 Raridades:
 	(comum) 16
-	(raro) 23
+	(raro) 24
 	(epico) 12
 	(lendario) 4
 	(secreto) 22
@@ -100,42 +101,42 @@ COMBINAÇÕES POSSÍVEIS COM AS CARTAS DO JOGO:
 	(-1, -1, -1) ->    1 |    0
 	(-1, -1, 0) ->    6 |    0
 	(-1, -1, 1) ->   18 |    0
-	(-1, -1, 2) ->   25 |    0
+	(-1, -1, 2) ->   26 |    0
 	(-1, -1, 3) ->   14 |    0
 	(-1, -1, 4) ->   10 |    0
 	(-1, -1, 5) ->    3 |    0
 	(-1, 0, 0) ->   36 |   15
 	(-1, 0, 1) ->  108 |  108
-	(-1, 0, 2) ->  150 |  150
+	(-1, 0, 2) ->  156 |  156
 	(-1, 0, 3) ->   84 |   84
 	(-1, 0, 4) ->   60 |   60
 	(-1, 0, 5) ->   18 |   18
 	(-1, 1, 1) ->  324 |  153
-	(-1, 1, 2) ->  450 |  450
+	(-1, 1, 2) ->  468 |  468
 	(-1, 1, 3) ->  252 |  252
 	(-1, 1, 4) ->  180 |  180
 	(-1, 1, 5) ->   54 |   54
-	(-1, 2, 2) ->  625 |  300
-	(-1, 2, 3) ->  350 |  350
-	(-1, 2, 4) ->  250 |  250
+	(-1, 2, 2) ->  676 |  325
+	(-1, 2, 3) ->  364 |  364
+	(-1, 2, 4) ->  260 |  260
 	(-1, 3, 3) ->  196 |   91
 	(0, 0, 0)  ->  216 |   20
 	(0, 0, 1)  ->  648 |  270
-	(0, 0, 2)  ->  900 |  375
+	(0, 0, 2)  ->  936 |  390
 	(0, 0, 3)  ->  504 |  210
 	(0, 0, 4)  ->  360 |  150
 	(0, 0, 5)  ->  108 |   45
 	(0, 1, 1)  -> 1944 |  918
-	(0, 1, 2)  -> 2700 | 2700
+	(0, 1, 2)  -> 2808 | 2808
 	(0, 1, 3)  -> 1512 | 1512
 	(0, 1, 4)  -> 1080 | 1080
-	(0, 2, 2)  -> 3750 | 1800
-	(0, 2, 3)  -> 2100 | 2100
+	(0, 2, 2)  -> 4056 | 1950
+	(0, 2, 3)  -> 2184 | 2184
 	(1, 1, 1)  -> 5832 |  816
-	(1, 1, 2)  -> 8100 | 3825
+	(1, 1, 2)  -> 8424 | 3978
 	(1, 1, 3)  -> 4536 | 2142
-	(1, 2, 2)  -> 11250 | 5400
+	(1, 2, 2)  -> 12168 | 5850
 
-Combinações totais: 48754
-Combinações únicas: 25878
-Total de cartas no jogo: 77
+Combinações totais: 50630
+Combinações únicas: 26911
+Total de cartas no jogo: 78

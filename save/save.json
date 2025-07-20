@@ -77,14 +77,15 @@
         "cobra_rei",
         "revolver",
         "espada_de_arthur",
-        "lamina_venenosa"
+        "lamina_venenosa",
+        "lata_de_lixo"
     ],
     "moedas": 8520,
     "exp": 317,
     "deck": [
         "hidrante",
         "agua_viva",
-        "cactus_cowboy"
+        "lata_de_lixo"
     ],
     "inventario": [
         "lampada_magica",
