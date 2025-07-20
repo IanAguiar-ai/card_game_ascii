@@ -18,3 +18,6 @@ colors = {"d_red": 52,
           "black": 232,
           "white": 255,
           "yellow": 226}
+
+for i in range(255):
+    print(f"\033[38;5;{i}m" + str(i) + "\033[0m")

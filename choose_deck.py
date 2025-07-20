@@ -6,6 +6,7 @@ from game_config import *
 from random import random
 from engine_card_game import CARTAS, jogar, buffer_, cl
 from auxiliary_functions import *
+from translator import translate
 
 class Screen:
     def __init__(self, x:int, y:int, fps:int = 30):
@@ -61,6 +62,9 @@ class Screen:
                 self.add_temporary(Element(x = x_ + 32, y = y_ + 1, image = [*put_color_life([list(f"{self.TIMES[y__][x__]['hp_temp']:3}")], life = self.TIMES[y__][x__]['hp_temp'])]))
                 self.add_temporary(Element(x = x_ + 1, y = y_ + 18, image = [list(f"{self.TIMES[y__][x__]['nome'].center(34)}")]))
                 self.add_temporary(Element(x = x_ + 2, y = y_ + 1, image = [*put_color_rarity([list(f"({self.TIMES[y__][x__]['preco']})")], rarity = self.TIMES[y__][x__]['raridade'])]))
+                #if "espinho" in self.TIMES[y__][x__]:
+                #    self.add_temporary(Element(x = x_ + 1, y = y_ + 38, image = [*put_color_tipo([list(translate(f"Espinhos: {self.TIMES[y__][x__]['espinho']}"))], tipo = "espinho")]))
+
                 pos = 21
                 for t in self.TIMES[y__][x__]["ataques"]:
                     if t["tipo"] == "ataque":
@@ -72,6 +76,11 @@ class Screen:
                         descricao = ajustar_descricao(t["descricao"])
                         self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
                     pos += 3 + len(descricao)
+
+                if "volta" in self.TIMES[y__][x__]:
+                    self.add_temporary(Element(x = x_ + 2, y = y_ + pos, image = put_color_tipo([list(translate(f"{self.TIMES[y__][x__]['volta']['nome']} (Volta)"))], tipo = "volta")))
+                    descricao = ajustar_descricao(self.TIMES[y__][x__]["volta"]["descricao"])
+                    self.add_temporary(Element(x = x_ + 2, y = y_ + pos + 2, image = descricao))
                 
                 if self.TIMES[y__][x__]['arte'] != None:
                     if not "arte_morto" in self.TIMES[y__][x__]:

@@ -79,12 +79,12 @@
         "espada_de_arthur",
         "lamina_venenosa"
     ],
-    "moedas": 8440,
-    "exp": 311,
+    "moedas": 8520,
+    "exp": 317,
     "deck": [
         "hidrante",
-        "lamina_venenosa",
-        "lamina_venenosa"
+        "agua_viva",
+        "cactus_cowboy"
     ],
     "inventario": [
         "lampada_magica",
@@ -103,6 +103,6 @@
         "De noite",
         "De dia"
     ],
-    "vitorias": 59,
+    "vitorias": 61,
     "derrotas": 28
 }

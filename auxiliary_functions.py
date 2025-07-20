@@ -132,7 +132,9 @@ def put_color_tipo(text, tipo) -> list:
                     "escudo":31,
                     "veneno":40,
                     "cura":15,
-                    "reviver":20}
+                    "reviver":20,
+                    "espinho":207,
+                    "volta":207}
     if tipo in colors_class:
         color = colors_class[tipo]
     else:

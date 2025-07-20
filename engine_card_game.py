@@ -379,6 +379,9 @@ def base_ataque(personagem_inimigo:dict, dano:int):
     if dano == None:
         dano = 0
 
+    if ("volta" in personagem_inimigo) and (dano > 0) and (personagem_inimigo != globals()["personagem_atual"]):
+        personagem_inimigo["volta"]["funcao"](personagem = globals()["personagem_atual"], **personagem_inimigo["volta"]["argumentos"])
+
     return max(personagem_inimigo["hp"] - max(dano + globals()["BUFF_TEMPORARIO"] - globals()["NERF_TEMPORARIO"], 0), 0)
     
 def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:bool = False, amigos_e_inimigos:bool = False, personagem = None, multiplicador:int = None, chance:float = 1) -> None:
@@ -398,6 +401,12 @@ def dano_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:boo
                     dano = dano[0] * multiplicador
                 else:
                     dano = dano[0]
+
+        if personagem != None:
+            buffer_(put_color_text(f"Atacando {personagem['nome']} em {dano}...", tipo = "ataque"))
+            personagem["hp"] = base_ataque(personagem, dano)
+            printar(personagem, image)
+            return None
             
         if not amigos_e_inimigos:
             for _ in range(vezes):
@@ -449,6 +458,14 @@ def veneno_(dano:int, image:dict, aleatorio:bool = False, vezes:int = 1, todos:b
                     dano = dano[0] * multiplicador
                 else:
                     dano = dano[0]
+
+        if personagem != None:
+            buffer_(put_color_text(f"Envenenando {personagem['nome']} em {dano}...", tipo = "veneno"))
+            if not "veneno" in personagem:
+                personagem["veneno"] = 0
+            personagem["veneno"] += dano
+            printar(personagem, image)
+            return None
                 
         if not amigos_e_inimigos:
             for _ in range(vezes):
@@ -1481,12 +1498,16 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                                       "descricao":f"Sempre que morrer, no seu próximo turno, reviva com 20 de vida."}]
                           },
           "cactus_cowboy":{"nome":"Cactus Cowboy",
-                          "hp":140,
+                          "hp":130,
                           "preco":4,
                           "classe":"lenda",
                           "arte":imagem_cactus_cowboy,
                           "arte_morto":imagem_cactus_cowboy_morto,
                           "raridade":"epico",
+                           "volta":{"funcao":dano_,
+                                    "argumentos":{"dano":20, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                    "nome":"Espinhos",
+                                    "descricao":f"Dá 20 de dano no lacaio."},
                           "ataques":[{"tipo":"ataque",
                                       "funcao":dano_,
                                       "dado":4,
@@ -2474,22 +2495,27 @@ CARTAS = {"guerreiro_preparado":{"nome":"Guerreiro Preparado",
                        "arte":imagem_agua_viva,
                        "arte_morto":imagem_agua_viva,
                        "raridade":"raro",
+                       "volta":{"funcao":veneno_,
+                                "argumentos":{"dano":5, "image":{"image":imagem_veneno, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
+                                "nome":"Toque venenoso",
+                                "descricao":f"Envenena o lacaio em 5."},
                        "ataques":[{"tipo":"ataque",
                                    "funcao":dano_,
                                    "dado":2,
                                    "argumentos":{"dano":10, "aleatorio":True, "image":{"image":animacao_espada, "frames":6, "wait":5, "to_start":0, "x":10, "y":3}},
                                    "nome":"Queimadura",
                                    "descricao":f"Dá 10 de dano em um personagem inimigo aleatório."},
-                                  {"tipo":"habilidade",
-                                   "ataque":True,
-                                   "defesa":True,
-                                   "tempo":"comeco",
-                                   "vivo":False,
-                                   "morto":True,
-                                   "funcao":dano_,
-                                   "argumentos":{"dano":10, "aleatorio":True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
-                                   "nome":"Pisei em algo",
-                                   "descricao":f"Enquanto morto, no inicio de todo turno, de 10 de dano em um personagem aleatório, aliádo ou inimigo, todos buffs valem para esse ataque."}]
+                                  #{"tipo":"habilidade",
+                                  # "ataque":True,
+                                  # "defesa":True,
+                                  # "tempo":"comeco",
+                                  # "vivo":False,
+                                  # "morto":True,
+                                  # "funcao":dano_,
+                                  # "argumentos":{"dano":10, "aleatorio":True, "image":{"image":cruz, "frames":4, "wait":70, "to_start":0, "x":8, "y":2}},
+                                  # "nome":"Pisei em algo",
+                                  # "descricao":f"Enquanto morto, no inicio de todo turno, de 10 de dano em um personagem aleatório, aliádo ou inimigo, todos buffs valem para esse ataque."}
+                                  ]
                               },
           "cogumelo_venenoso":{"nome":"Cogumelo Venenoso",
                                "hp":40,
